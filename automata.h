@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <string>
+#include <stdlib.h>
 
 #include <QColor>
 
