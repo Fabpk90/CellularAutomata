@@ -50,7 +50,9 @@ public:
 
     // Permet de se déplacer dans les générations. Si la génération sélectionnée existe elle remplacera la génération actuelle, comme currentGen.
     // Le cas de règle stochastique ne permet pas explicitement de se déplacer dans les générations sans les re-calculées. Renvoie une exception si elle n'est pas disponible
-    void ChooseGen(int i) ;
+    void ChooseGen(int i);
+
+    Generation& GetCurrentGen();
     // retourne l'état à la position du vecteur des cellules. Prend en compte la nécessité de faire boucler la matrice sur elle-même tel un torus. row * columns + col
     State& GetCellState(unsigned int x,unsigned int y);
 private:

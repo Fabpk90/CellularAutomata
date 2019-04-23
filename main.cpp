@@ -1,3 +1,4 @@
+#include <iostream>
 #include "automata.h"
 
 #include <QGuiApplication>
