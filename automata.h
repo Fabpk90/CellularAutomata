@@ -20,6 +20,8 @@ public:
         //Avec cet indice, nous avons une correspondance entre la valeur de la matrice des cellules et le vecteur des règles
         //L'équation pour obtenir la position d'un cellule = row * columns + col
         vector<unsigned int> cellMatrix;
+        bool operator < (Generation i) const
+        { return (i.generationID < generationID);}//utilisé pour le sort
     };
     struct State{
         QColor color;
@@ -35,7 +37,8 @@ public:
     void RemoveState(State& toRemove);
     void RemoveRule(Rule& toRemove);
     void SortGenerations(); // Trie le vecteur de generations
-    void SetCell(int x, int y, State& newState); // passe la cellule en x,y en newState
+    void SetCell(uint x, uint y, State& newState); // passe la cellule en x,y en newState
+    void SetCell(uint x, uint y, uint newState);
     void SetAllCell(State& newState); //passe toutes les cellules à l'état spécifié, de la génération actuelle
     void RandomizeCurrentGen(); // Rempli aléatoirement la génération actuelle
     const vector<State>& GetStates();

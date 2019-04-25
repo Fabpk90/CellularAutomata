@@ -1,6 +1,7 @@
 #include "automata.h"
 
 #include <iostream>
+#include <algorithm>
 
 Automata::Automata() = default;
 
@@ -8,8 +9,7 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
                    vector<Rule> rules, vector<Automata::State> definedStates, vector<Generation> trace)
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
-{
-}
+{}
 
 void Automata::Simulate()
 {
@@ -54,45 +54,63 @@ void Automata::RemoveState(Automata::State &toRemove)
 
 void Automata::RemoveRule(Rule &toRemove)
 {
-    // Classe regle non implémenté je laisse en commentaire pour l'instant
-    /*vector<Rule>::iterator it = rules.begin();
-    bool found = false;
-
-    while(it != rules.end() && !found)
-    {
-        if(it->rulesID == toRemove)
-        {
-            found = true;
-
-            it = rules.erase(it);
-
-            cout << "removed rule " << &toRemove << endl;
-            cout << "remaning rule " << generations.size() << endl;
-        }
-        else
-        {
-            ++it;
-        }
-    }*/
+    // Classe regle non implémenté je laisse en commentaire pour l'instant (@Alex)
+    //(@Fab) c'était du caca mon truc, il faut jeter tout l'historique aussi et remove la règle
 }
 
 void Automata::SortGenerations()
 {
-
+    //TODO: test !
+    std::sort(generations.begin(), generations.end());
 }
 
-void Automata::SetCell(int x, int y, Automata::State &newState)
+//TODO: test
+void Automata::SetCell(uint x, uint y, Automata::State &newState)
 {
+    //Si ce truc là et copier coller plusieurs fois (@fab)
+    //faire une fonction
+    bool found = false;
 
+    for (uint i = 0; i < definedStates.size() && !found; ++i) {
+
+        //ici on test juste la couleur, le nom est trop lent (@Fab)
+        if(definedStates[i].color == newState.color)
+        {
+            found = true;
+            SetCell(x, y, i);
+        }
+    }
 }
 
+//TODO: test
+void Automata::SetCell(uint x, uint y, uint newState)
+{
+    //TODO: check la formule, je suis pas sûr (@Fab)
+    generations[currentGen].cellMatrix[x * y + y] = newState;
+}
+
+//TODO: test
 void Automata::SetAllCell(Automata::State &newState)
 {
-    //TODO: verifier pour les comparaisons probleme de cast
-    for (int i = 0; i < this->sizeX; i++) {
-        for (int j = 0; j < this->sizeY; j++) {
+    //Si ce truc là et copier coller plusieurs fois (@fab)
+    //faire une fonction
+    bool found = false;
+    uint stateIndex = 0;
 
-            SetCell(i, j, newState);
+    for (uint i = 0; i < definedStates.size() && !found; ++i) {
+
+        //ici on test juste la couleur, le nom est trop lent (@Fab)
+        if(definedStates[i].color == newState.color)
+        {
+            stateIndex = i;
+            found = true;
+        }
+    }
+
+
+    for (uint i = 0; i < this->sizeX; i++) {
+        for (uint j = 0; j < this->sizeY; j++) {
+            SetCell(i, j, stateIndex);
         }
     }
 }
@@ -137,9 +155,10 @@ Automata::Generation &Automata::GetCurrentGen()
     return generations[currentGen];
 }
 
+//TODO: test
 Automata::State &Automata::GetCellState(unsigned int x, unsigned int y)
 {
-    //TODO: check si la formule est correcte
+    //TODO: check si la formule est correcte (@Fab)
     return definedStates[generations[currentGen].cellMatrix[x * y + y]];
 }
 
