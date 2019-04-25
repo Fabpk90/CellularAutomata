@@ -54,7 +54,26 @@ void Automata::RemoveState(Automata::State &toRemove)
 
 void Automata::RemoveRule(Rule &toRemove)
 {
+    // Classe regle non implémenté je laisse en commentaire pour l'instant
+    /*vector<Rule>::iterator it = rules.begin();
+    bool found = false;
 
+    while(it != rules.end() && !found)
+    {
+        if(it->rulesID == toRemove)
+        {
+            found = true;
+
+            it = rules.erase(it);
+
+            cout << "removed rule " << &toRemove << endl;
+            cout << "remaning rule " << generations.size() << endl;
+        }
+        else
+        {
+            ++it;
+        }
+    }*/
 }
 
 void Automata::SortGenerations()
@@ -69,7 +88,13 @@ void Automata::SetCell(int x, int y, Automata::State &newState)
 
 void Automata::SetAllCell(Automata::State &newState)
 {
+    //TODO: verifier pour les comparaisons probleme de cast
+    for (int i = 0; i < this->sizeX; i++) {
+        for (int j = 0; j < this->sizeY; j++) {
 
+            SetCell(i, j, newState);
+        }
+    }
 }
 
 void Automata::RandomizeCurrentGen()
