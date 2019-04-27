@@ -18,7 +18,9 @@ class RuleStochastic : public Rule
 
     protected:
 
-        virtual float GetProbability();
+        virtual float GetProbability(){
+            return this->probability;
+        }
 };
 
 

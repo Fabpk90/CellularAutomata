@@ -15,7 +15,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         rule.cpp \
-        ruledeterministic.cpp
+        ruledeterministic.cpp \
+        rulestochastic.cpp \
+        rulestochasticdynamic.cpp
 
 RESOURCES += qml.qrc
 
