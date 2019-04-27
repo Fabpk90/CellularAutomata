@@ -16,7 +16,7 @@ void RuleStochastic::Apply(int x, int y){
     // pour l'aléatoire sur la proba :
     clock_t t;
     int result = (clock() - t)%101; // on obtient un nombre entre 0 et 100 compris
-    if (this->probability>=result){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
+    if (GetProbability()>=result){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
 
         if(this->isComputePosition){ // on verifie si on doit computeposition ou computecount
             // dans computePositon et l'autre compute le seul paramètre devrait être le vecteur de rulesParameters

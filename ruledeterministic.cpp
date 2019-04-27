@@ -25,7 +25,7 @@ void RuleDeterministic::Apply(int x, int y){
     else {
         if (ComputeCount(this->parameters){ // si la règle est effectivement vraie on applique
                 SetCell(x,y,this->toChangeInto); // changement de l'état de la cellule
-    }
+            }
     }
 }
 
