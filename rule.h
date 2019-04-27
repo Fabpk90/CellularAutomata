@@ -10,7 +10,7 @@ class Rule{
         State toCheckAgainst;
     };
 
-    private:
+    protected:
         State toChangeInto;
         std::vector<RuleParameters> parameters;
         bool isComputePosition;
