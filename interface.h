@@ -22,6 +22,29 @@ public:
     void setProbability(const QString &probability);
     Q_INVOKABLE void printProbability(); //for tests
 
+    /*Fenêtre de création d'automate*/
+            void SendMandatoryInfo();
+            /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
+
+            void OkCreateAutomata();
+            /*Fait appel à une série de fonctions de l'interpréteur.*/
+
+            void CallSetDim(QString dimension);
+            /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
+
+            void CallSetNeighborhood(QString neighborhood);
+            /*Définit le voisinage de l'automate (Moore ou Von Neumann).*/
+
+            void CallType(QString type);
+            /*Définit si l'automate sera de type stochastique ou déterministe.*/
+
+            void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
+            /*Change le nombre de générations à simuler.*/
+
+            void CallMatrixSize(int x, int y);
+            /*Définit la taille de la matrice d'affichage.*/
+
+
 
 signals:
 
