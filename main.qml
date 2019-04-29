@@ -3,13 +3,20 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
+import Interface 1.0
 
 ApplicationWindow {
     id: mainwindow
     visible: true
     width: screen.width
     height: screen.height
+    minimumWidth: 900
+    minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
+
+    Interface{
+        id:myInterface
+    }
 
     menuBar: MenuBar{
         Material.theme : Material.Light
