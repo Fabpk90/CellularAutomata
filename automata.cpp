@@ -145,9 +145,27 @@ void Automata::PreviousGen()
 
 }
 
-void Automata::ChooseGen(int i)
+void Automata::ChooseGen(unsigned int i)
 {
+    vector<Generation>::iterator it = generations.begin();
+    bool found = false;
 
+    while(it != generations.end() && !found)
+    {
+        if(it->generationID == i)
+        {
+            found = true;
+
+            this->currentGen = i;
+
+            cout << "choose gen " << i << endl;
+        }
+        else
+        {
+            ++it;
+        }
+    }
+    if(!found) cout << "gen not found" << endl;
 }
 
 Automata::Generation &Automata::GetCurrentGen()

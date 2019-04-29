@@ -22,7 +22,8 @@ int main(int argc, char *argv[])
     gen.generationID = 0;
 
     ca.AddGeneration(gen);
-    ca.RemoveGeneration(gen.generationID);
+    //ca.RemoveGeneration(gen.generationID);
+    ca.ChooseGen(3);
 
     return app.exec();
 }
