@@ -137,12 +137,37 @@ const vector<pair<int, int> > &Automata::GetNeigborhoodPositions()
 
 void Automata::NextGen()
 {
+    //Generation generationID;
+    //generationID = this->GetCurrentGen();
 
 }
 
 void Automata::PreviousGen()
 {
+    vector<Generation>::iterator it = generations.begin();
+    bool found = false;
+    this->currentGen = 1; // Je ne sais pas comment avoir la generation actuelle (@Alex)
+    while(it != generations.end() && !found)
+    {
+        if(this->currentGen == 0)
+        {
+            found = true;
+            cout << "No previous gen" << endl;
+        }
+        else if(it->generationID == this->currentGen)
+        {
+            found = true;
 
+            this->currentGen = it->generationID - 1;
+
+            cout << "choose gen " << this->currentGen << endl;
+        }
+        else
+        {
+            ++it;
+        }
+    }
+    if(!found) cout << "gen not found" << endl;
 }
 
 void Automata::ChooseGen(unsigned int i)
