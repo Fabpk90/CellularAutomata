@@ -33,6 +33,7 @@ public:
 
     void Simulate();// Fonction permettant de simuler notre automate. Simule MAX_ITERATION
     void AddGeneration(Generation& generation); // Ajoute une nouvelle génération au vecteur générations.Si la génération existe déjà, elle sera écrasée par celle passée en paramètre.
+    void AddState(State& state);
     void RemoveGeneration(unsigned int index);
     void RemoveState(State& toRemove);
     void RemoveRule(Rule& toRemove);

@@ -24,6 +24,12 @@ void Automata::AddGeneration(Automata::Generation &generation)
     cout << "Added a gen" << endl;
 }
 
+void Automata::AddState(Automata::State &state)
+{
+    cout << "Adding state " << state.name << endl;
+    definedStates.push_back(state);
+}
+
 void Automata::RemoveGeneration(unsigned int index)
 {
     vector<Generation>::iterator it = generations.begin();
@@ -49,7 +55,16 @@ void Automata::RemoveGeneration(unsigned int index)
 
 void Automata::RemoveState(Automata::State &toRemove)
 {
+    cout << "Removing state " << toRemove.name << endl;
+    //Invalide l'historique et supprime l'entrée du vecteur (@Fab)
+    this->generations.clear();
 
+    for (uint i = 0; i < definedStates.size(); ++i) {
+        if(definedStates[i].color == toRemove.color)
+            definedStates.erase(definedStates.begin() + i);
+    }
+
+    cout << "Remaining states " << definedStates.size() << endl;
 }
 
 void Automata::RemoveRule(Rule &toRemove)
@@ -165,7 +180,7 @@ void Automata::ChooseGen(unsigned int i)
             ++it;
         }
     }
-    if(!found) cout << "gen not found" << endl;
+    if(!found) cout << "gen " << i << " not found" << endl;
 }
 
 Automata::Generation &Automata::GetCurrentGen()
