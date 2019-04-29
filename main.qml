@@ -19,7 +19,6 @@ ApplicationWindow {
     }
 
     menuBar: MenuBar{
-        Material.theme : Material.Light
         Menu{
             title: "File"
             MenuItem { text: "Save"}
