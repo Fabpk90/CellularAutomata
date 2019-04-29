@@ -3,7 +3,14 @@
 #include <iostream>
 #include <algorithm>
 
-Automata::Automata() = default;
+Automata::Automata()
+{
+    sizeX = sizeY = 0;
+    isStocha = isVonNeighborhood = false;
+    rules = vector<Rule>();
+    definedStates = vector<State>();
+    generations = vector<Generation>();
+}
 
 Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX, unsigned int sizeY,
                    vector<Rule> rules, vector<Automata::State> definedStates, vector<Generation> trace)
@@ -107,6 +114,7 @@ void Automata::SetCell(uint x, uint y, uint newState)
 //TODO: test
 void Automata::SetAllCell(Automata::State &newState)
 {
+    //Cherche l'index de l'état
     //Si ce truc là et copier coller plusieurs fois (@fab)
     //faire une fonction
     bool found = false;
@@ -132,6 +140,19 @@ void Automata::SetAllCell(Automata::State &newState)
 
 void Automata::RandomizeCurrentGen()
 {
+    srand(time(nullptr));
+    if(definedStates.size() != 0)
+    {
+        for (uint i = 0; i < sizeX; ++i) {
+            for (uint j = 0; j < sizeY; ++j) {
+                generations[currentGen].cellMatrix[i*j+j]
+                        = ((uint)rand()) % definedStates.size();
+            }
+        }
+    }
+    else {
+        cout << "ERROR: unable to randomize the current gen, because 0 states are defined " << endl;
+    }
 
 }
 

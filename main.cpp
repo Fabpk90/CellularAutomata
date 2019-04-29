@@ -29,5 +29,14 @@ int main(int argc, char *argv[])
     //ca.ChooseGen(3);
     ca.PreviousGen();
 
+    //prints an error, correct behavior
+    ca.RandomizeCurrentGen();
+
+    Automata::State state;
+    ca.AddState(state);
+    ca.AddState(state);
+
+    ca.RandomizeCurrentGen();
+
     return app.exec();
 }
