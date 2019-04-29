@@ -7,8 +7,8 @@ import QtQuick.Layouts 1.3
 ApplicationWindow {
     id: mainwindow
     visible: true
-    width: 1366
-    height: 768
+    width: screen.width
+    height: screen.height
     title: qsTr("Cellular Automata Simulator")
 
     menuBar: MenuBar{
@@ -20,7 +20,13 @@ ApplicationWindow {
         }
         Menu{
             title: "New"
-            MenuItem { text: "Create new Automaton"}
+            MenuItem { text: "Create new Automaton"
+                onClicked: {
+                    var Component = Qt.createComponent("RuleCreationWindow.qml") //TODO change this to level 2 window on merge and add level 3 window in level 2
+                    var window = Component.createObject(mainwindow)
+                    window.show()
+                }
+            }
         }
     }
 
