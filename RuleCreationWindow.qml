@@ -8,7 +8,7 @@ ApplicationWindow{
     title: qsTr("Creation de Règle")
     width: screen.width / 3
     height: screen.height / 2
-    modality: "ApplicationModal" //permet de garder le focus
+    modality: Qt.ApplicationModal //permet de garder le focus
 
     TextField{
         id: probability

@@ -9,7 +9,7 @@ ApplicationWindow{
     title: qsTr("Creation de l'Automate")
     width: screen.width / 3
     height: screen.height / 2
-    modality: "ApplicationModal" //permet de garder le focus
+    modality: Qt.ApplicationModal //permet de garder le focus
 
     RowLayout {
         id: ty
@@ -53,7 +53,10 @@ ApplicationWindow{
         }
     }
 
-    TableView { //Test de mise en forme
+    TableView {
+        anchors.topMargin: 0
+        anchors.left: parent.horizontalCenter
+        //Test de mise en forme
         anchors.top: neigh.bottom
         TableViewColumn {
             role: "state"
