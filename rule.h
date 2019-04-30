@@ -7,12 +7,14 @@ struct State;
 
 class Rule{
     protected:
+
     struct RuleParameters{
         int x,y;
         State* toCheckAgainst;
     };
         Automata* automata;
         State* toChangeInto;
+
         std::vector<RuleParameters> parameters;
         bool isComputePosition;
         int currentCellX, currentCellY;
