@@ -12,22 +12,24 @@
 
 using namespace std;
 
+struct Generation {
+    unsigned int generationID; //identifie la génération, en lui donnant un nombre
+    //contient la génération, peut être une matrice ou un vecteur.
+    // La valeur des éléments de la mtrice sont des entiers non signés, ceux-ci corresponde à un indice du vecteur d'états
+    //Avec cet indice, nous avons une correspondance entre la valeur de la matrice des cellules et le vecteur des règles
+    //L'équation pour obtenir la position d'un cellule = row * columns + col
+    vector<unsigned int> cellMatrix;
+    bool operator < (Generation i) const
+    { return (i.generationID < generationID);}//utilisé pour le sort
+};
+struct State{
+    QColor color;
+    string name;
+};
+
 class Automata {
 public:
-    struct Generation {
-        unsigned int generationID; //identifie la génération, en lui donnant un nombre
-        //contient la génération, peut être une matrice ou un vecteur.
-        // La valeur des éléments de la mtrice sont des entiers non signés, ceux-ci corresponde à un indice du vecteur d'états
-        //Avec cet indice, nous avons une correspondance entre la valeur de la matrice des cellules et le vecteur des règles
-        //L'équation pour obtenir la position d'un cellule = row * columns + col
-        vector<unsigned int> cellMatrix;
-        bool operator < (Generation i) const
-        { return (i.generationID < generationID);}//utilisé pour le sort
-    };
-    struct State{
-        QColor color;
-        string name;
-    };
+
     Automata(); //constructeur vide, utile pour la création via l'interface
     //Constructeur pour créer un automate avec un historique, le booléen isNeighborhood va déterminer la fonction de remplissage du vecteur de voisinage.
     Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX,unsigned int sizeY, vector<Rule*> rules, vector<State> definedStates,  vector<Generation> trace);

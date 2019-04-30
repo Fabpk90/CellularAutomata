@@ -1,8 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "ruledeterministic.h"
+#include "automata.h"
 
-RuleDeterministic::RuleDeterministic(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params):
+RuleDeterministic::RuleDeterministic(bool isComputePosition, State* toChangeInto, std::vector<RuleParameters> params):
     Rule(isComputePosition, toChangeInto, params){};
 
 void RuleDeterministic::Apply(int x, int y){
@@ -29,13 +30,13 @@ void RuleDeterministic::Apply(int x, int y){
             testState.push_back(this->parameters[i].toCheckAgainst);
         }
         if (ComputePosition(positions, testState,x,y)){ // si la règle est effectivement vraie on applique
-                automata->SetCell(x,y,this->toChangeInto); // changement de l'état de la cellule
+                automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
         }
     }
     else {
         if (ComputeCount(this->parameters[1].x, this->parameters[1].toCheckAgainst,x,y)){ // si la règle est effectivement vraie on applique
-            automata->SetCell(x,y,this->toChangeInto); // changement de l'état de la cellule
+            automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
             //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
             }
     }

@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
         return -1;
     Automata ca;
 
-    Automata::Generation gen;
+    Generation gen;
     gen.cellMatrix = vector<unsigned int>();
     unsigned int i = 0;
     while(i < 3){

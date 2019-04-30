@@ -13,7 +13,7 @@ Automata::Automata()
 }
 
 Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX, unsigned int sizeY,
-                   vector<Rule*> rules, vector<Automata::State> definedStates, vector<Generation> trace)
+                   vector<Rule*> rules, vector<State> definedStates, vector<Generation> trace)
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
 {}
@@ -24,7 +24,7 @@ void Automata::Simulate()
 }
 
 //Il manque le deplacement de la generation actuelle quand on ajoute une gen
-void Automata::AddGeneration(Automata::Generation &generation)
+void Automata::AddGeneration(Generation &generation)
 {
     //TODO: ajouter la recherche de la génération
     //pour pas dupliquer une gén
@@ -34,13 +34,13 @@ void Automata::AddGeneration(Automata::Generation &generation)
     cout << "Added a gen" << endl;
 }
 
-void Automata::AddGenerations(vector<Automata::Generation> gens)
+void Automata::AddGenerations(vector<Generation> gens)
 {
     //TODO: bouger le currentGen ?
     generations = gens;
 }
 
-void Automata::AddState(Automata::State &state)
+void Automata::AddState(State &state)
 {
     cout << "Adding state " << state.name << endl;
     definedStates.push_back(state);
@@ -69,7 +69,7 @@ void Automata::RemoveGeneration(unsigned int index)
     }
 }
 
-void Automata::RemoveState(Automata::State &toRemove)
+void Automata::RemoveState(State &toRemove)
 {
     cout << "Removing state " << toRemove.name << endl;
     //Invalide l'historique et supprime l'entrée du vecteur (@Fab)
@@ -96,7 +96,7 @@ void Automata::SortGenerations()
 }
 
 //TODO: test
-void Automata::SetCell(uint x, uint y, Automata::State &newState)
+void Automata::SetCell(uint x, uint y, State &newState)
 {
     //Si ce truc là et copier coller plusieurs fois (@fab)
     //faire une fonction
@@ -121,7 +121,7 @@ void Automata::SetCell(uint x, uint y, uint newState)
 }
 
 //TODO: test
-void Automata::SetAllCell(Automata::State &newState)
+void Automata::SetAllCell(State &newState)
 {
     //Cherche l'index de l'état
     //Si ce truc là et copier coller plusieurs fois (@fab)
@@ -165,7 +165,7 @@ void Automata::RandomizeCurrentGen()
 
 }
 
-const vector<Automata::State> &Automata::GetStates()
+const vector<State> &Automata::GetStates()
 {
     return definedStates;
 }
@@ -259,13 +259,13 @@ void Automata::ChooseGen(unsigned int i)
     if(!found) cout << "gen " << i << " not found" << endl;
 }
 
-Automata::Generation &Automata::GetCurrentGen()
+Generation &Automata::GetCurrentGen()
 {
     return generations[currentGen];
 }
 
 //TODO: test
-Automata::State &Automata::GetCellState(unsigned int x, unsigned int y)
+State &Automata::GetCellState(unsigned int x, unsigned int y)
 {
     //TODO: check si la formule est correcte (@Fab)
     return definedStates[generations[currentGen].cellMatrix[x * y + y]];
