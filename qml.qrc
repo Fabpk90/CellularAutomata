@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>RuleCreationWindow.qml</file>
         <file>AutomataCreationWindow.qml</file>
+        <file>StateCreationWindow.qml</file>
     </qresource>
 </RCC>
