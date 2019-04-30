@@ -22,6 +22,8 @@ private:
     QString m_posAndCount;
     QString m_stateToChangeTo;
 
+    //Parser parser
+
 public:
     explicit Interface(QObject *parent = nullptr);
 
@@ -34,6 +36,7 @@ public:
         return m_probability;
     }
     Q_INVOKABLE void printProbability(); //for tests
+
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
@@ -85,6 +88,13 @@ public:
     void CallSetStateToChangeTo(QString stateToChangeTo);//TODO
     void CallGetStates(); //TODO
     Q_INVOKABLE void okCreateRule(); //TODO
+
+    /*Fenêtre de création d'états */
+    void CallSetStateName(QString probability);
+
+    void CallSetColor(QString color);
+
+    void OkCreateState(QString state);
 
 signals:
 

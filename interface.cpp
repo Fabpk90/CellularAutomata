@@ -87,6 +87,27 @@ void Interface::setStateToChangeTo(QString stateToChangeTo)
     emit stateToChangeToChanged(m_stateToChangeTo);
 }
 
+void CallSetStateName(QString probability){
+
+
+
+
+
+}
+
+void CallSetColor(QString color){
+
+
+
+}
+
+void OkCreateState(QString state){
+
+
+
+
+}
+
 Interface::Interface(QObject *parent) : QObject(parent)
 {
 
