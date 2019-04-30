@@ -14,7 +14,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         filemanager.cpp \
-        main.cpp
+        main.cpp \
+        main.cpp \
+        rule.cpp \
+        ruledeterministic.cpp \
+        rulestochastic.cpp \
+        rulestochasticdynamic.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,4 +35,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    filemanager.h
+    filemanager.h\
+    rule.h \
+    ruledeterministic.h \
+    rulestochastic.h \
+    rulestochasticdynamic.h
