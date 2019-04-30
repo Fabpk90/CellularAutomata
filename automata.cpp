@@ -23,6 +23,7 @@ void Automata::Simulate()
 
 }
 
+//Il manque le deplacement de la generation actuelle quand on ajoute une gen
 void Automata::AddGeneration(Automata::Generation &generation)
 {
     //TODO: ajouter la recherche de la génération
@@ -170,6 +171,7 @@ const vector<pair<int, int> > &Automata::GetNeigborhoodPositions()
     return neighborhood;
 }
 
+//TODO : Test
 void Automata::NextGen()
 {
     vector<Generation>::iterator it = generations.begin();
@@ -197,6 +199,7 @@ void Automata::NextGen()
     if(!found) cout << "gen not found" << endl;
 }
 
+//TODO : Test
 void Automata::PreviousGen()
 {
     vector<Generation>::iterator it = generations.begin();

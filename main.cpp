@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         ca.AddGeneration(gen);
         //ca.RemoveGeneration(gen.generationID);
     }
-    ca.ChooseGen(2);
+    ca.ChooseGen(0);
     //ca.PreviousGen();
     ca.NextGen();
 
