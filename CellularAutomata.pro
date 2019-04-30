@@ -22,7 +22,6 @@ SOURCES += \
         rulestochastic.cpp \
         rulestochasticdynamic.cpp\
         interface.cpp \
-        main.cpp \
         simulator.cpp
 
 RESOURCES += qml.qrc \
