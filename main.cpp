@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[])
 {
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
@@ -14,7 +15,6 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
-
     Automata ca;
 
     Automata::Generation gen;
@@ -40,4 +40,8 @@ int main(int argc, char *argv[])
     //ca.RandomizeCurrentGen();
 
     return app.exec();
+
+
+
+
 }

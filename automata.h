@@ -1,7 +1,6 @@
 #ifndef AUTOMATA_H
 #define AUTOMATA_H
 
-#include "rule.h"
 
 #include <vector>
 #include <string>
