@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>RuleCreationWindow.qml</file>
+        <file>AutomataCreationWindow.qml</file>
     </qresource>
 </RCC>
