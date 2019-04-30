@@ -20,7 +20,7 @@ void RuleDeterministic::Apply(int x, int y){
         // dans computePositon et l'autre compute le seul paramètre devrait être le vecteur de rulesParameters
         std::vector<std::pair<int, int>> positions;
         std::vector<State> testState;
-        for (unsigned long i = 0; i < this->parameters.size(); i++) {
+        for (unsigned long i = 1; i < this->parameters.size(); i++) {
 
             positions.push_back(std::make_pair(this->parameters[i].x,this->parameters[i].y));
             testState.push_back(this->parameters[i].toCheckAgainst);
@@ -31,7 +31,7 @@ void RuleDeterministic::Apply(int x, int y){
         }
     }
     else {
-        if (ComputeCount(this->parameters[0].x, this->parameters[0].toCheckAgainst,x,y){ // si la règle est effectivement vraie on applique
+        if (ComputeCount(this->parameters[1].x, this->parameters[1].toCheckAgainst,x,y){ // si la règle est effectivement vraie on applique
             automata.SetCell(x,y,this->toChangeInto); // changement de l'état de la cellule
             //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
             }

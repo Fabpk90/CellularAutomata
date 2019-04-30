@@ -11,7 +11,11 @@ float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de
     for (int i = 0; i < automata.GetNeigborhoodPositions().size; i++) {
        posX = automata.GetNeigborhoodPositions()[i].first + currentCellX;
        posY = automata.GetNeigborhoodPositions()[i].second + currentCellY;
-       prob += (automata.GetCellState(posX,posY)/* == Whatever the fuck that is*/);
+       /*-----------------------------------------------
+       CHECK FOR FUCKING LOOPS SOMEWHERE EITHER HERE OR
+       IN GETCELLSTATE, JUST DON'T FORGET !
+       -----------------------------------------------*/
+       prob += (automata.GetCellState(posX,posY) == this->parameters[0].toCheckAgainst);
     }
     
     prob /= 10;

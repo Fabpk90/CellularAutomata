@@ -19,7 +19,7 @@ class Rule{
         virtual void Apply(int x, int y) = 0;
 
     public:
-        Rule(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params, EconditionType condType);
+        Rule(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params);
         State GetToChangeInto();
         std::vector<RuleParameters> GetParameters();
         bool GetIsComputePosition();
