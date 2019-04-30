@@ -27,8 +27,17 @@ void Automata::Simulate()
 void Automata::AddGeneration(Automata::Generation &generation)
 {
     //TODO: ajouter la recherche de la génération
+    //pour pas dupliquer une gén
     generations.push_back(generation);
+    //TODO: trier la gén
+    // currentGen = (uint)generations.size() - 1;
     cout << "Added a gen" << endl;
+}
+
+void Automata::AddGenerations(vector<Automata::Generation> gens)
+{
+    //TODO: bouger le currentGen ?
+    generations = gens;
 }
 
 void Automata::AddState(Automata::State &state)
