@@ -11,9 +11,11 @@ class Rule{
     };
 
     protected:
+        Automata& automata;
         State toChangeInto;
         std::vector<RuleParameters> parameters;
         bool isComputePosition;
+        int currentCellX, currentCellY;
         virtual void Apply(int x, int y) = 0;
 
     public:
