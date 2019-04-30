@@ -6,7 +6,7 @@ import Interface 1.0
 
 ApplicationWindow{
     id: automataCreationWindow
-    title: qsTr("Creation de l'Automate")
+    title: qsTr("Automata Creation")
     width: screen.width / 3
     height: screen.height / 2
     modality: Qt.ApplicationModal //permet de garder le focus
@@ -24,6 +24,8 @@ ApplicationWindow{
         CheckBox {
             id:stochastic
             text: qsTr("Stochastic")
+
+            onClicked: {dynamic.checked()}
         }
     }
     RowLayout {
@@ -85,14 +87,13 @@ ApplicationWindow{
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")
+        onClicked: automataCreationWindow.close()
     }
 
     Button {
         anchors.top: tab.bottom
         anchors.left: tab.left
         id: addState
-        x: 8
-        y: 222
         text: qsTr("Add State")
         onClicked: {
             var Component = Qt.createComponent("") //TODO quand on va merge ajouter StateCreationWindow.qml
@@ -105,8 +106,6 @@ ApplicationWindow{
         anchors.top: tab.bottom
         anchors.right: tab.right
         id: addRule
-        x: 105
-        y: 222
         text: qsTr("Add Rule")
         onClicked: {
             var Component = Qt.createComponent("RuleCreationWindow.qml")
