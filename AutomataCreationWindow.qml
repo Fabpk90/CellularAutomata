@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.5
 import Interface 1.0
 
 ApplicationWindow{
@@ -17,11 +17,11 @@ ApplicationWindow{
             id: type
             text: qsTr("Type:")
         }
-        CheckBox {
+        RadioButton {
             id:dynamic
             text: qsTr("Dynamic")
         }
-        CheckBox {
+        RadioButton {
             id:stochastic
             text: qsTr("Stochastic")
 
@@ -35,11 +35,11 @@ ApplicationWindow{
             id: dim
             text: qsTr("Dimension:")
         }
-        CheckBox {
+        RadioButton {
             id:oneDim
             text: qsTr("1D")
         }
-        CheckBox {
+        RadioButton {
             id:twoDim
             text: qsTr("2D")
         }
@@ -51,11 +51,11 @@ ApplicationWindow{
             id: neighborhood
             text: qsTr("Neighborhood:")
         }
-        CheckBox {
+        RadioButton {
             id:moore
             text: qsTr("Moore")
         }
-        CheckBox {
+        RadioButton {
             id:vonNeumann
             text: qsTr("Von Neumann")
         }
@@ -67,7 +67,7 @@ ApplicationWindow{
         anchors.left: parent.horizontalCenter
         //Test de mise en forme
         anchors.top: neigh.bottom
-        TableViewColumn {
+        /*TableViewColumn {
             role: "state"
             title: "State"
             width: 100
@@ -76,7 +76,7 @@ ApplicationWindow{
             role: "rule"
             title: "Rule"
             width: 100
-        }
+        }*/
     }
 
     Button{
@@ -96,7 +96,7 @@ ApplicationWindow{
         id: addState
         text: qsTr("Add State")
         onClicked: {
-            var Component = Qt.createComponent("") //TODO quand on va merge ajouter StateCreationWindow.qml
+            var Component = Qt.createComponent("StateCreationWindow.qml")
             var window = Component.createObject(mainwindow)
             window.show()
         }

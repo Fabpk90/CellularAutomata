@@ -36,26 +36,26 @@ public:
     Q_INVOKABLE void printProbability(); //for tests
 
     /*Fenêtre de création d'automate*/
-            void SendMandatoryInfo();
-            /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
+    /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
+    void SendMandatoryInfo();
 
-            void OkCreateAutomata();
-            /*Fait appel à une série de fonctions de l'interpréteur.*/
+    /*Fait appel à une série de fonctions de l'interpréteur.*/
+    void OkCreateAutomata();
 
-            void CallSetDim(const QString &dimension);
-            /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
+    /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
+    void CallSetDim(const QString &dimension);
 
-            void CallSetNeighborhood(const QString &neighborhood);
-            /*Définit le voisinage de l'automate (Moore ou Von Neumann).*/
+    /*Définit le voisinage de l'automate (Moore ou Von Neumann).*/
+    void CallSetNeighborhood(const QString &neighborhood);
 
-            void CallType(const QString &type);
-            /*Définit si l'automate sera de type stochastique ou déterministe.*/
+    /*Définit si l'automate sera de type stochastique ou déterministe.*/
+    void CallType(const QString &type);
 
-            void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
-            /*Change le nombre de générations à simuler.*/
+    /*Change le nombre de générations à simuler.*/
+    void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
 
-            void CallMatrixSize(int x, int y);
-            /*Définit la taille de la matrice d'affichage.*/
+    /*Définit la taille de la matrice d'affichage.*/
+    void CallMatrixSize(int x, int y);
 
 
     //computeProbability

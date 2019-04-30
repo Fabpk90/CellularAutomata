@@ -1,15 +1,16 @@
-import QtQuick 2.4
+import QtQuick 2.12
 import QtQuick.Window 2.12
-import QtQuick.Controls 2.5
-import QtQuick.Controls.Material 2.3
-import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.3
 import Interface 1.0
+
 ApplicationWindow {
-    id: statecreation
+    id: stateCreation
     width: 600
     height: 213
     maximumHeight: 1000
+    modality: Qt.ApplicationModal
     title: "StateCreation"
 
 
@@ -30,7 +31,7 @@ ApplicationWindow {
         width: 87
         height: 29
         text: qsTr("CANCEL")
-        onClicked: statecreation.close()
+        onClicked: stateCreation.close()
     }
 
     Text {
@@ -45,12 +46,9 @@ ApplicationWindow {
 
 
     ColorDialog{
-
         id: colorDialog
+
         onAccepted: rectangle.color=this.color
-
-
-
     }
 
     Button {
@@ -102,9 +100,4 @@ ApplicationWindow {
             font.pixelSize: 12
         }
     }
-
-
 }
-
-
-
