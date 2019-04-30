@@ -10,6 +10,9 @@ class Interface : public QObject
     Q_PROPERTY(QString probability READ probability WRITE setProbability NOTIFY probabilityChanged)
 private:
     QString m_probability;
+    QString dimension;
+    QString type;
+    QString neighborhood;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -29,13 +32,13 @@ public:
             void OkCreateAutomata();
             /*Fait appel à une série de fonctions de l'interpréteur.*/
 
-            void CallSetDim(QString dimension);
+            void CallSetDim(const QString &dimension);
             /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
 
-            void CallSetNeighborhood(QString neighborhood);
+            void CallSetNeighborhood(const QString &neighborhood);
             /*Définit le voisinage de l'automate (Moore ou Von Neumann).*/
 
-            void CallType(QString type);
+            void CallType(const QString &type);
             /*Définit si l'automate sera de type stochastique ou déterministe.*/
 
             void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
