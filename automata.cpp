@@ -7,13 +7,13 @@ Automata::Automata()
 {
     sizeX = sizeY = 0;
     isStocha = isVonNeighborhood = false;
-    rules = vector<Rule>();
+    rules = vector<Rule*>();
     definedStates = vector<State>();
     generations = vector<Generation>();
 }
 
 Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX, unsigned int sizeY,
-                   vector<Rule> rules, vector<Automata::State> definedStates, vector<Generation> trace)
+                   vector<Rule*> rules, vector<Automata::State> definedStates, vector<Generation> trace)
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
 {}
@@ -170,7 +170,7 @@ const vector<Automata::State> &Automata::GetStates()
     return definedStates;
 }
 
-const vector<Rule> &Automata::GetRules()
+const vector<Rule*> &Automata::GetRules()
 {
     return rules;
 }

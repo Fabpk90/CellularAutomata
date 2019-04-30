@@ -3,10 +3,10 @@
 #include "rulestochastic.h"
 
 
-RuleStochastic::RuleStochastic(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params, float probability){
-    this->isComputePosition=isComputePosition;
-    this->toChangeInto=toChangeInto;
-    this->parameters=params;
+RuleStochastic::RuleStochastic(bool isComputePosition, State* toChangeInto,
+                               std::vector<RuleParameters> params, float probability)
+    : Rule(isComputePosition, toChangeInto, params)
+{
     this->probability=probability;
 }
 
@@ -20,7 +20,7 @@ void RuleStochastic::Apply(int x, int y){
         if(this->isComputePosition){ // on verifie si on doit computeposition ou computecount
             // dans computePositon et l'autre compute le seul paramètre devrait être le vecteur de rulesParameters
             std::vector<std::pair<int, int>> positions;
-            std::vector<State> testState;
+            std::vector<State*> testState;
             for (unsigned long i = 1; i < this->parameters.size(); i++) {
 
                 positions.push_back(std::make_pair(this->parameters[i].x,this->parameters[i].y));

@@ -1,6 +1,4 @@
-#ifndef PARSER_H
-#define PARSER_H
-
+#pragma once
 #include "automata.h"
 
 class Parser
@@ -27,4 +25,3 @@ private:
     string  RulesToString();
 };
 
-#endif // PARSER_H
