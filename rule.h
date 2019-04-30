@@ -5,12 +5,14 @@
 
 class Rule{
 
-    struct RuleParameters{
-        int x,y;
-        State toCheckAgainst;
-    };
 
     protected:
+
+        struct RuleParameters{
+            int x,y;
+            State toCheckAgainst;
+        };
+
         Automata& automata;
         State toChangeInto;
         std::vector<RuleParameters> parameters;
