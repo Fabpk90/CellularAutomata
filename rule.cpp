@@ -9,3 +9,5 @@ Rule::Rule(bool isComputePosition, State* toChangeInto, std::vector<RuleParamete
 
     automata = nullptr;
 }
+
+Rule::~Rule(){};

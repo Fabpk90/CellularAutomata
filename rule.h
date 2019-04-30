@@ -25,6 +25,5 @@ class Rule{
         State& GetToChangeInto();
         std::vector<RuleParameters> GetParameters();
         bool GetIsComputePosition();
-
         virtual ~Rule() = 0;
 };

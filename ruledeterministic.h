@@ -11,6 +11,7 @@ class RuleDeterministic : public Rule
     //Le :Rule(les params) se fait que dans le .cpp on me dit
 
     void Apply(int x, int y) override; //Besoin de spécifier override ?
+
 };
 
 #endif // RULEDETERMINISTIC_H

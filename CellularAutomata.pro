@@ -46,4 +46,5 @@ HEADERS += \
     ruledeterministic.h \
     rulestochastic.h \
     rulestochasticdynamic.h\
-    interface.h
+    interface.h \
+    simulator.h
