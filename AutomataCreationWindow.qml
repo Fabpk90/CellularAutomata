@@ -18,9 +18,11 @@ ApplicationWindow{
             text: qsTr("Type:")
         }
         CheckBox {
+            id:dynamic
             text: qsTr("Dynamic")
         }
         CheckBox {
+            id:stochastic
             text: qsTr("Stochastic")
         }
     }
@@ -32,9 +34,11 @@ ApplicationWindow{
             text: qsTr("Dimension:")
         }
         CheckBox {
+            id:oneDim
             text: qsTr("1D")
         }
         CheckBox {
+            id:twoDim
             text: qsTr("2D")
         }
     }
@@ -46,15 +50,18 @@ ApplicationWindow{
             text: qsTr("Neighborhood:")
         }
         CheckBox {
+            id:moore
             text: qsTr("Moore")
         }
         CheckBox {
+            id:vonNeumann
             text: qsTr("Von Neumann")
         }
     }
 
     TableView {
-        anchors.topMargin: 0
+        id: tab
+        anchors.centerIn: parent
         anchors.left: parent.horizontalCenter
         //Test de mise en forme
         anchors.top: neigh.bottom
@@ -78,6 +85,34 @@ ApplicationWindow{
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")
+    }
+
+    Button {
+        anchors.top: tab.bottom
+        anchors.left: tab.left
+        id: addState
+        x: 8
+        y: 222
+        text: qsTr("Add State")
+        onClicked: {
+            var Component = Qt.createComponent("") //TODO quand on va merge ajouter StateCreationWindow.qml
+            var window = Component.createObject(mainwindow)
+            window.show()
+        }
+    }
+
+    Button {
+        anchors.top: tab.bottom
+        anchors.right: tab.right
+        id: addRule
+        x: 105
+        y: 222
+        text: qsTr("Add Rule")
+        onClicked: {
+            var Component = Qt.createComponent("RuleCreationWindow.qml")
+            var window = Component.createObject(mainwindow)
+            window.show()
+        }
     }
 
 }
