@@ -18,6 +18,36 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
       rules(rules), definedStates(definedStates), generations(trace)
 {}
 
+uint Automata::GetSizeX()
+{
+    return sizeX;
+}
+
+uint Automata::GetSizeY()
+{
+    return sizeY;
+}
+
+bool Automata::GetIsStocha()
+{
+    return isStocha;
+}
+
+bool Automata::GetIsVonNeighborhood()
+{
+    return isVonNeighborhood;
+}
+
+void Automata::SetSizeX(uint sizeX)
+{
+    this->sizeX = sizeX;
+}
+
+void Automata::SetSizeY(uint sizeY)
+{
+    this->sizeY = sizeY;
+}
+
 void Automata::Simulate()
 {
 

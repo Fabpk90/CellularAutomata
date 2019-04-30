@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "interface.h"
+#include "parser.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,14 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
-    Automata ca;
+    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
+                           , vector<State>(), vector<Generation>());
+
+    Parser p;
+    p.SetAutomata(&ca);
+
+    cout << p.AutomataToString() << " yep" << endl;
+
 
     Generation gen;
     gen.cellMatrix = vector<unsigned int>();

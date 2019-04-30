@@ -34,6 +34,15 @@ public:
     //Constructeur pour créer un automate avec un historique, le booléen isNeighborhood va déterminer la fonction de remplissage du vecteur de voisinage.
     Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX,unsigned int sizeY, vector<Rule*> rules, vector<State> definedStates,  vector<Generation> trace);
 
+    uint GetSizeX();
+    uint GetSizeY();
+    bool GetIsStocha();
+    bool GetIsVonNeighborhood();
+
+    void SetSizeX(uint sizeX);
+    void SetSizeY(uint sizeY);
+
+
     void Simulate();// Fonction permettant de simuler notre automate. Simule MAX_ITERATION
     void AddGeneration(Generation& generation); // Ajoute une nouvelle génération au vecteur générations.Si la génération existe déjà, elle sera écrasée par celle passée en paramètre.
     void AddGenerations(vector<Generation> gens);
