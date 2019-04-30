@@ -9,10 +9,12 @@
 
 class Rule{
     protected:
-    struct RuleParameters{
-        int x,y;
-        Automata::State* toCheckAgainst;
-    };
+
+        struct RuleParameters{
+            int x,y;
+            State toCheckAgainst;
+        };
+
         Automata& automata;
         Automata::State* toChangeInto;
         std::vector<RuleParameters> parameters;

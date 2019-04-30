@@ -2,7 +2,8 @@
 #include <QQmlApplicationEngine>
 #include "rulestochasticdynamic.h"
 
-
+RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params, float probability):
+    RuleStochastic(isComputePosition, toChangeInto,params, probability){};
 
 float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de la règle
 
