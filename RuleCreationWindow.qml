@@ -17,11 +17,4 @@ ApplicationWindow{
         placeholderText: qsTr("100%")
         onTextChanged: myInterface.probability = text
     }
-    Button {//test button -> prints in console
-            id: test_button_probability
-            text: qsTr("Print probability")
-            onClicked: {
-                myInterface.printProbability()
-            }
-        }
 }
