@@ -22,7 +22,8 @@ SOURCES += \
         rulestochastic.cpp \
         rulestochasticdynamic.cpp\
         interface.cpp \
-        main.cpp
+        main.cpp \
+        simulator.cpp
 
 RESOURCES += qml.qrc \
           qtquickcontrols2.conf
