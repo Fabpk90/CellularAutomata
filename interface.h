@@ -53,8 +53,12 @@ public:
     }
     Q_INVOKABLE void printStateToChangeTo(); //for tests
 
-    void callGetStates(); //TODO
-    void okCreateRule(); //TODO
+    void CallSetProbability(QString probability);//TODO
+    void CallSetComputeProbability(QString computeProbability);//TODO
+    void CallSetPosAndCount(QString posAndCount);//TODO
+    void CallSetStateToChangeTo(QString stateToChangeTo);//TODO
+    void CallGetStates(); //TODO
+    Q_INVOKABLE void okCreateRule(); //TODO
 
 signals:
 

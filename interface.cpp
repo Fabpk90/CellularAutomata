@@ -21,7 +21,27 @@ void Interface::printStateToChangeTo()
     std::cout << "stateToChangeTo : " << m_stateToChangeTo.toStdString() << std::endl;
 }
 
-void Interface::callGetStates()
+void Interface::CallSetProbability(QString probability)
+{
+
+}
+
+void Interface::CallSetComputeProbability(QString computeProbability)
+{
+
+}
+
+void Interface::CallSetPosAndCount(QString posAndCount)
+{
+
+}
+
+void Interface::CallSetStateToChangeTo(QString stateToChangeTo)
+{
+
+}
+
+void Interface::CallGetStates()
 {
 
 }
