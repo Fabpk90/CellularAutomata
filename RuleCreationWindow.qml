@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import Interface 1.0
+import QtQuick.Layouts 1.3
 
 ApplicationWindow{
     id: ruleCreationWindow
@@ -10,18 +11,68 @@ ApplicationWindow{
     height: screen.height / 2
     modality: Qt.ApplicationModal //permet de garder le focus
 
-    TextField{
+    //TODO RuleZone (i'm lost)
+
+
+
+    TextField{ //TODO change to SpinBox
         id: probability
         text: myInterface.probability
         anchors.centerIn: parent
         placeholderText: qsTr("100%")
         onTextChanged: myInterface.probability = text
+
+        Text {
+            id: probabilityText
+            text: qsTr("Probability ")
+            anchors.horizontalCenterOffset: -parent.width
+            anchors.centerIn: parent
+        }
     }
-    Button {//test button -> prints in console
-            id: test_button_probability
-            text: qsTr("Print probability")
+
+    TextField{ //TODO change to SpinBox
+        id: computeProbability
+        text: myInterface.computeProbability
+        anchors.verticalCenterOffset: probability.height
+        anchors.centerIn:parent
+        placeholderText:qsTr("0%")
+        onTextChanged: myInterface.computeProbability = text
+
+        Text {
+            id: computeProbabilityText
+            text: qsTr("Compute Probability")
+            anchors.horizontalCenterOffset: -parent.width
+            anchors.centerIn: parent
+        }
+    }
+
+    RowLayout {
+        id: rowLayout
+        anchors.verticalCenterOffset: -height
+        anchors.centerIn: parent
+
+        Text {
+            id: posAndCountText
+            text: qsTr("Rule accounts for :")
+        }
+
+        RadioButton {
+            id: positionRadioButton
+            text: qsTr("Position")
             onClicked: {
-                myInterface.printProbability()
+                myInterface.posAndCount = qsTr("Position")
+                myInterface.printPosAndCount() //Test
             }
         }
+
+        RadioButton {
+            id: countRadioButton
+            text: qsTr("Count")
+            autoRepeat: true
+            onClicked: {
+                myInterface.posAndCount = qsTr("Count")
+                myInterface.printPosAndCount() //Test
+            }
+        }
+    }
 }
