@@ -20,9 +20,12 @@ SOURCES += \
         rule.cpp \
         ruledeterministic.cpp \
         rulestochastic.cpp \
-        rulestochasticdynamic.cpp
+        rulestochasticdynamic.cpp\
+        interface.cpp \
+        main.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += qml.qrc \
+          qtquickcontrols2.conf
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -42,4 +45,5 @@ HEADERS += \
     rule.h \
     ruledeterministic.h \
     rulestochastic.h \
-    rulestochasticdynamic.h
+    rulestochasticdynamic.h\
+    interface.h
