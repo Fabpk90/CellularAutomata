@@ -26,17 +26,18 @@ int main(int argc, char *argv[])
         ca.AddGeneration(gen);
         //ca.RemoveGeneration(gen.generationID);
     }
-    //ca.ChooseGen(3);
-    ca.PreviousGen();
+    ca.ChooseGen(2);
+    //ca.PreviousGen();
+    ca.NextGen();
 
     //prints an error, correct behavior
-    ca.RandomizeCurrentGen();
+    //ca.RandomizeCurrentGen();
 
-    Automata::State state;
-    ca.AddState(state);
-    ca.AddState(state);
+    //Automata::State state;
+    //ca.AddState(state);
+    //ca.AddState(state);
 
-    ca.RandomizeCurrentGen();
+    //ca.RandomizeCurrentGen();
 
     return app.exec();
 }

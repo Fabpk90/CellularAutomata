@@ -27,7 +27,6 @@ void Automata::AddGeneration(Automata::Generation &generation)
 {
     //TODO: ajouter la recherche de la génération
     generations.push_back(generation);
-
     cout << "Added a gen" << endl;
 }
 
@@ -140,7 +139,7 @@ void Automata::SetAllCell(Automata::State &newState)
 
 void Automata::RandomizeCurrentGen()
 {
-    srand(time(nullptr));
+    //srand(time(nullptr));
     if(definedStates.size() != 0)
     {
         for (uint i = 0; i < sizeX; ++i) {
@@ -173,16 +172,36 @@ const vector<pair<int, int> > &Automata::GetNeigborhoodPositions()
 
 void Automata::NextGen()
 {
-    //Generation generationID;
-    //generationID = this->GetCurrentGen();
+    vector<Generation>::iterator it = generations.begin();
+    bool found = false;
+    // Je ne sais pas comment avoir la generation actuelle (@Alex)
+    while(it != generations.end() && !found)
+    {
+        if(it == generations.end())
+        {
+            found = true;
+            cout << "No next gen" << endl;
+        }
+        else if(it->generationID == this->currentGen)
+        {
+            found = true;
+            generations[currentGen++];
 
+            cout << "choose gen " << this->currentGen << endl;
+        }
+        else
+        {
+            ++it;
+        }
+    }
+    if(!found) cout << "gen not found" << endl;
 }
 
 void Automata::PreviousGen()
 {
     vector<Generation>::iterator it = generations.begin();
     bool found = false;
-    this->currentGen = 1; // Je ne sais pas comment avoir la generation actuelle (@Alex)
+    // Je ne sais pas comment avoir la generation actuelle (@Alex)
     while(it != generations.end() && !found)
     {
         if(this->currentGen == 0)
@@ -193,8 +212,7 @@ void Automata::PreviousGen()
         else if(it->generationID == this->currentGen)
         {
             found = true;
-
-            this->currentGen = it->generationID - 1;
+            generations[currentGen--];
 
             cout << "choose gen " << this->currentGen << endl;
         }
