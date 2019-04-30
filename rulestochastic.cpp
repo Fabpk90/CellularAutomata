@@ -5,9 +5,6 @@
 
 RuleStochastic::RuleStochastic(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params, float probability):
     Rule(isComputePosition , toChangeInto , params){
-    this->isComputePosition=isComputePosition;
-    this->toChangeInto=toChangeInto;
-    this->parameters=params;
     this->probability=probability;
 }
 

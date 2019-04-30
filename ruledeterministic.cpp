@@ -2,6 +2,9 @@
 #include <QQmlApplicationEngine>
 #include "ruledeterministic.h"
 
+RuleDeterministic::RuleDeterministic(bool isComputePosition, State toChangeInto, std::vector<RuleParameters> params):
+    Rule(isComputePosition, toChangeInto, params){};
+
 void RuleDeterministic::Apply(int x, int y){
 
     /* pour computeposition :
