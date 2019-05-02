@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     Parser p;
     p.SetAutomata(&ca);
 
-    cout << p.AutomataToString() << " yep" << endl;
+
 
 
     Generation gen;
@@ -43,15 +43,16 @@ int main(int argc, char *argv[])
     //prints an error, correct behavior
     //ca.RandomizeCurrentGen();
 
-    //Automata::State state;
-    //ca.AddState(state);
-    //ca.AddState(state);
+    State state;
+    state.name = "Yeppa";
+    state.color = QColor(50, 20, 10);
+    ca.AddState(state);
+    state.name = "Yo";
+    ca.AddState(state);
+
+    cout << p.AutomataToString() << endl;
 
     //ca.RandomizeCurrentGen();
 
     return app.exec();
-
-
-
-
 }
