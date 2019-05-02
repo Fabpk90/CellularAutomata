@@ -1,6 +1,7 @@
 #pragma once
 #include "automata.h"
-
+#include "rule.h"
+#include "ruledeterministic.h"
 class Parser
 {
 public:

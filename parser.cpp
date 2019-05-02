@@ -112,6 +112,8 @@ string  Parser::AutomataToString()
 
 string  Parser::HistoryToString()
 {
+    string strRepresentation = "";
+
     return "";
 }
 
@@ -122,5 +124,11 @@ string Parser::HistoryToString(uint startGen, uint endGen)
 
 string  Parser::RulesToString()
 {
+
+    string strRepresentation = "";
+
+    strRepresentation.append(to_string(automata->GetRules().size()));
+    strRepresentation.append(";");
+
     return "";
 }
