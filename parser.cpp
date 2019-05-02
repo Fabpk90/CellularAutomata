@@ -115,6 +115,11 @@ string  Parser::HistoryToString()
     return "";
 }
 
+string Parser::HistoryToString(uint startGen, uint endGen)
+{
+    return "";
+}
+
 string  Parser::RulesToString()
 {
     return "";

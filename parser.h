@@ -28,6 +28,7 @@ private:
                                       //Elle ajoute la génération à l’historique
     //string  AutomataToString() ;//Fonctions qui calculent la représentation en chaîne de caractères de l’automate.
     string  HistoryToString();
+    string  HistoryToString(uint startGen, uint endGen);
     string  RulesToString();
 };
 
