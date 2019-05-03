@@ -13,6 +13,7 @@ ApplicationWindow{
 
     RowLayout {
         id: ty
+        anchors.horizontalCenter: parent.horizontalCenter
         Text {
             id: type
             text: qsTr("Type:")
@@ -20,16 +21,18 @@ ApplicationWindow{
         RadioButton {
             id:dynamic
             text: qsTr("Dynamic")
+            checked: true
+            onClicked: myInterface.type = qsTr("Dynamic")
         }
         RadioButton {
             id:stochastic
             text: qsTr("Stochastic")
-
-            onClicked: {dynamic.checked()}
+            onClicked: myInterface.type = qsTr("Stochastic")
         }
     }
     RowLayout {
         id: dimension
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: ty.bottom
         Text {
             id: dim
@@ -38,14 +41,18 @@ ApplicationWindow{
         RadioButton {
             id:oneDim
             text: qsTr("1D")
+            onClicked: myInterface.dimension = qsTr("1 Dimension")
         }
         RadioButton {
             id:twoDim
             text: qsTr("2D")
+            checked: true
+            onClicked: myInterface.dimension = qsTr("2 Dimension")
         }
     }
     RowLayout {
         id: neigh
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: dimension.bottom
         Text {
             id: neighborhood
@@ -54,30 +61,41 @@ ApplicationWindow{
         RadioButton {
             id:moore
             text: qsTr("Moore")
+            checked: true
+            onClicked: myInterface.neighborhood = qsTr("Moore")
         }
         RadioButton {
             id:vonNeumann
             text: qsTr("Von Neumann")
+            onClicked: myInterface.neighborhood = qsTr("Von Neumann")
         }
     }
 
-    TableView {
-        id: tab
-        anchors.centerIn: parent
-        anchors.left: parent.horizontalCenter
-        //Test de mise en forme
+
+    Column {
+        id: stateColumn
+        anchors.rightMargin: 0
         anchors.top: neigh.bottom
-        /*TableViewColumn {
-            role: "state"
-            title: "State"
-            width: 100
+        Text {
+            id: stateText
+            text: qsTr("State")
+            horizontalAlignment: Text.AlignHCenter
         }
-        TableViewColumn {
-            role: "rule"
-            title: "Rule"
-            width: 100
-        }*/
     }
+    Column {
+        id: ruleColumn
+        anchors.top: neigh.bottom
+        anchors.leftMargin: 150
+        anchors.left: stateColumn.right
+        Text {
+            id: ruleText
+            text: qsTr("Rule")
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
 
     Button{
         anchors.bottom: parent.bottom
@@ -91,8 +109,8 @@ ApplicationWindow{
     }
 
     Button {
-        anchors.top: tab.bottom
-        anchors.left: tab.left
+        anchors.top: stateColumn.bottom
+        anchors.left: stateColumn.left
         id: addState
         text: qsTr("Add State")
         onClicked: {
@@ -103,8 +121,8 @@ ApplicationWindow{
     }
 
     Button {
-        anchors.top: tab.bottom
-        anchors.right: tab.right
+        anchors.top: ruleColumn.bottom
+        anchors.left: ruleColumn.left
         id: addRule
         text: qsTr("Add Rule")
         onClicked: {

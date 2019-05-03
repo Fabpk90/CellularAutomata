@@ -12,15 +12,18 @@ class Interface : public QObject
     Q_PROPERTY(QString computeProbability READ computeProbability WRITE setComputeProbability NOTIFY computeProbabilityChanged) //TODO input has to be int
     Q_PROPERTY(QString posAndCount READ posAndCount WRITE setPosAndCount NOTIFY posAndCountChanged)
     Q_PROPERTY(QString stateToChangeTo READ stateToChangeTo WRITE setStateToChangeTo NOTIFY stateToChangeToChanged)
+    Q_PROPERTY(QString type READ type WRITE type NOTIFY type)
+    Q_PROPERTY(QString dimension READ dimension WRITE dimension NOTIFY dimension)
+    Q_PROPERTY(QString neighborhood READ neighborhood WRITE neighborhood NOTIFY neighborhood)
 
 private:
     QString m_probability;
-    QString dimension;
-    QString type;
-    QString neighborhood;
     QString m_computeProbability;
     QString m_posAndCount;
     QString m_stateToChangeTo;
+    QString m_type;
+    QString m_dimension;
+    QString m_neighborhood;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -37,19 +40,19 @@ public:
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
-    void SendMandatoryInfo();
+    void SendMandatoryInfo(); //TODO
 
     /*Fait appel à une série de fonctions de l'interpréteur.*/
-    void OkCreateAutomata();
+    void OkCreateAutomata(); //TODO
 
     /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
-    void CallSetDim(const QString &dimension);
+    void CallSetDim(QString dimension);
 
     /*Définit le voisinage de l'automate (Moore ou Von Neumann).*/
-    void CallSetNeighborhood(const QString &neighborhood);
+    void CallSetNeighborhood(QString neighborhood);
 
     /*Définit si l'automate sera de type stochastique ou déterministe.*/
-    void CallType(const QString &type);
+    void CallType(QString type);
 
     /*Change le nombre de générations à simuler.*/
     void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
@@ -86,6 +89,21 @@ public:
     void CallGetStates(); //TODO
     Q_INVOKABLE void okCreateRule(); //TODO
 
+    QString type() const
+    {
+        return m_type;
+    }
+
+    QString dimension() const
+    {
+        return m_dimension;
+    }
+
+    QString neighborhood() const
+    {
+        return m_neighborhood;
+    }
+
 signals:
 
     void probabilityChanged(QString probability);
@@ -96,11 +114,18 @@ signals:
 
     void stateToChangeToChanged(QString stateToChangeTo);
 
+    void type(QString type);
+
+    void dimension(QString dimension);
+
+    void neighborhood(QString neighborhood);
+
 public slots:
 void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
 void setPosAndCount(QString posAndCount);
 void setStateToChangeTo(QString stateToChangeTo);
+
 };
 
 #endif // INTERFACE_H
