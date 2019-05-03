@@ -115,8 +115,23 @@ void Automata::RemoveState(State &toRemove)
 
 void Automata::RemoveRule(Rule &toRemove)
 {
-    // Classe regle non implémenté je laisse en commentaire pour l'instant (@Alex)
-    //(@Fab) c'était du caca mon truc, il faut jeter tout l'historique aussi et remove la règle
+    //TO TEST !
+    vector<Rule*>::iterator it = rules.begin();
+    bool found = false;
+
+    while (it != rules.end())
+    {
+        if((*it) == &toRemove)
+        {
+            found = true;
+            delete (*it);
+        }
+    }
+
+    if(found)
+    {
+        generations.clear();
+    }
 }
 
 void Automata::SortGenerations()
