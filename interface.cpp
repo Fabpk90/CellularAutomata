@@ -6,6 +6,22 @@ void Interface::printProbability()
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
 }
 
+void Interface::CallSetDim(const QString dimension)
+{
+
+}
+
+void Interface::CallSetNeighborhood(QString neighborhood)
+{
+
+}
+
+void Interface::CallType(QString type)
+{
+
+}
+
+
 void Interface::printComputeProbability()
 {
     std::cout << "computeProbability : " << m_computeProbability.toStdString() << std::endl;
