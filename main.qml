@@ -3,6 +3,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.3
 import Interface 1.0
 
 ApplicationWindow {
@@ -21,7 +22,10 @@ ApplicationWindow {
     menuBar: MenuBar{
         Menu{
             title: "File"
-            MenuItem { text: "Save"}
+            MenuItem {
+             text: "Save"
+             onClicked: fileDialogSave.open()
+            }
             MenuItem { text: "Close"}
         }
         Menu{
@@ -36,8 +40,12 @@ ApplicationWindow {
         }
     }
 
-    TableView {
+  /*  TableView {
         id: matrixView
+        anchors.leftMargin: -227
+        anchors.topMargin: -380
+        anchors.rightMargin: -322
+        anchors.bottomMargin: -8
         anchors.fill: parent
 
         rowSpacing: 1
@@ -56,10 +64,20 @@ ApplicationWindow {
         contentX: (contentWidth - width) / 2;
         contentY: (contentHeight - height) /2;
 
-    }
+    }*/
 
 
-    footer: Rectangle{
+       Matrix{
+
+         position: mainwindow.width
+         rows:myInterface.getSizeX()
+         columns: myInterface.getSizeY()
+
+       }
+
+
+
+       footer: Rectangle{
         id: footer
         height: 80
         color: "#f3f3f4"
@@ -124,6 +142,7 @@ ApplicationWindow {
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
+                onClicked:myInterface.callExecution()
             }
 
             Button{
@@ -143,4 +162,19 @@ ApplicationWindow {
         }
 
     }
+
+    FileDialog{
+        id:fileDialogSave
+        onAccepted: myInterface.callSaveMatrix("test",this.fileUrl)
+
+
+    }
+
+    FileDialog{
+        id:fileDialogLoad
+        onAccepted: myInterface.callLoad("test", this.fileUrl)
+
+
+    }
+
 }

@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <iostream>
-
+#include "parser.h"
+#include "filemanager.h"
+#include "simulator.h"
 //TODO ALL THE INPUT TESTS
 class Interface : public QObject
 {
@@ -22,7 +24,7 @@ private:
     QString m_posAndCount;
     QString m_stateToChangeTo;
 
-    //Parser parser
+    Parser parser;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -37,6 +39,9 @@ public:
     }
     Q_INVOKABLE void printProbability(); //for tests
 
+    /*Gestion de fichier*/
+    Q_INVOKABLE void callSaveMatrix(string path, string name, string firstGen, string lastGen);//Demande pour sauvegarder un automate
+    Q_INVOKABLE void callLoad(string name, string path);//Demande pour charger un automate
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
@@ -60,6 +65,14 @@ public:
     /*Définit la taille de la matrice d'affichage.*/
     void CallMatrixSize(int x, int y);
 
+    /*Appel la fonction de lecture de l'automate*/
+    Q_INVOKABLE void callExecution();
+    /*Retourne la dimension x de l'automate*/
+    Q_INVOKABLE int getSizeX();
+    /*Retourne la dimension y de l'automate*/
+    Q_INVOKABLE int getSizeY();
+    /*Affiche la matrice en cours*/
+    void displayMatrix();
 
     //computeProbability
     QString computeProbability() const
@@ -91,9 +104,7 @@ public:
 
     /*Fenêtre de création d'états */
     void CallSetStateName(QString probability);
-
     void CallSetColor(QString color);
-
     void OkCreateState(QString state);
 
 signals:

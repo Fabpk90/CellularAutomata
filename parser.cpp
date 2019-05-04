@@ -5,17 +5,23 @@ Parser::Parser()
 
 }
 
-void  ParseFile(string* path)
+void  Parser::ParseFile(const string* path)
 {
 
 }
 
-string  GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
+Automata * Parser::GetAutomata(){
+    return automata;
+
+
+}
+
+string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
     return "";
 }
 
-string  GetDataToBeSaved()
+string  Parser::GetDataToBeSaved()
 {
     return "";
 }

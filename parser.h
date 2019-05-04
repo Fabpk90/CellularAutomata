@@ -12,7 +12,7 @@ public:
     void  ParseAndAddStates(string* index);//Fonction qui interprète les etats de l’automate.
     void  ParseAndAddType(string* index);//Fonction qui interprète la type de l’automate.
     void  ParseAndAddSize(string* index);//Fonction qui interprète la taille de l’automate
-
+    Automata *  GetAutomata();
 private:
     Automata* automata;
     string  dataToParse;

@@ -4,5 +4,7 @@
         <file>RuleCreationWindow.qml</file>
         <file>AutomataCreationWindow.qml</file>
         <file>StateCreationWindow.qml</file>
+        <file>Cell.qml</file>
+        <file>Matrix.qml</file>
     </qresource>
 </RCC>

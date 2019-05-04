@@ -1,6 +1,6 @@
 #include "interface.h"
-
-
+#include <QQuickView>
+#include <vector>
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
@@ -116,4 +116,57 @@ Interface::Interface(QObject *parent) : QObject(parent)
 void Interface::initialiseParser()
 {
 
+    this->parser= Parser();
+
+
+}
+
+void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
+
+    string tmp;
+    if(!firstGen.empty() && !lastGen.empty() ) tmp= this->parser.GetDataToBeSaved(10,10 );
+    else tmp= this->parser.GetDataToBeSaved();
+
+    char * Data = new char[tmp.length() + 1];
+    strcpy(Data, tmp.c_str());
+    SaveData(&name, Data);
+
+
+
+}
+
+void Interface::callLoad(string name, string path){
+
+   this->parser.ParseFile(&name);
+
+
+}
+
+void Interface::callExecution(){
+
+   Automata* test =this->parser.GetAutomata();
+    Simulate(*test);
+
+
+}
+
+void Interface::displayMatrix(){
+
+ vector<QColor> test;
+test.push_back(QColor("red"));
+test.push_back(QColor("blue"));
+QQuickView view;
+view.setSource(QUrl::fromLocalFile("main.qml"));
+
+
+
+
+}
+
+unsigned int Interface::getSizeX(){
+    return this->parser.GetAutomata()->GetSizeX();
+}
+
+unsigned int Interface::getSizeY(){
+    return this->parser.GetAutomata()->GetSizeY();
 }
