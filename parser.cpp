@@ -117,8 +117,27 @@ string  Parser::HistoryToString()
     return "";
 }
 
+//TODO : test (surtout me dire si cest la bonne facon de faire) (@alex)
+//probleme sur le changement de gen, j'ai l'impression que ca reste bloqué sur la 1ère
 string Parser::HistoryToString(uint startGen, uint endGen)
 {
+    string strRepresentation = "";
+    uint i = startGen;
+    automata->ChooseGen(i);
+
+    if(automata->GetCurrentGen().generationID != NULL){
+        strRepresentation.append(to_string(startGen));
+        strRepresentation.append(";");
+
+        strRepresentation.append(to_string(endGen));
+        strRepresentation.append(";");
+
+        for(automata->ChooseGen(i); i <= endGen; i++){
+            strRepresentation.append(to_string(automata->GetCurrentGen().generationID));
+            strRepresentation.append(";");
+        }
+        return strRepresentation;
+    }
     return "";
 }
 
