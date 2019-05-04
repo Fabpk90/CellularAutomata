@@ -10,6 +10,7 @@ Automata::Automata()
     rules = vector<Rule*>();
     definedStates = vector<State>();
     generations = vector<Generation>();
+    neighborhood = vector<pair<int,int>>();
 }
 
 Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX, unsigned int sizeY,
@@ -316,12 +317,33 @@ State &Automata::GetCellState(unsigned int x, unsigned int y)
     return definedStates[generations[currentGen].cellMatrix[x * y + y]];
 }
 
+// TESTED
 void Automata::FillNeighborhoodVonNeumann()
 {
-
+    neighborhood.push_back(std::make_pair(+1,0));
+    neighborhood.push_back(std::make_pair(0,+1));
+    neighborhood.push_back(std::make_pair(0,-1));
+    neighborhood.push_back(std::make_pair(-1,0));
+    /*
+    cout << "printing vonneumnn" << endl;
+    vector<pair<int,int>>::iterator it = neighborhood.begin();
+    while(it != neighborhood.end()){
+        cout << it->first << it->second << endl;
+        ++it;
+    }
+    */
 }
 
+// TESTED
 void Automata::FillNeighborhoodMoore()
 {
+    neighborhood.push_back(std::make_pair(+1,0));
+    neighborhood.push_back(std::make_pair(0,+1));
+    neighborhood.push_back(std::make_pair(0,-1));
+    neighborhood.push_back(std::make_pair(-1,0));
 
+    neighborhood.push_back(std::make_pair(+1,+1));
+    neighborhood.push_back(std::make_pair(-1,+1));
+    neighborhood.push_back(std::make_pair(-1,-1));
+    neighborhood.push_back(std::make_pair(+1,-1));
 }
