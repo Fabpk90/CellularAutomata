@@ -77,6 +77,12 @@ void Automata::AddState(State &state)
     definedStates.push_back(state);
 }
 
+void Automata::AddRule(Rule &rule)
+{
+    cout << "Adding Rule" << endl;
+    rules.push_back(&rule);
+}
+
 void Automata::RemoveGeneration(unsigned int index)
 {
     vector<Generation>::iterator it = generations.begin();

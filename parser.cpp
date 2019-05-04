@@ -1,6 +1,7 @@
 #include "parser.h"
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 Parser::Parser()
@@ -28,9 +29,31 @@ string  Parser::GetDataToBeSaved()
     return "";
 }
 
+// UNFINISHED
 void  Parser::ParseAndAddRules(string* index)
-{
+{/*
+    string curRuleType;
+    int sizeToParse = sizeof(index)/sizeof(*index);
+    int nbrR = stoi(index[0]);
 
+    if(index[1] != ";"){
+        // lancer exception de format
+    }
+
+    for(int i = 2; i < sizeToParse; i++){
+
+        // Vérification du bon formatage du string index
+        if(index[i+1] != ";" || index[i+3] != ";" || index[i+5] != ";"){
+            // lancer exception de format
+        }
+
+        // Création et instantiation de la règle courante
+        curRuleType = index[i];
+        if(curRuleType == "rulestochastic"){
+
+        }
+    }
+    */
 }
 
 void  Parser::ParseAndAddStates(string* index)
@@ -42,9 +65,31 @@ void  Parser::ParseAndAddType(string* index)
 {
 
 }
+
+// Ajouter la vérification du type de l'élément courant
 void  Parser::ParseAndAddSize(string* index)
 {
+    // Vérification du nombre d'éléments
+    int size = sizeof(index) / sizeof(index[0]);
 
+    // Vérification du type des éléments
+    // A IMPLEMENTER
+
+    if(size < 3){
+        // lancer une exception de format
+    }
+
+    int x = stoi(index[0]);
+    int y = stoi(index[2]);
+
+    // Vérification int > 0
+    if(x < 0 || y < 0){
+        // lancer une exception de format
+    }
+
+    // Instantiation de sizeX et sizeY
+    automata->SetSizeX(static_cast<unsigned>(stoi(index[0])));
+    automata->SetSizeY(static_cast<unsigned>(stoi(index[2])));
 }
 
 void  Parser::ParseHistory(string* index)

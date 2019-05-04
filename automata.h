@@ -47,6 +47,7 @@ public:
     void AddGeneration(Generation& generation); // Ajoute une nouvelle génération au vecteur générations.Si la génération existe déjà, elle sera écrasée par celle passée en paramètre.
     void AddGenerations(vector<Generation> gens);
     void AddState(State& state);
+    void AddRule(Rule& rule);
     void RemoveGeneration(unsigned int index);
     void RemoveState(State& toRemove);
     void RemoveRule(Rule& toRemove);
