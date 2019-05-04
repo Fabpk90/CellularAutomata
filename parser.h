@@ -19,6 +19,7 @@ public:
 
     //ONLY FOR THE TESTS! REMOVE THISSSSS
     string  AutomataToString() ;
+    string  HistoryToString(uint startGen, uint endGen);
 
 private:
     Automata* automata;
@@ -29,7 +30,7 @@ private:
                                       //Elle ajoute la génération à l’historique
     //string  AutomataToString() ;//Fonctions qui calculent la représentation en chaîne de caractères de l’automate.
     string  HistoryToString();
-    string  HistoryToString(uint startGen, uint endGen);
+    //string  HistoryToString(uint startGen, uint endGen);
     string  RulesToString();
 };
 
