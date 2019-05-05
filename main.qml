@@ -5,7 +5,7 @@ import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.3
 import Interface 1.0
-import MatrixModel 1.0
+
 
 ApplicationWindow {
     id: mainwindow
@@ -90,7 +90,7 @@ ApplicationWindow {
         cellHeight:10
         cellWidth: 10
         model:MatrixModel{
-        listOfState: Matrixview
+        listOfState:matrixview
         }
         delegate: Rectangle{
             id:rec

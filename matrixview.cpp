@@ -3,6 +3,9 @@
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
 
+    listOfState.append({QColor("green"), "State"});
+    listOfState.append({QColor("blue"), "State"});
+
 }
 
 
