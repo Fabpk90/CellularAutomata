@@ -11,5 +11,22 @@ ApplicationWindow{
     height: screen.height/3
     modality: Qt.ApplicationModal
 
+
+    Button{
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        text: "Ok"
+        onClicked: {
+            //TODO choose state
+            stateCreationWindow.close()
+        }
+    }
+
+    Button{
+        anchors.bottom: parent.bottom
+        text: "Cancel"
+        onClicked: stateCreationWindow.close()
+    }
+
     //TODO
 }
