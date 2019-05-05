@@ -3,11 +3,12 @@ import QtQuick 2.0
 Rectangle{
 
     id:rec
+    property int position: 0
     border.color: "black"
     Text {
         visible: false
         id: name
-        text: qsTr("text")
+        text: qsTr("Cell"+position)
     }
 
     MouseArea{

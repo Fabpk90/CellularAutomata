@@ -1,6 +1,8 @@
 #include "interface.h"
-#include <QQuickView>
+#include <QQmlComponent>
+#include <QQmlEngine>
 #include <vector>
+#include <QFile>
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
@@ -154,13 +156,31 @@ void Interface::displayMatrix(){
 
  vector<QColor> test;
 test.push_back(QColor("red"));
-test.push_back(QColor("blue"));
-QQuickView view;
-view.setSource(QUrl::fromLocalFile("main.qml"));
+test.push_back(QColor("green"));
+/*QFile file ("C:/Users/PC-pierre/Desktop/l3/Projet/CellularAutomata/Matrix.qml");
+if(file.exists()) cout<<"here"<<endl;
+else cout<<"not here"<<endl;*/
+QQmlEngine engine;
+QQmlComponent component (&engine, QUrl::fromLocalFile("C:/Users/PC-pierre/Desktop/l3/Projet/CellularAutomata/MyRepeater.qml"));
+if(component.isReady()){
+   cout<<"entered"<<endl;
+   QObject *object= component.create();
+   //QObject * cell;
+   // object->setProperty("height",2);
 
 
+         QMetaObject::invokeMethod(object,"repeatColor",QGenericReturnArgument(),QGenericArgument());
+        cout<<"herre"<<endl;
+         //QMetaObject::invokeMethod(cell,"changeColor",QGenericReturnArgument() ,Q_ARG(string,"green"));
+
+        // rep->setProperty("index",i);
+   //    rep->setProperty("col",test[i].name());
 
 
+    delete object;
+
+}
+else cout <<"not entered"<<endl;
 }
 
 unsigned int Interface::getSizeX(){
@@ -170,3 +190,4 @@ unsigned int Interface::getSizeX(){
 unsigned int Interface::getSizeY(){
     return this->parser.GetAutomata()->GetSizeY();
 }
+

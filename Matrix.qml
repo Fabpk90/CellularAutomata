@@ -6,31 +6,41 @@ import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.3
 
 
-Flickable{
-   id: flick
-   property int position: 0
-   property int rows: 0
-   property int columns: 0
-
+Item{
+    id: item
     anchors.fill:parent
-  contentHeight: grid.height
-  contentWidth: grid.width
-  ScrollBar.horizontal: ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn  }
-  ScrollBar.vertical: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn }
-   GridLayout{
-      x:position/4
-       id:grid
-       rows: flick.rows
-       columns:flick.columns
-       rowSpacing: 0
-       columnSpacing: 0
+    property int h: 0
+    property int rows: 0
+    property int columns: 0
+    Flickable{
+        id: flick
 
-       Repeater{
-           model:flick.rows*flick.columns
+        anchors.fill:item
+        contentHeight: grid.height
+        contentWidth: grid.width
+        ScrollBar.horizontal: ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn  }
+        ScrollBar.vertical: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn }
+        GridLayout{
+            x:item.h/4
+            id:grid
+            rows: item.rows
+            columns:item.columns
+            rowSpacing: 0
+            columnSpacing: 0
 
-           Cell{height: 10; width: 10; color:"blue"}
+       MyRepeater{
+
+            mod:grid.rows*grid.columns
+
+
        }
 
 
-   }
+        }
+    }
+
 }
+
+
+
+

@@ -3,7 +3,11 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
 #include "interface.h"
+#include "matrixmodel.h"
+#include "matrixview.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,8 +16,12 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     qmlRegisterType<Interface>("Interface",1,0,"Interface");
+    qmlRegisterType<MatrixModel>("MatrixModel",1,0,"MatrixModel");
+    qmlRegisterUncreatableType <Matrixview> ("MatrixModel",1,0, "Matrixview",QStringLiteral("Avoid creating Matrixview in qml"));
+    Matrixview matrix;
 
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty(QStringLiteral("Matrixview"), &matrix);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;

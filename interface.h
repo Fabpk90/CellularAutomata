@@ -68,11 +68,11 @@ public:
     /*Appel la fonction de lecture de l'automate*/
     Q_INVOKABLE void callExecution();
     /*Retourne la dimension x de l'automate*/
-    Q_INVOKABLE int getSizeX();
+    Q_INVOKABLE unsigned int getSizeX();
     /*Retourne la dimension y de l'automate*/
-    Q_INVOKABLE int getSizeY();
+    Q_INVOKABLE unsigned int getSizeY();
     /*Affiche la matrice en cours*/
-    void displayMatrix();
+    Q_INVOKABLE void displayMatrix(); //invokable ONLY for tests
 
     //computeProbability
     QString computeProbability() const

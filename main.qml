@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.3
 import Interface 1.0
+import MatrixModel 1.0
 
 ApplicationWindow {
     id: mainwindow
@@ -67,14 +68,50 @@ ApplicationWindow {
     }*/
 
 
-       Matrix{
 
-         position: mainwindow.width
-         rows:myInterface.getSizeX()
-         columns: myInterface.getSizeY()
+   /*Matrix{
+        h:mainwindow.width
+        rows: 100
+        columns: 100
+
+       Component.onCompleted: {
+            myInterface.displayMatrix()
+
 
        }
 
+    }*/
+    GridView{
+        id:mat
+        x: mainwindow.width/2
+        y: mainwindow.height/2
+        width: 100
+        height: 100
+        cellHeight:10
+        cellWidth: 10
+        model:MatrixModel{
+        listOfState: Matrixview
+        }
+        delegate: Rectangle{
+            id:rec
+            width: 10
+            height:10
+            color:model.color
+            Text {
+                visible: false
+                id: t
+                text: qsTr("text")
+            }
+            border.color:"black"
+            MouseArea{
+                anchors.fill:parent
+                onClicked: print(t.text+""+index)
+
+            }
+
+        }
+
+    }
 
 
        footer: Rectangle{
@@ -142,7 +179,7 @@ ApplicationWindow {
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
-                onClicked:myInterface.callExecution()
+                onClicked:myInterface.displayMatrix()
             }
 
             Button{
