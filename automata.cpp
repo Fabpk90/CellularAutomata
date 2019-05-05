@@ -60,9 +60,10 @@ void Automata::AddGeneration(Generation &generation)
     //TODO: ajouter la recherche de la génération
     //pour pas dupliquer une gén
     generations.push_back(generation);
-    //TODO: trier la gén
     // currentGen = (uint)generations.size() - 1;
     cout << "Added a gen" << endl;
+
+    SortGenerations();
 }
 
 void Automata::AddGenerations(vector<Generation> gens)
@@ -98,6 +99,8 @@ void Automata::RemoveGeneration(unsigned int index)
 
             cout << "removed gen " << index << endl;
             cout << "remaning gen " << generations.size() << endl;
+
+            SortGenerations();
         }
         else
         {

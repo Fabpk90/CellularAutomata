@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "filemanager.h"
 
 #include <iostream>
 #include <string>
@@ -6,7 +7,8 @@ using namespace std;
 
 Parser::Parser()
 {
-
+    automata = nullptr;
+    dataToParse = "";
 }
 
 void Parser::SetAutomata(Automata *automata)
@@ -16,7 +18,8 @@ void Parser::SetAutomata(Automata *automata)
 
 void  Parser::ParseFile(const string* path)
 {
-
+    dataToParse = LoadData(path);
+    ParseAndAddType(&dataToParse);
 }
 
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
@@ -170,7 +173,7 @@ string Parser::HistoryToString(uint startGen, uint endGen)
     uint i = startGen;
     automata->ChooseGen(i);
 
-    if(automata->GetCurrentGen().generationID != NULL){
+    if(!automata->GetCurrentGen().cellMatrix.empty()){
         strRepresentation.append(to_string(startGen));
         strRepresentation.append(";");
 

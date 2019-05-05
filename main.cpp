@@ -24,9 +24,6 @@ int main(int argc, char *argv[])
     Parser p;
     p.SetAutomata(&ca);
 
-
-
-
     Generation gen;
     gen.cellMatrix = vector<unsigned int>();
     unsigned int i = 0;
@@ -39,9 +36,6 @@ int main(int argc, char *argv[])
     ca.ChooseGen(0);
     //ca.PreviousGen();
     ca.NextGen();
-
-    //prints an error, correct behavior
-    //ca.RandomizeCurrentGen();
 
     State state;
     state.name = "Yeppa";
@@ -58,7 +52,7 @@ int main(int argc, char *argv[])
     g.generationID = 30;
     ca.AddGeneration(g);
 
-    cout << p.AutomataToString() << endl;
+    //cout << p.AutomataToString() << endl;
     cout << p.HistoryToString(1,3) << endl;
 
     //ca.RandomizeCurrentGen();
