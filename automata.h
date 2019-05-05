@@ -56,6 +56,7 @@ public:
     void SetCell(uint x, uint y, uint newState);
     void SetAllCell(State& newState); //passe toutes les cellules à l'état spécifié, de la génération actuelle
     void RandomizeCurrentGen(); // Rempli aléatoirement la génération actuelle
+    const vector<Generation>& GetGenerations();
     const vector<State>& GetStates();
     const vector<Rule*>& GetRules();
     const vector<pair<int, int>>& GetNeigborhoodPositions();

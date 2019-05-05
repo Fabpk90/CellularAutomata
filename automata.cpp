@@ -220,6 +220,11 @@ void Automata::RandomizeCurrentGen()
 
 }
 
+const vector<Generation> &Automata::GetGenerations()
+{
+    return generations;
+}
+
 const vector<State> &Automata::GetStates()
 {
     return definedStates;

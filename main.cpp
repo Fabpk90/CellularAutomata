@@ -44,16 +44,9 @@ int main(int argc, char *argv[])
     state.name = "Yo";
     ca.AddState(state);
 
-    Generation g;
-    g.generationID = 10;
-    ca.AddGeneration(g);
-    g.generationID = 20;
-    ca.AddGeneration(g);
-    g.generationID = 30;
-    ca.AddGeneration(g);
 
     //cout << p.AutomataToString() << endl;
-    cout << p.HistoryToString(1,3) << endl;
+    cout << p.HistoryToString(0,14) << endl;
 
     //ca.RandomizeCurrentGen();
 

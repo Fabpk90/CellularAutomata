@@ -161,31 +161,40 @@ string  Parser::AutomataToString()
 string  Parser::HistoryToString()
 {
     string strRepresentation = "";
+    if(automata != nullptr){
+
+        strRepresentation.append(to_string(automata->GetGenerations().size()));
+        strRepresentation.append(";");
+
+        for (Generation g : automata->GetGenerations()){
+            strRepresentation.append(to_string(g.generationID));
+            strRepresentation.append(";");
+        }
+
+        return strRepresentation;
+    }
 
     return "";
 }
 
-//TODO : test (surtout me dire si cest la bonne facon de faire) (@alex)
-//probleme sur le changement de gen, j'ai l'impression que ca reste bloqué sur la 1ère
+//Peut être gestion d'erreur à check
 string Parser::HistoryToString(uint startGen, uint endGen)
 {
     string strRepresentation = "";
-    uint i = startGen;
-    automata->ChooseGen(i);
 
-    if(!automata->GetCurrentGen().cellMatrix.empty()){
-        strRepresentation.append(to_string(startGen));
-        strRepresentation.append(";");
+    if (automata != nullptr){
+        for (Generation g : automata->GetGenerations()){
+            if(g.generationID >= startGen && g.generationID <= endGen)
+            {
 
-        strRepresentation.append(to_string(endGen));
-        strRepresentation.append(";");
-
-        for(automata->ChooseGen(i); i <= endGen; i++){
-            strRepresentation.append(to_string(automata->GetCurrentGen().generationID));
-            strRepresentation.append(";");
+                strRepresentation.append(to_string(g.generationID));
+                strRepresentation.append(";");
+            }
         }
+
         return strRepresentation;
     }
+
     return "";
 }
 
