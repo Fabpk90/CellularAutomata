@@ -20,7 +20,7 @@ struct Generation {
     //L'équation pour obtenir la position d'un cellule = row * columns + col
     vector<unsigned int> cellMatrix;
     bool operator < (Generation i) const
-    { return (i.generationID < generationID);}//utilisé pour le sort
+    { return (i.generationID > generationID);}//utilisé pour le sort
 };
 struct State{
     QColor color;
