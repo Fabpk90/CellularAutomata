@@ -10,4 +10,19 @@ Rule::Rule(bool isComputePosition, State* toChangeInto, std::vector<RuleParamete
     automata = nullptr;
 }
 
+State& Rule::GetToChangeInto(){
+
+    return *this->toChangeInto;
+}
+
+std::vector<Rule::RuleParameters> Rule::GetParameters(){
+
+    return this->parameters;
+}
+
+bool Rule::GetIsComputePosition(){
+    return this->isComputePosition;
+
+}
+
 Rule::~Rule(){};
