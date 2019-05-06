@@ -1,5 +1,6 @@
 #include "matrixview.h"
 #include <iostream>
+#include<QVector>
 Automata *Matrixview::getAutomata() const
 {
     return automata;
@@ -8,6 +9,16 @@ Automata *Matrixview::getAutomata() const
 void Matrixview::setAutomata(Automata *value)
 {
     automata = value;
+}
+
+QQmlApplicationEngine *Matrixview::getEngine() const
+{
+    return engine;
+}
+
+void Matrixview::setEngine(QQmlApplicationEngine *value)
+{
+    engine = value;
 }
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
@@ -19,6 +30,7 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
         listOfState.append({QColor("yellow"),"State "+to_string(i)});
 
     }
+
 }
 
 
@@ -29,15 +41,14 @@ QVector<State> Matrixview::cells() const
     return listOfState;
 }
 
-bool Matrixview::setCellAt(int index, const State &cell)
+bool Matrixview::setCellAt(int index, const State& cell)
 {
     if(index < 0 || index >= listOfState.size())
         return false;
     const struct State &oldCell= listOfState.at(index);
     if(cell.color == oldCell.color && cell.name == oldCell.name)
         return false;
-    cout<<"changes"<<endl;
-    listOfState[index] =cell;
+    listOfState[index]= cell;
     return true;
 
 }
@@ -64,13 +75,11 @@ void Matrixview::removeCell(unsigned int index)
 void Matrixview::update()
 {
 
-    listOfState[1]={QColor("blue"), "try"};
-   // for(int i=0;i<98;i++){
-        //this->setCellAt(3,{QColor("orange"),to_string(3)});
-        /*  emit preUpdate();
-        listOfState.append({QColor("green"),to_string(i)});
-        emit postUpdate();*/
-    //}
+   for(int i=0;i<100;i++){
 
+    this->setCellAt(i,{QColor("orange"),to_string(i)});
+
+   }
+   engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
 
 }

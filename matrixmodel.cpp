@@ -35,21 +35,19 @@ QVariant MatrixModel::data(const QModelIndex &index, int role) const
 
 bool MatrixModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    cout<<"present"<<endl;
     if(!listOfState)
         return false;
    struct State cell =this->listOfState->cells().at(index.row());
    switch(role){
    case Color:
-       cell.color=QColor("blue");break;
+      value.value<QColor>();break;
    case StateName:
        cell.name = value.toString().toUtf8().constData();break;
    }
 
    if (listOfState->setCellAt(index.row(),cell)) {
 
-        emit dataChanged(index, index, QVector<int>() << role);
-       cout<<"im in"<<endl;
+       emit dataChanged(index, index, QVector<int>() << role);
        return true;
     }
     return false;
@@ -104,6 +102,7 @@ void MatrixModel::setListOfState(Matrixview *value)
            endRemoveRows();
 
         });
+
 
     }
     endResetModel();

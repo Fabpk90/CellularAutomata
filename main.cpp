@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     interface.setEngine(&engine);
     interface.setMatrixview(&matrix);
+    matrix.setEngine(&engine) ;
     engine.rootContext()->setContextProperty(QStringLiteral("matrixview"), &matrix);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

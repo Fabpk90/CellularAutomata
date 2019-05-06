@@ -27,7 +27,7 @@ private:
     QString m_posAndCount;
     QString m_stateToChangeTo;
     QQmlApplicationEngine* engine;
-    Matrixview* matrixview;
+
     Parser parser;
 
 public:
@@ -35,8 +35,6 @@ public:
 
     //init
     void initialiseParser(); //TODO
-    Matrixview *getMatrixview() const;
-    void setMatrixview(Matrixview *value);
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
 
@@ -79,8 +77,7 @@ public:
     Q_INVOKABLE unsigned int getSizeX();
     /*Retourne la dimension y de l'automate*/
     Q_INVOKABLE unsigned int getSizeY();
-    /*Affiche la matrice en cours*/
-    Q_INVOKABLE void displayMatrix(); //invokable ONLY for tests
+
 
     //computeProbability
     QString computeProbability() const

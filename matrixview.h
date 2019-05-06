@@ -5,11 +5,14 @@
 #include <QObject>
 #include "automata.h"
 #include <QPainter>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 class Matrixview : public QObject
 {
     Q_OBJECT
     Automata *automata;
+    QQmlApplicationEngine* engine;
 public:
     explicit Matrixview(QObject *parent = nullptr );
     void update(Automata* );
@@ -18,6 +21,8 @@ public:
 
     Automata *getAutomata() const;
     void setAutomata(Automata *value);
+    QQmlApplicationEngine *getEngine() const;
+    void setEngine(QQmlApplicationEngine *value);
 
 signals:
     void preCellAppended();
@@ -25,8 +30,7 @@ signals:
 
     void preCellRemoved(unsigned int index);
     void postCellRemoved();
-    void postUpdate();
-    void preUpdate();
+
 
 public slots:
     void appendCell(struct State);

@@ -110,15 +110,7 @@ void OkCreateState(QString state){
 
 }
 
-Matrixview *Interface::getMatrixview() const
-{
-    return matrixview;
-}
 
-void Interface::setMatrixview(Matrixview *value)
-{
-    matrixview = value;
-}
 
 QQmlApplicationEngine *Interface::getEngine() const
 {
@@ -172,18 +164,7 @@ void Interface::callExecution(){
 
 }
 
-void Interface::displayMatrix(){
-QQmlApplicationEngine tmpengine;
-Matrixview tmp;
-    for(int i=0;i<92;i++){
-        matrixview->setCellAt(i,{QColor("red"),"State"+to_string(i)});
 
-
-    }
-
-   // tmpengine.rootContext()->setContextProperty(QStringLiteral("matrixview"),&tmp);
-
-}
 
 unsigned int Interface::getSizeX(){
     return this->parser.GetAutomata()->GetSizeX();
