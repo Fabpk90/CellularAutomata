@@ -199,7 +199,6 @@ string Parser::HistoryToString(uint startGen, uint endGen)
 }
 
 //TODO : Test il manque Type ;EtatDep ;Proba ;EtatCond ;
-// erreur : undefined references vers r.getparmaters et r.gettochangeinto
 string  Parser::RulesToString()
 {
 
@@ -230,12 +229,12 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
             }
 
-                strRepresentation.append(); // Proba
-                strRepresentation.append(";");
+                //strRepresentation.append(); // Proba
+                //strRepresentation.append(";");
         }
 
         return strRepresentation;
-    } */
+    }*/
 
     return "";
 }
