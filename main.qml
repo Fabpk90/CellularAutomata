@@ -83,14 +83,15 @@ ApplicationWindow {
     }*/
     GridView{
         id:mat
-        x: mainwindow.width/2
-        y: mainwindow.height/2
+        x: mainwindow.width/2 -width/2
+        y: mainwindow.height/2 -height/2
         width: 100
         height: 100
         cellHeight:10
         cellWidth: 10
         model:MatrixModel{
-        listOfState:matrixview
+
+            listOfState:matrixview
         }
         delegate: Rectangle{
             id:rec
@@ -179,7 +180,7 @@ ApplicationWindow {
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
-                onClicked:myInterface.displayMatrix()
+                onClicked:matrixview.update()
             }
 
             Button{

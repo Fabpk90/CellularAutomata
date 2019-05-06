@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <iostream>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include "matrixview.h"
 #include "parser.h"
 #include "filemanager.h"
 #include "simulator.h"
@@ -23,7 +26,8 @@ private:
     QString m_computeProbability;
     QString m_posAndCount;
     QString m_stateToChangeTo;
-
+    QQmlApplicationEngine* engine;
+    Matrixview* matrixview;
     Parser parser;
 
 public:
@@ -31,6 +35,10 @@ public:
 
     //init
     void initialiseParser(); //TODO
+    Matrixview *getMatrixview() const;
+    void setMatrixview(Matrixview *value);
+    QQmlApplicationEngine *getEngine() const;
+    void setEngine(QQmlApplicationEngine *value);
 
     //probability
     QString probability() const
@@ -106,6 +114,8 @@ public:
     void CallSetStateName(QString probability);
     void CallSetColor(QString color);
     void OkCreateState(QString state);
+
+
 
 signals:
 

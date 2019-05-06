@@ -110,17 +110,37 @@ void OkCreateState(QString state){
 
 }
 
+Matrixview *Interface::getMatrixview() const
+{
+    return matrixview;
+}
+
+void Interface::setMatrixview(Matrixview *value)
+{
+    matrixview = value;
+}
+
+QQmlApplicationEngine *Interface::getEngine() const
+{
+    return engine;
+}
+
+void Interface::setEngine(QQmlApplicationEngine *value)
+{
+    engine = value;
+}
+
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-
+    
 }
 
 void Interface::initialiseParser()
 {
-
+    
     this->parser= Parser();
-
-
+    
+    
 }
 
 void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
@@ -153,34 +173,16 @@ void Interface::callExecution(){
 }
 
 void Interface::displayMatrix(){
-
- vector<QColor> test;
-test.push_back(QColor("red"));
-test.push_back(QColor("green"));
-/*QFile file ("C:/Users/PC-pierre/Desktop/l3/Projet/CellularAutomata/Matrix.qml");
-if(file.exists()) cout<<"here"<<endl;
-else cout<<"not here"<<endl;*/
-QQmlEngine engine;
-QQmlComponent component (&engine, QUrl::fromLocalFile("C:/Users/PC-pierre/Desktop/l3/Projet/CellularAutomata/MyRepeater.qml"));
-if(component.isReady()){
-   cout<<"entered"<<endl;
-   QObject *object= component.create();
-   //QObject * cell;
-   // object->setProperty("height",2);
+QQmlApplicationEngine tmpengine;
+Matrixview tmp;
+    for(int i=0;i<92;i++){
+        matrixview->setCellAt(i,{QColor("red"),"State"+to_string(i)});
 
 
-         QMetaObject::invokeMethod(object,"repeatColor",QGenericReturnArgument(),QGenericArgument());
-        cout<<"herre"<<endl;
-         //QMetaObject::invokeMethod(cell,"changeColor",QGenericReturnArgument() ,Q_ARG(string,"green"));
+    }
 
-        // rep->setProperty("index",i);
-   //    rep->setProperty("col",test[i].name());
+   // tmpengine.rootContext()->setContextProperty(QStringLiteral("matrixview"),&tmp);
 
-
-    delete object;
-
-}
-else cout <<"not entered"<<endl;
 }
 
 unsigned int Interface::getSizeX(){

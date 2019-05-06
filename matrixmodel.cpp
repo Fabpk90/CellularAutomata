@@ -1,5 +1,6 @@
 #include "matrixmodel.h"
 #include "matrixview.h"
+#include <iostream>
 
 MatrixModel::MatrixModel(QObject *parent)
     : QAbstractListModel(parent),listOfState(nullptr)
@@ -18,6 +19,7 @@ int MatrixModel::rowCount(const QModelIndex &parent) const
 
 QVariant MatrixModel::data(const QModelIndex &index, int role) const
 {
+    cout<<"there"<<endl;
     if (!index.isValid() || !listOfState)
         return QVariant();
 
@@ -33,12 +35,13 @@ QVariant MatrixModel::data(const QModelIndex &index, int role) const
 
 bool MatrixModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    cout<<"present"<<endl;
     if(!listOfState)
         return false;
    struct State cell =this->listOfState->cells().at(index.row());
    switch(role){
    case Color:
-       cell.color=value.toBool();break;
+       cell.color=QColor("blue");break;
    case StateName:
        cell.name = value.toString().toUtf8().constData();break;
    }
@@ -46,7 +49,8 @@ bool MatrixModel::setData(const QModelIndex &index, const QVariant &value, int r
    if (listOfState->setCellAt(index.row(),cell)) {
 
         emit dataChanged(index, index, QVector<int>() << role);
-        return true;
+       cout<<"im in"<<endl;
+       return true;
     }
     return false;
 }

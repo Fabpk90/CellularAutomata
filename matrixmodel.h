@@ -8,7 +8,7 @@ class Matrixview;
 class MatrixModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(Matrixview *listOfState READ getListOfState WRITE setListOfState )
+    Q_PROPERTY(Matrixview *listOfState READ getListOfState WRITE setListOfState)
 public:
     explicit MatrixModel(QObject *parent = nullptr);
     enum{

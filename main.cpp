@@ -19,8 +19,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<MatrixModel>("Interface",1,0,"MatrixModel");
     qmlRegisterUncreatableType <Matrixview> ("Interface",1,0, "Matrixview",QStringLiteral("Avoid creating Matrixview in qml"));
     Matrixview matrix;
-
+    Interface interface;
     QQmlApplicationEngine engine;
+    interface.setEngine(&engine);
+    interface.setMatrixview(&matrix);
     engine.rootContext()->setContextProperty(QStringLiteral("matrixview"), &matrix);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
