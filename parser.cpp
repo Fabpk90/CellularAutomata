@@ -177,7 +177,7 @@ string  Parser::HistoryToString()
     return "";
 }
 
-//Peut être gestion d'erreur à check
+//Peut être gestion d'erreur à check et nombre de gen
 string Parser::HistoryToString(uint startGen, uint endGen)
 {
     string strRepresentation = "";
@@ -198,13 +198,44 @@ string Parser::HistoryToString(uint startGen, uint endGen)
     return "";
 }
 
+//TODO : Test il manque Type ;EtatDep ;Proba ;EtatCond ;
+// erreur : undefined references vers r.getparmaters et r.gettochangeinto
 string  Parser::RulesToString()
 {
 
     string strRepresentation = "";
+    /*if(automata != nullptr){
 
-    strRepresentation.append(to_string(automata->GetRules().size()));
-    strRepresentation.append(";");
+        strRepresentation.append(to_string(automata->GetRules().size()));
+        strRepresentation.append(";");
+        for(Rule *r : automata->GetRules()){
+
+            strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat d'arrivée
+            strRepresentation.append(";");
+
+            strRepresentation.append(to_string(r->GetParameters().size())); //longueur de la condition
+            strRepresentation.append(";");
+
+
+            for (unsigned long i = 1; i < r->GetParameters().size(); i++) {
+
+                strRepresentation.append("(");
+                strRepresentation.append(to_string(r->GetParameters()[i].x));
+                strRepresentation.append(";");
+                strRepresentation.append(to_string(r->GetParameters()[i].y));
+                strRepresentation.append(";");
+                strRepresentation.append(r->GetParameters()[i].toCheckAgainst->name);
+                strRepresentation.append(";");
+                strRepresentation.append(")");
+                strRepresentation.append(";");
+            }
+
+                strRepresentation.append(); // Proba
+                strRepresentation.append(";");
+        }
+
+        return strRepresentation;
+    } */
 
     return "";
 }

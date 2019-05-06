@@ -2,6 +2,8 @@
 #include "automata.h"
 #include "rule.h"
 #include "ruledeterministic.h"
+#include "rulestochastic.h"
+
 class Parser
 {
 public:
