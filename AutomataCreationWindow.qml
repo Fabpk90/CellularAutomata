@@ -191,9 +191,24 @@ ApplicationWindow{
         id: addRule
         text: qsTr("Add Rule")
         onClicked: {
-            var Component = Qt.createComponent("RuleCreationWindow.qml")
-            var window = Component.createObject(mainwindow)
-            window.show()
+            //TODO test all required checks
+            if(twoDim.checked){
+                if(vonNeumann.checked){
+                    var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")
+                    var vonNeumannWindow = vonNeumannCreationWindow.createObject(mainwindow)
+                    vonNeumannWindow.show()
+                }
+                if(moore.checked){
+                    var mooreCreationWindow = Qt.createComponent("MooreRuleCreationWindow.qml")
+                    var mooreWindow = mooreCreationWindow.createObject(mainwindow)
+                    mooreWindow.show()
+                }
+            }
+            if(oneDim.checked){
+                var oneDimensionCreationWindow = Qt.createComponent("OneDimensionRuleCreationWindow.qml")
+                var oneDimensionWindow = oneDimensionCreationWindow.createObject(mainwindow)
+                oneDimensionWindow.show()
+            }
         }
     }
 
