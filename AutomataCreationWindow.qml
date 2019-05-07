@@ -95,34 +95,49 @@ ApplicationWindow{
     }
 
 
-    Column {
-        id: stateColumn
-        anchors.rightMargin: 95
+    ListView{ //Use model to fill list and delegate
+        id: stateList
+        width: 100; height: 200
+        anchors.rightMargin: 60
         anchors.top: maxGenerationsToSimulate.bottom
         anchors.right: parent.horizontalCenter
         Text {
             id: stateText
-            text: qsTr("State")
+            text: qsTr("StateColumn")
             horizontalAlignment: Text.AlignHCenter
         }
+
+        //model: StateListModel {}
+
+        delegate: Button{
+            text: "State"
+        }
     }
-    Column {
-        id: ruleColumn
+    ListView{ //Use model to fill list and delegate
+        id: ruleList
+        width: 100; height: 200
         anchors.top: maxGenerationsToSimulate.bottom
         anchors.leftMargin: 150
-        anchors.left: stateColumn.right
+        anchors.left: stateList.right
+        spacing: 5
         Text {
             id: ruleText
-            text: qsTr("Rule")
+            text: qsTr("Rule Column")
             anchors.left: parent.left
             anchors.leftMargin: 0
             horizontalAlignment: Text.AlignHCenter
         }
+
+        //model: RuleListModel {}
+
+        delegate: Button{
+            text: "Rule"
+        }
     }
 
     Button {
-        anchors.top: stateColumn.bottom
-        anchors.left: stateColumn.left
+        anchors.top: stateList.bottom
+        anchors.left: stateList.left
         id: addState
         text: qsTr("Add State")
         onClicked: {
@@ -132,8 +147,8 @@ ApplicationWindow{
         }
     }
     Button {
-        anchors.top: ruleColumn.bottom
-        anchors.left: ruleColumn.left
+        anchors.top: ruleList.bottom
+        anchors.left: ruleList.left
         id: addRule
         text: qsTr("Add Rule")
         onClicked: {
