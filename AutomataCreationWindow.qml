@@ -76,13 +76,52 @@ ApplicationWindow{
     }
 
     SpinBox{
-        id: maxGenerationsToSimulate
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: neigh.bottom
+        id: sizeX
+        anchors.right: parent.horizontalCenter
+        anchors.top: sizeXText.bottom
         from: 1
         value: 1
         to: 1000
         stepSize: 1
+        editable: true
+        onValueChanged: myInterface.sizeX = value
+    }
+    Text {
+        anchors.topMargin: 10
+        id: sizeXText
+        text: qsTr("Matrix Size X:")
+        anchors.horizontalCenter: sizeX.horizontalCenter
+        anchors.top: neigh.bottom
+    }
+
+    SpinBox{
+        id: sizeY
+        anchors.top: sizeYText.bottom
+        anchors.left: sizeX.right
+        from: 1
+        value: 1
+        to: 1000
+        stepSize: 1
+        editable: true
+        onValueChanged: myInterface.sizeY = value
+    }
+    Text {
+        anchors.topMargin: 10
+        id: sizeYText
+        text: qsTr("Matrix Size Y:")
+        anchors.horizontalCenter: sizeY.horizontalCenter
+        anchors.top: neigh.bottom
+    }
+
+    SpinBox{
+        id: maxGenerationsToSimulate
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: sizeX.bottom
+        from: 1
+        value: 1
+        to: 1000
+        stepSize: 1
+        editable: true
         onValueChanged: {myInterface.maxGenerationsToSimulate = value
             myInterface.printMaxGenerationsToSimulate()
         }
@@ -97,7 +136,7 @@ ApplicationWindow{
 
     ListView{ //Use model to fill list and delegate
         id: stateList
-        width: 100; height: 200
+        width: 100; height: 100
         anchors.rightMargin: 60
         anchors.top: maxGenerationsToSimulate.bottom
         anchors.right: parent.horizontalCenter
@@ -115,7 +154,7 @@ ApplicationWindow{
     }
     ListView{ //Use model to fill list and delegate
         id: ruleList
-        width: 100; height: 200
+        width: 100; height: 100
         anchors.top: maxGenerationsToSimulate.bottom
         anchors.leftMargin: 150
         anchors.left: stateList.right

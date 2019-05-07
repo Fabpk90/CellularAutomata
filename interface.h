@@ -16,6 +16,8 @@ class Interface : public QObject
     Q_PROPERTY(QString dimension READ dimension WRITE dimension NOTIFY dimensionChanged)
     Q_PROPERTY(QString neighborhood READ neighborhood WRITE neighborhood NOTIFY neighborhoodChanged)
     Q_PROPERTY(QString maxGenerationsToSimulate READ maxGenerationsToSimulate WRITE maxGenerationsToSimulate NOTIFY maxGenerationsToSimulateChanged)
+    Q_PROPERTY(QString sizeX READ sizeX WRITE sizeX NOTIFY sizeXChanged)
+    Q_PROPERTY(QString sizeY READ sizeY WRITE sizeY NOTIFY sizeYChanged)
 
 private:
     QString m_probability;
@@ -26,6 +28,8 @@ private:
     QString m_dimension;
     QString m_neighborhood;
     QString m_maxGenerationsToSimulate;
+    QString m_sizeX;
+    QString m_sizeY;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -61,6 +65,16 @@ public:
         return m_maxGenerationsToSimulate;
     }
     Q_INVOKABLE void printMaxGenerationsToSimulate(); //for test
+
+    QString sizeX() const
+    {
+        return m_sizeX;
+    }
+
+    QString sizeY() const
+    {
+        return m_sizeY;
+    }
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
@@ -131,6 +145,10 @@ signals:
 
     void maxGenerationsToSimulateChanged(QString maxGenerationsToSimulate);
 
+    void sizeXChanged(QString sizeX);
+
+    void sizeYChanged(QString sizeY);
+
 public slots:
 void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
@@ -140,6 +158,8 @@ void setDimension(QString dimension);
 void setType(QString type);
 void setNeighborhood(QString neighborhood);
 void setMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
+void setSizeX(QString sizeX);
+void setSizeY(QString sizeY);
 
 };
 

@@ -149,6 +149,24 @@ void Interface::setMaxGenerationsToSimulate(QString maxGenerationsToSimulate)
     emit maxGenerationsToSimulateChanged(m_maxGenerationsToSimulate);
 }
 
+void Interface::setSizeX(QString sizeX)
+{
+    if (m_sizeX == sizeX)
+        return;
+
+    m_sizeX = sizeX;
+    emit sizeXChanged(m_sizeX);
+}
+
+void Interface::setSizeY(QString sizeY)
+{
+    if (m_sizeY == sizeY)
+        return;
+
+    m_sizeY = sizeY;
+    emit sizeYChanged(m_sizeY);
+}
+
 Interface::Interface(QObject *parent) : QObject(parent)
 {
 
