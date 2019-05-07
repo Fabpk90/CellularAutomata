@@ -107,10 +107,18 @@ ApplicationWindow {
             Text {
                 visible: false
                 id: t
-                text: qsTr("text")
+                text: qsTr("text"+index)
             }
             border.color:"black"
+
+            ToolTip{
+                id:tooltip
+                text:t.text
+                visible: mousearea.pressed
+
+            }
             MouseArea{
+                id: mousearea
                 anchors.fill:parent
                 onClicked: print(t.text+""+index)
 
