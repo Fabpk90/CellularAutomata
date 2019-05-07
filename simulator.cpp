@@ -18,3 +18,9 @@ bool ComputeCount(int amount, State* &toCheckAgainst, int posX, int posY){
 
     return true;
 };
+
+void Simulate(Automata& automata){
+
+automata.Simulate();
+
+}

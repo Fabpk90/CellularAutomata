@@ -3,8 +3,12 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+
 #include "interface.h"
 #include "parser.h"
+#include "matrixmodel.h"
+#include "matrixview.h"
 
 int main(int argc, char *argv[])
 {
@@ -12,9 +16,16 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("Some Company"); app.setOrganizationDomain("somecompany.com"); app.setApplicationName("Amazing Application");
     qmlRegisterType<Interface>("Interface",1,0,"Interface");
-
+    qmlRegisterType<MatrixModel>("Interface",1,0,"MatrixModel");
+    qmlRegisterUncreatableType <Matrixview> ("Interface",1,0, "Matrixview",QStringLiteral("Avoid creating Matrixview in qml"));
+    Matrixview matrix;
+    Interface interface;
     QQmlApplicationEngine engine;
+    interface.setEngine(&engine);
+    matrix.setEngine(&engine) ;
+    engine.rootContext()->setContextProperty(QStringLiteral("matrixview"), &matrix);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;

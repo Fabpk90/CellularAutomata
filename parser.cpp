@@ -22,6 +22,10 @@ void  Parser::ParseFile(const string* path)
     ParseAndAddType(&dataToParse);
 }
 
+Automata * Parser::GetAutomata(){
+    return automata;
+}
+
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
     return "";

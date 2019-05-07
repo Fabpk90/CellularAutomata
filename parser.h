@@ -24,6 +24,7 @@ public:
     string  HistoryToString(uint startGen, uint endGen);
     string  HistoryToString();
 
+    Automata *  GetAutomata();
 private:
     Automata* automata;
     string  dataToParse;

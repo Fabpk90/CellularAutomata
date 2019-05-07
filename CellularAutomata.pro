@@ -15,6 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         filemanager.cpp \
         automata.cpp \
+        matrixmodel.cpp \
+        matrixview.cpp \
         parser.cpp \
         main.cpp \
         rule.cpp \
@@ -41,6 +43,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     filemanager.h \
     automata.h \
+    matrixmodel.h \
+    matrixview.h \
     parser.h \
     rule.h \
     ruledeterministic.h \
