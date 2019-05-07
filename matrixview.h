@@ -11,8 +11,7 @@
 class Matrixview : public QObject
 {
     Q_OBJECT
-    Automata *automata;
-    QQmlApplicationEngine* engine;
+ //   Q_PROPERTY(double size READ getSize CONSTANT)
 public:
     explicit Matrixview(QObject *parent = nullptr );
     void update(Automata* );
@@ -23,7 +22,8 @@ public:
     void setAutomata(Automata *value);
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
-
+    //double getSize();
+    Q_INVOKABLE int returnSize();
 signals:
     void preCellAppended();
     void postCellAppended();
@@ -36,8 +36,13 @@ public slots:
     void appendCell(struct State);
     void removeCell(unsigned int index);
     void update();
+    void forward();
+    void backward();
  private:
+    Automata *automata;
+    QQmlApplicationEngine* engine;
     QVector<struct State> listOfState;
+   // double size;
 };
 
 #endif // MATRIXVIEW_H

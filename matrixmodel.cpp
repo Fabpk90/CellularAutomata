@@ -19,7 +19,7 @@ int MatrixModel::rowCount(const QModelIndex &parent) const
 
 QVariant MatrixModel::data(const QModelIndex &index, int role) const
 {
-    cout<<"there"<<endl;
+
     if (!index.isValid() || !listOfState)
         return QVariant();
 

@@ -1,6 +1,7 @@
 #include "matrixview.h"
 #include <iostream>
 #include<QVector>
+#include <math.h>
 Automata *Matrixview::getAutomata() const
 {
     return automata;
@@ -20,17 +21,28 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;
 }
+/*
+double Matrixview::getSize()
+{
+    return size;
+}
+*/
+int Matrixview::returnSize()
+{
+    cout<<listOfState.size()<<endl;
+    return (int)sqrt(listOfState.size());
+}
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
 
     listOfState.append({QColor("green"), "State"});
     listOfState.append({QColor("blue"), "State"});
-    for(int i=0;i<98;i++){
+    for(int i=0;i<9998;i++){
         listOfState.append({QColor("yellow"),"State "+to_string(i)});
 
     }
-
+    //size=sqrt(listOfState.size());
 }
 
 
@@ -72,7 +84,7 @@ void Matrixview::removeCell(unsigned int index)
 
 }
 
-void Matrixview::update()
+void Matrixview::update()//temporaire en attendant l'implémentation
 {
 
    for(int i=0;i<100;i++){
@@ -82,4 +94,35 @@ void Matrixview::update()
    }
    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
 
+}
+
+void Matrixview::forward()
+{
+    automata->NextGen();
+
+    for(int i=0; i<automata->GetSizeX();i++){
+
+        for (int j=0; j<automata->GetSizeY(); j++) {
+            this->setCellAt(i*10+j,automata->GetCellState(i,j));
+
+        }
+
+    }
+
+    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+
+}
+
+void Matrixview::backward()
+{
+    automata->PreviousGen();
+    for(int i=0; i<automata->GetSizeX();i++){
+
+        for (int j=0; j<automata->GetSizeY(); j++) {
+            this->setCellAt(i*10+j,automata->GetCellState(i,j));
+
+        }
+
+    }
+    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
 }

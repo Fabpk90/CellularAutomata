@@ -3,6 +3,7 @@
 #include <QQmlEngine>
 #include <vector>
 #include <QFile>
+#include <string>
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
@@ -89,7 +90,7 @@ void Interface::setStateToChangeTo(QString stateToChangeTo)
     emit stateToChangeToChanged(m_stateToChangeTo);
 }
 
-void CallSetStateName(QString probability){
+void Interface::CallSetStateName(QString probability){
 
 
 
@@ -97,15 +98,17 @@ void CallSetStateName(QString probability){
 
 }
 
-void CallSetColor(QString color){
+void Interface::CallSetColor(QString color){
 
 
 
 }
 
-void OkCreateState(QString state){
+void Interface::OkCreateState(QString state){
 
 
+ //  this->parser.GetAutomata()->AddState({QColor("blue"),test}); //Attention il faut  passer par le parseur et faire attention à ne pas rajouter en
+     //utilisant les références parce que l'état n'existe pas en dehors de l'automate
 
 
 }

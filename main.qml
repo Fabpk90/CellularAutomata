@@ -81,22 +81,28 @@ ApplicationWindow {
        }
 
     }*/
-    GridView{
+
+   GridView{
         id:mat
-        x: mainwindow.width/2 -width/2
-        y: mainwindow.height/2 -height/2
-        width: 100
-        height: 100
+        x: mainwindow.width/4
+        flickableDirection: Flickable.HorizontalAndVerticalFlick
+        contentHeight:mainwindow.height
+        contentWidth: mainwindow.width
+        ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
+        ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
+        highlightFollowsCurrentItem: false
+        width: mod.listOfState.returnSize()*10
+        height: width
         cellHeight:10
         cellWidth: 10
         model:MatrixModel{
-
+            id: mod
             listOfState:matrixview
         }
         delegate: Rectangle{
             id:rec
-            width: 10
-            height:10
+            width: mat.cellHeight
+            height:mat.cellWidth
             color:model.color
             Text {
                 visible: false
@@ -114,6 +120,55 @@ ApplicationWindow {
 
     }
 
+
+  /*  Flickable{
+        id: flick
+
+        anchors.fill:parent
+        contentHeight: grid.height+50
+        contentWidth: grid.width+50
+        ScrollBar.horizontal: ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn  }
+        ScrollBar.vertical: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn }
+        GridLayout{
+            x:mainwindow.width/4
+            id:grid
+            rows: 50
+            columns:50
+            rowSpacing: 0
+            columnSpacing: 0
+
+            Repeater{
+                id:repeat
+                model:MatrixModel{
+
+                    listOfState:matrixview
+                }
+                delegate: Rectangle{
+                    id:rec
+                    width: 10
+                    height:10
+                    color:model.color
+                    Text {
+                        visible: false
+                        id: t
+                        text: qsTr("text")
+                    }
+                    border.color:"black"
+                    MouseArea{
+                        anchors.fill:parent
+                        onClicked: print(t.text+""+index)
+
+                    }
+
+                }
+
+
+            }
+
+
+        }
+    }
+*/
 
        footer: Rectangle{
         id: footer
