@@ -5,9 +5,13 @@ Automata automataGlob; // TEMPORAIRE POUR EVITER ERRRORS
 void Simulate(Automata& automata)
 {
     automataGlob = automata;
+
+    Generation newest;
+    newest.generationID = automata.GetCurrentGen().generationID + 1;
+    automata.AddGeneration(newest);
     for(unsigned int i = 0; i < automata.GetSizeX(); i++)
     {
-        for(unsigned int j = 0; j< automata.GetSizeY(); j++)
+        for(unsigned int j = 0; j < automata.GetSizeY(); j++)
         {
             for(unsigned int k = 0; k < automata.GetRules().size(); k++)
                 automata.GetRules()[k]->Apply(i,j);

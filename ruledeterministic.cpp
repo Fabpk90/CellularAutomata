@@ -20,15 +20,35 @@ void RuleDeterministic::Apply(int x, int y){
             testState.push_back(this->parameters[i].toCheckAgainst);
         }
         if (ComputePosition(positions, testState, x, y)){ // si la règle est effectivement vraie on applique
+                automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
+                automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
+        }
+        else {
+            State currentState;
+            currentState = automata->GetCellState(x,y);
+            automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+            automata->SetCell(x,y, currentState); // changement de l'état de la cellule
+            automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
         }
     }
     else {
         if (ComputeCount(this->parameters[1].x, this->parameters[1].toCheckAgainst,x,y)){ // si la règle est effectivement vraie on applique
+            automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
             automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
+            automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
             //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
             }
+        else {
+            State currentState;
+            currentState = automata->GetCellState(x,y);
+            automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+            automata->SetCell(x,y, currentState); // changement de l'état de la cellule
+            automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+        }
     }
+
+
 }
 
