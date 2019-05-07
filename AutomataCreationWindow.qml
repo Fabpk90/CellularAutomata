@@ -81,7 +81,7 @@ ApplicationWindow{
         anchors.top: sizeXText.bottom
         from: 1
         value: 1
-        to: 1000
+        to: 100
         stepSize: 1
         editable: true
         onValueChanged: myInterface.sizeX = value
@@ -100,7 +100,7 @@ ApplicationWindow{
         anchors.left: sizeX.right
         from: 1
         value: 1
-        to: 1000
+        to: 100
         stepSize: 1
         editable: true
         onValueChanged: myInterface.sizeY = value
@@ -134,7 +134,7 @@ ApplicationWindow{
     }
 
 
-    ListView{ //Use model to fill list and delegate
+    ListView{ //TODO: Use model to fill list and delegate
         id: stateList
         width: 100; height: 100
         anchors.rightMargin: 60
@@ -142,17 +142,27 @@ ApplicationWindow{
         anchors.right: parent.horizontalCenter
         Text {
             id: stateText
-            text: qsTr("StateColumn")
+            text: qsTr("State Column")
             horizontalAlignment: Text.AlignHCenter
         }
 
         //model: StateListModel {}
 
-        delegate: Button{
-            text: "State"
+        delegate: RowLayout{
+            width: stateList.width
+            Button{
+                text: "State"
+                onClicked: {//TODO: Modifier l'état
+                }
+            }
+            Button{
+                text: "X"
+                onClicked: {//TODO: Supprimer l'état
+                }
+            }
         }
     }
-    ListView{ //Use model to fill list and delegate
+    ListView{ //TODO: Use model to fill list and delegate
         id: ruleList
         width: 100; height: 100
         anchors.top: maxGenerationsToSimulate.bottom
@@ -169,9 +179,20 @@ ApplicationWindow{
 
         //model: RuleListModel {}
 
-        delegate: Button{
-            text: "Rule"
+        delegate: RowLayout{
+            width: ruleList.width
+            Button{
+                text: "Rule"
+                onClicked: {//TODO: Modifier la règle
+                }
+            }
+            Button{
+                text: "X"
+                onClicked: {//TODO: Supprimer la règle
+                }
+            }
         }
+
     }
 
     Button {
