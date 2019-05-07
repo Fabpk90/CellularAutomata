@@ -18,12 +18,13 @@ class Rule{
         std::vector<RuleParameters> parameters;
         bool isComputePosition;
         int currentCellX, currentCellY;
-        virtual void Apply(int x, int y) = 0;
+
 
     public:
         Rule(bool isComputePosition, State* toChangeInto, std::vector<RuleParameters> params);
         State& GetToChangeInto();
         std::vector<RuleParameters> GetParameters();
         bool GetIsComputePosition();
+        virtual void Apply(int x, int y) = 0;
         virtual ~Rule() = 0;
 };

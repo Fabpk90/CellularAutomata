@@ -1,20 +1,41 @@
 #include "simulator.h"
-Automata automata; // TEMPORAIRE POUR EVITER ERRRORS
-bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<State*> testState , int  targetX , int  targetY){
-    bool ruleTrue = true; // utilisé pour tester si tous les params sont vrais
-    for(int i=0; i<positions.size(); i++)
+
+Automata automataGlob; // TEMPORAIRE POUR EVITER ERRRORS
+
+void Simulate(Automata& automata)
+{
+    automataGlob = automata;
+    for(unsigned int i = 0; i < automata.GetSizeX(); i++)
     {
-        if (automata.GetCellState(targetX+positions[i].first,targetY+positions[i].second).name == testState[i]->name ){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
-            ruleTrue= ruleTrue && true;
-        }
-        else {
-            ruleTrue=false;
+        for(unsigned int j = 0; j< automata.GetSizeY(); j++)
+        {
+            for(unsigned int k = 0; k < automata.GetRules().size(); k++)
+                automata.GetRules()[k]->Apply(i,j);
         }
     }
-    return ruleTrue;
+}
+
+bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<State*> testState , int  targetX , int  targetY){
+    for(int i=0; i<positions.size(); i++)
+    {
+        if (automataGlob.GetCellState(targetX+positions[i].first,targetY+positions[i].second).color != testState[i]->color){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
+            return false;
+        }
+    }
+    return true;
 }
 
 bool ComputeCount(int amount, State* &toCheckAgainst, int posX, int posY){
 
-    return true;
-};
+    int X = 0, Y = 0;
+    int count = 0;
+    for (int i = 0; i < automataGlob.GetNeigborhoodPositions().size(); i++) {
+       X = automataGlob.GetNeigborhoodPositions()[i].first + posX;
+       Y = automataGlob.GetNeigborhoodPositions()[i].second + posY;
+
+       count += (automataGlob.GetCellState(X,Y).color
+                 == toCheckAgainst->color);
+    }
+
+    return (amount <= count);
+}
