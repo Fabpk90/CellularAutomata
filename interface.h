@@ -12,12 +12,12 @@ class Interface : public QObject
     Q_PROPERTY(QString computeProbability READ computeProbability WRITE setComputeProbability NOTIFY computeProbabilityChanged) //TODO input has to be int
     Q_PROPERTY(QString posAndCount READ posAndCount WRITE setPosAndCount NOTIFY posAndCountChanged)
     Q_PROPERTY(QString stateToChangeTo READ stateToChangeTo WRITE setStateToChangeTo NOTIFY stateToChangeToChanged)
-    Q_PROPERTY(QString type READ type WRITE type NOTIFY typeChanged)
-    Q_PROPERTY(QString dimension READ dimension WRITE dimension NOTIFY dimensionChanged)
-    Q_PROPERTY(QString neighborhood READ neighborhood WRITE neighborhood NOTIFY neighborhoodChanged)
-    Q_PROPERTY(QString maxGenerationsToSimulate READ maxGenerationsToSimulate WRITE maxGenerationsToSimulate NOTIFY maxGenerationsToSimulateChanged)
-    Q_PROPERTY(QString sizeX READ sizeX WRITE sizeX NOTIFY sizeXChanged)
-    Q_PROPERTY(QString sizeY READ sizeY WRITE sizeY NOTIFY sizeYChanged)
+    Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QString dimension READ dimension WRITE setDimension NOTIFY dimensionChanged)
+    Q_PROPERTY(QString neighborhood READ neighborhood WRITE setNeighborhood NOTIFY neighborhoodChanged)
+    Q_PROPERTY(QString maxGenerationsToSimulate READ maxGenerationsToSimulate WRITE setMaxGenerationsToSimulate NOTIFY maxGenerationsToSimulateChanged)
+    Q_PROPERTY(QString sizeX READ sizeX WRITE setSizeX NOTIFY sizeXChanged)
+    Q_PROPERTY(QString sizeY READ sizeY WRITE setSizeY NOTIFY sizeYChanged)
 
 private:
     QString m_probability;
