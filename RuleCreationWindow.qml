@@ -11,7 +11,9 @@ ApplicationWindow{
     width: screen.width / 3
     height: screen.height / 2
     modality: Qt.ApplicationModal //permet de garder le focus
-    Frame{ 
+
+    Frame{
+
         id: neighborhoodFrame
         anchors.verticalCenterOffset:-(height + newStateFrame.height + 50)
         anchors.centerIn: parent
