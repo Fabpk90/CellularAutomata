@@ -1,8 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>RuleCreationWindow.qml</file>
         <file>AutomataCreationWindow.qml</file>
         <file>StateCreationWindow.qml</file>
+        <file>StateListWindow.qml</file>
+        <file>VonNeumannRuleCreationWindow.qml</file>
+        <file>MooreRuleCreationWindow.qml</file>
+        <file>OneDimensionRuleCreationWindow.qml</file>
     </qresource>
 </RCC>

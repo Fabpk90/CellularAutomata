@@ -21,7 +21,7 @@ ApplicationWindow {
         width: 83
         height: 29
         text: qsTr("Ok")
-        //onClicked:
+        //onClicked:myInterface.call
     }
 
     Button {

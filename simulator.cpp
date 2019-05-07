@@ -31,6 +31,7 @@ bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<S
 
 bool ComputeCount(int amount, State* &toCheckAgainst, int posX, int posY){
 
+
     int X = 0, Y = 0;
     int count = 0;
     for (int i = 0; i < automataGlob.GetNeigborhoodPositions().size(); i++) {
