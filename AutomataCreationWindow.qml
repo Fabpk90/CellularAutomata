@@ -98,8 +98,9 @@ ApplicationWindow{
 
     Column {
         id: stateColumn
-        anchors.rightMargin: 0
+        anchors.rightMargin: 95
         anchors.top: maxGenerationsToSimulate.bottom
+        anchors.right: parent.horizontalCenter
         Text {
             id: stateText
             text: qsTr("State")
