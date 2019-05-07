@@ -87,7 +87,6 @@ ApplicationWindow{
             myInterface.printMaxGenerationsToSimulate()
         }
     }
-
     Text {
         id: maxGenerationsToSimulateText
         text: qsTr("Max Generations To Simulate: ")
@@ -121,19 +120,6 @@ ApplicationWindow{
         }
     }
 
-
-    Button{
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        text: qsTr("OK")
-        onClicked: automataCreationWindow.close()
-    }
-    Button{
-        anchors.bottom: parent.bottom
-        text: qsTr("Cancel")
-        onClicked: automataCreationWindow.close()
-    }
-
     Button {
         anchors.top: stateColumn.bottom
         anchors.left: stateColumn.left
@@ -145,7 +131,6 @@ ApplicationWindow{
             window.show()
         }
     }
-
     Button {
         anchors.top: ruleColumn.bottom
         anchors.left: ruleColumn.left
@@ -158,4 +143,15 @@ ApplicationWindow{
         }
     }
 
+    Button{
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        text: qsTr("OK")
+        onClicked: automataCreationWindow.close()
+    }
+    Button{
+        anchors.bottom: parent.bottom
+        text: qsTr("Cancel")
+        onClicked: automataCreationWindow.close()
+    }
 }
