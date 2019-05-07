@@ -19,6 +19,36 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
       rules(rules), definedStates(definedStates), generations(trace)
 {}
 
+uint Automata::GetSizeX()
+{
+    return sizeX;
+}
+
+uint Automata::GetSizeY()
+{
+    return sizeY;
+}
+
+bool Automata::GetIsStocha()
+{
+    return isStocha;
+}
+
+bool Automata::GetIsVonNeighborhood()
+{
+    return isVonNeighborhood;
+}
+
+void Automata::SetSizeX(uint sizeX)
+{
+    this->sizeX = sizeX;
+}
+
+void Automata::SetSizeY(uint sizeY)
+{
+    this->sizeY = sizeY;
+}
+
 void Automata::Simulate()
 {
 
@@ -30,9 +60,10 @@ void Automata::AddGeneration(Generation &generation)
     //TODO: ajouter la recherche de la génération
     //pour pas dupliquer une gén
     generations.push_back(generation);
-    //TODO: trier la gén
     // currentGen = (uint)generations.size() - 1;
     cout << "Added a gen" << endl;
+
+    SortGenerations();
 }
 
 void Automata::AddGenerations(vector<Generation> gens)
@@ -45,6 +76,12 @@ void Automata::AddState(State &state)
 {
     cout << "Adding state " << state.name << endl;
     definedStates.push_back(state);
+}
+
+void Automata::AddRule(Rule &rule)
+{
+    cout << "Adding Rule" << endl;
+    rules.push_back(&rule);
 }
 
 void Automata::RemoveGeneration(unsigned int index)
@@ -62,6 +99,8 @@ void Automata::RemoveGeneration(unsigned int index)
 
             cout << "removed gen " << index << endl;
             cout << "remaning gen " << generations.size() << endl;
+
+            SortGenerations();
         }
         else
         {
@@ -86,8 +125,23 @@ void Automata::RemoveState(State &toRemove)
 
 void Automata::RemoveRule(Rule &toRemove)
 {
-    // Classe regle non implémenté je laisse en commentaire pour l'instant (@Alex)
-    //(@Fab) c'était du caca mon truc, il faut jeter tout l'historique aussi et remove la règle
+    //TO TEST !
+    vector<Rule*>::iterator it = rules.begin();
+    bool found = false;
+
+    while (it != rules.end())
+    {
+        if((*it) == &toRemove)
+        {
+            found = true;
+            delete (*it);
+        }
+    }
+
+    if(found)
+    {
+        generations.clear();
+    }
 }
 
 void Automata::SortGenerations()
@@ -164,6 +218,11 @@ void Automata::RandomizeCurrentGen()
         cout << "ERROR: unable to randomize the current gen, because 0 states are defined " << endl;
     }
 
+}
+
+const vector<Generation> &Automata::GetGenerations()
+{
+    return generations;
 }
 
 const vector<State> &Automata::GetStates()
@@ -271,7 +330,6 @@ State &Automata::GetCellState(unsigned int x, unsigned int y)
     //TODO: check si la formule est correcte (@Fab)
     return definedStates[generations[currentGen].cellMatrix[x * y + y]];
 }
-
 
 // TESTED
 void Automata::FillNeighborhoodVonNeumann()

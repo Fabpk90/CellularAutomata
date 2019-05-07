@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "interface.h"
+#include "parser.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +18,11 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
-    Automata ca;
+    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
+                           , vector<State>(), vector<Generation>());
+
+    Parser p;
+    p.SetAutomata(&ca);
 
     Generation gen;
     gen.cellMatrix = vector<unsigned int>();
@@ -32,17 +37,17 @@ int main(int argc, char *argv[])
     //ca.PreviousGen();
     ca.NextGen();
 
-    //prints an error, correct behavior
-    //ca.RandomizeCurrentGen();
+    State state;
+    state.name = "Yeppa";
+    state.color = QColor(50, 20, 10);
+    ca.AddState(state);
+    state.name = "Yo";
+    ca.AddState(state);
 
-    //Automata::State state;
-    //ca.AddState(state);
-    //ca.AddState(state);
+
+    //cout << p.AutomataToString() << endl;
+    cout << p.HistoryToString(0,14) << endl;
 
     //ca.RandomizeCurrentGen();
     return app.exec();
-
-
-
-
 }

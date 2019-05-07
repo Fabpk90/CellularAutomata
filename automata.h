@@ -20,7 +20,7 @@ struct Generation {
     //L'équation pour obtenir la position d'un cellule = row * columns + col
     vector<unsigned int> cellMatrix;
     bool operator < (Generation i) const
-    { return (i.generationID < generationID);}//utilisé pour le sort
+    { return (i.generationID > generationID);}//utilisé pour le sort
 };
 struct State{
     QColor color;
@@ -34,10 +34,20 @@ public:
     //Constructeur pour créer un automate avec un historique, le booléen isNeighborhood va déterminer la fonction de remplissage du vecteur de voisinage.
     Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX,unsigned int sizeY, vector<Rule*> rules, vector<State> definedStates,  vector<Generation> trace);
 
+    uint GetSizeX();
+    uint GetSizeY();
+    bool GetIsStocha();
+    bool GetIsVonNeighborhood();
+
+    void SetSizeX(uint sizeX);
+    void SetSizeY(uint sizeY);
+
+
     void Simulate();// Fonction permettant de simuler notre automate. Simule MAX_ITERATION
     void AddGeneration(Generation& generation); // Ajoute une nouvelle génération au vecteur générations.Si la génération existe déjà, elle sera écrasée par celle passée en paramètre.
     void AddGenerations(vector<Generation> gens);
     void AddState(State& state);
+    void AddRule(Rule& rule);
     void RemoveGeneration(unsigned int index);
     void RemoveState(State& toRemove);
     void RemoveRule(Rule& toRemove);
@@ -46,6 +56,7 @@ public:
     void SetCell(uint x, uint y, uint newState);
     void SetAllCell(State& newState); //passe toutes les cellules à l'état spécifié, de la génération actuelle
     void RandomizeCurrentGen(); // Rempli aléatoirement la génération actuelle
+    const vector<Generation>& GetGenerations();
     const vector<State>& GetStates();
     const vector<Rule*>& GetRules();
     const vector<pair<int, int>>& GetNeigborhoodPositions();
