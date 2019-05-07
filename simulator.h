@@ -4,3 +4,5 @@ bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<S
 
 bool ComputeCount(int amount, State* &toCheckAgainst, int posX, int posY);
 
+void Simulate(Automata& automata);
+

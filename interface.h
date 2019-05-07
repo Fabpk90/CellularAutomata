@@ -3,7 +3,12 @@
 
 #include <QObject>
 #include <iostream>
-
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include "matrixview.h"
+#include "parser.h"
+#include "filemanager.h"
+#include "simulator.h"
 //TODO ALL THE INPUT TESTS
 class Interface : public QObject
 {
@@ -30,12 +35,17 @@ private:
     QString m_maxGenerationsToSimulate;
     QString m_sizeX;
     QString m_sizeY;
+    QQmlApplicationEngine* engine;
+
+    Parser parser;
 
 public:
     explicit Interface(QObject *parent = nullptr);
 
     //init
     void initialiseParser(); //TODO
+    QQmlApplicationEngine *getEngine() const;
+    void setEngine(QQmlApplicationEngine *value);
 
     //probability
     QString probability() const
@@ -75,6 +85,9 @@ public:
     {
         return m_sizeY;
     }
+    /*Gestion de fichier*/
+    Q_INVOKABLE void callSaveMatrix(string path, string name, string firstGen, string lastGen);//Demande pour sauvegarder un automate
+    Q_INVOKABLE void callLoad(string name, string path);//Demande pour charger un automate
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
@@ -97,6 +110,13 @@ public:
 
     /*Définit la taille de la matrice d'affichage.*/
     void CallMatrixSize(int x, int y);
+
+    /*Appel la fonction de lecture de l'automate*/
+    Q_INVOKABLE void callExecution();
+    /*Retourne la dimension x de l'automate*/
+    Q_INVOKABLE unsigned int getSizeX();
+    /*Retourne la dimension y de l'automate*/
+    Q_INVOKABLE unsigned int getSizeY();
 
 
     //computeProbability
@@ -126,6 +146,13 @@ public:
     void CallSetStateToChangeTo(QString stateToChangeTo);//TODO
     void CallGetStates(); //TODO
     Q_INVOKABLE void okCreateRule(); //TODO
+
+    /*Fenêtre de création d'états */
+   Q_INVOKABLE void CallSetStateName(QString probability);
+    void CallSetColor(QString color);
+   Q_INVOKABLE void OkCreateState(QString state);
+
+
 
 signals:
 

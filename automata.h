@@ -49,7 +49,8 @@ public:
     const vector<State>& GetStates();
     const vector<Rule*>& GetRules();
     const vector<pair<int, int>>& GetNeigborhoodPositions();
-
+    unsigned int GetSizeX();
+    unsigned int GetSizeY();
     //NextGen permet, comme son nom l'indique de passer à la génération suivante (dans le cas où celle-ci a déjà été simulée). Renvoie une exception si elle n'est pas disponible
     void NextGen();
 

@@ -1,6 +1,9 @@
 #include "interface.h"
-
-
+#include <QQmlComponent>
+#include <QQmlEngine>
+#include <vector>
+#include <QFile>
+#include <string>
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
@@ -167,12 +170,91 @@ void Interface::setSizeY(QString sizeY)
     emit sizeYChanged(m_sizeY);
 }
 
+//Interface::Interface(QObject *parent) : QObject(parent)
+void Interface::CallSetStateName(QString probability){
+
+
+
+
+
+}
+
+void Interface::CallSetColor(QString color){
+
+
+
+}
+
+void Interface::OkCreateState(QString state){
+
+
+ //  this->parser.GetAutomata()->AddState({QColor("blue"),test}); //Attention il faut  passer par le parseur et faire attention à ne pas rajouter en
+     //utilisant les références parce que l'état n'existe pas en dehors de l'automate
+
+
+}
+
+
+
+QQmlApplicationEngine *Interface::getEngine() const
+{
+    return engine;
+}
+
+void Interface::setEngine(QQmlApplicationEngine *value)
+{
+    engine = value;
+}
+
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-
+    
 }
 
 void Interface::initialiseParser()
 {
+    
+    this->parser= Parser();
+    
+    
+}
+
+void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
+
+    string tmp;
+    if(!firstGen.empty() && !lastGen.empty() ) tmp= this->parser.GetDataToBeSaved(10,10 );
+    else tmp= this->parser.GetDataToBeSaved();
+
+    char * Data = new char[tmp.length() + 1];
+    strcpy(Data, tmp.c_str());
+    SaveData(&name, Data);
+
+
 
 }
+
+void Interface::callLoad(string name, string path){
+
+   this->parser.ParseFile(&name);
+
+
+}
+
+void Interface::callExecution(){
+
+   Automata* test =this->parser.GetAutomata();
+    Simulate(*test);
+
+
+}
+
+
+
+unsigned int Interface::getSizeX(){
+    return this->parser.GetAutomata()->GetSizeX();
+}
+
+unsigned int Interface::getSizeY(){
+    return this->parser.GetAutomata()->GetSizeY();
+}
+

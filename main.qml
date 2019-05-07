@@ -3,7 +3,9 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.3
 import Interface 1.0
+
 
 ApplicationWindow {
     id: mainwindow
@@ -21,7 +23,10 @@ ApplicationWindow {
     menuBar: MenuBar{
         Menu{
             title: "File"
-            MenuItem { text: "Save"}
+            MenuItem {
+             text: "Save"
+             onClicked: fileDialogSave.open()
+            }
             MenuItem { text: "Close"}
         }
         Menu{
@@ -36,8 +41,12 @@ ApplicationWindow {
         }
     }
 
-    TableView {
+  /*  TableView {
         id: matrixView
+        anchors.leftMargin: -227
+        anchors.topMargin: -380
+        anchors.rightMargin: -322
+        anchors.bottomMargin: -8
         anchors.fill: parent
 
         rowSpacing: 1
@@ -56,10 +65,120 @@ ApplicationWindow {
         contentX: (contentWidth - width) / 2;
         contentY: (contentHeight - height) /2;
 
+    }*/
+
+
+
+   /*Matrix{
+        h:mainwindow.width
+        rows: 100
+        columns: 100
+
+       Component.onCompleted: {
+            myInterface.displayMatrix()
+
+
+       }
+
+    }*/
+
+   GridView{
+        id:mat
+        x: mainwindow.width/4
+        flickableDirection: Flickable.HorizontalAndVerticalFlick
+        contentHeight:mainwindow.height
+        contentWidth: mainwindow.width
+        ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
+        ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
+        highlightFollowsCurrentItem: false
+        width: mod.listOfState.returnSize()*10
+        height: width
+        cellHeight:10
+        cellWidth: 10
+        model:MatrixModel{
+            id: mod
+            listOfState:matrixview
+        }
+        delegate: Rectangle{
+            id:rec
+            width: mat.cellHeight
+            height:mat.cellWidth
+            color:model.color
+            Text {
+                visible: false
+                id: t
+                text: qsTr("text"+index)
+            }
+            border.color:"black"
+
+            ToolTip{
+                id:tooltip
+                text:t.text
+                visible: mousearea.pressed
+
+            }
+            MouseArea{
+                id: mousearea
+                anchors.fill:parent
+                onClicked: print(t.text+""+index)
+
+            }
+
+        }
+
     }
 
 
-    footer: Rectangle{
+  /*  Flickable{
+        id: flick
+
+        anchors.fill:parent
+        contentHeight: grid.height+50
+        contentWidth: grid.width+50
+        ScrollBar.horizontal: ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn  }
+        ScrollBar.vertical: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn }
+        GridLayout{
+            x:mainwindow.width/4
+            id:grid
+            rows: 50
+            columns:50
+            rowSpacing: 0
+            columnSpacing: 0
+
+            Repeater{
+                id:repeat
+                model:MatrixModel{
+
+                    listOfState:matrixview
+                }
+                delegate: Rectangle{
+                    id:rec
+                    width: 10
+                    height:10
+                    color:model.color
+                    Text {
+                        visible: false
+                        id: t
+                        text: qsTr("text")
+                    }
+                    border.color:"black"
+                    MouseArea{
+                        anchors.fill:parent
+                        onClicked: print(t.text+""+index)
+
+                    }
+
+                }
+
+
+            }
+
+
+        }
+    }
+*/
+
+       footer: Rectangle{
         id: footer
         height: 80
         color: "#f3f3f4"
@@ -124,6 +243,7 @@ ApplicationWindow {
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
+                onClicked:matrixview.update()
             }
 
             Button{
@@ -143,4 +263,19 @@ ApplicationWindow {
         }
 
     }
+
+    FileDialog{
+        id:fileDialogSave
+        onAccepted: myInterface.callSaveMatrix("test",this.fileUrl)
+
+
+    }
+
+    FileDialog{
+        id:fileDialogLoad
+        onAccepted: myInterface.callLoad("test", this.fileUrl)
+
+
+    }
+
 }

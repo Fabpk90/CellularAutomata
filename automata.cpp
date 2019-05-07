@@ -280,3 +280,11 @@ void Automata::FillNeighborhoodMoore()
 {
 
 }
+
+unsigned int Automata::GetSizeX(){
+    return this->sizeX;
+}
+
+unsigned int Automata::GetSizeY(){
+    return this->sizeY;
+}
