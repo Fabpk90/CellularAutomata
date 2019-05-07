@@ -47,7 +47,7 @@ ApplicationWindow{
                                 width: parent.width
                                 height: parent.height
                                 visible: index != 0 && index != 2 && index != 6 && index != 8
-                                color: "lightgrey"
+                                color: "lightgrey" //TODO change color to actual color
                             }
                             Text{
                                 text: index //TEST affiche
@@ -89,7 +89,7 @@ ApplicationWindow{
                         width: parent.width
                         height: parent.height
                         anchors.centerIn: parent.Center
-                        color:"lightgreen"
+                        color:"lightgreen" //TODO change color to actual color
                     }
                     onClicked: {
                         var Component = Qt.createComponent("StateListWindow.qml")
@@ -108,26 +108,28 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("Probability ")
             }
-            TextField{ //POLISHING change to SpinBox ?
+            SpinBox{
                 id: probability
+                editable: true
+                value : myInterface.probability
+                from: 0
+                to: 100
                 anchors.verticalCenter: parent.verticalCenter
-                text: myInterface.probability
-                validator: IntValidator{bottom: 0; top: 100}
-                placeholderText: qsTr("100%")
-                onTextChanged: myInterface.probability = text
+                onValueChanged: myInterface.probability = value
             }
             Text {
                 id: computeProbabilityText
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("Compute Probability")
             }
-            TextField{ //POLISHING change to SpinBox ?
-                id: computeProbability
+            SpinBox{
+                id:computeProbability
+                editable: true
+                value : myInterface.computeProbability
+                from: 0
+                to: 100
                 anchors.verticalCenter: parent.verticalCenter
-                text: myInterface.computeProbability
-                validator: IntValidator{bottom: 0; top: 100}
-                placeholderText:qsTr("0%")
-                onTextChanged: myInterface.computeProbability = text
+                onValueChanged: myInterface.computeProbability = value
             }
 
         }
@@ -168,7 +170,10 @@ ApplicationWindow{
         anchors.right: parent.right
         text: qsTr("OK")
         onClicked: {
+            myInterface.printProbability()
+            myInterface.printComputeProbability()
             myInterface.okCreateRule()
+            vonNeumannRuleCreationWindow.close()
         }
     }
     Button{
