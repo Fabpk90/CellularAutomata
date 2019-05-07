@@ -12,9 +12,10 @@ class Interface : public QObject
     Q_PROPERTY(QString computeProbability READ computeProbability WRITE setComputeProbability NOTIFY computeProbabilityChanged) //TODO input has to be int
     Q_PROPERTY(QString posAndCount READ posAndCount WRITE setPosAndCount NOTIFY posAndCountChanged)
     Q_PROPERTY(QString stateToChangeTo READ stateToChangeTo WRITE setStateToChangeTo NOTIFY stateToChangeToChanged)
-    Q_PROPERTY(QString type READ type WRITE type NOTIFY type)
-    Q_PROPERTY(QString dimension READ dimension WRITE dimension NOTIFY dimension)
-    Q_PROPERTY(QString neighborhood READ neighborhood WRITE neighborhood NOTIFY neighborhood)
+    Q_PROPERTY(QString type READ type WRITE type NOTIFY typeChanged)
+    Q_PROPERTY(QString dimension READ dimension WRITE dimension NOTIFY dimensionChanged)
+    Q_PROPERTY(QString neighborhood READ neighborhood WRITE neighborhood NOTIFY neighborhoodChanged)
+    Q_PROPERTY(QString maxGenerationsToSimulate READ maxGenerationsToSimulate WRITE maxGenerationsToSimulate NOTIFY maxGenerationsToSimulateChanged)
 
 private:
     QString m_probability;
@@ -24,6 +25,7 @@ private:
     QString m_type;
     QString m_dimension;
     QString m_neighborhood;
+    QString m_maxGenerationsToSimulate;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -37,6 +39,28 @@ public:
         return m_probability;
     }
     Q_INVOKABLE void printProbability(); //for tests
+
+    QString type() const
+    {
+        return m_type;
+    }
+
+    QString dimension() const
+    {
+        return m_dimension;
+    }
+    Q_INVOKABLE void printDimension(); //for tests
+
+    QString neighborhood() const
+    {
+        return m_neighborhood;
+    }
+
+    QString maxGenerationsToSimulate() const
+    {
+        return m_maxGenerationsToSimulate;
+    }
+    Q_INVOKABLE void printMaxGenerationsToSimulate(); //for test
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
@@ -89,21 +113,6 @@ public:
     void CallGetStates(); //TODO
     Q_INVOKABLE void okCreateRule(); //TODO
 
-    QString type() const
-    {
-        return m_type;
-    }
-
-    QString dimension() const
-    {
-        return m_dimension;
-    }
-
-    QString neighborhood() const
-    {
-        return m_neighborhood;
-    }
-
 signals:
 
     void probabilityChanged(QString probability);
@@ -114,17 +123,23 @@ signals:
 
     void stateToChangeToChanged(QString stateToChangeTo);
 
-    void type(QString type);
+    void typeChanged(QString type);
 
-    void dimension(QString dimension);
+    void dimensionChanged(QString dimension);
 
-    void neighborhood(QString neighborhood);
+    void neighborhoodChanged(QString neighborhood);
+
+    void maxGenerationsToSimulateChanged(QString maxGenerationsToSimulate);
 
 public slots:
 void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
 void setPosAndCount(QString posAndCount);
 void setStateToChangeTo(QString stateToChangeTo);
+void setDimension(QString dimension);
+void setType(QString type);
+void setNeighborhood(QString neighborhood);
+void setMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
 
 };
 

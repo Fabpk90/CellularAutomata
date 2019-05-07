@@ -41,13 +41,17 @@ ApplicationWindow{
         RadioButton {
             id:oneDim
             text: qsTr("1D")
-            onClicked: myInterface.dimension = qsTr("1 Dimension")
+            onClicked: {myInterface.dimension = qsTr("OneDimension")
+                myInterface.printDimension()
+            }
         }
         RadioButton {
             id:twoDim
             text: qsTr("2D")
             checked: true
-            onClicked: myInterface.dimension = qsTr("2 Dimension")
+            onClicked: {myInterface.dimension = qsTr("TwoDimensions")
+                myInterface.printDimension()
+            }
         }
     }
     RowLayout {
@@ -71,11 +75,31 @@ ApplicationWindow{
         }
     }
 
+    SpinBox{
+        id: maxGenerationsToSimulate
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: neigh.bottom
+        from: 1
+        value: 1
+        to: 1000
+        stepSize: 1
+        onValueChanged: {myInterface.maxGenerationsToSimulate = value
+            myInterface.printMaxGenerationsToSimulate()
+        }
+    }
+
+    Text {
+        id: maxGenerationsToSimulateText
+        text: qsTr("Max Generations To Simulate: ")
+        anchors.verticalCenter: maxGenerationsToSimulate.verticalCenter
+        anchors.right: maxGenerationsToSimulate.left
+    }
+
 
     Column {
         id: stateColumn
         anchors.rightMargin: 0
-        anchors.top: neigh.bottom
+        anchors.top: maxGenerationsToSimulate.bottom
         Text {
             id: stateText
             text: qsTr("State")
@@ -84,7 +108,7 @@ ApplicationWindow{
     }
     Column {
         id: ruleColumn
-        anchors.top: neigh.bottom
+        anchors.top: maxGenerationsToSimulate.bottom
         anchors.leftMargin: 150
         anchors.left: stateColumn.right
         Text {
@@ -101,6 +125,7 @@ ApplicationWindow{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("OK")
+        onClicked: automataCreationWindow.close()
     }
     Button{
         anchors.bottom: parent.bottom

@@ -67,6 +67,16 @@ void Interface::okCreateRule()
 
 }
 
+void Interface::printDimension()
+{
+    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
+}
+
+void Interface::printMaxGenerationsToSimulate()
+{
+    std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
+}
+
 void Interface::setComputeProbability(QString computeProbability)
 {
     if (m_computeProbability == computeProbability)
@@ -101,6 +111,42 @@ void Interface::setStateToChangeTo(QString stateToChangeTo)
 
     m_stateToChangeTo = stateToChangeTo;
     emit stateToChangeToChanged(m_stateToChangeTo);
+}
+
+void Interface::setDimension(QString dimension)
+{
+    if (m_dimension == dimension)
+        return;
+
+    m_dimension = dimension;
+    emit dimensionChanged(m_dimension);
+}
+
+void Interface::setType(QString type)
+{
+    if (m_type == type)
+        return;
+
+    m_type = type;
+    emit typeChanged(m_type);
+}
+
+void Interface::setNeighborhood(QString neighborhood)
+{
+    if (m_neighborhood == neighborhood)
+        return;
+
+    m_neighborhood = neighborhood;
+    emit neighborhoodChanged(m_neighborhood);
+}
+
+void Interface::setMaxGenerationsToSimulate(QString maxGenerationsToSimulate)
+{
+    if (m_maxGenerationsToSimulate == maxGenerationsToSimulate)
+        return;
+
+    m_maxGenerationsToSimulate = maxGenerationsToSimulate;
+    emit maxGenerationsToSimulateChanged(m_maxGenerationsToSimulate);
 }
 
 Interface::Interface(QObject *parent) : QObject(parent)
