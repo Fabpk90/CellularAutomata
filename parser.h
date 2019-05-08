@@ -14,8 +14,8 @@ public:
 
     string  GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen);
     string  GetDataToBeSaved();
-    void  ParseAndAddRules(string* index);//Fonction qui interprète les regles de l’automate.
-    void  ParseAndAddStates(string* index);//Fonction qui interprète les etats de l’automate.
+    void  ParseAndAddRules(string* index);//Fonction qui interprète les règles de l’automate.
+    void  ParseAndAddStates(string* index);//Fonction qui interprète les états de l’automate.
     void  ParseAndAddType(string* index);//Fonction qui interprète la type de l’automate.
     void  ParseAndAddSize(string* index);//Fonction qui interprète la taille de l’automate
 
