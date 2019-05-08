@@ -155,7 +155,11 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    text: model.description
+                    TextField{
+                        text: model.description
+                        onEditingFinished: model.description = text
+                        Layout.fillWidth: true
+                    }
                 }
                 Button{
                     text: "X"
@@ -184,7 +188,11 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    text: model.description
+                    TextField{
+                        text: model.description
+                        onEditingFinished: model.description = text
+                        Layout.fillWidth: true
+                    }
                 }
                 Button{
                     text: "X"
@@ -201,7 +209,6 @@ ApplicationWindow{
         id: addState
         text: qsTr("Add State")
         onClicked: {
-            stateListView.appendItem() //TODO: mettre dans le fichier StateCreationWindow quand on clique sur OK
             var Component = Qt.createComponent("StateCreationWindow.qml")
             var window = Component.createObject(mainwindow)
             window.show()
@@ -213,7 +220,6 @@ ApplicationWindow{
         id: addRule
         text: qsTr("Add Rule")
         onClicked: {
-            ruleListView.appendItem() //TODO: mettre dans le fichier RuleCreationWindow quand on clique sur OK
             //TODO test all required checks
             if(twoDim.checked){
                 if(vonNeumann.checked){

@@ -33,11 +33,6 @@ void List::appendItem()
     emit postItemAppended();
 }
 
-void List::removeCompletedItems()
-{
-
-}
-
 void List::removeItem()
 {
     for(int i=0; i<mItems.size();i++){

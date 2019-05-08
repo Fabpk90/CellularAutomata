@@ -22,6 +22,10 @@ ApplicationWindow {
         height: 29
         text: qsTr("Ok")
         //onClicked:myInterface.call
+        onClicked: {
+            stateListView.appendItem()
+            stateCreation.close()
+        }
     }
 
     Button {
