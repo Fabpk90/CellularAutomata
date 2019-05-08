@@ -8,6 +8,15 @@ class Parser
 {
 public:
     Parser();
+
+    // Parse File télécharge l'information liée au fichier en argument
+    // FileManager renvoie un char* qui est découpé en plusieurs tableaux de string qui ne comporteront pas les ";"
+    // On obtient 4 tableaux de string, string* prelude, string* etats, string* regles, string* history
+    // A chaque rencontre de ";" une nouvelle case de tableau est allouée
+    // Le tableau du string se termine prochain délimiteur ("E;" ou "R;" ou "H;")
+    // Une catégorie vide donne un string* nul, le délimiteur doit quand même être présent dans le fichier de sauvegarde
+    // Les tableaux de string seront parsés séparément dans les petites fonctions de parsage
+    // Aucune exception n'est gérée par ParseFile, elles seront gérées dans les fonctions spécifiques de parsing
     void  ParseFile(const  string* path);
 
     void SetAutomata(Automata* automata);

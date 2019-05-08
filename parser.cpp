@@ -16,10 +16,33 @@ void Parser::SetAutomata(Automata *automata)
     this->automata = automata;
 }
 
+/*
+ *  P;
+        SizeX; SizeY;
+        isStocha;
+        Voisinage
+    E;
+        Nb_E;
+        Nom_Couleur;
+        Nom_Etat <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
+    R;
+        Nb_R;
+        Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
+    H;
+        Nb_H;
+        genID;
+ * */
+
 void  Parser::ParseFile(const string* path)
 {
     dataToParse = LoadData(path);
-    ParseAndAddType(&dataToParse);
+    // Transformer le char* en string*
+    // Où
+
+
+    // Parsing du prélude
+    ParseAndAddSize(&dataToParse);
+
 }
 
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
@@ -32,31 +55,13 @@ string  Parser::GetDataToBeSaved()
     return "";
 }
 
+
 // UNFINISHED
+//index[Nb_R][Type][EtatDep][EtatArr][lengthCond]([x][y][etatcond])*[proba][etatcond]
+// pas de ";" dans le tableau de string, seulement les arguments qui nous intéressent
 void  Parser::ParseAndAddRules(string* index)
-{/*
-    string curRuleType;
-    int sizeToParse = sizeof(index)/sizeof(*index);
-    int nbrR = stoi(index[0]);
+{
 
-    if(index[1] != ";"){
-        // lancer exception de format
-    }
-
-    for(int i = 2; i < sizeToParse; i++){
-
-        // Vérification du bon formatage du string index
-        if(index[i+1] != ";" || index[i+3] != ";" || index[i+5] != ";"){
-            // lancer exception de format
-        }
-
-        // Création et instantiation de la règle courante
-        curRuleType = index[i];
-        if(curRuleType == "rulestochastic"){
-
-        }
-    }
-    */
 }
 
 void  Parser::ParseAndAddStates(string* index)
@@ -69,30 +74,39 @@ void  Parser::ParseAndAddType(string* index)
 
 }
 
-// Ajouter la vérification du type de l'élément courant
+// index[sizeX][sizeY]
+// Ajouter la vérification du type de l'élément en lecture (int est bien un int) + TESTER
 void  Parser::ParseAndAddSize(string* index)
 {
     // Vérification du nombre d'éléments
     int size = sizeof(index) / sizeof(index[0]);
 
+    try {
+        if(size != 2){
+            throw(string("Wrong format ParseAndAddSize : Wrong number of arguments"));
+        }
+    } catch (string const& error) {
+        cerr << error << endl;
+    }
+
     // Vérification du type des éléments
     // A IMPLEMENTER
 
-    if(size < 3){
-        // lancer une exception de format
-    }
-
     int x = stoi(index[0]);
-    int y = stoi(index[2]);
+    int y = stoi(index[1]);
 
     // Vérification int > 0
-    if(x < 0 || y < 0){
-        // lancer une exception de format
+    try {
+        if(x < 0 || y < 0){
+            throw(string("Wrong format ParseAndAddSize : SizeX or SizeY < 0"));
+        }
+    } catch (string const& error) {
+        cerr << error << endl;
     }
 
     // Instantiation de sizeX et sizeY
     automata->SetSizeX(static_cast<unsigned>(stoi(index[0])));
-    automata->SetSizeY(static_cast<unsigned>(stoi(index[2])));
+    automata->SetSizeY(static_cast<unsigned>(stoi(index[1])));
 }
 
 void  Parser::ParseHistory(string* index)
@@ -101,21 +115,22 @@ void  Parser::ParseHistory(string* index)
 }
 
 /*
- *  Prelude :
-        SizeX ;SizeY ;
-        isStocha ;
+ *  P;
+        SizeX; SizeY;
+        isStocha;
         Voisinage
-    États :
-        Nb_E ;
+    E;
+        Nb_E;
         Nom_Couleur;
         Nom_Etat <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
-    Règles :
-        Nb_R ;
-        Type ;EtatDep ;EtatArr ;lengthCond ;(x ;y ;EtatCond)* ;Proba ;EtatCond ;
-    Historique :
-        Nb_H ;
-        genID ;
+    R;
+        Nb_R;
+        Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
+    H;
+        Nb_H;
+        genID;
  * */
+
 string  Parser::AutomataToString()
 {
     if(automata != nullptr)
