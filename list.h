@@ -31,6 +31,7 @@ class List : public QObject
     public slots:
         void appendItem();
         void removeCompletedItems();
+        void removeItem();
 
     private:
     QVector<Item> mItems;

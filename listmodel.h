@@ -18,7 +18,7 @@ public:
     explicit ListModel(QObject *parent=nullptr);
 
     enum {
-        ruleName
+        description
     };
 
 List * list() const

@@ -38,6 +38,15 @@ void List::removeCompletedItems()
 
 }
 
+void List::removeItem()
+{
+    for(int i=0; i<mItems.size();i++){
+        emit preItemRemoved(i);
+        mItems.removeAt(i);
+        emit postItemRemoved();
+    }
+}
+
 void List::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;

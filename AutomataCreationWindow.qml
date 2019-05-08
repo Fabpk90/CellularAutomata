@@ -159,6 +159,7 @@ ApplicationWindow{
                 }
                 Button{
                     text: "X"
+                    onClicked: stateListView.removeItem()
                 }
             }
         }
@@ -187,6 +188,7 @@ ApplicationWindow{
                 }
                 Button{
                     text: "X"
+                    onClicked: ruleListView.removeItem()
                 }
             }
         }

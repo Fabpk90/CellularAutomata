@@ -25,7 +25,7 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
 
     const Item item = m_list_var->items().at(index.row());
     switch (role) {
-    case ruleName:
+    case description:
         return QVariant(item.description);
     }
 
@@ -39,7 +39,7 @@ bool ListModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     Item item = m_list_var->items().at(index.row());
     switch (role) {
-    case ruleName:
+    case description:
         item.description = value.toString();
         break;
     }
@@ -62,7 +62,7 @@ Qt::ItemFlags ListModel::flags(const QModelIndex &index) const
 QHash<int, QByteArray> ListModel::roleNames() const
 {
     QHash<int, QByteArray> names;
-    names[ruleName] = "Rule";
+    names[description] = "NewItem"; //TODO: Change that
     return names;
 }
 
