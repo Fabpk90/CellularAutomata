@@ -75,104 +75,123 @@ ApplicationWindow{
         }
     }
 
-    SpinBox{
-        id: sizeX
-        anchors.right: parent.horizontalCenter
-        anchors.top: sizeXText.bottom
-        from: 1
-        value: 1
-        to: 1000
-        stepSize: 1
-        editable: true
-        onValueChanged: myInterface.sizeX = value
-    }
-    Text {
-        anchors.topMargin: 10
-        id: sizeXText
-        text: qsTr("Matrix Size X:")
-        anchors.horizontalCenter: sizeX.horizontalCenter
-        anchors.top: neigh.bottom
-    }
 
-    SpinBox{
-        id: sizeY
-        anchors.top: sizeYText.bottom
-        anchors.left: sizeX.right
-        from: 1
-        value: 1
-        to: 1000
-        stepSize: 1
-        editable: true
-        onValueChanged: myInterface.sizeY = value
-    }
-    Text {
-        anchors.topMargin: 10
-        id: sizeYText
-        text: qsTr("Matrix Size Y:")
-        anchors.horizontalCenter: sizeY.horizontalCenter
-        anchors.top: neigh.bottom
-    }
-
-    SpinBox{
-        id: maxGenerationsToSimulate
+    Row{
+        id:sizeX
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: sizeX.bottom
-        from: 1
-        value: 1
-        to: 1000
-        stepSize: 1
-        editable: true
-        onValueChanged: {myInterface.maxGenerationsToSimulate = value
-            myInterface.printMaxGenerationsToSimulate()
+        anchors.top: neigh.bottom
+        Text {
+            anchors.topMargin: 15
+            anchors.top: parent.top
+            text: qsTr("Matrix Size X:")
+        }
+        SpinBox{
+            from: 1
+            value: 1
+            to: 1000
+            stepSize: 1
+            editable: true
+            onValueChanged: myInterface.sizeX = value
         }
     }
-    Text {
-        id: maxGenerationsToSimulateText
-        text: qsTr("Max Generations To Simulate: ")
-        anchors.verticalCenter: maxGenerationsToSimulate.verticalCenter
-        anchors.right: maxGenerationsToSimulate.left
+
+    Row{
+        id:sizeY
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: sizeX.bottom
+        Text {
+            anchors.topMargin: 15
+            anchors.top: parent.top
+            text: qsTr("Matrix Size Y:")
+        }
+        SpinBox{
+            from: 1
+            value: 1
+            to: 1000
+            stepSize: 1
+            editable: true
+            onValueChanged: myInterface.sizeY = value
+        }
     }
 
+    Row{
+        id: maxGenerationsToSimulate
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: sizeY.bottom
+        Text {
+            anchors.topMargin: 15
+            anchors.top: parent.top
+            text: qsTr("Max Generations To Simulate: ")
+        }
+        SpinBox{
+            from: 1
+            value: 1
+            to: 1000
+            stepSize: 1
+            editable: true
+            onValueChanged: {myInterface.maxGenerationsToSimulate = value
+                myInterface.printMaxGenerationsToSimulate()
+            }
+        }
+    }
 
-    ListView{ //Use model to fill list and delegate
+    Column{
         id: stateList
-        width: 100; height: 100
-        anchors.rightMargin: 60
-        anchors.top: maxGenerationsToSimulate.bottom
         anchors.right: parent.horizontalCenter
+        anchors.rightMargin: 100
+        anchors.top: maxGenerationsToSimulate.bottom
         Text {
             id: stateText
             text: qsTr("StateColumn")
             horizontalAlignment: Text.AlignHCenter
         }
+        ListView{ //Use model to fill list and delegate
+            width: 100; height: 100
+            spacing: 2
 
-        //model: StateListModel {}
+            model: ListModel {
+                list_var: stateListView
+            }
 
-        delegate: Button{
-            text: "State"
+            delegate: RowLayout{
+                Button{
+                    text: model.description
+                }
+                Button{
+                    text: "X"
+                }
+            }
         }
     }
-    ListView{ //Use model to fill list and delegate
+
+    Column{
         id: ruleList
-        width: 100; height: 100
+        anchors.left: parent.horizontalCenter
+        anchors.leftMargin: 100
         anchors.top: maxGenerationsToSimulate.bottom
-        anchors.leftMargin: 150
-        anchors.left: stateList.right
-        spacing: 5
         Text {
             id: ruleText
             text: qsTr("Rule Column")
-            anchors.left: parent.left
-            anchors.leftMargin: 0
             horizontalAlignment: Text.AlignHCenter
         }
+        ListView{
+            width: 100; height: 100
+            spacing: 2
+            model: ListModel {
+                list_var: ruleListView
+            }
 
-        //model: RuleListModel {}
-
-        delegate: Button{
-            text: "Rule"
+            delegate: RowLayout{
+                Button{
+                    text: model.description
+                }
+                Button{
+                    text: "X"
+                }
+            }
         }
     }
+
 
     Button {
         anchors.top: stateList.bottom
@@ -180,6 +199,7 @@ ApplicationWindow{
         id: addState
         text: qsTr("Add State")
         onClicked: {
+            stateListView.appendItem() //TODO: mettre dans le fichier StateCreationWindow quand on clique sur OK
             var Component = Qt.createComponent("StateCreationWindow.qml")
             var window = Component.createObject(mainwindow)
             window.show()
@@ -191,6 +211,7 @@ ApplicationWindow{
         id: addRule
         text: qsTr("Add Rule")
         onClicked: {
+            ruleListView.appendItem() //TODO: mettre dans le fichier RuleCreationWindow quand on clique sur OK
             //TODO test all required checks
             if(twoDim.checked){
                 if(vonNeumann.checked){
