@@ -35,7 +35,7 @@ private:
     QString m_maxGenerationsToSimulate;
     QString m_sizeX;
     QString m_sizeY;
-    QQmlApplicationEngine* engine;
+ //   QQmlApplicationEngine* engine;
 
     Parser parser;
 
@@ -44,8 +44,8 @@ public:
 
     //init
     void initialiseParser(); //TODO
-    QQmlApplicationEngine *getEngine() const;
-    void setEngine(QQmlApplicationEngine *value);
+   // QQmlApplicationEngine *getEngine() const;
+    //void setEngine(QQmlApplicationEngine *value);
 
     //probability
     QString probability() const
@@ -114,9 +114,9 @@ public:
     /*Appel la fonction de lecture de l'automate*/
     Q_INVOKABLE void callExecution();
     /*Retourne la dimension x de l'automate*/
-    Q_INVOKABLE unsigned int getSizeX();
+   // Q_INVOKABLE unsigned int getSizeX();
     /*Retourne la dimension y de l'automate*/
-    Q_INVOKABLE unsigned int getSizeY();
+   // Q_INVOKABLE unsigned int getSizeY();
 
 
     //computeProbability
