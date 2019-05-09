@@ -194,7 +194,7 @@ void Interface::OkCreateState(QString state){
 
 }
 
-
+/*
 
 QQmlApplicationEngine *Interface::getEngine() const
 {
@@ -205,7 +205,7 @@ void Interface::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;
 }
-
+*/
 Interface::Interface(QObject *parent) : QObject(parent)
 {
     
@@ -250,11 +250,11 @@ void Interface::callExecution(){
 
 
 
-unsigned int Interface::getSizeX(){
+/*unsigned int Interface::getSizeX(){
     return this->parser.GetAutomata()->GetSizeX();
 }
 
 unsigned int Interface::getSizeY(){
     return this->parser.GetAutomata()->GetSizeY();
 }
-
+*/
