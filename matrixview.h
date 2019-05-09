@@ -42,11 +42,14 @@ public slots:
     void update();
     void forward();
     void backward();
+    void play();
+    void pause();
  private:
     Automata *automata;
     QQmlApplicationEngine* engine;
     QVector<struct State> listOfState;
-   // double size;
+    QTimer * timer; //temporary thread. We will see how we manage it
+    // double size;
 };
 
 #endif // MATRIXVIEW_H

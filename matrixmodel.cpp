@@ -1,6 +1,6 @@
 #include "matrixmodel.h"
 #include "matrixview.h"
-
+#include <iostream>
 
 MatrixModel::MatrixModel(QObject *parent)
     : QAbstractListModel(parent),listOfState(nullptr)
@@ -40,7 +40,7 @@ bool MatrixModel::setData(const QModelIndex &index, const QVariant &value, int r
    struct State cell =this->listOfState->cells().at(index.row());
    switch(role){
    case Color:
-     value.value<QColor>();break;
+      value.value<QColor>();break;
    case StateName:
        cell.name = value.toString().toUtf8().constData();break;
    }
@@ -102,23 +102,7 @@ void MatrixModel::setListOfState(Matrixview *value)
            endRemoveRows();
 
         });
-        connect(listOfState, &Matrixview::preCellUpdated, this ,[=](int index,int endIndex){
-            beginInsertRows(QModelIndex(), index, endIndex);
 
-        });
-        connect(listOfState, &Matrixview::postCellUpdated, this ,[=](){
-           endInsertRows();
-
-        });
-
-        connect(listOfState, &Matrixview::preClean, this ,[=](int index,int endIndex){
-            beginInsertRows(QModelIndex(), index, endIndex);
-
-        });
-        connect(listOfState, &Matrixview::postCellRemoved, this ,[=](){
-           endRemoveRows();
-
-        });
 
     }
     endResetModel();

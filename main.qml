@@ -229,26 +229,28 @@ ApplicationWindow {
                 text: qsTr("⏮")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
+                onClicked: matrixview.backward()
             }
 
             Button{
                 text: qsTr("❙❙")
                 font.pointSize: 16
                 Layout.maximumHeight: 40
-                onClicked: mat.model.listOfState.update()
+                onClicked: matrixview.pause()
             }
 
             Button{
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
-                onClicked:matrixview.update()
+                onClicked:matrixview.play()
             }
 
             Button{
                 text: qsTr("⏭")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
+                onClicked: matrixview.forward()
             }
 
             Item {
