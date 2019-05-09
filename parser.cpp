@@ -17,14 +17,14 @@ void Parser::SetAutomata(Automata *automata)
 }
 
 /*
- *  P;
+ *
         SizeX; SizeY;
         isStocha;
-        Voisinage
+        Voisinage;
     E;
         Nb_E;
         Nom_Couleur;
-        Nom_Etat <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
+        Nom_Etat; <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
     R;
         Nb_R;
         Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
@@ -33,16 +33,81 @@ void Parser::SetAutomata(Automata *automata)
         genID;
  * */
 
+// A TESTER
 void  Parser::ParseFile(const string* path)
 {
     dataToParse = LoadData(path);
+    string* preludeT = new string();
+    string* statesT = new string();
+    string* rulesT =new string();
+    string* historyT = new string();
+    int index = 0;
+
     // Transformer le char* en string*
-    // Où
+    for(int i = 0; i < dataToParse.length(); i++){
+        // prélude
+        while(dataToParse[i] != 'E' && dataToParse[i+1] != ';'){
+            if(dataToParse[i] != ';'){
+                preludeT[index] = preludeT[index] + dataToParse[i];
+            }
+            else index++;
+            i++;
+        }
+        index = 0;
 
+        // états
+        while(dataToParse[i] != 'R' && dataToParse[i+1] != ';'){
+            if(dataToParse[i] != ';'){
+                statesT[index] = statesT[index] + dataToParse[i];
+            }
+            else index++;
+        }
+        index = 0;
 
+        // règles
+        while(dataToParse[i] != 'H' && dataToParse[i+1] != ';'){
+            if(dataToParse[i] != ';'){
+                rulesT[index] = rulesT[index] + dataToParse[i];
+            }
+            else index++;
+        }
+        index = 0;
+
+        //historique
+        if(dataToParse[i] != ';'){
+            historyT[index] = historyT[index] + dataToParse[i];
+        }
+        else index++;
+    }
+
+    // Distribuer les tâches de parsing
     // Parsing du prélude
-    ParseAndAddSize(&dataToParse);
+    try {
+        if(preludeT->size() == 4){
+            string tailleT[2] = {preludeT[0], preludeT[1]};
+            ParseAndAddSize(tailleT);
+            string typeT[2] = {preludeT[2], preludeT[3]};
+            ParseAndAddType(typeT);
+        }
+        else throw string("Wrong prelude format");
+    }
+    catch(string const& error){
+        cout << error << endl;
+    }
 
+    // Parsing des états
+    ParseAndAddStates(statesT);
+
+    // Parsing des règles
+    ParseAndAddRules(rulesT);
+
+    // Parsing historique
+    ParseHistory(historyT);
+
+    free(preludeT);
+    free(statesT);
+    free(rulesT);
+    free(historyT);
 }
 
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
@@ -115,14 +180,14 @@ void  Parser::ParseHistory(string* index)
 }
 
 /*
- *  P;
+ *
         SizeX; SizeY;
         isStocha;
-        Voisinage
+        Voisinage;
     E;
         Nb_E;
         Nom_Couleur;
-        Nom_Etat <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
+        Nom_Etat; <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
     R;
         Nb_R;
         Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;

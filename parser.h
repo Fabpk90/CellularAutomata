@@ -16,7 +16,7 @@ public:
     // Le tableau du string se termine prochain délimiteur ("E;" ou "R;" ou "H;")
     // Une catégorie vide donne un string* nul, le délimiteur doit quand même être présent dans le fichier de sauvegarde
     // Les tableaux de string seront parsés séparément dans les petites fonctions de parsage
-    // Aucune exception n'est gérée par ParseFile, elles seront gérées dans les fonctions spécifiques de parsing
+    // Aucune exception n'est gérée par ParseFile, elles seront gérées dans les fonctions spécifiques de parsing (sauf prélude)
     void  ParseFile(const  string* path);
 
     void SetAutomata(Automata* automata);
