@@ -41,7 +41,7 @@ ApplicationWindow{
         RadioButton {
             id:oneDim
             text: qsTr("1D")
-            onClicked: {myInterface.dimension = qsTr("OneDimension")
+            onCheckableChanged: {myInterface.dimension = qsTr("OneDimension")
                 myInterface.printDimension()
             }
         }
@@ -49,7 +49,7 @@ ApplicationWindow{
             id:twoDim
             text: qsTr("2D")
             checked: true
-            onClicked: {myInterface.dimension = qsTr("TwoDimensions")
+            onCheckedChanged: {myInterface.dimension = qsTr("TwoDimensions")
                 myInterface.printDimension()
             }
         }
