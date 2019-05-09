@@ -11,17 +11,18 @@ void Interface::printProbability()
 
 void Interface::CallSetDim(const QString dimension)
 {
-
+    string dim=m_dimension.toStdString();
 }
 
 void Interface::CallSetNeighborhood(QString neighborhood)
 {
-
+    string neigh=m_neighborhood.toStdString();
 }
 
 void Interface::CallType(QString type)
 {
-
+    string ty=m_type.toStdString();
+    parser.ParseAndAddType(&ty);
 }
 
 
