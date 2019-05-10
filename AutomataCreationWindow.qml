@@ -20,9 +20,9 @@ ApplicationWindow{
         }
         RadioButton {
             id:dynamic
-            text: qsTr("Dynamic")
+            text: qsTr("Deterministic")
             checked: true
-            onClicked: myInterface.type = qsTr("Dynamic")
+            onClicked: myInterface.type = qsTr("Deterministic")
         }
         RadioButton {
             id:stochastic
@@ -41,16 +41,14 @@ ApplicationWindow{
         RadioButton {
             id:oneDim
             text: qsTr("1D")
-            onCheckedChanged: {myInterface.dimension = qsTr("OneDimension")
-                myInterface.printDimension()
+            onClicked: {myInterface.dimension = qsTr("OneDimension")
             }
         }
         RadioButton {
             id:twoDim
             text: qsTr("2D")
             checked: true
-            onCheckedChanged: {myInterface.dimension = qsTr("TwoDimensions")
-                myInterface.printDimension()
+            onClicked: {myInterface.dimension = qsTr("TwoDimensions")
             }
         }
     }
@@ -241,12 +239,25 @@ ApplicationWindow{
         }
     }
 
-    Button{
+    Row{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
-        text: qsTr("OK")
-        onClicked: automataCreationWindow.close()
+        Button{
+            text: qsTr("OK")
+            onClicked: {
+                myInterface.sendMandatoryInfo()
+                automataCreationWindow.close()
+            }
+        }
+        Button{
+            text: qsTr("Save")
+            onClicked: {
+                myInterface.sendMandatoryInfo()
+                fileDialogSave.open()
+            }
+        }
     }
+
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")

@@ -4,25 +4,45 @@
 #include <vector>
 #include <QFile>
 #include <string>
+
+void Interface::initialiseParser()
+{
+
+    this->parser= Parser();
+    this->m_type="Deterministic";
+    this->m_dimension="TwoDimension";
+    this->m_neighborhood="Moore";
+}
+
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
 }
 
-void Interface::CallSetDim(const QString dimension)
+void Interface::sendMandatoryInfo()
+{
+    CallSetType();
+    CallSetDim();
+    CallSetNeighborhood();
+}
+
+void Interface::CallSetDim()
 {
     string dim=m_dimension.toStdString();
+    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
 }
 
-void Interface::CallSetNeighborhood(QString neighborhood)
+void Interface::CallSetNeighborhood()
 {
     string neigh=m_neighborhood.toStdString();
+    std::cout << "Neighborhood : " << m_neighborhood.toStdString() << std::endl;
 }
 
-void Interface::CallType(QString type)
+void Interface::CallSetType()
 {
     string ty=m_type.toStdString();
     parser.ParseAndAddType(&ty);
+    std::cout << "Type : " << m_type.toStdString() << std::endl;
 }
 
 
@@ -209,14 +229,6 @@ void Interface::setEngine(QQmlApplicationEngine *value)
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-    
-}
-
-void Interface::initialiseParser()
-{
-    
-    this->parser= Parser();
-    
     
 }
 

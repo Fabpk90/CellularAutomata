@@ -43,7 +43,7 @@ public:
     explicit Interface(QObject *parent = nullptr);
 
     //init
-    void initialiseParser(); //TODO
+    Q_INVOKABLE void initialiseParser(); //TODO
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
 
@@ -91,19 +91,19 @@ public:
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
-    void SendMandatoryInfo(); //TODO
+    Q_INVOKABLE void sendMandatoryInfo(); //TODO
 
     /*Fait appel à une série de fonctions de l'interpréteur.*/
     void OkCreateAutomata(); //TODO
 
     /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
-    void CallSetDim(QString dimension);
+    void CallSetDim();
 
     /*Définit le voisinage de l'automate (Moore ou Von Neumann).*/
-    void CallSetNeighborhood(QString neighborhood);
+    void CallSetNeighborhood();
 
     /*Définit si l'automate sera de type stochastique ou déterministe.*/
-    void CallType(QString type);
+    void CallSetType();
 
     /*Change le nombre de générations à simuler.*/
     void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
