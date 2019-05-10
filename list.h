@@ -7,7 +7,7 @@
 
 struct Item
 {
-    QString description;
+    int number;
 };
 
 class List : public QObject
@@ -30,11 +30,12 @@ class List : public QObject
 
     public slots:
         void appendItem();
-        void removeItem();
+        void removeItem(int index);
 
     private:
     QVector<Item> mItems;
     QQmlApplicationEngine* engine;
+    int indice=1;
 };
 
 #endif // LIST_H

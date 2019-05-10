@@ -1,4 +1,6 @@
 #include "list.h"
+#include <string>
+#include <iostream>
 
 List::List(QObject *parent) : QObject(parent)
 {
@@ -16,7 +18,7 @@ bool List::setItemAt(int index, const Item &item)
         return false;
 
     const Item &oldItem = mItems.at(index);
-    if (item.description == oldItem.description)
+    if (item.number == oldItem.number)
         return false;
 
     mItems[index] = item;
@@ -26,20 +28,19 @@ bool List::setItemAt(int index, const Item &item)
 void List::appendItem()
 {
     emit preItemAppended();
-
     Item item;
+    item.number=indice++;
+    std::to_string(item.number);
     mItems.append(item);
 
     emit postItemAppended();
 }
 
-void List::removeItem()
+void List::removeItem(int index)
 {
-    for(int i=0; i<mItems.size();i++){
-        emit preItemRemoved(i);
-        mItems.removeAt(i);
-        emit postItemRemoved();
-    }
+    emit preItemRemoved(index);
+    mItems.removeAt(index);
+    emit postItemRemoved();
 }
 
 void List::setEngine(QQmlApplicationEngine *value)

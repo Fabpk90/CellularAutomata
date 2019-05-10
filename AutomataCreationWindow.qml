@@ -143,8 +143,9 @@ ApplicationWindow{
             text: qsTr("StateColumn")
             horizontalAlignment: Text.AlignHCenter
         }
-        ListView{ //Use model to fill list and delegate
-            width: 100; height: 100
+        ListView{
+            id: stateView
+            width: 100; height: 150
             spacing: 2
 
             model: ListModel {
@@ -153,15 +154,16 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    TextField{
-                        text: model.description
-                        onEditingFinished: model.description = text
-                        Layout.fillWidth: true
+                    text: "State" + " " + model.number
+                    onClicked: {
+                        var Component = Qt.createComponent("StateCreationWindow.qml")
+                        var window = Component.createObject(mainwindow)
+                        window.show()
                     }
                 }
                 Button{
                     text: "X"
-                    onClicked: stateListView.removeItem()
+                    onClicked: stateListView.removeItem(stateView.currentIndex)
                 }
             }
         }
@@ -178,7 +180,8 @@ ApplicationWindow{
             horizontalAlignment: Text.AlignHCenter
         }
         ListView{
-            width: 100; height: 100
+            id: ruleView
+            width: 100; height: 150
             spacing: 2
             model: ListModel {
                 list_var: ruleListView
@@ -186,15 +189,30 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    TextField{
-                        text: model.description
-                        onEditingFinished: model.description = text
-                        Layout.fillWidth: true
+                    text: "Rule" + " " + model.number
+                    onClicked: {
+                        if(twoDim.checked){
+                            if(vonNeumann.checked){
+                                var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")
+                                var vonNeumannWindow = vonNeumannCreationWindow.createObject(mainwindow)
+                                vonNeumannWindow.show()
+                            }
+                            if(moore.checked){
+                                var mooreCreationWindow = Qt.createComponent("MooreRuleCreationWindow.qml")
+                                var mooreWindow = mooreCreationWindow.createObject(mainwindow)
+                                mooreWindow.show()
+                            }
+                        }
+                        if(oneDim.checked){
+                            var oneDimensionCreationWindow = Qt.createComponent("OneDimensionRuleCreationWindow.qml")
+                            var oneDimensionWindow = oneDimensionCreationWindow.createObject(mainwindow)
+                            oneDimensionWindow.show()
+                        }
                     }
                 }
                 Button{
                     text: "X"
-                    onClicked: ruleListView.removeItem()
+                    onClicked: ruleListView.removeItem(ruleView.currentIndex)
                 }
             }
         }

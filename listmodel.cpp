@@ -1,5 +1,6 @@
 #include "listmodel.h"
 #include "list.h"
+#include <string.h>
 
 
 ListModel::ListModel(QObject *parent)
@@ -25,8 +26,8 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
 
     const Item item = m_list_var->items().at(index.row());
     switch (role) {
-    case description:
-        return QVariant(item.description);
+    case number:
+        return QString::number(item.number);
     }
 
     return QVariant();
@@ -39,8 +40,8 @@ bool ListModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     Item item = m_list_var->items().at(index.row());
     switch (role) {
-    case description:
-        item.description = value.toString();
+    case number:
+        item.number = value.toInt();
         break;
     }
 
@@ -62,7 +63,7 @@ Qt::ItemFlags ListModel::flags(const QModelIndex &index) const
 QHash<int, QByteArray> ListModel::roleNames() const
 {
     QHash<int, QByteArray> names;
-    names[description] = "NewItem"; //TODO: Change that
+    names[number]="number";
     return names;
 }
 
