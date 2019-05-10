@@ -106,10 +106,10 @@ public:
     void CallSetType();
 
     /*Change le nombre de générations à simuler.*/
-    void CallMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
+    void CallMaxGenerationsToSimulate();
 
     /*Définit la taille de la matrice d'affichage.*/
-    void CallMatrixSize(int x, int y);
+    void CallMatrixSize();
 
     /*Appel la fonction de lecture de l'automate*/
     Q_INVOKABLE void callExecution();

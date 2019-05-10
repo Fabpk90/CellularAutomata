@@ -127,9 +127,7 @@ ApplicationWindow{
             to: 1000
             stepSize: 1
             editable: true
-            onValueChanged: {myInterface.maxGenerationsToSimulate = value
-                myInterface.printMaxGenerationsToSimulate()
-            }
+            onValueChanged: myInterface.maxGenerationsToSimulate = value
         }
     }
 
@@ -271,7 +269,7 @@ ApplicationWindow{
             text: qsTr("Save")
             onClicked: {
                 myInterface.sendMandatoryInfo()
-                fileDialogSave.open()
+                //myInterface.saveMatrix()
             }
         }
     }

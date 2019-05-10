@@ -12,6 +12,9 @@ void Interface::initialiseParser()
     this->m_type="Deterministic";
     this->m_dimension="TwoDimension";
     this->m_neighborhood="Moore";
+    this->m_maxGenerationsToSimulate="1";
+    this-> m_sizeX="1";
+    this->m_sizeY="1";
 }
 
 void Interface::printProbability()
@@ -24,6 +27,8 @@ void Interface::sendMandatoryInfo()
     CallSetType();
     CallSetDim();
     CallSetNeighborhood();
+    CallMatrixSize();
+    CallMaxGenerationsToSimulate();
 }
 
 void Interface::CallSetDim()
@@ -41,8 +46,21 @@ void Interface::CallSetNeighborhood()
 void Interface::CallSetType()
 {
     string ty=m_type.toStdString();
-    parser.ParseAndAddType(&ty);
+    //parser.ParseAndAddType(&ty);
     std::cout << "Type : " << m_type.toStdString() << std::endl;
+}
+
+void Interface::CallMaxGenerationsToSimulate()
+{
+    string maxGen=m_maxGenerationsToSimulate.toStdString();
+    std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
+}
+
+void Interface::CallMatrixSize()
+{
+    string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
+    //parser.ParseAndAddSize(&size);
+    std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl;
 }
 
 
