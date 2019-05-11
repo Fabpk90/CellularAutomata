@@ -36,49 +36,40 @@ void Parser::SetAutomata(Automata *automata)
 // A TESTER
 void  Parser::ParseFile(const string* path)
 {
-    dataToParse = LoadData(path);
+    //dataToParse = LoadData(path);
+    dataToParse = "10;19;1;0";
     string* preludeT = new string();
     string* statesT = new string();
     string* rulesT =new string();
     string* historyT = new string();
-    int index = 0;
 
     // Transformer le char* en string*
     for(int i = 0; i < dataToParse.length(); i++){
         // prélude
-        while(dataToParse[i] != 'E' && dataToParse[i+1] != ';'){
-            if(dataToParse[i] != ';'){
-                preludeT[index] = preludeT[index] + dataToParse[i];
-            }
-            else index++;
+        while(dataToParse[i] != 'E' && dataToParse.length() >= i) {
+            *preludeT += dataToParse[i];
             i++;
         }
-        index = 0;
 
         // états
-        while(dataToParse[i] != 'R' && dataToParse[i+1] != ';'){
-            if(dataToParse[i] != ';'){
-                statesT[index] = statesT[index] + dataToParse[i];
-            }
-            else index++;
+        while(dataToParse[i] != 'R' && dataToParse.length() >= i){
+            *statesT += dataToParse[i];
+            i++;
         }
-        index = 0;
 
         // règles
-        while(dataToParse[i] != 'H' && dataToParse[i+1] != ';'){
-            if(dataToParse[i] != ';'){
-                rulesT[index] = rulesT[index] + dataToParse[i];
-            }
-            else index++;
+        while(dataToParse[i] != 'H' && dataToParse.length() >= i){
+            *rulesT += dataToParse[i];
+            i++;
         }
-        index = 0;
 
         //historique
-        if(dataToParse[i] != ';'){
-            historyT[index] = historyT[index] + dataToParse[i];
+        if(dataToParse[i] != ';' && dataToParse.length() >= i){
+            *historyT += dataToParse[i];
         }
-        else index++;
     }
+
+    cout << "Here's the wonderful mess P: " << *preludeT <<  "  S: " << *statesT << " R: " << *rulesT << " H: " << *historyT << endl;
 
     // Distribuer les tâches de parsing
     // Parsing du prélude
