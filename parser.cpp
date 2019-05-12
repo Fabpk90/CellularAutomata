@@ -134,11 +134,8 @@ void  Parser::ParseAndAddType(string* index)
 // Ajouter la vérification du type de l'élément en lecture (int est bien un int) + TESTER
 void  Parser::ParseAndAddSize(string* index)
 {
-    // Vérification du nombre d'éléments
-    int size = sizeof(index) / sizeof(index[0]);
-
     try {
-        if(size != 2){
+        if(index->size() != 2){
             throw(string("Wrong format ParseAndAddSize : Wrong number of arguments"));
         }
     } catch (string const& error) {
