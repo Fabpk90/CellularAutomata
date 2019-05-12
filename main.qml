@@ -10,8 +10,8 @@ import Interface 1.0
 ApplicationWindow {
     id: mainwindow
     visible: true
-    width: screen.width
-    height: screen.height
+    height: Screen.desktopAvailableHeight
+    width: Screen.desktopAvailableWidth
     minimumWidth: 900
     minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
@@ -24,10 +24,19 @@ ApplicationWindow {
         Menu{
             title: "File"
             MenuItem {
-             text: "Save"
-             onClicked: fileDialogSave.open()
+                text: "Save"
+                onClicked: Qt.openUrlExternally(fileUrls[i])
+                    //fileDialogSave.open()
             }
-            MenuItem { text: "Close"}
+            MenuItem{
+                text: "Load"
+                onClicked: fileDialogLoad.open()
+            }
+
+            MenuItem {
+                text: "Close"
+                onClicked: Qt.quit()
+            }
         }
         Menu{
             title: "New"
@@ -42,51 +51,10 @@ ApplicationWindow {
         }
     }
 
-  /*  TableView {
-        id: matrixView
-        anchors.leftMargin: -227
-        anchors.topMargin: -380
-        anchors.rightMargin: -322
-        anchors.bottomMargin: -8
-        anchors.fill: parent
-
-        rowSpacing: 1
-        columnSpacing: 1
-
-        ScrollBar.horizontal: ScrollBar{}
-        ScrollBar.vertical: ScrollBar{}
-
-        delegate:  Rectangle{
-            id: cell
-            implicitHeight: 15
-            implicitWidth: 15
-
-            color: model.Value ? "#f3f3f4" : "#b5b7bf"
-        }
-        contentX: (contentWidth - width) / 2;
-        contentY: (contentHeight - height) /2;
-
-    }*/
-
-
-
-   /*Matrix{
-        h:mainwindow.width
-        rows: 100
-        columns: 100
-
-       Component.onCompleted: {
-            myInterface.displayMatrix()
-
-
-       }
-
-    }*/
-
-   GridView{
+   /*GridView{
         id:mat
         x: mainwindow.width/4
-        flickableDirection: Flickable.HorizontalAndVerticalFlick
+        flickableDirection: Flickable.AutoFlickIfNeeded
         contentHeight:mainwindow.height
         contentWidth: mainwindow.width
         ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
@@ -127,57 +95,44 @@ ApplicationWindow {
 
         }
 
+    }*/
+
+    GridView{
+         id:mat
+         anchors.fill : parent
+         contentHeight: mainwindow.height - header.height - footer.height
+         contentWidth: mainwindow.width
+         ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
+         ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
+         highlightFollowsCurrentItem: false
+         cellWidth: mainwindow.width/mod.listOfState.returnSize() //TODO cas où listOfState >= mainwindow.width
+         cellHeight: cellWidth
+         cacheBuffer: 2000
+         flickableDirection: Flickable.HorizontalAndVerticalFlick
+         model:MatrixModel{
+             id: mod
+             listOfState:matrixview
+         }
+         delegate: Rectangle{
+             id:rec
+             width: mat.cellHeight
+             height:mat.cellWidth
+             color:model.color
+             border.color:"black"
+                 MouseArea{
+                 id: mousearea
+                 anchors.fill:parent
+                 onClicked: print(tooltip.text+""+index)
+                 ToolTip{
+                     id:tooltip
+                     text: qsTr("text" + index)
+                     visible: parent.pressed
+
+                 }
+
+             }
+         }
     }
-
-
-  /*  Flickable{
-        id: flick
-
-        anchors.fill:parent
-        contentHeight: grid.height+50
-        contentWidth: grid.width+50
-        ScrollBar.horizontal: ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn  }
-        ScrollBar.vertical: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn }
-        GridLayout{
-            x:mainwindow.width/4
-            id:grid
-            rows: 50
-            columns:50
-            rowSpacing: 0
-            columnSpacing: 0
-
-            Repeater{
-                id:repeat
-                model:MatrixModel{
-
-                    listOfState:matrixview
-                }
-                delegate: Rectangle{
-                    id:rec
-                    width: 10
-                    height:10
-                    color:model.color
-                    Text {
-                        visible: false
-                        id: t
-                        text: qsTr("text")
-                    }
-                    border.color:"black"
-                    MouseArea{
-                        anchors.fill:parent
-                        onClicked: print(t.text+""+index)
-
-                    }
-
-                }
-
-
-            }
-
-
-        }
-    }
-*/
 
        footer: Rectangle{
         id: footer
@@ -267,16 +222,27 @@ ApplicationWindow {
 
     FileDialog{
         id:fileDialogSave
-        onAccepted: myInterface.callSaveMatrix("test",this.fileUrl)
-
+        title: "Please choose a file to save"
+        folder: shortcuts.home
+        selectExisting: false
+        selectMultiple: false
+        onAccepted: {
+            myInterface.callSaveMatrix("test",this.fileUrl)
+        }
+        onRejected: {
+        }
 
     }
 
     FileDialog{
         id:fileDialogLoad
-        onAccepted: myInterface.callLoad("test", this.fileUrl)
-
-
+        title: "Please choose a file to load"
+        folder: shortcuts.home
+        onAccepted: {
+            myInterface.callLoad("test", this.fileUrl)
+        }
+        onRejected: {
+        }
     }
 
 }
