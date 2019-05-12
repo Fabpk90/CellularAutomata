@@ -4,24 +4,63 @@
 #include <vector>
 #include <QFile>
 #include <string>
+
+void Interface::initialiseParser()
+{
+
+    this->parser= Parser();
+    this->m_type="Deterministic";
+    this->m_dimension="TwoDimension";
+    this->m_neighborhood="Moore";
+    this->m_maxGenerationsToSimulate="1";
+    this-> m_sizeX="1";
+    this->m_sizeY="1";
+}
+
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
 }
 
-void Interface::CallSetDim(const QString dimension)
+void Interface::sendMandatoryInfo()
 {
-
+    CallSetType();
+    CallSetDim();
+    CallSetNeighborhood();
+    CallMatrixSize();
+    CallMaxGenerationsToSimulate();
 }
 
-void Interface::CallSetNeighborhood(QString neighborhood)
+void Interface::CallSetDim()
 {
-
+    string dim=m_dimension.toStdString();
+    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
 }
 
-void Interface::CallType(QString type)
+void Interface::CallSetNeighborhood()
 {
+    string neigh=m_neighborhood.toStdString();
+    std::cout << "Neighborhood : " << m_neighborhood.toStdString() << std::endl;
+}
 
+void Interface::CallSetType()
+{
+    string ty=m_type.toStdString();
+    //parser.ParseAndAddType(&ty);
+    std::cout << "Type : " << m_type.toStdString() << std::endl;
+}
+
+void Interface::CallMaxGenerationsToSimulate()
+{
+    string maxGen=m_maxGenerationsToSimulate.toStdString();
+    std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
+}
+
+void Interface::CallMatrixSize()
+{
+    string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
+    //parser.ParseAndAddSize(&size);
+    std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl;
 }
 
 
@@ -208,14 +247,6 @@ void Interface::setEngine(QQmlApplicationEngine *value)
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-    
-}
-
-void Interface::initialiseParser()
-{
-    
-    this->parser= Parser();
-    
     
 }
 

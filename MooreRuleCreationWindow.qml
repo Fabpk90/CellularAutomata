@@ -168,6 +168,7 @@ ApplicationWindow{
         anchors.right: parent.right
         text: qsTr("OK")
         onClicked: {
+            ruleListView.appendItem()
             myInterface.printProbability()
             myInterface.printComputeProbability()
             myInterface.okCreateRule()
