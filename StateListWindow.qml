@@ -11,7 +11,35 @@ ApplicationWindow{
     height: screen.height/3
     modality: Qt.ApplicationModal
 
+    Column{
+        id: stateList
+        anchors.right: parent.horizontalCenter
+        anchors.rightMargin: 100
+        anchors.top: maxGenerationsToSimulate.bottom
+        Text {
+            id: stateText
+            text: qsTr("StateColumn")
+            horizontalAlignment: Text.AlignHCenter
+        }
+        ListView{
+            id: stateView
+            width: 100; height: 150
+            spacing: 2
 
+            model: ListModel {
+                list_var: stateListView
+            }
+
+            delegate: RowLayout{
+                Button{
+                    text: "State" + " " + model.number
+                    onClicked: {
+                        //TODO select state /*idee remove Ok onClicked select index and close window*/
+                    }
+                }
+            }
+        }
+    }
     Button{
         anchors.bottom: parent.bottom
         anchors.right: parent.right

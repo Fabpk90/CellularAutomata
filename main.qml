@@ -25,8 +25,8 @@ ApplicationWindow {
             title: "File"
             MenuItem {
                 text: "Save"
-                onClicked: Qt.openUrlExternally(fileUrls[i])
-                    //fileDialogSave.open()
+                onClicked:
+                    fileDialogSave.open()
             }
             MenuItem{
                 text: "Load"
@@ -100,7 +100,7 @@ ApplicationWindow {
     GridView{
          id:mat
          anchors.fill : parent
-         contentHeight: mainwindow.height - header.height - footer.height
+         contentHeight: mainwindow.height - footer.height
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
