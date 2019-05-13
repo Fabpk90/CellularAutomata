@@ -101,13 +101,26 @@ void  Parser::ParseFile(const string* path)
     free(historyT);
 }
 
+//TODO : test
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
+    string data = "";
+
+    data.append(AutomataToString());
+    data.append(HistoryToString(startGen, endGen));
+    data.append(RulesToString());
+    if(data != "") return data;
     return "";
 }
 
+//TODO : test
 string  Parser::GetDataToBeSaved()
 {
+    string data = "";
+
+    data.append(AutomataToString());
+    data.append(RulesToString());
+    if(data != "") return data;
     return "";
 }
 
@@ -178,7 +191,7 @@ void  Parser::ParseHistory(string* index)
         Nom_Etat; <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
     R;
         Nb_R;
-        Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
+        Type;EtatDep(une cellule);EtatArr;lengthCond;(x;y;EtatCond)*;Proba(stoch);EtatCond(stochdyn);
     H;
         Nb_H;
         genID;
@@ -245,10 +258,22 @@ string  Parser::HistoryToString()
     return "";
 }
 
-//Peut être gestion d'erreur à check et nombre de gen
+//Peut être gestion d'erreur à check
 string Parser::HistoryToString(uint startGen, uint endGen)
 {
     string strRepresentation = "";
+    uint i = 0;
+
+    if (automata != nullptr){
+        for (Generation g : automata->GetGenerations()){
+            if(g.generationID >= startGen && g.generationID <= endGen)
+            {
+                i++;
+            }
+        }
+        strRepresentation.append(to_string(i));
+        strRepresentation.append(";");
+    }
 
     if (automata != nullptr){
         for (Generation g : automata->GetGenerations()){
@@ -273,6 +298,8 @@ string  Parser::RulesToString()
     string strRepresentation = "";
     /*if(automata != nullptr){
 
+        strRepresentation.append(to_string(automata->GetRules().type()));
+        strRepresentation.append(";");
         strRepresentation.append(to_string(automata->GetRules().size()));
         strRepresentation.append(";");
         for(Rule *r : automata->GetRules()){

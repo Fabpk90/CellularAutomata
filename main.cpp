@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
 
     //cout << p.AutomataToString() << endl;
-    cout << p.HistoryToString(0,14) << endl;
+    cout << p.HistoryToString(3,14) << endl;
 
     string yes = "yeppa";
     p.ParseFile(&yes);
