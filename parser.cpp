@@ -272,20 +272,20 @@ string  Parser::HistoryToString()
 string Parser::HistoryToString(uint startGen, uint endGen)
 {
     string strRepresentation = "";
-    uint i = 0;
+    uint generationsFound = 0;
 
     if (automata != nullptr){
         for (Generation g : automata->GetGenerations()){
             if(g.generationID >= startGen && g.generationID <= endGen)
             {
-                i++;
+                generationsFound++;
             }
         }
-        strRepresentation.append(to_string(i));
+        strRepresentation.append(to_string(generationsFound));
         strRepresentation.append(";");
         strRepresentation.append("\n");
 
-        if(i != 0){
+        if(generationsFound != 0){
             for (Generation g : automata->GetGenerations()){
 
                 strRepresentation.append(to_string(g.generationID));
