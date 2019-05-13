@@ -246,10 +246,20 @@ string  Parser::HistoryToString()
 
         strRepresentation.append(to_string(automata->GetGenerations().size()));
         strRepresentation.append(";");
+        strRepresentation.append("\n");
 
         for (Generation g : automata->GetGenerations()){
+
             strRepresentation.append(to_string(g.generationID));
             strRepresentation.append(";");
+            strRepresentation.append("\n");
+            for(unsigned long i = 0; i < g.cellMatrix.size(); i++){
+
+                strRepresentation.append(to_string(g.cellMatrix.at(i)));
+                strRepresentation.append(";");
+            }
+
+            strRepresentation.append("\n");
         }
 
         return strRepresentation;
@@ -273,18 +283,23 @@ string Parser::HistoryToString(uint startGen, uint endGen)
         }
         strRepresentation.append(to_string(i));
         strRepresentation.append(";");
-    }
+        strRepresentation.append("\n");
 
-    if (automata != nullptr){
-        for (Generation g : automata->GetGenerations()){
-            if(g.generationID >= startGen && g.generationID <= endGen)
-            {
+        if(i != 0){
+            for (Generation g : automata->GetGenerations()){
 
                 strRepresentation.append(to_string(g.generationID));
                 strRepresentation.append(";");
-            }
-        }
+                strRepresentation.append("\n");
+                for(unsigned long i = 0; i < g.cellMatrix.size(); i++){
 
+                    strRepresentation.append(to_string(g.cellMatrix.at(i)));
+                    strRepresentation.append(";");
+                }
+                strRepresentation.append("\n");
+            }
+            return strRepresentation;
+        }
         return strRepresentation;
     }
 

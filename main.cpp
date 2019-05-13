@@ -26,6 +26,8 @@ int main(int argc, char *argv[])
 
     Generation gen;
     gen.cellMatrix = vector<unsigned int>();
+    gen.cellMatrix.push_back(1);
+    gen.cellMatrix.push_back(2);
     unsigned int i = 0;
     while(i < 3){
         gen.generationID = i;
@@ -46,7 +48,7 @@ int main(int argc, char *argv[])
 
 
     //cout << p.AutomataToString() << endl;
-    cout << p.HistoryToString(3,14) << endl;
+    cout << p.HistoryToString(0,3) << endl;
 
     string yes = "yeppa";
     p.ParseFile(&yes);
