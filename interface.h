@@ -35,6 +35,8 @@ private:
     QString m_maxGenerationsToSimulate;
     QString m_sizeX;
     QString m_sizeY;
+    QString m_stateName;
+    QString m_stateColor;
  //   QQmlApplicationEngine* engine;
 
     Parser parser;
@@ -176,6 +178,10 @@ signals:
 
     void sizeYChanged(QString sizeY);
 
+    void stateNameChanged(QString name);
+
+    void stateColorChanged(QString color);
+
 public slots:
 void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
@@ -187,6 +193,8 @@ void setNeighborhood(QString neighborhood);
 void setMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
 void setSizeX(QString sizeX);
 void setSizeY(QString sizeY);
+void setStateName(QString name);
+void setStateColor(QString color);
 
 };
 

@@ -21,7 +21,6 @@ public:
     void setAutomata(Automata *value);
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
-    //double getSize();
     Q_INVOKABLE int returnSize();
     void setListOfState(const QVector<State> &value);
 
@@ -49,7 +48,7 @@ public slots:
     QQmlApplicationEngine* engine;
     QVector<struct State> listOfState;
     QTimer * timer; //temporary thread. We will see how we manage it
-    // double size;
+
 };
 
 #endif // MATRIXVIEW_H

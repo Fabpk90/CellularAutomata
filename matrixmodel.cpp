@@ -8,7 +8,7 @@ MatrixModel::MatrixModel(QObject *parent)
 
 }
 
-int MatrixModel::rowCount(const QModelIndex &parent) const
+int MatrixModel::rowCount(const QModelIndex &parent) const //renvoie la taille du vecteur représentant les éléments de la matrice de l'automate cellulaire
 {
 
     if (parent.isValid() || !listOfState)
@@ -17,7 +17,7 @@ int MatrixModel::rowCount(const QModelIndex &parent) const
     return listOfState->cells().size();
 }
 
-QVariant MatrixModel::data(const QModelIndex &index, int role) const
+QVariant MatrixModel::data(const QModelIndex &index, int role) const //fonction chargé de la création de données dans le modèle
 {
 
     if (!index.isValid() || !listOfState)
@@ -33,7 +33,7 @@ QVariant MatrixModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool MatrixModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool MatrixModel::setData(const QModelIndex &index, const QVariant &value, int role)//fonction appelée en cas de changement de donnée dans le qml
 {
     if(!listOfState)
         return false;
@@ -61,7 +61,7 @@ Qt::ItemFlags MatrixModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable;
 }
 
-QHash<int, QByteArray> MatrixModel::roleNames() const
+QHash<int, QByteArray> MatrixModel::roleNames() const //permet de déclarer les objets de la liste comme ayant comme propriété une couleur et un nom
 {
     QHash<int, QByteArray> states;
     states[Color]="color";
@@ -70,12 +70,12 @@ QHash<int, QByteArray> MatrixModel::roleNames() const
 
 }
 
-Matrixview *MatrixModel::getListOfState() const
+Matrixview *MatrixModel::getListOfState() const //renvoie la liste
 {
     return listOfState;
 }
 
-void MatrixModel::setListOfState(Matrixview *value)
+void MatrixModel::setListOfState(Matrixview *value) // ajoute des colonnes ou en supprime dans l'affichage du modèle
 {
     beginResetModel();
     if(listOfState)

@@ -23,26 +23,35 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;
 }
-/*
-double Matrixview::getSize()
-{
-    return size;
-}
-*/
+
 int Matrixview::returnSize()
 {
-  //  cout<<listOfState.size()<<endl;
     return (int)sqrt(listOfState.size());
 }
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
 
-   // connect(this,SIGNAL(listOfStateChanged()),this,SLOT(update));
+   /*
+
+        uint h= this.parser.getAutomata().getSizeX();
+        uint l= this.parser.getAutomata().getSizeY();
+
+        for(int i=0;i<h;i++){
+            for(int j =0;j<l;j++){
+               listOfState.append(this.parser.getAutomata().getCellState());
+
+            }
+
+        }
+
+
+
+    */
     listOfState.append({QColor("green"), "State"});
     listOfState.append({QColor("blue"), "State"});
 
-    for(int i=0;i<2498;i++){
+    for(int i=0;i<9998;i++){
 
         listOfState.append({QColor("yellow"),"State "+to_string(i)});
 
@@ -52,18 +61,17 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
     this->timer=new QTimer();
     this->timer->connect(timer, SIGNAL(timeout()),this,SLOT(update()));
 
-    //size=sqrt(listOfState.size());
 }
 
 
 
 
-QVector<State>& Matrixview::cells()
+QVector<State>& Matrixview::cells()//retourne la liste représentant la matrice
 {
     return listOfState;
 }
 
-bool Matrixview::setCellAt(int index,const State& cell)
+bool Matrixview::setCellAt(int index,const State& cell)//change l'état d'une cellule à une position donnée
 {
     if(index < 0 || index >= listOfState.size())
         return false;
@@ -71,17 +79,13 @@ bool Matrixview::setCellAt(int index,const State& cell)
     if(cell.color == oldCell.color && cell.name == oldCell.name)
      return false;
     listOfState[index]=cell;
-    /*listOfState[index].color= cell.color;
-    listOfState[index].name=cell.name;
-*/
-
     return true;
 
 }
 
 
 
-void Matrixview::appendCell(struct State cell)
+void Matrixview::appendCell(struct State cell)//ajoute des cases dans la matrice d'affichage
 {
     emit preCellAppended();
 
@@ -89,7 +93,7 @@ void Matrixview::appendCell(struct State cell)
     emit postCellAppended();
 }
 
-void Matrixview::removeCell(unsigned int index)
+void Matrixview::removeCell(unsigned int index)//retire des cases dans la mtrice d'affichage
 {
     emit preCellRemoved(index);
     listOfState.remove(index);
@@ -98,31 +102,34 @@ void Matrixview::removeCell(unsigned int index)
 
 }
 
-void Matrixview::update()//temporaire en attendant l'implémentation
+void Matrixview::update()//Met à jour l'affichage de la matrice   /*temporaire en attendant l'implémentation*/
 {
+   /*
+        uint h= this.parser.getAutomata().getSizeX();
+        uint l= this.parser.getAutomata().getSizeY();
+
+        for(int i=0;i<h;i++){
+            for(int j =0;j<l;j++){
+               setCellAt(i*10+j,this.parser.getAutomata().getCellState());
+
+            }
+
+
+
+    */
+
+
     QColor test[5]; test[0]=QColor("blue");test[1]=QColor("green");test[2]=QColor("orange");test[3]=QColor("green");test[4]=QColor("blue");
-   // cout<<listOfState.size()<<endl;
-
    struct State s={QColor("orange"),to_string(1)};
-//   for(int k=0;k<10;k++){
 
-  /*     for(int i=0;i<2500;i++){
-      removeCell(0);
-   }
-       for(int i=0;i<2500;i++){
-       appendCell({test[rand()%5],to_string(1)});
-
-
-   }*/
-   for(int i=0;i<2500;i++)
+   for(int i=0;i<10000;i++)
    this->setCellAt(i,{test[rand()%5],to_string(1)});
-  // cout<<listOfState.size()<<endl;
     engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
     }
-//}
 
 
-void Matrixview::forward()
+
+void Matrixview::forward()//permet d'avancer dans l'historique
 {
     automata->NextGen();
 
@@ -140,7 +147,7 @@ void Matrixview::forward()
 
 }
 
-void Matrixview::backward()
+void Matrixview::backward()//permet de revenir en arrière dans l'historique
 {
     automata->PreviousGen();
     for(int i=0; i<automata->GetSizeX();i++){
@@ -160,16 +167,18 @@ void Matrixview::setListOfState(const QVector<State> &value)
 }
 
 
-void Matrixview::play(){
-
+void Matrixview::play()//lance la simulation et l'affichage s'en suit
+{
+    //simulate();
     this->timer->start(500);
 
 
 }
 
-void Matrixview::pause()
+void Matrixview::pause()//met en pause l'éxcecution
 {
- this->timer->stop();
+    //pause du thread à ajouter ici
+    this->timer->stop();
 
 }
 

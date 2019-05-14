@@ -41,46 +41,6 @@ ApplicationWindow {
         }
     }
 
-  /*  TableView {
-        id: matrixView
-        anchors.leftMargin: -227
-        anchors.topMargin: -380
-        anchors.rightMargin: -322
-        anchors.bottomMargin: -8
-        anchors.fill: parent
-
-        rowSpacing: 1
-        columnSpacing: 1
-
-        ScrollBar.horizontal: ScrollBar{}
-        ScrollBar.vertical: ScrollBar{}
-
-        delegate:  Rectangle{
-            id: cell
-            implicitHeight: 15
-            implicitWidth: 15
-
-            color: model.Value ? "#f3f3f4" : "#b5b7bf"
-        }
-        contentX: (contentWidth - width) / 2;
-        contentY: (contentHeight - height) /2;
-
-    }*/
-
-
-
-   /*Matrix{
-        h:mainwindow.width
-        rows: 100
-        columns: 100
-
-       Component.onCompleted: {
-            myInterface.displayMatrix()
-
-
-       }
-
-    }*/
 
    GridView{
         id:mat
@@ -126,55 +86,6 @@ ApplicationWindow {
 
     }
 
-
-  /*  Flickable{
-        id: flick
-
-        anchors.fill:parent
-        contentHeight: grid.height+50
-        contentWidth: grid.width+50
-        ScrollBar.horizontal: ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn  }
-        ScrollBar.vertical: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn }
-        GridLayout{
-            x:mainwindow.width/4
-            id:grid
-            rows: 50
-            columns:50
-            rowSpacing: 0
-            columnSpacing: 0
-
-            Repeater{
-                id:repeat
-                model:MatrixModel{
-
-                    listOfState:matrixview
-                }
-                delegate: Rectangle{
-                    id:rec
-                    width: 10
-                    height:10
-                    color:model.color
-                    Text {
-                        visible: false
-                        id: t
-                        text: qsTr("text")
-                    }
-                    border.color:"black"
-                    MouseArea{
-                        anchors.fill:parent
-                        onClicked: print(t.text+""+index)
-
-                    }
-
-                }
-
-
-            }
-
-
-        }
-    }
-*/
 
        footer: Rectangle{
         id: footer
