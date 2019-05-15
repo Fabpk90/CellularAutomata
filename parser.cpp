@@ -37,7 +37,7 @@ void Parser::SetAutomata(Automata *automata)
 void  Parser::ParseFile(const string* path)
 {
     //dataToParse = LoadData(path);
-    dataToParse = "10;19;1;0";
+    dataToParse = "12;15;1;0;";
     string tailleT = "";
     string typeT = "";
     string statesT = "";
@@ -146,23 +146,36 @@ void  Parser::ParseAndAddType(string* index)
 
 }
 
-// index[sizeX][sizeY]
-// Ajouter la vérification du type de l'élément en lecture (int est bien un int) + TESTER
+// Testé et approuvé par Amélie Le Roux yé
+// Lance exceptions de parsing
 void  Parser::ParseAndAddSize(string* index)
 {
-    try {
-        if(index->size() != 2){
-            throw(string("Wrong format ParseAndAddSize : Wrong number of arguments"));
+    cout << "Parse and add size :" << *index << endl;
+
+    string xs = ""; // x en string
+    string ys = ""; // y en string
+    int cpt = 0;
+    int ascii = 0;
+
+    // parsing d'index TESTED
+    for(int i = 0; i < index->size(); i++){
+        ascii = index[0][i];
+        if(ascii < 48 || ascii > 57){
+            throw(string("ParseAndAddSize : X or Y is not an int"));
         }
-    } catch (string const& error) {
-        cerr << error << endl;
+        if(ascii == ';'){
+            cpt ++;
+        }
+        else if(cpt < 1){
+            xs += ascii;
+        }
+        else{
+            ys += ascii;
+        }
     }
 
-    // Vérification du type des éléments
-    // A IMPLEMENTER
-
-    int x = stoi(index[0]);
-    int y = stoi(index[1]);
+    int x = stoi(xs);
+    int y = stoi(ys);
 
     // Vérification int > 0
     try {
@@ -174,8 +187,8 @@ void  Parser::ParseAndAddSize(string* index)
     }
 
     // Instantiation de sizeX et sizeY
-    automata->SetSizeX(static_cast<unsigned>(stoi(index[0])));
-    automata->SetSizeY(static_cast<unsigned>(stoi(index[1])));
+    automata->SetSizeX(x);
+    automata->SetSizeY(y);
 }
 
 void  Parser::ParseHistory(string* index)
