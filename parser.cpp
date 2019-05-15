@@ -38,47 +38,55 @@ void  Parser::ParseFile(const string* path)
 {
     //dataToParse = LoadData(path);
     dataToParse = "10;19;1;0";
-    string* preludeT = new string();
-    string* statesT = new string();
-    string* rulesT =new string();
-    string* historyT = new string();
+    string tailleT = "";
+    string typeT = "";
+    string statesT = "";
+    string rulesT = "";
+    string historyT = "";
+    int cpt = 0; // compteur de points virgules pour différencier tailleT et typeT (qui a eux deux forment le prélude)
 
-    // Transformer le char* en string*
+    // Transformer le char* en string
     for(int i = 0; i < dataToParse.length(); i++){
         // prélude
         while(dataToParse[i] != 'E' && dataToParse.length() >= i) {
-            *preludeT += dataToParse[i];
+            if(dataToParse[i] == ';'){
+                cpt++;
+            }
+            if(cpt < 2 || (cpt == 2 && dataToParse[i] == ';')){
+                tailleT += dataToParse[i];
+            }
+            else{
+                typeT += dataToParse[i];
+            }
             i++;
         }
 
         // états
         while(dataToParse[i] != 'R' && dataToParse.length() >= i){
-            *statesT += dataToParse[i];
+            statesT += dataToParse[i];
             i++;
         }
 
         // règles
         while(dataToParse[i] != 'H' && dataToParse.length() >= i){
-            *rulesT += dataToParse[i];
+            rulesT += dataToParse[i];
             i++;
         }
 
         //historique
         if(dataToParse[i] != ';' && dataToParse.length() >= i){
-            *historyT += dataToParse[i];
+            historyT += dataToParse[i];
         }
     }
 
-    cout << "Here's the wonderful mess P: " << *preludeT <<  "  S: " << *statesT << " R: " << *rulesT << " H: " << *historyT << endl;
+    cout << "Here's the wonderful mess P: " << tailleT << typeT <<  "  S: " << statesT << " R: " << rulesT << " H: " << historyT << endl;
 
     // Distribuer les tâches de parsing
     // Parsing du prélude
     try {
-        if(preludeT->size() == 4){
-            string tailleT[2] = {preludeT[0], preludeT[1]};
-            ParseAndAddSize(tailleT);
-            string typeT[2] = {preludeT[2], preludeT[3]};
-            ParseAndAddType(typeT);
+        if(cpt == 4){
+            ParseAndAddSize(&tailleT);
+            ParseAndAddType(&typeT);
         }
         else throw string("Wrong prelude format");
     }
@@ -87,18 +95,13 @@ void  Parser::ParseFile(const string* path)
     }
 
     // Parsing des états
-    ParseAndAddStates(statesT);
+    ParseAndAddStates(&statesT);
 
     // Parsing des règles
-    ParseAndAddRules(rulesT);
+    ParseAndAddRules(&rulesT);
 
     // Parsing historique
-    ParseHistory(historyT);
-
-    free(preludeT);
-    free(statesT);
-    free(rulesT);
-    free(historyT);
+    ParseHistory(&historyT);
 }
 
 //TODO : test
