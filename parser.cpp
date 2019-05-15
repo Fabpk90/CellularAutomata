@@ -82,7 +82,6 @@ void  Parser::ParseFile(const string* path)
     cout << "Here's the wonderful mess P: " << tailleT << typeT <<  "  S: " << statesT << " R: " << rulesT << " H: " << historyT << endl;
 
     // Distribuer les tâches de parsing
-    // Parsing du prélude
     try {
         if(cpt == 4){
             ParseAndAddSize(&tailleT);
@@ -141,9 +140,27 @@ void  Parser::ParseAndAddStates(string* index)
 
 }
 
+
+// Testé et approuvé par Amélie Le Roux lol
+// Lance les exceptions de parsing
 void  Parser::ParseAndAddType(string* index)
 {
+    if(index->size() != 5){
+        throw(string("ParseAndAddType : Wrong number of arguments"));
+    }
 
+    int asciiType = index[0][0];
+    int asciiNei = index[0][2];
+
+    if(asciiType != 48 && asciiType != 49){
+        throw(string("ParseAndAddType : Type isStocha is neither 0 or 1"));
+    }
+    if(asciiNei != 48 && asciiNei != 49){
+        throw(string("ParseAndAddType : Type isVonNeumann is neither 0 or 1"));
+    }
+
+    automata->SetType(asciiType - 48);
+    automata->SetNeighborhood(asciiNei - 48);
 }
 
 // Testé et approuvé par Amélie Le Roux yé
@@ -160,7 +177,7 @@ void  Parser::ParseAndAddSize(string* index)
     // parsing d'index TESTED
     for(int i = 0; i < index->size(); i++){
         ascii = index[0][i];
-        if(ascii < 48 || ascii > 57){
+        if((ascii < 48 || ascii > 57) && (ascii != ';')){
             throw(string("ParseAndAddSize : X or Y is not an int"));
         }
         if(ascii == ';'){
