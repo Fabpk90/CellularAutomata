@@ -133,7 +133,7 @@ void  Parser::ParseAndAddRules(string* index)
 
 // Not tested nor approved
 void  Parser::ParseAndAddStates(string* index)
-{
+{/*
     cout << *index << endl;
     cout << index->size() << endl;
     int sizeIndex = index->size();
@@ -171,7 +171,7 @@ void  Parser::ParseAndAddStates(string* index)
     //
 
     // Parsing des états
-
+*/
 }
 
 // Testé et approuvé par Amélie Le Roux lol
