@@ -76,8 +76,9 @@ void  Parser::ParseFile(const string* path)
         }
 
         //historique
-        if(dataToParse[i] != ';' && dataToParse.length() >= i){
+        while(i < dataToParse.length()){
             historyT += dataToParse[i];
+            i++;
         }
     }
 
@@ -85,6 +86,7 @@ void  Parser::ParseFile(const string* path)
 
     // Distribuer les tâches de parsing
     try {
+        cout << cpt << endl;
         if(cpt == 4){
             ParseAndAddSize(&tailleT);
             ParseAndAddType(&typeT);
@@ -180,7 +182,7 @@ void  Parser::ParseAndAddStates(string* index)
 // Lance les exceptions de parsing
 void  Parser::ParseAndAddType(string* index)
 {
-    if(index->size() != 5){
+    if(index->size() != 4){
         throw(string("ParseAndAddType : Wrong number of arguments"));
     }
 
