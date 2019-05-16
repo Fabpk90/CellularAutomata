@@ -3,7 +3,7 @@
 #include<QVector>
 #include<QTimer>
 #include <math.h>
-#include <windows.h>
+//#include <windows.h>
 Automata *Matrixview::getAutomata() const
 {
     return automata;

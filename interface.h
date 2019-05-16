@@ -48,9 +48,6 @@ public:
     Q_INVOKABLE void initialiseParser(); //TODO
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
-    void initialiseParser(); //TODO
-   // QQmlApplicationEngine *getEngine() const;
-    //void setEngine(QQmlApplicationEngine *value);
 
     //probability
     QString probability() const
