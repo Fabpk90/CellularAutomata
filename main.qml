@@ -59,7 +59,6 @@ ApplicationWindow {
         contentWidth: mainwindow.width
         ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
         ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
-        highlightFollowsCurrentItem: false
         width: mod.listOfState.returnSize()*10
         height: width
         cellHeight:10
@@ -76,7 +75,7 @@ ApplicationWindow {
             Text {
                 visible: false
                 id: t
-                text: qsTr("text"+index)
+                text: qsTr(model.name)
             }
             border.color:"black"
 
@@ -89,7 +88,6 @@ ApplicationWindow {
             MouseArea{
                 id: mousearea
                 anchors.fill:parent
-                onClicked: print(t.text+""+index)
 
             }
 
@@ -187,25 +185,28 @@ ApplicationWindow {
                 text: qsTr("⏮")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
+                onClicked: matrixview.backward()
             }
 
             Button{
                 text: qsTr("❙❙")
                 font.pointSize: 16
                 Layout.maximumHeight: 40
+                onClicked: matrixview.pause()
             }
 
             Button{
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
-                onClicked:matrixview.update()
+                onClicked:matrixview.play()
             }
 
             Button{
                 text: qsTr("⏭")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
+                onClicked: matrixview.forward()
             }
 
             Item {

@@ -35,7 +35,9 @@ private:
     QString m_maxGenerationsToSimulate;
     QString m_sizeX;
     QString m_sizeY;
-    QQmlApplicationEngine* engine;
+    QString m_stateName;
+    QString m_stateColor;
+ //   QQmlApplicationEngine* engine;
 
     Parser parser;
 
@@ -46,6 +48,9 @@ public:
     Q_INVOKABLE void initialiseParser(); //TODO
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
+    void initialiseParser(); //TODO
+   // QQmlApplicationEngine *getEngine() const;
+    //void setEngine(QQmlApplicationEngine *value);
 
     //probability
     QString probability() const
@@ -114,9 +119,9 @@ public:
     /*Appel la fonction de lecture de l'automate*/
     Q_INVOKABLE void callExecution();
     /*Retourne la dimension x de l'automate*/
-    Q_INVOKABLE unsigned int getSizeX();
+   // Q_INVOKABLE unsigned int getSizeX();
     /*Retourne la dimension y de l'automate*/
-    Q_INVOKABLE unsigned int getSizeY();
+   // Q_INVOKABLE unsigned int getSizeY();
 
 
     //computeProbability
@@ -176,6 +181,10 @@ signals:
 
     void sizeYChanged(QString sizeY);
 
+    void stateNameChanged(QString name);
+
+    void stateColorChanged(QString color);
+
 public slots:
 void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
@@ -187,6 +196,8 @@ void setNeighborhood(QString neighborhood);
 void setMaxGenerationsToSimulate(QString maxGenerationsToSimulate);
 void setSizeX(QString sizeX);
 void setSizeY(QString sizeY);
+void setStateName(QString name);
+void setStateColor(QString color);
 
 };
 

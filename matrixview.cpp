@@ -1,7 +1,9 @@
 #include "matrixview.h"
 #include <iostream>
 #include<QVector>
+#include<QTimer>
 #include <math.h>
+#include <windows.h>
 Automata *Matrixview::getAutomata() const
 {
     return automata;
@@ -21,53 +23,69 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;
 }
-/*
-double Matrixview::getSize()
-{
-    return size;
-}
-*/
+
 int Matrixview::returnSize()
 {
-    cout<<listOfState.size()<<endl;
     return (int)sqrt(listOfState.size());
 }
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
 
+   /*
+
+        uint h= this.parser.getAutomata().getSizeX();
+        uint l= this.parser.getAutomata().getSizeY();
+
+        for(int i=0;i<h;i++){
+            for(int j =0;j<l;j++){
+               listOfState.append(this.parser.getAutomata().getCellState());
+
+            }
+
+        }
+
+
+
+    */
     listOfState.append({QColor("green"), "State"});
     listOfState.append({QColor("blue"), "State"});
+
     for(int i=0;i<9998;i++){
+
         listOfState.append({QColor("yellow"),"State "+to_string(i)});
 
     }
-    //size=sqrt(listOfState.size());
+
+    srand(time(NULL));
+    this->timer=new QTimer();
+    this->timer->connect(timer, SIGNAL(timeout()),this,SLOT(update()));
+
 }
 
 
 
 
-QVector<State> Matrixview::cells() const
+QVector<State>& Matrixview::cells()//retourne la liste représentant la matrice
 {
     return listOfState;
 }
 
-bool Matrixview::setCellAt(int index, const State& cell)
+bool Matrixview::setCellAt(int index,const State& cell)//change l'état d'une cellule à une position donnée
 {
     if(index < 0 || index >= listOfState.size())
         return false;
     const struct State &oldCell= listOfState.at(index);
     if(cell.color == oldCell.color && cell.name == oldCell.name)
-        return false;
-    listOfState[index]= cell;
+     return false;
+    listOfState[index]=cell;
     return true;
 
 }
 
 
 
-void Matrixview::appendCell(struct State cell)
+void Matrixview::appendCell(struct State cell)//ajoute des cases dans la matrice d'affichage
 {
     emit preCellAppended();
 
@@ -75,7 +93,7 @@ void Matrixview::appendCell(struct State cell)
     emit postCellAppended();
 }
 
-void Matrixview::removeCell(unsigned int index)
+void Matrixview::removeCell(unsigned int index)//retire des cases dans la mtrice d'affichage
 {
     emit preCellRemoved(index);
     listOfState.remove(index);
@@ -84,19 +102,34 @@ void Matrixview::removeCell(unsigned int index)
 
 }
 
-void Matrixview::update()//temporaire en attendant l'implémentation
+void Matrixview::update()//Met à jour l'affichage de la matrice   /*temporaire en attendant l'implémentation*/
 {
+   /*
+        uint h= this.parser.getAutomata().getSizeX();
+        uint l= this.parser.getAutomata().getSizeY();
 
-   for(int i=0;i<100;i++){
+        for(int i=0;i<h;i++){
+            for(int j =0;j<l;j++){
+               setCellAt(i*10+j,this.parser.getAutomata().getCellState());
 
-    this->setCellAt(i,{QColor("orange"),to_string(i)});
+            }
 
-   }
-   engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
 
-}
 
-void Matrixview::forward()
+    */
+
+
+    QColor test[5]; test[0]=QColor("blue");test[1]=QColor("green");test[2]=QColor("orange");test[3]=QColor("green");test[4]=QColor("blue");
+   struct State s={QColor("orange"),to_string(1)};
+
+   for(int i=0;i<10000;i++)
+   this->setCellAt(i,{test[rand()%5],to_string(1)});
+    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+    }
+
+
+
+void Matrixview::forward()//permet d'avancer dans l'historique
 {
     automata->NextGen();
 
@@ -111,9 +144,10 @@ void Matrixview::forward()
 
     engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
 
+
 }
 
-void Matrixview::backward()
+void Matrixview::backward()//permet de revenir en arrière dans l'historique
 {
     automata->PreviousGen();
     for(int i=0; i<automata->GetSizeX();i++){
@@ -126,3 +160,25 @@ void Matrixview::backward()
     }
     engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
 }
+
+void Matrixview::setListOfState(const QVector<State> &value)
+{
+    listOfState = value;
+}
+
+
+void Matrixview::play()//lance la simulation et l'affichage s'en suit
+{
+    //simulate();
+    this->timer->start(500);
+
+
+}
+
+void Matrixview::pause()//met en pause l'éxcecution
+{
+    //pause du thread à ajouter ici
+    this->timer->stop();
+
+}
+

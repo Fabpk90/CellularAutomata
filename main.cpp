@@ -27,9 +27,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<MatrixModel>("Interface",1,0,"MatrixModel");
     qmlRegisterUncreatableType <Matrixview> ("Interface",1,0, "Matrixview",QStringLiteral("Avoid creating Matrixview in qml"));
     Matrixview matrix;
-    Interface interface;
     QQmlApplicationEngine engine;
-    interface.setEngine(&engine);
     matrix.setEngine(&engine) ;
     stateListView.setEngine(&engine);
     ruleListView.setEngine(&engine);

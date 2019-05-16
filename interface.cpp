@@ -209,6 +209,25 @@ void Interface::setSizeY(QString sizeY)
     emit sizeYChanged(m_sizeY);
 }
 
+void Interface::setStateName(QString name)
+{
+    if(m_stateName != name)
+    {
+        m_stateName = name;
+        emit stateNameChanged(name);
+    }
+}
+
+void Interface::setStateColor(QString color)
+{
+    if(m_stateColor != color)
+    {
+        m_stateColor=color;
+        emit stateColorChanged(color);
+    }
+
+}
+
 //Interface::Interface(QObject *parent) : QObject(parent)
 void Interface::CallSetStateName(QString probability){
 
@@ -227,23 +246,8 @@ void Interface::CallSetColor(QString color){
 void Interface::OkCreateState(QString state){
 
 
- //  this->parser.GetAutomata()->AddState({QColor("blue"),test}); //Attention il faut  passer par le parseur et faire attention à ne pas rajouter en
-     //utilisant les références parce que l'état n'existe pas en dehors de l'automate
-
-
 }
 
-
-
-QQmlApplicationEngine *Interface::getEngine() const
-{
-    return engine;
-}
-
-void Interface::setEngine(QQmlApplicationEngine *value)
-{
-    engine = value;
-}
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
@@ -277,15 +281,5 @@ void Interface::callExecution(){
     Simulate(*test);
 
 
-}
-
-
-
-unsigned int Interface::getSizeX(){
-    return this->parser.GetAutomata()->GetSizeX();
-}
-
-unsigned int Interface::getSizeY(){
-    return this->parser.GetAutomata()->GetSizeY();
 }
 
