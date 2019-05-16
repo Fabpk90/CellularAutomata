@@ -54,9 +54,11 @@ void  Parser::ParseFile(const string* path)
             }
             if(cpt < 2 || (cpt == 2 && dataToParse[i] == ';')){
                 tailleT += dataToParse[i];
+                cout << "tailleT" << dataToParse[i] << endl;
             }
             else{
                 typeT += dataToParse[i];
+                cout << i << " typeT " << dataToParse[i] << endl;
             }
             i++;
         }
