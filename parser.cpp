@@ -33,7 +33,8 @@ void Parser::SetAutomata(Automata *automata)
         genID;
  * */
 
-// A TESTER
+// A COMPLETER
+// Lance exception, à mettre dans un try catch
 void  Parser::ParseFile(const string* path)
 {
     //dataToParse = LoadData(path);
@@ -54,11 +55,9 @@ void  Parser::ParseFile(const string* path)
             }
             if(cpt < 2 || (cpt == 2 && dataToParse[i] == ';')){
                 tailleT += dataToParse[i];
-                cout << "tailleT" << dataToParse[i] << endl;
-            }
+           }
             else{
                 typeT += dataToParse[i];
-                cout << i << " typeT " << dataToParse[i] << endl;
             }
             i++;
         }
@@ -97,14 +96,16 @@ void  Parser::ParseFile(const string* path)
         cout << error << endl;
     }
 
-    // Parsing des états
-    ParseAndAddStates(&statesT);
+    // Parsing Etats, Règles, Historique
+    try {
+        ParseAndAddStates(&statesT);
+        ParseAndAddRules(&rulesT);
+        ParseHistory(&historyT);
 
-    // Parsing des règles
-    ParseAndAddRules(&rulesT);
+    } catch (string const& error) {
+        cout << error << endl;
+    }
 
-    // Parsing historique
-    ParseHistory(&historyT);
 }
 
 //TODO : test
@@ -137,7 +138,7 @@ void  Parser::ParseAndAddRules(string* index)
 
 // Not tested nor approved
 void  Parser::ParseAndAddStates(string* index)
-{/*
+{
     cout << *index << endl;
     cout << index->size() << endl;
     int sizeIndex = index->size();
@@ -146,7 +147,7 @@ void  Parser::ParseAndAddStates(string* index)
     int i = 0;
     string nbStatesS = "";
     int nbStates = 0;
-
+    int ascii = 0;
 
     if(sizeIndex < 3){
         throw(string("ParseAndAddStates : Minimum number of arguments not met"));
@@ -157,25 +158,33 @@ void  Parser::ParseAndAddStates(string* index)
         if(index[0][i] == ';'){
             cpt++;
         }
-        if(cpt > 1){
-            if(index[0][i] < 48 || index[0][i] > 57) throw(string("ParseAndAddStates : Number of States is not an int"));
-            else nbStatesS += index[0][i];
+        // premier ';' celui apres E donc cpt > 1
+        if(cpt >= 1){
+            ascii = index[0][i];
+            if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
+            else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+                throw(string("ParseAndAddStates : Number of States is not an int"));
+            }
         }
         i++;
     }
     //
 
+    cout << "Nb states = " << nbStatesS << endl;
     nbStates = stoi(nbStatesS);
+    cout << "Nb states = " << nbStates << endl;
 
     // Vérification du bon nombre de ';' en fonction du nombre d'états
     for(int k = i; k < sizeIndex; k ++){
-        if(index[0][i] == ';') cptVerifNbStates++;
+        ascii = index[0][k];
+        if(ascii == ';') cptVerifNbStates++;
     }
-    if(cptVerifNbStates != 2 * nbStates) throw("ParseAndAddStates : Wrong Number of arguments");
-    //
+    if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
+    // Jusque là tout est okay
+
 
     // Parsing des états
-*/
+
 }
 
 // Testé et approuvé par Amélie Le Roux lol
