@@ -6,6 +6,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "matrixview.h"
+#include "list.h"
 #include "parser.h"
 #include "filemanager.h"
 #include "simulator.h"
@@ -42,7 +43,7 @@ private:
  //   QQmlApplicationEngine* engine;
 
     Parser parser;
-
+    List l;
 public:
     explicit Interface(QObject *parent = nullptr);
 
@@ -152,9 +153,9 @@ public:
     Q_INVOKABLE void okCreateRule(); //TODO
 
     /*Fenêtre de création d'états */
-   Q_INVOKABLE void CallSetStateName(QString probability);
+    Q_INVOKABLE void CallSetStateName(QString probability);
     void CallSetColor(QString color);
-   Q_INVOKABLE void OkCreateState(QString state);
+    Q_INVOKABLE void OkCreateState(QString state);
 
 
 
@@ -169,6 +170,8 @@ public:
         return m_stateColor;
     }
     Q_INVOKABLE void printStateColor();
+
+    Q_INVOKABLE void chooseGen(QString gen);
 
 signals:
 
