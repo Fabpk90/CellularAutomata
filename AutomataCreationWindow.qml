@@ -263,6 +263,7 @@ ApplicationWindow{
         text: qsTr("Add Rule")
         onClicked: {
             //TODO test all required checks
+            myInterface.cleanRuleCreationWindow()
             if(twoDim.checked){
                 if(vonNeumann.checked){
                     var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")

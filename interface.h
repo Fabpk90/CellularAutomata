@@ -43,8 +43,8 @@ private:
 
     Parser parser;
     int rememberIndex;
-    QString matrixIndexAndStateIndex[9];
-    QString posIndex[9];
+    QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
+    QString posIndex[10];//idem
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -176,6 +176,7 @@ public:
     Q_INVOKABLE int getRememberIndex() const;
     Q_INVOKABLE void setRememberIndex(int value);
     Q_INVOKABLE void associateStateAndIndex(QString StateIndex);
+    Q_INVOKABLE void cleanRuleCreationWindow();
 
 signals:
 

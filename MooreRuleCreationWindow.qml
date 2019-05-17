@@ -89,8 +89,7 @@ ApplicationWindow{
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
-                                myInterface.changed
-                                console.log("cpp index = " + myInterface.getRememberIndex() + "index =" + index)
+                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
                                 var Component = Qt.createComponent("StateListWindow.qml")
                                 var window = Component.createObject(mainwindow)
                                 window.show()
@@ -138,6 +137,7 @@ ApplicationWindow{
                         color:"lightgreen" //TODO change color to actual color
                     }
                     onClicked: {
+                        myInterface.setRememberIndex(9)
                         var Component = Qt.createComponent("StateListWindow.qml")
                         var window = Component.createObject(mainwindow)
                         window.show()
@@ -157,11 +157,26 @@ ApplicationWindow{
             SpinBox{ //TODO change to float (for all)
                 id: probability
                 editable: true
-                value: myInterface.probability
-                from: 0
-                to: 1.0
+                value: valueFromText(myInterface.probability, )
+                from:  0
+                to: 100 * 100
+                stepSize: 100
+                property int decimals: 2
+                property real realValue: value / 100
+                validator: DoubleValidator {
+                    bottom: Math.min(probability.from, probability.to)
+                    top:  Math.max(probability.from, probability.to)
+                }
+                textFromValue: function(value, locale) {
+                    return Number(value / 100).toLocaleString(locale, 'f', probability.decimals)
+                }
+
+                valueFromText: function(text, locale) {
+                    return Number.fromLocaleString(locale, text) * 100
+                }
+
                 anchors.verticalCenter: parent.verticalCenter
-                onValueChanged: myInterface.probability = value
+                onValueChanged: myInterface.probability = textFromValue(value, )
             }
             Text {
                 id: computeProbabilityText

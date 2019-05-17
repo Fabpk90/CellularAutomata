@@ -105,21 +105,33 @@ void Interface::CallGetStates()
 
 void Interface::okCreateRule()
 {
+    int lengthCond = 0;
     QString rule = "";
     rule.append(posAndCount());
     rule.append(";");
     if(dimension() == "OneDimension"){
         rule.append(matrixIndexAndStateIndex[1]);
+        for(int i = 0; i < 9; i++){
+            if(posIndex[i] != "(" && i != 1){
+               lengthCond++;
+            }
+        }
     }
     else if (dimension() == "TwoDimensions") {
         rule.append(matrixIndexAndStateIndex[4]);
+        for(int i = 0; i < 9; i++){
+            if(posIndex[i] != "(" && i != 4){
+               lengthCond++;
+            }
+        }
     }
     rule.append(";");
-    //TODO state d'arrivée
-    rule.append("Etat Arr");
+    if(matrixIndexAndStateIndex[9] != "("){ //TODO else?
+        rule.append(matrixIndexAndStateIndex[9]);
+    }
     rule.append(";");
-    //TODO length cond
-    rule.append("length cond");
+    QString length = QString::number(lengthCond);
+    rule.append(length);
     rule.append(";");
     for (int i = 0; i < 9; i++) {
         if(posIndex[i] != "("){
@@ -307,18 +319,13 @@ void Interface::associateStateAndIndex(QString StateIndex)
             composite.append(StateIndex);
             composite.append(")");
             break;
-        case 1:
-            composite.append("0;0;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
+       //4 est le centre et ne doit pas etre dans la liste composite
         case 2:
             composite.append("1;0;");
             composite.append(StateIndex);
             composite.append(")");
             break;
         default:
-            composite.append(")");
             break;
         }
     }
@@ -344,11 +351,7 @@ void Interface::associateStateAndIndex(QString StateIndex)
             composite.append(StateIndex);
             composite.append(")");
             break;
-        case 4:
-            composite.append("0;0;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
+        //4 est le centre et ne doit pas etre dans la liste composite
         case 5:
             composite.append("1;0;");
             composite.append(StateIndex);
@@ -370,13 +373,20 @@ void Interface::associateStateAndIndex(QString StateIndex)
             composite.append(")");
             break;
         default:
-            composite.append(")");
             break;
         }
     }
     matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat
     std::cout << composite.toStdString() << std::endl; //test
     posIndex[rememberIndex] = composite;
+}
+
+void Interface::cleanRuleCreationWindow()
+{
+    for(int i = 0; i<10; i++){
+        matrixIndexAndStateIndex[i]="(";
+        posIndex[i]="(";
+    }
 }
 
 
