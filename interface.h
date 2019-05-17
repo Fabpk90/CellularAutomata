@@ -45,6 +45,9 @@ private:
     Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
     Parser parser;
+    int rememberIndex;
+    QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
+    QString posIndex[10];//idem
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -177,6 +180,11 @@ public:
         return m_stateColor;
     }
     Q_INVOKABLE void printStateColor();
+
+    Q_INVOKABLE int getRememberIndex() const;
+    Q_INVOKABLE void setRememberIndex(int value);
+    Q_INVOKABLE void associateStateAndIndex(QString StateIndex);
+    Q_INVOKABLE void cleanRuleCreationWindow();
 
 signals:
 
