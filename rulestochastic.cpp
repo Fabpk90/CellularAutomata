@@ -60,3 +60,6 @@ void RuleStochastic::Apply(int x, int y){
     }
 }
 
+int RuleStochastic::GetType(){
+    return 1;
+}

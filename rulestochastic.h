@@ -15,12 +15,13 @@ class RuleStochastic : public Rule
         //Le :Rule(les params) se fait que dans le .cpp on me dit
 
         void Apply(int x, int y) override; //Besoin de spécifier override ?
-
-    protected:
-
+        int GetType() override;
         virtual float GetProbability(){
             return this->probability;
         }
+
+
+
 };
 
 

@@ -12,6 +12,8 @@ class RuleDeterministic : public Rule
 
     void Apply(int x, int y) override; //Besoin de spécifier override ?
 
+    int GetType() override;
+
 };
 
 #endif // RULEDETERMINISTIC_H

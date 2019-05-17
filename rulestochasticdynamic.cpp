@@ -26,3 +26,7 @@ float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de
     return prob;
 }
 
+int RuleStochasticDynamic::GetType(){
+    return 2;
+}
+

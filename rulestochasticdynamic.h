@@ -9,11 +9,13 @@ class RuleStochasticDynamic : public RuleStochastic
     public:
 
         RuleStochasticDynamic(bool isComputePosition, State* toChangeInto, std::vector<RuleParameters> params, float probability);
-        //Le :Rule(les params) se fait que dans le .cpp on me dit et pas oublier de mettre 0 par default pour la proba ! (moi du futur !)
-
-    protected:
-
+        //Le :Rule(les params) mettre 0 de base pour proba
+        int GetType() override;
         float GetProbability() override;
+
+
+
+
 };
 
 
