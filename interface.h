@@ -42,6 +42,9 @@ private:
  //   QQmlApplicationEngine* engine;
 
     Parser parser;
+    int rememberIndex;
+    QString matrixIndexAndStateIndex[9];
+    QString posIndex[9];
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -169,6 +172,10 @@ public:
         return m_stateColor;
     }
     Q_INVOKABLE void printStateColor();
+
+    Q_INVOKABLE int getRememberIndex() const;
+    Q_INVOKABLE void setRememberIndex(int value);
+    Q_INVOKABLE void associateStateAndIndex(QString StateIndex);
 
 signals:
 

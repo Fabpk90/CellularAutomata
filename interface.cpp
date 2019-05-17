@@ -105,7 +105,36 @@ void Interface::CallGetStates()
 
 void Interface::okCreateRule()
 {
-
+    QString rule = "";
+    rule.append(posAndCount());
+    rule.append(";");
+    if(dimension() == "OneDimension"){
+        rule.append(matrixIndexAndStateIndex[1]);
+    }
+    else if (dimension() == "TwoDimensions") {
+        rule.append(matrixIndexAndStateIndex[4]);
+    }
+    rule.append(";");
+    //TODO state d'arrivée
+    rule.append("Etat Arr");
+    rule.append(";");
+    //TODO length cond
+    rule.append("length cond");
+    rule.append(";");
+    for (int i = 0; i < 9; i++) {
+        if(posIndex[i] != "("){
+            rule.append(posIndex[i]);
+            rule.append(";");
+        }
+    }
+    if(probability() != ""){
+        rule.append(probability());
+        rule.append(";");
+    }
+    //TODO etat cond
+    string stdRule = rule.toStdString();
+    std::cout << "Rule sent to parser = " << stdRule << std::endl;
+    parser.ParseAndAddRules(&stdRule);
 }
 
 void Interface::printDimension()
@@ -255,6 +284,99 @@ void Interface::printStateName()
 void Interface::printStateColor()
 {
     std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
+}
+
+int Interface::getRememberIndex() const
+{
+    return  rememberIndex;
+}
+
+void Interface::setRememberIndex(int value)
+{
+    rememberIndex = value;
+}
+
+//met "(x;y;StateIndex)" dans le tableau posIndex
+void Interface::associateStateAndIndex(QString StateIndex)
+{
+    QString composite = "(";
+    if (dimension() == "OneDimension"){
+        switch (rememberIndex) {
+        case 0:
+            composite.append("-1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 1:
+            composite.append("0;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 2:
+            composite.append("1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        default:
+            composite.append(")");
+            break;
+        }
+    }
+    if(dimension() == "TwoDimensions"){
+        switch (rememberIndex) {
+        case 0:
+            composite.append("-1;1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 1:
+            composite.append("0;1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 2:
+            composite.append("1;1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 3:
+            composite.append("-1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 4:
+            composite.append("0;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 5:
+            composite.append("1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 6:
+            composite.append("-1;-1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 7:
+            composite.append("0;-1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 8:
+            composite.append("1;-1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        default:
+            composite.append(")");
+            break;
+        }
+    }
+    matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat
+    std::cout << composite.toStdString() << std::endl; //test
+    posIndex[rememberIndex] = composite;
 }
 
 
