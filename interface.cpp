@@ -307,6 +307,7 @@ void Interface::printStateColor()
     std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
 }
 
+
 int Interface::getRememberIndex() const
 {
     return  rememberIndex;
@@ -396,8 +397,15 @@ void Interface::cleanRuleCreationWindow()
         matrixIndexAndStateIndex[i]="(";
         posIndex[i]="(";
     }
+
 }
 
+
+void Interface::chooseGen(QString gen)
+{
+    parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
+
+}
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {

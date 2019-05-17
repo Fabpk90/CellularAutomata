@@ -162,8 +162,45 @@ ApplicationWindow {
             Button{
                 text: qsTr("Info")
                 Layout.maximumWidth: 50
+                onClicked: popup.open()
+            }
+            Component.onCompleted: {
+                tmp.model.append({name:"blue"})
+
+
             }
 
+          /*  Popup {
+                    id: popup
+                    x: 100
+                    y: 100
+                    width: 200
+                    height: 300
+                    modal: true
+                    focus: true
+                    height:100
+                    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                   contentItem:  ListView {
+                       anchors.fill: parent
+                       model: Model {}
+                       delegate: contactDelegate
+                       highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+                       focus: true
+                   }
+
+            }
+
+            Component {
+                id: contactDelegate
+                Item {
+                    width: 180; height: 40
+                    Column {
+                        Text { text: '<b>Name:</b> ' + name }
+                        Text { text: '<b>Number:</b> ' + number }
+                    }
+                }
+            }
+*/
             Item {
                 width: 50
             }
@@ -182,6 +219,8 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.maximumHeight: 50
                 Layout.maximumWidth: 50
+                onClicked: myInterface.chooseGen(textField.text)
+
             }
 
             Item {
