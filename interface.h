@@ -23,6 +23,8 @@ class Interface : public QObject
     Q_PROPERTY(QString maxGenerationsToSimulate READ maxGenerationsToSimulate WRITE setMaxGenerationsToSimulate NOTIFY maxGenerationsToSimulateChanged)
     Q_PROPERTY(QString sizeX READ sizeX WRITE setSizeX NOTIFY sizeXChanged)
     Q_PROPERTY(QString sizeY READ sizeY WRITE setSizeY NOTIFY sizeYChanged)
+    Q_PROPERTY(QString stateName READ stateName WRITE setStateName NOTIFY stateNameChanged)
+    Q_PROPERTY(QString stateColor READ stateColor WRITE setStateColor NOTIFY stateColorChanged)
 
 private:
     QString m_probability;
@@ -155,6 +157,18 @@ public:
    Q_INVOKABLE void OkCreateState(QString state);
 
 
+
+    QString stateName() const
+    {
+        return m_stateName;
+    }
+    Q_INVOKABLE void printStateName();
+
+    QString stateColor() const
+    {
+        return m_stateColor;
+    }
+    Q_INVOKABLE void printStateColor();
 
 signals:
 

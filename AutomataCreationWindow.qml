@@ -19,14 +19,24 @@ ApplicationWindow{
             text: qsTr("Type:")
         }
         RadioButton {
-            id:dynamic
+            id:deterministic
             text: qsTr("Deterministic")
-            checked: true
+            checked: {
+                if(myInterface.type==="Deterministic")
+                    deterministic.checked=true
+                else deterministic.checked=false
+            }
+
             onClicked: myInterface.type = qsTr("Deterministic")
         }
         RadioButton {
             id:stochastic
             text: qsTr("Stochastic")
+            checked: {
+                if(myInterface.type==="Stochastic")
+                    stochastic.checked=true
+                else stochastic.checked=false
+            }
             onClicked: myInterface.type = qsTr("Stochastic")
         }
     }
@@ -41,13 +51,22 @@ ApplicationWindow{
         RadioButton {
             id:oneDim
             text: qsTr("1D")
+            checked: {
+                if(myInterface.dimension==="OneDimension")
+                    oneDim.checked=true
+                else oneDim.checked=false
+            }
             onClicked: {myInterface.dimension = qsTr("OneDimension")
             }
         }
         RadioButton {
             id:twoDim
             text: qsTr("2D")
-            checked: true
+            checked: {
+                if(myInterface.dimension==="TwoDimensions")
+                    twoDim.checked=true
+                else twoDim.checked=false
+            }
             onClicked: {myInterface.dimension = qsTr("TwoDimensions")
             }
         }
@@ -63,12 +82,21 @@ ApplicationWindow{
         RadioButton {
             id:moore
             text: qsTr("Moore")
-            checked: true
+            checked: {
+                if(myInterface.neighborhood==="Moore")
+                    moore.checked=true
+                else moore.checked=false
+            }
             onClicked: myInterface.neighborhood = qsTr("Moore")
         }
         RadioButton {
             id:vonNeumann
             text: qsTr("Von Neumann")
+            checked: {
+                if(myInterface.neighborhood==="Von Neumann")
+                    vonNeumann.checked=true
+                else vonNeumann.checked=false
+            }
             onClicked: myInterface.neighborhood = qsTr("Von Neumann")
         }
     }
