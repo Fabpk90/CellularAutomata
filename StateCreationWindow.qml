@@ -55,7 +55,7 @@ ApplicationWindow {
         onAccepted:{
             rectangle.color=this.color
             myInterface.stateColor=this.color
-            myInterface.printStateColor()
+            //myInterface.printStateColor()
            }
     }
 
@@ -109,7 +109,7 @@ ApplicationWindow {
             onTextChanged:
             {
                 myInterface.stateName = text
-                myInterface.printStateName()
+                //myInterface.printStateName()
             }
         }
     }

@@ -29,23 +29,28 @@ void Interface::sendMandatoryInfo()
     CallSetNeighborhood();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
+    std::cout<< "dataToParseFromInterface: " << dataToParse[0] << dataToParse[1] <<std::endl;
+    //parser.ParseAndAddType(&dataToParse);
 }
 
 void Interface::CallSetDim()
 {
-    string dim=m_dimension.toStdString();
-    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
+    std::cout << "Dim : " << m_dimension.toStdString() << std::endl;
 }
 
 void Interface::CallSetNeighborhood()
 {
-    string neigh=m_neighborhood.toStdString();
-    std::cout << "Neighborhood : " << m_neighborhood.toStdString() << std::endl;
+    if(m_neighborhood.toStdString()=="Von Neumann")
+        dataToParse+="1";
+    else dataToParse+="0";
+    std::cout << "Neigh : " << m_neighborhood.toStdString() << std::endl;
 }
 
 void Interface::CallSetType()
 {
-    string ty=m_type.toStdString();
+    if(m_type.toStdString()=="Stochastic")
+        dataToParse+="1";
+    else dataToParse+="0";
     std::cout << "Type : " << m_type.toStdString() << std::endl;
 }
 

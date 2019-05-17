@@ -39,6 +39,7 @@ private:
     QString m_sizeY;
     QString m_stateName;
     QString m_stateColor;
+    string dataToParse;
  //   QQmlApplicationEngine* engine;
 
     Parser parser;
