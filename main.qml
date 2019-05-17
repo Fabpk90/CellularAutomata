@@ -163,14 +163,14 @@ ApplicationWindow {
 
             }
 
-            Popup {
+/*            Popup {
                     id: popup
-                  /*  x: 100
+                    x: 100
                     y: 100
                     width: 200
                     height: 300
                     modal: true
-                    focus: true*/
+                    focus: true
                     height:100
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
                    contentItem:  ListView {
@@ -193,7 +193,7 @@ ApplicationWindow {
                     }
                 }
             }
-
+*/
             Item {
                 width: 50
             }
