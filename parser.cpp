@@ -38,7 +38,7 @@ void Parser::SetAutomata(Automata *automata)
 void  Parser::ParseFile(const string* path)
 {
     //dataToParse = LoadData(path);
-    dataToParse = "12;15;1;0;E;3;red;infected;black;dead;green;healthy;R;H;";
+    dataToParse = "12;15;1;0;E;3;red;infected;black;dead;green;healthy;R;H;1;2";
     string tailleT = "";
     string typeT = "";
     string statesT = "";
@@ -278,6 +278,7 @@ void  Parser::ParseHistory(string* index)
     H;
         Nb_H;
         genID;
+        1 ;2 ;3 ;5 ;0 ;1 ;2 ;...=> Énumération des états des cellules des matrices constituant l’historique,le numéro correspond à la position de l’état dans le tableau des états.
  * */
 
 string  Parser::AutomataToString()
@@ -401,7 +402,7 @@ string  Parser::RulesToString()
 
             strRepresentation.append(to_string(r->GetType())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
             strRepresentation.append(";");
-            //strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat de depart
+            //strRepresentation.append(r->GetStartingState()); //Nom de l'etat de depart
             //strRepresentation.append(";");
             strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat d'arrivée
             strRepresentation.append(";");
@@ -428,8 +429,10 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
                 if(r->GetType() == 2){
 
-                    //strRepresentation.append(r->etatCond()); // Etatcond
-                    //strRepresentation.append(";");
+                    strRepresentation.append(to_string(r->GetParameters()[0].x)); // Etatcond
+                    strRepresentation.append(";");
+                    strRepresentation.append(to_string(r->GetParameters()[0].y));
+                    strRepresentation.append(";");
                 }
             }
         }
