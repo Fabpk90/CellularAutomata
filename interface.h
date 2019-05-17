@@ -167,6 +167,11 @@ public:
     }
     Q_INVOKABLE void printStateName();
 
+    Q_INVOKABLE QString getStateName()
+    {
+        return m_stateName;
+    }
+
     QString stateColor() const
     {
         return m_stateColor;

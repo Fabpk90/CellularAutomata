@@ -109,6 +109,7 @@ ApplicationWindow {
             onTextChanged:
             {
                 myInterface.stateName = textInput1.text
+                stateListView.setStateName(myInterface.getStateName())
                 //myInterface.printStateName()
             }
         }

@@ -42,7 +42,7 @@ void List::appendState()
     emit preItemAppended();
     Item item;
     item.number=indice++;
-    item.stateName=interface.stateName();
+    item.stateName=stateNameTmp;
     std::to_string(item.number);
     mItems.append(item);
 
@@ -59,4 +59,9 @@ void List::removeItem(int index)
 void List::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;
+}
+
+void List::setStateName(QString stateName)
+{
+    stateNameTmp=stateName;
 }

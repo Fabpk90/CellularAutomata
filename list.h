@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QVector>
 #include <qqmlapplicationengine.h>
-#include "interface.h"
 
 struct Item
 {
@@ -23,6 +22,7 @@ class List : public QObject
         bool setItemAt(int index, const Item &item);
         void setEngine(QQmlApplicationEngine *value);
 
+
     signals:
         void preItemAppended();
         void postItemAppended();
@@ -34,12 +34,13 @@ class List : public QObject
         void appendItem();
         void appendState();
         void removeItem(int index);
+        void setStateName(QString stateName);
 
     private:
     QVector<Item> mItems;
     QQmlApplicationEngine* engine;
     int indice=1;
-    Interface interface;
+    QString stateNameTmp;
 };
 
 #endif // LIST_H

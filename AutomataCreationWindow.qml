@@ -180,7 +180,7 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    text: model.stateName + " " + model.number
+                    text: model.stateName
                     onClicked: {
                         var Component = Qt.createComponent("StateCreationWindow.qml")
                         var window = Component.createObject(mainwindow)
