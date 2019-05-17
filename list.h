@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector>
 #include <qqmlapplicationengine.h>
+#include "interface.h"
 
 struct Item
 {
@@ -38,6 +39,7 @@ class List : public QObject
     QVector<Item> mItems;
     QQmlApplicationEngine* engine;
     int indice=1;
+    Interface interface;
 };
 
 #endif // LIST_H

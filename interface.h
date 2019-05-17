@@ -41,7 +41,9 @@ private:
     QString m_stateColor;
     string dataToParse;
  //   QQmlApplicationEngine* engine;
-
+    //Initialisation de l'Automate
+    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
+                           , vector<State>(), vector<Generation>());
     Parser parser;
 
 public:

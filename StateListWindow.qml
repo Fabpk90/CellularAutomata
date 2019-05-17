@@ -15,7 +15,6 @@ ApplicationWindow{
         id: stateList
         anchors.right: parent.horizontalCenter
         anchors.rightMargin: 100
-        anchors.top: maxGenerationsToSimulate.bottom
         Text {
             id: stateText
             text: qsTr("StateColumn")

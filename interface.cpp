@@ -8,7 +8,7 @@
 void Interface::initialiseParser()
 {
 
-    this->parser= Parser();
+    this->parser.SetAutomata(&ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
     setNeighborhood("Moore");
@@ -24,13 +24,17 @@ void Interface::printProbability()
 
 void Interface::sendMandatoryInfo()
 {
+    dataToParse="";
     CallSetType();
     CallSetDim();
     CallSetNeighborhood();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
-    std::cout<< "dataToParseFromInterface: " << dataToParse[0] << dataToParse[1] <<std::endl;
-    //parser.ParseAndAddType(&dataToParse);
+    //Pour avoir sizeof(dataToParse)=4
+    dataToParse+="0";
+    dataToParse+="0";
+    std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl;
+    this->parser.ParseAndAddType(&dataToParse);
 }
 
 void Interface::CallSetDim()
@@ -63,7 +67,7 @@ void Interface::CallMaxGenerationsToSimulate()
 void Interface::CallMatrixSize()
 {
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
-    //parser.ParseAndAddSize(&size);
+    this->parser.ParseAndAddSize(&size);
     std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl;
 }
 

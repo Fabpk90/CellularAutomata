@@ -1,7 +1,6 @@
 #include "list.h"
 #include <string>
 #include <iostream>
-#include "interface.h"
 
 List::List(QObject *parent) : QObject(parent)
 {
@@ -40,12 +39,10 @@ void List::appendItem()
 
 void List::appendState()
 {
-    Interface interface;
     emit preItemAppended();
     Item item;
     item.number=indice++;
-    item.stateName= interface.stateName();
-    std::cout<< "STATE NAME: " << item.stateName.toStdString() <<std::endl;
+    item.stateName=interface.stateName();
     std::to_string(item.number);
     mItems.append(item);
 

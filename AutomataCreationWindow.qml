@@ -286,6 +286,7 @@ ApplicationWindow{
     Row{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
+        spacing: 10
         Button{
             text: qsTr("OK")
             onClicked: {
@@ -297,7 +298,7 @@ ApplicationWindow{
             text: qsTr("Save")
             onClicked: {
                 myInterface.sendMandatoryInfo()
-                //myInterface.saveMatrix()
+                myInterface.saveMatrix()
             }
         }
     }
