@@ -1,4 +1,5 @@
 #include "automata.h"
+#include "simulator.h"
 
 #include <iostream>
 #include <algorithm>
@@ -59,7 +60,7 @@ void Automata::SetNeighborhood(bool b){
 
 void Automata::Simulate()
 {
-
+    Simulator::Simulate(*this);
 }
 
 //Il manque le deplacement de la generation actuelle quand on ajoute une gen

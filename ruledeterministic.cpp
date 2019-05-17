@@ -19,7 +19,7 @@ void RuleDeterministic::Apply(int x, int y){
             positions.push_back(std::make_pair(this->parameters[i].x,this->parameters[i].y));
             testState.push_back(this->parameters[i].toCheckAgainst);
         }
-        if (ComputePosition(positions, testState, x, y)){ // si la règle est effectivement vraie on applique
+        if (Simulator::ComputePosition(positions, testState, x, y)){ // si la règle est effectivement vraie on applique
                 automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
@@ -34,7 +34,7 @@ void RuleDeterministic::Apply(int x, int y){
         }
     }
     else {
-        if (ComputeCount(this->parameters[1].x, this->parameters[1].toCheckAgainst,x,y)){ // si la règle est effectivement vraie on applique
+        if (Simulator::ComputeCount(this->parameters[1].x, this->parameters[1].toCheckAgainst,x,y)){ // si la règle est effectivement vraie on applique
             automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
             automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
             automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
