@@ -8,6 +8,7 @@
 struct Item
 {
     int number;
+    QString stateName;
 };
 
 class List : public QObject
@@ -30,6 +31,7 @@ class List : public QObject
 
     public slots:
         void appendItem();
+        void appendState();
         void removeItem(int index);
 
     private:

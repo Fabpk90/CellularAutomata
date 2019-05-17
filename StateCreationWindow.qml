@@ -23,7 +23,7 @@ ApplicationWindow {
         text: qsTr("Ok")
         //onClicked:myInterface.call
         onClicked: {
-            stateListView.appendItem()
+            stateListView.appendState()
             stateCreation.close()
         }
     }
@@ -108,7 +108,7 @@ ApplicationWindow {
             font.pixelSize: 12
             onTextChanged:
             {
-                myInterface.stateName = text
+                myInterface.stateName = textInput1.text
                 //myInterface.printStateName()
             }
         }

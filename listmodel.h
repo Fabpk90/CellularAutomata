@@ -18,7 +18,8 @@ public:
     explicit ListModel(QObject *parent=nullptr);
 
     enum {
-        number
+        number,
+        stateName
     };
 
 List * list() const

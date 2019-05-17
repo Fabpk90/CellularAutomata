@@ -28,6 +28,8 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case number:
         return QString::number(item.number);
+    case stateName:
+        return  QString(item.stateName);
     }
 
     return QVariant();
@@ -43,6 +45,8 @@ bool ListModel::setData(const QModelIndex &index, const QVariant &value, int rol
     case number:
         item.number = value.toInt();
         break;
+    case stateName:
+        item.stateName = value.toString();
     }
 
     if (m_list_var->setItemAt(index.row(), item)) {
@@ -64,6 +68,7 @@ QHash<int, QByteArray> ListModel::roleNames() const
 {
     QHash<int, QByteArray> names;
     names[number]="number";
+    names[stateName]= "stateName";
     return names;
 }
 
