@@ -31,7 +31,7 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    text: "State" + " " + model.number
+                    text: model.stateName
                     onClicked: {
                         //TODO select state /*idee remove Ok onClicked select index and close window*/
                         myInterface.associateStateAndIndex(index);

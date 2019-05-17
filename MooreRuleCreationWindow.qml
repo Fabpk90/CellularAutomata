@@ -157,7 +157,7 @@ ApplicationWindow{
             SpinBox{ //TODO change to float (for all)
                 id: probability
                 editable: true
-                value: valueFromText(myInterface.probability, )
+                value: valueFromText(locale, myInterface.probability)
                 from:  0
                 to: 100 * 100
                 stepSize: 100
@@ -171,12 +171,12 @@ ApplicationWindow{
                     return Number(value / 100).toLocaleString(locale, 'f', probability.decimals)
                 }
 
-                valueFromText: function(text, locale) {
+                valueFromText: function(text, locale) {//ERROR
                     return Number.fromLocaleString(locale, text) * 100
                 }
 
                 anchors.verticalCenter: parent.verticalCenter
-                onValueChanged: myInterface.probability = textFromValue(value, )
+                onValueChanged: myInterface.probability = textFromValue(value, locale)
             }
             Text {
                 id: computeProbabilityText
