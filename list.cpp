@@ -51,10 +51,15 @@ void List::appendState()
 
 void List::removeItem(int index)
 {
-    emit preItemRemoved(index);
-    mItems.removeAt(index);
-    emit postItemRemoved();
-    indice --;
+    for(int i=0; i<mItems.size();i++)
+    {
+        if(mItems.at(i).number==index)
+        {
+            emit preItemRemoved(i);
+            mItems.removeAt(i);
+            emit postItemRemoved();
+        }
+    }
 }
 
 void List::setEngine(QQmlApplicationEngine *value)
