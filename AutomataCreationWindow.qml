@@ -113,7 +113,7 @@ ApplicationWindow{
         }
         SpinBox{
             from: 1
-            value: 1
+            value: myInterface.sizeX
             to: 1000
             stepSize: 1
             editable: true
@@ -132,7 +132,7 @@ ApplicationWindow{
         }
         SpinBox{
             from: 1
-            value: 1
+            value: myInterface.sizeY
             to: 1000
             stepSize: 1
             editable: true
@@ -151,7 +151,7 @@ ApplicationWindow{
         }
         SpinBox{
             from: 1
-            value: 1
+            value: myInterface.maxGenerationsToSimulate
             to: 1000
             stepSize: 1
             editable: true
