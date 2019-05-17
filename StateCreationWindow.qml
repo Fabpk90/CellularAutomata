@@ -52,7 +52,11 @@ ApplicationWindow {
     ColorDialog{
         id: colorDialog
 
-        onAccepted: rectangle.color=this.color
+        onAccepted:{
+            rectangle.color=this.color
+            myInterface.stateColor=this.color
+            myInterface.printStateColor()
+           }
     }
 
     Button {
@@ -102,6 +106,11 @@ ApplicationWindow {
             activeFocusOnPress: true
             cursorVisible: true
             font.pixelSize: 12
+            onTextChanged:
+            {
+                myInterface.stateName = text
+                myInterface.printStateName()
+            }
         }
     }
 }

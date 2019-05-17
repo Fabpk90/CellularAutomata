@@ -42,10 +42,10 @@ ApplicationWindow {
             title: "New"
             MenuItem { text: "Create new Automaton"
                 onClicked: {
+                    myInterface.initialiseParser()
                     var Component = Qt.createComponent("AutomataCreationWindow.qml") //TODO change this to level 2 window on merge and add level 3 window in level 2
                     var window = Component.createObject(mainwindow)
                     window.show()
-                    myInterface.initialiseParser()
                 }
             }
         }

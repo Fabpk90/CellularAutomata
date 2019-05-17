@@ -9,12 +9,12 @@ void Interface::initialiseParser()
 {
 
     this->parser= Parser();
-    this->m_type="Deterministic";
-    this->m_dimension="TwoDimension";
-    this->m_neighborhood="Moore";
-    this->m_maxGenerationsToSimulate="1";
-    this-> m_sizeX="1";
-    this->m_sizeY="1";
+    setType("Deterministic");
+    setDimension("TwoDimensions");
+    setNeighborhood("Moore");
+    setMaxGenerationsToSimulate("1");
+    setSizeX("1");
+    setSizeY("1");
 }
 
 void Interface::printProbability()
@@ -46,7 +46,6 @@ void Interface::CallSetNeighborhood()
 void Interface::CallSetType()
 {
     string ty=m_type.toStdString();
-    //parser.ParseAndAddType(&ty);
     std::cout << "Type : " << m_type.toStdString() << std::endl;
 }
 
@@ -246,6 +245,16 @@ void Interface::CallSetColor(QString color){
 void Interface::OkCreateState(QString state){
 
 
+}
+
+void Interface::printStateName()
+{
+    std::cout << "StateName : " << m_stateName.toStdString() << std::endl;
+}
+
+void Interface::printStateColor()
+{
+    std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
 }
 
 
