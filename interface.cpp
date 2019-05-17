@@ -276,10 +276,6 @@ void Interface::callLoad(string name, string path){
 }
 
 void Interface::callExecution(){
-
-   Automata* test =this->parser.GetAutomata();
-    Simulator::Simulate(*test);
-
-
+   this->parser.GetAutomata()->Simulate();
 }
 

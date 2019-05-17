@@ -12,13 +12,16 @@ Automata::Automata()
     definedStates = vector<State>();
     generations = vector<Generation>();
     neighborhood = vector<pair<int,int>>();
+    simulationThread = nullptr;
 }
 
 Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int sizeX, unsigned int sizeY,
                    vector<Rule*> rules, vector<State> definedStates, vector<Generation> trace)
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
-{}
+{
+    simulationThread = nullptr;
+}
 
 uint Automata::GetSizeX()
 {
@@ -60,7 +63,10 @@ void Automata::SetNeighborhood(bool b){
 
 void Automata::Simulate()
 {
-    Simulator::Simulate(*this);
+    if(simulationThread == nullptr)
+    {
+        simulationThread = new thread(&Simulator::Simulate, ref(*this));
+    }
 }
 
 //Il manque le deplacement de la generation actuelle quand on ajoute une gen
@@ -338,6 +344,11 @@ State &Automata::GetCellState(unsigned int x, unsigned int y)
 {
     //TODO: check si la formule est correcte (@Fab)
     return definedStates[generations[currentGen].cellMatrix[x * y + y]];
+}
+
+Automata::~Automata()
+{
+    delete simulationThread;
 }
 
 // TESTED

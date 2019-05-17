@@ -8,6 +8,8 @@
 #include <string>
 #include <stdlib.h>
 
+#include <thread>
+
 #include <QColor>
 
 using namespace std;
@@ -74,6 +76,9 @@ public:
     Generation& GetCurrentGen();
     // retourne l'état à la position du vecteur des cellules. Prend en compte la nécessité de faire boucler la matrice sur elle-même tel un torus. row * columns + col
     State& GetCellState(unsigned int x,unsigned int y);
+
+    ~Automata();
+
 private:
     unsigned int sizeX, sizeY; //taille de la génération
     bool isStocha, isVonNeighborhood;
@@ -82,6 +87,8 @@ private:
     vector<Generation> generations; //contient toutes les générations simulées
     vector<pair<int, int>> neighborhood; //vecteur qui contient le voisinage représenté par des paires de positions relatives
     vector<State> definedStates; //sert surtout pour l'interface, savoir les états définis
+
+    thread* simulationThread;
 
     //Les fonctions insèrent dans le vecteur de voisins les positions relatives pour le calcul du voisinage
     void FillNeighborhoodVonNeumann(); //Insère les 4 axes
