@@ -351,7 +351,6 @@ string  Parser::HistoryToString()
     return "";
 }
 
-//Peut être gestion d'erreur à check
 string Parser::HistoryToString(uint startGen, uint endGen)
 {
     string strRepresentation = "";
@@ -389,21 +388,21 @@ string Parser::HistoryToString(uint startGen, uint endGen)
     return "";
 }
 
-//TODO : Test il manque Type ;EtatDep ;Proba ;EtatCond ;
+//TODO : Test il manque EtatDep ;EtatCond ;
 string  Parser::RulesToString()
 {
 
     string strRepresentation = "";
     if(automata != nullptr){
 
-        //strRepresentation.append(to_string(automata->GetRules().type())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
-        strRepresentation.append(";");
         strRepresentation.append(to_string(automata->GetRules().size())); //Nombre de règle
         strRepresentation.append(";");
         for(Rule *r : automata->GetRules()){
 
-
-            /*
+            strRepresentation.append(to_string(r->GetType())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
+            strRepresentation.append(";");
+            //strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat de depart
+            //strRepresentation.append(";");
             strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat d'arrivée
             strRepresentation.append(";");
 
@@ -423,16 +422,16 @@ string  Parser::RulesToString()
                 strRepresentation.append(")");
                 strRepresentation.append(";");
             }
-            if(automata->GetRules().type() != 0){
+            if(r->GetType() != 0){
 
-                strRepresentation.append(); // Proba
+                strRepresentation.append(to_string(r->GetProbability())); // Proba
                 strRepresentation.append(";");
-                if(automata->GetRules().type == 2){
+                if(r->GetType() == 2){
 
-                    strRepresentation.append(r->etatCond()); // Etatcond
-                    strRepresentation.append(";");
+                    //strRepresentation.append(r->etatCond()); // Etatcond
+                    //strRepresentation.append(";");
                 }
-            }*/
+            }
         }
 
         return strRepresentation;

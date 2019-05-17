@@ -27,5 +27,6 @@ class Rule{
         bool GetIsComputePosition();
         virtual void Apply(int x, int y) = 0;
         virtual int GetType()=0; // retourne 0 si deterministe, 1 si stochastique et 2 si stochastique dynamique
+        virtual float GetProbability() = 0;
         virtual ~Rule() = 0;
 };
