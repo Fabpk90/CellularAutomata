@@ -189,7 +189,7 @@ ApplicationWindow{
                 }
                 Button{
                     text: "X"
-                    onClicked: stateListView.removeItem(stateView.currentIndex)
+                    onClicked: stateListView.removeItem(model.number-1)
                 }
             }
         }
@@ -238,7 +238,7 @@ ApplicationWindow{
                 }
                 Button{
                     text: "X"
-                    onClicked: ruleListView.removeItem(ruleView.currentIndex)
+                    onClicked: ruleListView.removeItem(model.number-1)
                 }
             }
         }

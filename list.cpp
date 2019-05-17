@@ -54,6 +54,7 @@ void List::removeItem(int index)
     emit preItemRemoved(index);
     mItems.removeAt(index);
     emit postItemRemoved();
+    indice --;
 }
 
 void List::setEngine(QQmlApplicationEngine *value)
