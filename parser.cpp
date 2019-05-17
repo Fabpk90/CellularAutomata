@@ -47,7 +47,7 @@ void  Parser::ParseFile(const string* path)
     int cpt = 0; // compteur de points virgules pour différencier tailleT et typeT (qui à eux deux forment le prélude)
 
     // Transformer le char* en string
-    for(int i = 0; i < dataToParse.length(); i++){
+    for(unsigned int i = 0; i < dataToParse.length(); i++){
         // prélude
         while(dataToParse[i] != 'E' && dataToParse.length() >= i) {
             if(dataToParse[i] == ';'){
@@ -392,11 +392,13 @@ string  Parser::RulesToString()
     string strRepresentation = "";
     /*if(automata != nullptr){
 
-        strRepresentation.append(to_string(automata->GetRules().type()));
+        strRepresentation.append(to_string(automata->GetRules().type())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
         strRepresentation.append(";");
-        strRepresentation.append(to_string(automata->GetRules().size()));
+        strRepresentation.append(to_string(automata->GetRules().size())); //Nombre de règle
         strRepresentation.append(";");
         for(Rule *r : automata->GetRules()){
+
+
 
             strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat d'arrivée
             strRepresentation.append(";");
@@ -417,9 +419,16 @@ string  Parser::RulesToString()
                 strRepresentation.append(")");
                 strRepresentation.append(";");
             }
+            if(automata.GetRules().type() != 0){
 
-                //strRepresentation.append(); // Proba
+                //strRepresentation.append(GetRules().proba()); // Proba
                 //strRepresentation.append(";");
+                if(automata.GetRules().type == 2){
+
+                    strRepresentation.append(GetRules().etatCond()); // Etatcond
+                    strRepresentation.append(";");
+                }
+            }
         }
 
         return strRepresentation;
