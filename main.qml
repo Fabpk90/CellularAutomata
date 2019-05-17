@@ -39,18 +39,11 @@ ApplicationWindow {
             }
         }
         Menu{
-            title: "Automaton"
+            title: "New"
             MenuItem { text: "Create new Automaton"
                 onClicked: {
                     myInterface.initialiseParser()
-                    var Component = Qt.createComponent("AutomataCreationWindow.qml")
-                    var window = Component.createObject(mainwindow)
-                    window.show()
-                }
-            }
-            MenuItem { text: "Edit Automaton"
-                onClicked: {
-                    var Component = Qt.createComponent("AutomataCreationWindow.qml")
+                    var Component = Qt.createComponent("AutomataCreationWindow.qml") //TODO change this to level 2 window on merge and add level 3 window in level 2
                     var window = Component.createObject(mainwindow)
                     window.show()
                 }
@@ -170,14 +163,14 @@ ApplicationWindow {
 
             }
 
-          /*  Popup {
+            Popup {
                     id: popup
-                    x: 100
+                  /*  x: 100
                     y: 100
                     width: 200
                     height: 300
                     modal: true
-                    focus: true
+                    focus: true*/
                     height:100
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
                    contentItem:  ListView {
@@ -200,7 +193,7 @@ ApplicationWindow {
                     }
                 }
             }
-*/
+
             Item {
                 width: 50
             }

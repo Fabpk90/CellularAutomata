@@ -46,14 +46,13 @@ private:
     Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
     Parser parser;
-<<<<<<< HEAD
+
+
     int rememberIndex;
     QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
     QString posIndex[10];//idem
-
-=======
     List l;
->>>>>>> Before pull
+
 public:
     explicit Interface(QObject *parent = nullptr);
 
