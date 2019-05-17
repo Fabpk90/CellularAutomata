@@ -41,7 +41,8 @@ public:
 
     void SetSizeX(uint sizeX);
     void SetSizeY(uint sizeY);
-
+    void SetNeighborhood(bool b); // if true then is VonNeuman else is Moore
+    void SetType(bool b); // if true then is stocha else is deterministic
 
     void Simulate();// Fonction permettant de simuler notre automate. Simule MAX_ITERATION
     void AddGeneration(Generation& generation); // Ajoute une nouvelle génération au vecteur générations.Si la génération existe déjà, elle sera écrasée par celle passée en paramètre.

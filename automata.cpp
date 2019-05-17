@@ -49,6 +49,14 @@ void Automata::SetSizeY(uint sizeY)
     this->sizeY = sizeY;
 }
 
+void Automata::SetType(bool b){
+    isStocha = b;
+}
+
+void Automata::SetNeighborhood(bool b){
+    isVonNeighborhood = b;
+}
+
 void Automata::Simulate()
 {
 
