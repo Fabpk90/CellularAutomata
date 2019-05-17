@@ -4,8 +4,8 @@
 //#include "automata.h"
 #include "simulator.h"
 
-RuleDeterministic::RuleDeterministic(bool isComputePosition, State* toChangeInto, std::vector<RuleParameters> params):
-    Rule(isComputePosition, toChangeInto, params){};
+RuleDeterministic::RuleDeterministic(bool isComputePosition, State* toChangeInto, State* startingState, std::vector<RuleParameters> params):
+    Rule(isComputePosition, toChangeInto, startingState, params){};
 
 void RuleDeterministic::Apply(int x, int y){
 

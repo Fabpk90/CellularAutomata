@@ -14,7 +14,8 @@ void Simulate(Automata& automata)
         for(unsigned int j = 0; j < automata.GetSizeY(); j++)
         {
             for(unsigned int k = 0; k < automata.GetRules().size(); k++)
-                automata.GetRules()[k]->Apply(i,j);
+                if(automata.GetRules()[k]->GetStartingState().color == automata.GetCellState(i,j).color) //Applique la règle seulement si l'état de départ correspond à l'état de la case testé
+                    automata.GetRules()[k]->Apply(i,j);
         }
     }
 }
