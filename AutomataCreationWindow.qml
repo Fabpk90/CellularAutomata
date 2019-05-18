@@ -27,7 +27,10 @@ ApplicationWindow{
                 else deterministic.checked=false
             }
 
-            onClicked: myInterface.type = qsTr("Deterministic")
+            onClicked:{
+                myInterface.type = qsTr("Deterministic")
+                ruleListView.removeAllItems()
+            }
         }
         RadioButton {
             id:stochastic
@@ -37,7 +40,10 @@ ApplicationWindow{
                     stochastic.checked=true
                 else stochastic.checked=false
             }
-            onClicked: myInterface.type = qsTr("Stochastic")
+            onClicked: {
+                myInterface.type = qsTr("Stochastic")
+                ruleListView.removeAllItems()
+             }
         }
     }
     RowLayout {
@@ -57,6 +63,7 @@ ApplicationWindow{
                 else oneDim.checked=false
             }
             onClicked: {myInterface.dimension = qsTr("OneDimension")
+                ruleListView.removeAllItems()
             }
         }
         RadioButton {
@@ -68,6 +75,7 @@ ApplicationWindow{
                 else twoDim.checked=false
             }
             onClicked: {myInterface.dimension = qsTr("TwoDimensions")
+                ruleListView.removeAllItems()
             }
         }
     }
@@ -87,7 +95,10 @@ ApplicationWindow{
                     moore.checked=true
                 else moore.checked=false
             }
-            onClicked: myInterface.neighborhood = qsTr("Moore")
+            onClicked: {
+                myInterface.neighborhood = qsTr("Moore")
+                ruleListView.removeAllItems()
+            }
         }
         RadioButton {
             id:vonNeumann
@@ -97,7 +108,10 @@ ApplicationWindow{
                     vonNeumann.checked=true
                 else vonNeumann.checked=false
             }
-            onClicked: myInterface.neighborhood = qsTr("Von Neumann")
+            onClicked:{
+                myInterface.neighborhood = qsTr("Von Neumann")
+                ruleListView.removeAllItems()
+            }
         }
     }
 
@@ -179,13 +193,8 @@ ApplicationWindow{
             }
 
             delegate: RowLayout{
-                Button{
+                Text{
                     text: model.stateName
-                    onClicked: {
-                        var Component = Qt.createComponent("StateCreationWindow.qml")
-                        var window = Component.createObject(mainwindow)
-                        window.show()
-                    }
                 }
                 Button{
                     text: "X"
@@ -214,27 +223,8 @@ ApplicationWindow{
             }
 
             delegate: RowLayout{
-                Button{
+                Text{
                     text: "Rule" + " " + model.number
-                    onClicked: {
-                        if(twoDim.checked){
-                            if(vonNeumann.checked){
-                                var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")
-                                var vonNeumannWindow = vonNeumannCreationWindow.createObject(mainwindow)
-                                vonNeumannWindow.show()
-                            }
-                            if(moore.checked){
-                                var mooreCreationWindow = Qt.createComponent("MooreRuleCreationWindow.qml")
-                                var mooreWindow = mooreCreationWindow.createObject(mainwindow)
-                                mooreWindow.show()
-                            }
-                        }
-                        if(oneDim.checked){
-                            var oneDimensionCreationWindow = Qt.createComponent("OneDimensionRuleCreationWindow.qml")
-                            var oneDimensionWindow = oneDimensionCreationWindow.createObject(mainwindow)
-                            oneDimensionWindow.show()
-                        }
-                    }
                 }
                 Button{
                     text: "X"

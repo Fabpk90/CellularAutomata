@@ -46,9 +46,12 @@ ApplicationWindow {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
                     window.show()
+                    ruleListView.removeAllItems()
+                    stateListView.removeAllItems()
                 }
             }
             MenuItem { text: "Edit Automaton"
+                id: editItem
                 onClicked: {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)

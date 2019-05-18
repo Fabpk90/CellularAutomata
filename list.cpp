@@ -71,3 +71,13 @@ void List::setStateName(QString stateName)
 {
     stateNameTmp=stateName;
 }
+
+void List::removeAllItems()
+{
+    for(int i=0; i<mItems.size();i++)
+    {
+        emit preItemRemoved(i);
+        mItems.removeAt(i);
+        emit postItemRemoved();
+    }
+}

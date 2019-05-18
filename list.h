@@ -35,6 +35,7 @@ class List : public QObject
         void appendState();
         void removeItem(int index);
         void setStateName(QString stateName);
+        void removeAllItems();
 
     private:
     QVector<Item> mItems;

@@ -401,7 +401,7 @@ void Interface::cleanRuleCreationWindow()
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-    
+
 }
 
 void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
