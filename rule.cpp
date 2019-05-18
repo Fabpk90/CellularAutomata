@@ -15,6 +15,11 @@ State& Rule::GetToChangeInto(){
     return *this->toChangeInto;
 }
 
+void Rule::SetStateToChangeInto(State *toChangeInto)
+{
+    this->toChangeInto = toChangeInto;
+}
+
 std::vector<Rule::RuleParameters> Rule::GetParameters(){
 
     return this->parameters;

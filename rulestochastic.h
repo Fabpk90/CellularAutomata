@@ -16,7 +16,7 @@ class RuleStochastic : public Rule
 
         void Apply(int x, int y) override; //Besoin de spécifier override ?
         int GetType() override;
-        float GetProbability() override{
+        virtual float GetProbability() {
             return this->probability;
         }
 

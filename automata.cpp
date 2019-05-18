@@ -349,6 +349,10 @@ State &Automata::GetCellState(unsigned int x, unsigned int y)
 Automata::~Automata()
 {
     delete simulationThread;
+
+    for (Rule* r : rules) {
+        delete r;
+    }
 }
 
 // TESTED

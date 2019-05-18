@@ -45,5 +45,8 @@ private:
     //string  HistoryToString();
     //string  HistoryToString(uint startGen, uint endGen);
     string  RulesToString();
+
+    //Parses an int, stopping right after ';'
+    int ParseInt(string& index, uint& i);
 };
 

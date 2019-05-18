@@ -70,8 +70,11 @@ int main(int argc, char *argv[])
     //cout << p.AutomataToString() << endl;
     cout << p.HistoryToString(0,3) << endl;
 
-    string yes = "yeppa";
-    p.ParseFile(&yes);
+    string test = "Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;";
+    p.ParseAndAddRules(&test);
+
+   // string yes = "yeppa";
+   // p.ParseFile(&yes);
 
     //ca.RandomizeCurrentGen();
     return app.exec();
