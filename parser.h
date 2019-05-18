@@ -34,6 +34,8 @@ public:
     string  HistoryToString();
 
     Automata *  GetAutomata();
+
+    ~Parser();
 private:
     Automata* automata;
     string  dataToParse;

@@ -119,6 +119,11 @@ Automata * Parser::GetAutomata(){
     return automata;
 }
 
+Parser::~Parser()
+{
+    delete automata;
+}
+
 //TODO : test
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
@@ -144,6 +149,7 @@ string  Parser::GetDataToBeSaved()
 
 void  Parser::ParseAndAddRules(string* index)
 {
+    cout << *index << " yeppa" << endl;
     //TODO: test just before adding if the indexes are truly there (states[i] exists)
     //Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;
     uint i = 0;
@@ -194,7 +200,7 @@ void  Parser::ParseAndAddRules(string* index)
 
                     if((*index)[i] != '\0') // if true, it is a stocha rule or stochadyn
                     {
-                         cout << "Stocha or dyn" << endl;
+                       //  cout << "Stocha or dyn" << endl;
                         string strProba = "";
                         while((*index)[i] != ';')
                         {
@@ -221,28 +227,28 @@ void  Parser::ParseAndAddRules(string* index)
                             automata->AddRule(*r);
                         }
                         else {
-                             cout << "stocha it is " << endl;
+                            // cout << "stocha it is " << endl;
                             RuleStochastic* r = new RuleStochastic(isComputePosition, &states[indexEndState], parameters, proba);
                             automata->AddRule(*r);
                         }
                     }
                     else {
-                         cout << "Deterministic " << endl;
+                        // cout << "Deterministic " << endl;
                         RuleDeterministic* d = new RuleDeterministic(isComputePosition, &states[indexEndState], parameters);
                         automata->AddRule(*d);
                     }
                 }
             }
             else {
-                //TODO: changing state error
+                throw(string("ParseAndAddRules : The endState is not correct"));
             }
         }
         else {
-            //TODO: startState error
+            throw(string("ParseAndAddRules : The startState is not correct"));
         }
     }
     else {
-        //TODO: throw exception: bad type
+        throw(string("ParseAndAddRules : The type of the rule is not correct"));
     }
 }
 
