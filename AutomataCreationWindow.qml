@@ -196,6 +196,12 @@ ApplicationWindow{
                 Text{
                     text: model.stateName
                 }
+                Rectangle{
+                    width: 20
+                    height: 20
+                    color: model.stateColor
+                }
+
                 Button{
                     text: "X"
                     onClicked: stateListView.removeItem(model.number)

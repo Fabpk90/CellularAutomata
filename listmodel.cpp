@@ -30,6 +30,8 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
         return QString::number(item.number);
     case stateName:
         return  QString(item.stateName);
+    case stateColor:
+        return QString(item.stateColor);
     }
 
     return QVariant();
@@ -47,6 +49,10 @@ bool ListModel::setData(const QModelIndex &index, const QVariant &value, int rol
         break;
     case stateName:
         item.stateName = value.toString();
+        break;
+    case stateColor:
+        item.stateColor=value.toString();
+        break;
     }
 
     if (m_list_var->setItemAt(index.row(), item)) {
@@ -69,6 +75,7 @@ QHash<int, QByteArray> ListModel::roleNames() const
     QHash<int, QByteArray> names;
     names[number]="number";
     names[stateName]= "stateName";
+    names[stateColor]="stateColor";
     return names;
 }
 

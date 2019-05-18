@@ -19,7 +19,8 @@ public:
 
     enum {
         number,
-        stateName
+        stateName,
+        stateColor
     };
 
 List * list() const

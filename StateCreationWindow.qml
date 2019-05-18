@@ -55,6 +55,7 @@ ApplicationWindow {
         onAccepted:{
             rectangle.color=this.color
             myInterface.stateColor=this.color
+            stateListView.setStateColor(myInterface.getStateColor())
             //myInterface.printStateColor()
            }
     }

@@ -9,6 +9,7 @@ struct Item
 {
     int number;
     QString stateName;
+    QString stateColor;
 };
 
 class List : public QObject
@@ -36,12 +37,14 @@ class List : public QObject
         void removeItem(int index);
         void setStateName(QString stateName);
         void removeAllItems();
+        void setStateColor(QString stateColor);
 
     private:
     QVector<Item> mItems;
     QQmlApplicationEngine* engine;
     int indice=1;
     QString stateNameTmp;
+    QString stateColorTmp;
 };
 
 #endif // LIST_H

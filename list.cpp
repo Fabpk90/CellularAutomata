@@ -31,6 +31,7 @@ void List::appendItem()
     Item item;
     item.number=indice++;
     item.stateName=nullptr;
+    item.stateColor=nullptr;
     std::to_string(item.number);
     mItems.append(item);
 
@@ -43,6 +44,7 @@ void List::appendState()
     Item item;
     item.number=indice++;
     item.stateName=stateNameTmp;
+    item.stateColor=stateColorTmp;
     std::to_string(item.number);
     mItems.append(item);
 
@@ -80,4 +82,9 @@ void List::removeAllItems()
         mItems.removeAt(i);
         emit postItemRemoved();
     }
+}
+
+void List::setStateColor(QString stateColor)
+{
+    stateColorTmp=stateColor;
 }

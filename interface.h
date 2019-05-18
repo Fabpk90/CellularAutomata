@@ -181,6 +181,11 @@ public:
     }
     Q_INVOKABLE void printStateColor();
 
+    Q_INVOKABLE QString getStateColor()
+    {
+        return m_stateColor;
+    }
+
     Q_INVOKABLE int getRememberIndex() const;
     Q_INVOKABLE void setRememberIndex(int value);
     Q_INVOKABLE void associateStateAndIndex(QString StateIndex);
