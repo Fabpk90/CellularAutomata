@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.12
 import Interface 1.0
 
 ApplicationWindow{
-    id: vonNeumannRuleCreationWindow
+    id: mooreRuleCreationWindow
     title: qsTr("Rule Creation")
     minimumHeight: 384 //(768/2)
     minimumWidth: 456//(1366/3)
@@ -95,7 +95,6 @@ ApplicationWindow{
                                 window.show()
                             }
                         }
-
                     }
                 }
             }
@@ -103,9 +102,35 @@ ApplicationWindow{
         Row {
             id: countRow
             visible: false
-            Text {
-                id: test
-                text: qsTr("Count mode")
+            spacing: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            ListView{
+                id: stateView
+                width: 100; height: 100
+                spacing: 2
+
+                model: ListModel {
+                    list_var: stateListView
+                }
+
+                delegate: RowLayout{
+                    Rectangle{
+                        width: 20
+                        height: 20
+                        color: model.stateColor
+                    }
+                    Button{
+                        text: model.stateName
+                        onClicked: {
+                            myInterface.associateStateAndIndex(index);
+                            stateListWindow.close()
+                        }
+                    }
+                    SpinBox{
+                        to: 8
+                        editable: true
+                    }
+                }
             }
         }
 
@@ -206,12 +231,12 @@ ApplicationWindow{
             myInterface.printProbability()
             myInterface.printComputeProbability()
             myInterface.okCreateRule()
-            vonNeumannRuleCreationWindow.close()
+            mooreRuleCreationWindow.close()
         }
     }
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")
-        onClicked: vonNeumannRuleCreationWindow.close()
+        onClicked: mooreRuleCreationWindow.close()
     }
 }
