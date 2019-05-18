@@ -68,13 +68,13 @@ int main(int argc, char *argv[])
 
 
     //cout << p.AutomataToString() << endl;
-    cout << p.HistoryToString(0,3) << endl;
+    //cout << p.HistoryToString(0,3) << endl;
 
-    string test = "Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;";
-    p.ParseAndAddRules(&test);
+    //string test = "Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;";
+    //p.ParseAndAddRules(&test);
 
-   // string yes = "yeppa";
-   // p.ParseFile(&yes);
+    string yes = "yeppa";
+    p.ParseFile(&yes);
 
     //ca.RandomizeCurrentGen();
     return app.exec();

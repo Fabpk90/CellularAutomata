@@ -76,7 +76,7 @@ void Automata::AddGeneration(Generation &generation)
     //pour pas dupliquer une gén
     generations.push_back(generation);
     // currentGen = (uint)generations.size() - 1;
-    cout << "Added a gen" << endl;
+    cout << "Added a gen " <<generation.generationID<< endl;
 
     SortGenerations();
 }

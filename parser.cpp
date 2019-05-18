@@ -41,7 +41,7 @@ void Parser::SetAutomata(Automata *automata)
 void  Parser::ParseFile(const string* path)
 {
     //dataToParse = LoadData(path);
-    dataToParse = "12;15;1;0;E;3;red;infected;black;dead;green;healthy;R;H;1;2";
+    dataToParse = "12;15;1;0;E;3;red;infected;black;dead;green;healthy;R;H;3;\n1;\n4;5;\n2;\n1;\n3;\n0;1";
     string tailleT = "";
     string typeT = "";
     string statesT = "";
@@ -360,9 +360,74 @@ void  Parser::ParseAndAddSize(string* index)
     automata->SetSizeY(y);
 }
 
+//TODO : Test et ajout erreur
 void  Parser::ParseHistory(string* index)
 {
+    cout << *index << endl;
+    cout << index->size() << endl;
+    int sizeIndex = index->size();
+    int cpt = 0;
+    int cptVerifNbHistory = 0;
+    int i = 0;
+    string nbHistoryH = "";
+    int nbHistory = 0;
+    int ascii = 0;
 
+    if(sizeIndex < 2){
+        throw(string("ParseAndAddHistory : Minimum number of arguments not met"));
+    }
+
+    // Parsing jusqu'au NbHistory
+    while(cpt < 2 || (cpt == 2 && index[0][i] == ';')){
+        if(index[0][i] == ';'){
+            cpt++;
+        }
+        // premier ';' celui apres H donc cpt > 1
+        if(cpt >= 1){
+            ascii = index[0][i];
+            if(ascii >= 48 && ascii <= 57) nbHistoryH += index[0][i];
+            else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+                throw(string("ParseAndAddHistory : Number of History is not an int"));
+            }
+        }
+        i++;
+    }
+
+    nbHistory = stoi(nbHistoryH);
+    cout << "Nb History = " << nbHistory << endl;
+
+    int asciiGenId = -1;
+    vector<int> asciiStates;
+    Generation g;
+
+    for(int k = i+1; k <= sizeIndex; k ++){
+        ascii = index[0][k];
+        if (ascii >= '0' && ascii <= '9'){
+            asciiGenId = ascii - 48;
+            g.generationID = asciiGenId;
+            cout<< "GId : "<<g.generationID << endl;
+            k++;
+            ascii = index[0][k];
+        }
+        else if (ascii == '\n') {
+            cout<< "etats: ";
+            k++;
+            ascii = index[0][k];
+            while(ascii != '\n' && k <= sizeIndex){
+                if (ascii >= '0' && ascii <= '9'){
+                    g.cellMatrix.push_back(ascii - 48);
+                    cout<< ascii - 48<<" ";
+                    k++;
+                    ascii = index[0][k];
+                }else{
+                    k++;
+                    ascii = index[0][k];
+                }
+            }
+        cout<<endl;
+        automata->AddGeneration(g);
+        }
+    }
 }
 
 /*
