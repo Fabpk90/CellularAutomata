@@ -407,6 +407,7 @@ void Interface::cleanRuleCreationWindow()
 
 
 
+
 Interface::Interface(QObject *parent) : QObject(parent)
 {
     

@@ -153,37 +153,74 @@ ApplicationWindow {
             }
 
             Button{
+               id: info
                 text: qsTr("Info")
                 Layout.maximumWidth: 50
                 onClicked: popup.open()
             }
-            Component.onCompleted: {
-                tmp.model.append({name:"blue"})
 
 
-            }
-
-/*            Popup {
+          Popup {
                     id: popup
-                    x: 100
-                    y: 100
-                    width: 200
-                    height: 300
-                    modal: true
-                    focus: true
-                    height:100
+                    x: info.x
+                    y: info.y-200
+                   width: 200
+                    height: 200
+                  /*  modal: true
+                    focus: true*/
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                   contentItem:  ListView {
-                       anchors.fill: parent
-                       model: Model {}
-                       delegate: contactDelegate
-                       highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-                       focus: true
+                   contentItem:  Column{
+                       id: listOfState
+                       anchors.right: popup.horizontalCenter //parent.horizontalCenter
+                       //anchors.rightMargin: 100
+
+                       ListView{
+                           id: stateView
+                           width: 100; height: 150
+                           spacing: 15
+
+                           model: ListModel {
+                               list_var: stateListView
+                           }
+
+                           delegate: Rectangle{
+                               height:line.height
+                               width:line.width
+                               Text {
+                                   id:line
+                                   text: model.stateName
+                               }
+                              color: "blue"// model.stateColor
+                           }
+                       }
+
+                       ListView{
+                           id: ruleView
+                           anchors.rightMargin: 100
+                           width: 100; height: 150
+                           spacing: 15
+
+                           model: ListModel {
+                               list_var: ruleListView
+                           }
+
+                           delegate: Rectangle{
+                               height:ruleLine.height
+                               width:ruleLine.width
+                               Text {
+                                   id:ruleLine
+                                   text: model.stateName
+                               }
+                              color: "blue"// model.stateColor
+                           }
+                       }
+
+
                    }
 
             }
 
-            Component {
+  /*          Component {
                 id: contactDelegate
                 Item {
                     width: 180; height: 40

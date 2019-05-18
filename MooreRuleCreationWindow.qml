@@ -157,10 +157,10 @@ ApplicationWindow{
             SpinBox{ //TODO change to float (for all)
                 id: probability
                 editable: true
-                value: valueFromText(locale, myInterface.probability)
+                value:parseFloat(myInterface.probability)//valueFromText(locale, myInterface.probability)
                 from:  0
                 to: 100 * 100
-                stepSize: 100
+                stepSize: 1
                 property int decimals: 2
                 property real realValue: value / 100
                 validator: DoubleValidator {
@@ -176,7 +176,7 @@ ApplicationWindow{
                 }
 
                 anchors.verticalCenter: parent.verticalCenter
-                onValueChanged: myInterface.probability = textFromValue(value, locale)
+              //  onValueChanged: myInterface.probability = textFromValue(value, locale)
             }
             Text {
                 id: computeProbabilityText
@@ -201,6 +201,7 @@ ApplicationWindow{
         anchors.right: parent.right
         text: qsTr("OK")
         onClicked: {
+            myInterface.probability = probability.textFromValue(probability.value,locale)
             ruleListView.appendItem()
             myInterface.printProbability()
             myInterface.printComputeProbability()
