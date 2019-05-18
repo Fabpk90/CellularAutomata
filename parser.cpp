@@ -40,7 +40,11 @@ void Parser::SetAutomata(Automata *automata)
 // Lance exception, à mettre dans un try catch
 void  Parser::ParseFile(const string* path)
 {
+    /*try{
     //dataToParse = LoadData(path);
+    } catch(string const& error){
+        cout<<error<<endl;
+    }*/
     dataToParse = "12;15;1;0;E;3;red;infected;black;dead;green;healthy;R;H;3;\n1;\n4;5;\n2;\n1;\n3;\n0;1";
     string tailleT = "";
     string typeT = "";
