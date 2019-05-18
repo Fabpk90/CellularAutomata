@@ -39,7 +39,7 @@ ApplicationWindow {
             }
         }
         Menu{
-            title: "New"
+            title: "Automaton"
             MenuItem { text: "Create new Automaton"
                 onClicked: {
                     myInterface.initialiseParser()

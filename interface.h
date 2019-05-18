@@ -43,7 +43,7 @@ private:
     string dataToParse;
  //   QQmlApplicationEngine* engine;
     //Initialisation de l'Automate
-    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
+    Automata ca = Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
     Parser parser;
 
