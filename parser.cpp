@@ -45,7 +45,7 @@ void  Parser::ParseFile(const string* path)
     } catch(string const& error){
         cout<<error<<endl;
     }*/
-    dataToParse = "12;15;1;0;E;3;red;infected;black;dead;green;healthy;R;H;3;\n1;\n4;5;\n2;\n1;\n3;\n0;1";
+    dataToParse = "12;15;1;0;E;3;#FFFFFF;infected;#000000;dead;#FF00FF;healthy;R;H;3;\n1;\n4;5;\n2;\n1;\n3;\n0;1";
     string tailleT = "";
     string typeT = "";
     string statesT = "";
@@ -258,6 +258,10 @@ void  Parser::ParseAndAddStates(string* index)
     string nbStatesS = "";
     int nbStates = 0;
     int ascii = 0;
+    int parite = 0;
+    State currentS;
+    currentS.name = "";
+    string currentcolorS = "";
 
     if(sizeIndex < 3){
         throw(string("ParseAndAddStates : Minimum number of arguments not met"));
@@ -292,8 +296,44 @@ void  Parser::ParseAndAddStates(string* index)
     if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
     // Jusque là tout est okay
 
-
     // Parsing des états
+    while(i < index->size()){
+        ascii = index[0][i];
+        while(ascii != ';'){
+            ascii = index[0][i];
+            if(parite % 2 == 0 && ascii != ';'){
+                //QColor
+                currentcolorS += index[0][i];
+            }
+            else if(ascii != ';'){
+                //Name
+                currentS.name += index[0][i];
+            }
+            i++;
+            cout << (char) (ascii) << endl;
+        }
+        parite++;
+        cout << parite << " " << i << " " << currentcolorS << endl;
+        if(parite >= 1 && parite % 2){
+            if(currentcolorS.size() != 7){
+                throw(string("ParseAndAddStates : Color wrong format"));
+            }
+            else{
+                int number = (int) strtol(&currentcolorS[1], NULL, 16);
+                int r = number >> 16;
+                int g = number >> 8 & 0xFF;
+                int b = number & 0xFF;
+                currentS.color.setRgb(r,g,b);
+                if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
+                currentcolorS = "";
+            }
+        }
+        else{
+            cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
+            automata->AddState(currentS);
+            currentS.name = "";
+        }
+    }
 
 }
 
