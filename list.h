@@ -8,6 +8,8 @@
 struct Item
 {
     int number;
+    QString stateName;
+    QString stateColor;
 };
 
 class List : public QObject
@@ -21,6 +23,7 @@ class List : public QObject
         bool setItemAt(int index, const Item &item);
         void setEngine(QQmlApplicationEngine *value);
 
+
     signals:
         void preItemAppended();
         void postItemAppended();
@@ -30,12 +33,18 @@ class List : public QObject
 
     public slots:
         void appendItem();
+        void appendState();
         void removeItem(int index);
+        void setStateName(QString stateName);
+        void removeAllItems();
+        void setStateColor(QString stateColor);
 
     private:
     QVector<Item> mItems;
     QQmlApplicationEngine* engine;
     int indice=1;
+    QString stateNameTmp;
+    QString stateColorTmp;
 };
 
 #endif // LIST_H

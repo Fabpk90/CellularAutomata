@@ -6,6 +6,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "matrixview.h"
+#include "list.h"
 #include "parser.h"
 #include "filemanager.h"
 #include "simulator.h"
@@ -23,6 +24,8 @@ class Interface : public QObject
     Q_PROPERTY(QString maxGenerationsToSimulate READ maxGenerationsToSimulate WRITE setMaxGenerationsToSimulate NOTIFY maxGenerationsToSimulateChanged)
     Q_PROPERTY(QString sizeX READ sizeX WRITE setSizeX NOTIFY sizeXChanged)
     Q_PROPERTY(QString sizeY READ sizeY WRITE setSizeY NOTIFY sizeYChanged)
+    Q_PROPERTY(QString stateName READ stateName WRITE setStateName NOTIFY stateNameChanged)
+    Q_PROPERTY(QString stateColor READ stateColor WRITE setStateColor NOTIFY stateColorChanged)
 
 private:
     QString m_probability;
@@ -37,9 +40,18 @@ private:
     QString m_sizeY;
     QString m_stateName;
     QString m_stateColor;
+    string dataToParse;
  //   QQmlApplicationEngine* engine;
-
+    //Initialisation de l'Automate
+    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
+                           , vector<State>(), vector<Generation>());
     Parser parser;
+
+
+    int rememberIndex;
+    QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
+    QString posIndex[10];//idem
+    List l;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -150,10 +162,40 @@ public:
     Q_INVOKABLE void okCreateRule(); //TODO
 
     /*Fenêtre de création d'états */
-   Q_INVOKABLE void CallSetStateName(QString probability);
+    Q_INVOKABLE void CallSetStateName(QString probability);
     void CallSetColor(QString color);
-   Q_INVOKABLE void OkCreateState(QString state);
+    Q_INVOKABLE void OkCreateState(QString state);
 
+
+
+    QString stateName() const
+    {
+        return m_stateName;
+    }
+    Q_INVOKABLE void printStateName();
+
+    Q_INVOKABLE QString getStateName()
+    {
+        return m_stateName;
+    }
+
+    QString stateColor() const
+    {
+        return m_stateColor;
+    }
+    Q_INVOKABLE void printStateColor();
+
+    Q_INVOKABLE QString getStateColor()
+    {
+        return m_stateColor;
+    }
+
+    Q_INVOKABLE int getRememberIndex() const;
+    Q_INVOKABLE void setRememberIndex(int value);
+    Q_INVOKABLE void associateStateAndIndex(QString StateIndex);
+    Q_INVOKABLE void cleanRuleCreationWindow();
+
+    Q_INVOKABLE void chooseGen(QString gen);
 
 
 signals:

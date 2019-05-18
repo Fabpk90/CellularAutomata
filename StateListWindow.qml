@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.12
 import Interface 1.0
 
 ApplicationWindow{
-    id: stateCreationWindow
+    id: stateListWindow
     title: qsTr("State Selection")
     width: screen.width/3
     height: screen.height/3
@@ -15,7 +15,6 @@ ApplicationWindow{
         id: stateList
         anchors.right: parent.horizontalCenter
         anchors.rightMargin: 100
-        anchors.top: maxGenerationsToSimulate.bottom
         Text {
             id: stateText
             text: qsTr("StateColumn")
@@ -32,28 +31,30 @@ ApplicationWindow{
 
             delegate: RowLayout{
                 Button{
-                    text: "State" + " " + model.number
+                    text: model.stateName
                     onClicked: {
                         //TODO select state /*idee remove Ok onClicked select index and close window*/
+                        myInterface.associateStateAndIndex(index);
+                        stateListWindow.close()
                     }
                 }
             }
         }
     }
-    Button{
+    /*Button{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: "Ok"
         onClicked: {
             //TODO choose state
-            stateCreationWindow.close()
+            stateListWindow.close()
         }
-    }
+    }*/
 
     Button{
         anchors.bottom: parent.bottom
         text: "Cancel"
-        onClicked: stateCreationWindow.close()
+        onClicked: stateListWindow.close()
     }
 
     //TODO

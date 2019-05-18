@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
+    QLocale::setDefault(QLocale::c());
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Some Company"); app.setOrganizationDomain("somecompany.com"); app.setApplicationName("Amazing Application");
     qmlRegisterType<Interface>("Interface",1,0,"Interface");

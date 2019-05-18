@@ -30,6 +30,21 @@ void List::appendItem()
     emit preItemAppended();
     Item item;
     item.number=indice++;
+    item.stateName=nullptr;
+    item.stateColor=nullptr;
+    std::to_string(item.number);
+    mItems.append(item);
+
+    emit postItemAppended();
+}
+
+void List::appendState()
+{
+    emit preItemAppended();
+    Item item;
+    item.number=indice++;
+    item.stateName=stateNameTmp;
+    item.stateColor=stateColorTmp;
     std::to_string(item.number);
     mItems.append(item);
 
@@ -38,12 +53,38 @@ void List::appendItem()
 
 void List::removeItem(int index)
 {
-    emit preItemRemoved(index);
-    mItems.removeAt(index);
-    emit postItemRemoved();
+    for(int i=0; i<mItems.size();i++)
+    {
+        if(mItems.at(i).number==index)
+        {
+            emit preItemRemoved(i);
+            mItems.removeAt(i);
+            emit postItemRemoved();
+        }
+    }
 }
 
 void List::setEngine(QQmlApplicationEngine *value)
 {
     engine = value;
+}
+
+void List::setStateName(QString stateName)
+{
+    stateNameTmp=stateName;
+}
+
+void List::removeAllItems()
+{
+    for(int i=0; i<mItems.size();i++)
+    {
+        emit preItemRemoved(i);
+        mItems.removeAt(i);
+        emit postItemRemoved();
+    }
+}
+
+void List::setStateColor(QString stateColor)
+{
+    stateColorTmp=stateColor;
 }
