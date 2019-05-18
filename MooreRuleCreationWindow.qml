@@ -100,39 +100,51 @@ ApplicationWindow{
             }
         }
         Row {
-            id: countRow
+            id:countRow
             visible: false
-            spacing: 10
             anchors.horizontalCenter: parent.horizontalCenter
-            ListView{
-                id: stateView
-                width: 100; height: 100
-                spacing: 2
+            spacing: 10
+            Text{
+                anchors.verticalCenter: parent.verticalCenter
+                id: countFrameTitle
+                text: qsTr("Select ")
+            }
+            Frame{
+                id: countFrame
+                anchors.verticalCenter: parent.verticalCenter
+                Grid{
+                    rows: 3
+                    columns: 3
+                    spacing: 5
+                    Repeater{
+                        model: 9
+                        MouseArea {
+                            id: countFrameMouseArea
+                            width: 25
+                            height: 25
+                            Rectangle {
+                                id: countRectangle
+                                width: parent.width
+                                height: parent.height
+                                color: "lightgrey" //TODO change color to actual color
+                            }
+                            Text{
+                                text: index //TEST affiche
+                            }
 
-                model: ListModel {
-                    list_var: stateListView
-                }
-
-                delegate: RowLayout{
-                    Rectangle{
-                        width: 20
-                        height: 20
-                        color: model.stateColor
-                    }
-                    Button{
-                        text: model.stateName
-                        onClicked: {
-                            myInterface.associateStateAndIndex(index);
-                            stateListWindow.close()
+                            onClicked: {
+                                myInterface.setRememberIndex(index)
+                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
+                                var Component = Qt.createComponent("StateListWindow.qml")
+                                var window = Component.createObject(mainwindow)
+                                window.show()
+                            }
                         }
-                    }
-                    SpinBox{
-                        to: 8
-                        editable: true
                     }
                 }
             }
         }
+
 
         Row{
             id: toChangeToRow
