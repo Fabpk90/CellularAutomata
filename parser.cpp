@@ -10,7 +10,7 @@ using namespace std;
 
 Parser::Parser()
 {
-    automata = nullptr;
+    automata = new Automata();
     dataToParse = "";
 }
 
@@ -40,6 +40,9 @@ void Parser::SetAutomata(Automata *automata)
 // Lance exception, à mettre dans un try catch
 void  Parser::ParseFile(const string* path)
 {
+    delete automata;
+    automata = new Automata();
+
     try{
     dataToParse = LoadData(path);
     } catch(string const& error){
