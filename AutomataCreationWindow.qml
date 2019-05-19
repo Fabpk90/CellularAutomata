@@ -297,6 +297,9 @@ ApplicationWindow{
             onClicked: {
                 myInterface.sendMandatoryInfo()
                 automataCreationWindow.close()
+                /*var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
+                var window = Component.createObject(mainwindow)
+                window.show()*/
             }
         }
         Button{

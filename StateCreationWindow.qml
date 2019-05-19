@@ -23,6 +23,7 @@ ApplicationWindow {
         text: qsTr("Ok")
         //onClicked:myInterface.call
         onClicked: {
+            myInterface.okCreateState(";")
             stateListView.appendState()
             stateCreation.close()
         }
