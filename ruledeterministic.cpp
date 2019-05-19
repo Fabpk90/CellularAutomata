@@ -25,13 +25,6 @@ void RuleDeterministic::Apply(int x, int y){
                 automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
 
         }
-        else {
-            State currentState;
-            currentState = automata->GetCellState(x,y);
-            automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-            automata->SetCell(x,y, currentState); // changement de l'état de la cellule
-            automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-        }
     }
     else {
         bool applyCount = true;
@@ -48,16 +41,7 @@ void RuleDeterministic::Apply(int x, int y){
                 automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
         }
-        else {
-                State currentState;
-                currentState = automata->GetCellState(x,y);
-                automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-                automata->SetCell(x,y, currentState); // changement de l'état de la cellule
-                automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-       }
     }
-
-
 }
 
 int RuleDeterministic::GetType(){
