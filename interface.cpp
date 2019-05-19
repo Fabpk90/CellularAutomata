@@ -429,12 +429,16 @@ void Interface::loadInterface()
    setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
    for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
    {
-       //ruleListView.appendItem();
+       List ruleListView;
+       ruleListView.appendItem(); //TODO: pas sûre du tout
    }
    for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
-       //TODO stateName et stateColor à set pour l'affichage dans la liste
        //stateListView.appendState();
+       setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));
+       setStateColor(parser.GetAutomata()->GetStates().at(i).color.name(QColor::HexRgb));
+       List stateListView;
+       stateListView.appendState(); //TODO: pas sûre du tout
    }
    //TODO avoir la dimension
 }
