@@ -53,7 +53,7 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
 
     for(int i=0;i<9998;i++){
 
-        listOfState.append({QColor("yellow"),"State "+to_string(i)});
+        listOfState.append({QColor("white"),"State "+to_string(i)});
 
     }
 

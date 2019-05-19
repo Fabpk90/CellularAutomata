@@ -38,44 +38,5 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
-    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
-                           , vector<State>(), vector<Generation>());
-
-    Parser p;
-    p.SetAutomata(&ca);
-
-    Generation gen;
-    gen.cellMatrix = vector<unsigned int>();
-    gen.cellMatrix.push_back(1);
-    gen.cellMatrix.push_back(2);
-    unsigned int i = 0;
-    while(i < 3){
-        gen.generationID = i;
-        i++;
-        ca.AddGeneration(gen);
-        //ca.RemoveGeneration(gen.generationID);
-    }
-    ca.ChooseGen(0);
-    //ca.PreviousGen();
-    ca.NextGen();
-
-    State state;
-    state.name = "Yeppa";
-    state.color = QColor(50, 20, 10);
-    ca.AddState(state);
-    state.name = "Yo";
-    ca.AddState(state);
-
-
-    //cout << p.AutomataToString() << endl;
-    //cout << p.HistoryToString(0,3) << endl;
-
-    //string test = "Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;";
-    //p.ParseAndAddRules(&test);
-
-    string yes = "yeppa";
-    p.ParseFile(&yes);
-
-    //ca.RandomizeCurrentGen();
     return app.exec();
 }

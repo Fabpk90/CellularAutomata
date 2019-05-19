@@ -155,7 +155,12 @@ void Interface::okCreateRule()
     //TODO etat cond
     string stdRule = rule.toStdString();
     std::cout << "Rule sent to parser = " << stdRule << std::endl;
-    parser.ParseAndAddRules(&stdRule);
+    try {
+         parser.ParseAndAddRules(&stdRule);
+    } catch (const string &error) {
+       cout << error << endl;
+    }
+
 }
 
 void Interface::printDimension()

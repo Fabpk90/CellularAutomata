@@ -40,12 +40,11 @@ void Parser::SetAutomata(Automata *automata)
 // Lance exception, à mettre dans un try catch
 void  Parser::ParseFile(const string* path)
 {
-    /*try{
-    //dataToParse = LoadData(path);
+    try{
+    dataToParse = LoadData(path);
     } catch(string const& error){
         cout<<error<<endl;
-    }*/
-    dataToParse = "12;15;1;0;E;3;#FFFFFF;infected;#000000;dead;#FF00FF;healthy;R;H;3;\n1;\n4;5;\n2;\n1;\n3;\n0;1";
+    }
     string tailleT = "";
     string typeT = "";
     string statesT = "";
@@ -149,106 +148,136 @@ string  Parser::GetDataToBeSaved()
 
 void  Parser::ParseAndAddRules(string* index)
 {
-    cout << *index << " yeppa" << endl;
     //TODO: test just before adding if the indexes are truly there (states[i] exists)
     //Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;
     uint i = 0;
-    string ruleType = "";
-
-    while((*index)[i] != ';')
+    while(i != index->size())
     {
-        ruleType += (*index)[i++];
-    }
+        string ruleType = "";
 
-    //cout << "Rule type: " << ruleType << endl;
-
-    if(ruleType == "Position" || ruleType == "Count")
-    {
-        bool isComputePosition = ruleType == "Position" ? true : false;
-        i++;//skipping the ;
-
-        int indexStartState = ParseInt(*index, i);
-       // cout << "index start: " << indexStartState << endl;
-        if(indexStartState >= 0) // if the index of the starting state is correct
+        while((*index)[i] != ';')
         {
-            int indexEndState = ParseInt(*index, i);
-            //cout << "index end: " << indexEndState << endl;
-            if(indexEndState >= 0) // if the index of the changing state is correct
+            ruleType += (*index)[i++];
+        }
+
+        //cout << "Rule type: " << ruleType << endl;
+
+        if(ruleType == "Position" || ruleType == "Count")
+        {
+            bool isComputePosition = ruleType == "Position" ? true : false;
+            i++;//skipping the ;
+            int indexStartState = 0;
+            try {
+                indexStartState = ParseInt(*index, i);
+            } catch (string const& error) {
+                throw (error);
+            }
+
+            //cout << "index start: " << indexStartState << endl;
+            if(indexStartState >= 0) // if the index of the starting state is correct
             {
-                int lengthStates = ParseInt(*index, i);
-                 //cout << "length: " << lengthStates << endl;
-                if(lengthStates > 0) // TODO: more testing of the value !
+                int indexEndState = 0;
+                try {
+                    indexEndState = ParseInt(*index, i);
+                } catch (string const& error) {
+                    throw (error);
+                }
+                //cout << "index end: " << indexEndState << endl;
+                if(indexEndState >= 0) // if the index of the changing state is correct
                 {
-                    vector<Rule::RuleParameters> parameters;
-                    auto states = automata->GetStates();
-                    Rule::RuleParameters param;
-                    for (int j = 0; j < lengthStates; ++j) {
-                         //cout << "Should be ( : " << (*index)[i] << endl;
-                        i++; //skipping '('
-                        param.x = ParseInt(*index, i);
-                        param.y = ParseInt(*index, i);
-                        int indexStates = ParseInt(*index, i);
-                        if(states.size() >= indexStates)
-                        {
-                            param.toCheckAgainst = &states[indexStates];
-                        }
-                        parameters.push_back(param);
-                        //TODO: check for the state and add an error throw in parseint
-                        //cout << "Should be ; : " << (*index)[i] << endl;
-                        i++;//skipping ';'
+                    int lengthStates = 0;
+                    try {
+                        lengthStates = ParseInt(*index, i);
+                    } catch (string const& error) {
+                        throw (error);
                     }
-
-                    if((*index)[i] != '\0') // if true, it is a stocha rule or stochadyn
+                     //cout << "length: " << lengthStates << endl;
+                    if(lengthStates > 0) // TODO: more testing of the value !
                     {
-                       //  cout << "Stocha or dyn" << endl;
-                        string strProba = "";
-                        while((*index)[i] != ';')
-                        {
-                            strProba += (*index)[i++];
-                        }
-                        i++;
-                        float proba = atof(strProba.c_str());
-
-                        //cout << "Proba: " << proba << endl;
-
-                        if((*index)[i] != '\0') // it is definitely a stochadyn
-                        {
-                            int indexEtatCond = ParseInt(*index, i);
-                            param.x = param.y = 0;
-                            param.toCheckAgainst = &states[indexEtatCond];
-                            vector<Rule::RuleParameters> vec;
-                            vec.push_back(param);
-
-                            for (int j = 0; j < parameters.size(); ++j) {
-                                vec.push_back(parameters[i]);
+                        vector<Rule::RuleParameters> parameters;
+                        auto states = automata->GetStates();
+                        Rule::RuleParameters param;
+                        for (int j = 0; j < lengthStates; ++j) {
+                             //cout << "Should be ( : " << (*index)[i] << endl;
+                            i++; //skipping '('
+                            try {
+                            param.x = ParseInt(*index, i);
+                            } catch (string const& error) {
+                                throw (error);
                             }
+                            try {
+                            param.y = ParseInt(*index, i);
+                            } catch (string const& error) {
+                                throw (error);
+                            }
+                            int indexStates = 0;
+                            try {
+                                indexStates = ParseInt(*index, i);
+                            } catch (string const& error) {
+                                throw (error);
+                            }
+                            if(states.size() >= indexStates)
+                            {
+                                param.toCheckAgainst = &states[indexStates];
+                            }
+                            parameters.push_back(param);
+                            //TODO: check for the state and add an error throw in parseint
+                            //cout << "Should be ; : " << (*index)[i] << endl;
+                            i++;//skipping ';'
+                        }
 
-                            RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, &states[indexEndState], vec, proba);
-                            automata->AddRule(*r);
+                        if((*index)[i] != '\0') // if true, it is a stocha rule or stochadyn
+                        {
+                           //  cout << "Stocha or dyn" << endl;
+                            string strProba = "";
+                            while((*index)[i] != ';')
+                            {
+                                strProba += (*index)[i++];
+                            }
+                            i++;
+                            float proba = atof(strProba.c_str());
+
+                            //cout << "Proba: " << proba << endl;
+
+                            if((*index)[i] != '\0') // it is definitely a stochadyn
+                            {
+                                int indexEtatCond = ParseInt(*index, i);
+                                param.x = param.y = 0;
+                                param.toCheckAgainst = &states[indexEtatCond];
+                                vector<Rule::RuleParameters> vec;
+                                vec.push_back(param);
+
+                                for (int j = 0; j < parameters.size(); ++j) {
+                                    vec.push_back(parameters[i]);
+                                }
+
+                                RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, &states[indexEndState], vec, proba);
+                                automata->AddRule(*r);
+                            }
+                            else {
+                                // cout << "stocha it is " << endl;
+                                RuleStochastic* r = new RuleStochastic(isComputePosition, &states[indexEndState], parameters, proba);
+                                automata->AddRule(*r);
+                            }
                         }
                         else {
-                            // cout << "stocha it is " << endl;
-                            RuleStochastic* r = new RuleStochastic(isComputePosition, &states[indexEndState], parameters, proba);
-                            automata->AddRule(*r);
+                            // cout << "Deterministic " << endl;
+                            RuleDeterministic* d = new RuleDeterministic(isComputePosition, &states[indexEndState], parameters);
+                            automata->AddRule(*d);
                         }
                     }
-                    else {
-                        // cout << "Deterministic " << endl;
-                        RuleDeterministic* d = new RuleDeterministic(isComputePosition, &states[indexEndState], parameters);
-                        automata->AddRule(*d);
-                    }
+                }
+                else {
+                    throw(string("ParseAndAddRules : The endState is not correct"));
                 }
             }
             else {
-                throw(string("ParseAndAddRules : The endState is not correct"));
+                throw(string("ParseAndAddRules : The startState is not correct"));
             }
         }
         else {
-            throw(string("ParseAndAddRules : The startState is not correct"));
+            throw(string("ParseAndAddRules : The type of the rule is not correct"));
         }
-    }
-    else {
-        throw(string("ParseAndAddRules : The type of the rule is not correct"));
     }
 }
 
@@ -668,6 +697,9 @@ int Parser::ParseInt(string &index, uint &i)
         str += (index)[i++];
     }
     i++; //skipping the next char
+
+    if(str == "")
+        throw(string("ParsingInt : Not a number"));
 
     return atoi(str.c_str());
 }
