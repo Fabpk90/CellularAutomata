@@ -201,9 +201,19 @@ void Interface::okCreateRule()
                 }
             }
             if(dimension() == "TwoDimensions"){//evite le cas "central"
-                if(i!=4){
-                    stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                if(neighborhood() == "Moore"){
+                    if(i!=4){
+                        stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                    }
                 }
+                else if (neighborhood() == "Von Neumann")
+                {
+                    if(i!=4 && i!= 0 && i!=2 && i!=6 && i!=8){
+                        stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                    }
+                }
+                
+                
             }
         }
         for(int n = 0; n<sizeofarray; n++){//test

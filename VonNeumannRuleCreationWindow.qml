@@ -127,10 +127,12 @@ ApplicationWindow{
                             id: countFrameMouseArea
                             width: 25
                             height: 25
+                            enabled: index != 0 && index != 2 && index != 6 && index != 8
                             Rectangle {
                                 id: countRectangle
                                 width: parent.width
                                 height: parent.height
+                                visible: index != 0 && index != 2 && index != 6 && index != 8
                                 color: "lightgrey" //TODO change color to actual color
                             }
                             Text{
