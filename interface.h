@@ -44,7 +44,7 @@ private:
     string dataToParse;
  //   QQmlApplicationEngine* engine;
     //Initialisation de l'Automate
-    Automata ca = Automata(false, false, 1, 1, vector<Rule*>()
+    Automata* ca = new Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
 
     Parser parser;
@@ -214,6 +214,11 @@ public:
     Q_INVOKABLE void loadInterface();
 
     Q_INVOKABLE QString returnCurrentGen();
+
+    Q_INVOKABLE void removeStateAutomata(int index);
+    Q_INVOKABLE void removeRuleAutomata(int index);
+    Q_INVOKABLE void removeAllRulesAutomata();
+    Q_INVOKABLE void removeAllStatesAutomata();
 
 signals:
 

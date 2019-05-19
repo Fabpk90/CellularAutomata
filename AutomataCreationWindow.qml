@@ -30,6 +30,7 @@ ApplicationWindow{
             onClicked:{
                 myInterface.type = qsTr("Deterministic")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
         RadioButton {
@@ -43,6 +44,7 @@ ApplicationWindow{
             onClicked: {
                 myInterface.type = qsTr("Stochastic")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
              }
         }
     }
@@ -64,6 +66,7 @@ ApplicationWindow{
             }
             onClicked: {myInterface.dimension = qsTr("OneDimension")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
         RadioButton {
@@ -76,6 +79,7 @@ ApplicationWindow{
             }
             onClicked: {myInterface.dimension = qsTr("TwoDimensions")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
     }
@@ -98,6 +102,7 @@ ApplicationWindow{
             onClicked: {
                 myInterface.neighborhood = qsTr("Moore")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
         RadioButton {
@@ -111,6 +116,7 @@ ApplicationWindow{
             onClicked:{
                 myInterface.neighborhood = qsTr("Von Neumann")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
     }
@@ -207,7 +213,10 @@ ApplicationWindow{
 
                 Button{
                     text: "X"
-                    onClicked: stateListView.removeItem(model.number)
+                    onClicked:{
+                        stateListView.removeItem(model.number)
+                        myInterface.removeStateAutomata(model.number)
+                    }
                 }
             }
         }
@@ -236,7 +245,10 @@ ApplicationWindow{
                 }
                 Button{
                     text: "X"
-                    onClicked: ruleListView.removeItem(model.number)
+                    onClicked:{
+                        ruleListView.removeItem(model.number)
+                        myInterface.removeRuleAutomata(model.number)
+                    }
                 }
             }
         }
@@ -323,6 +335,8 @@ ApplicationWindow{
         {
             ruleListView.removeAllItems()
             stateListView.removeAllItems()
+            myInterface.removeAllRulesAutomata()
+            myInterface.removeAllStatesAutomata()
             automataCreationWindow.close()
         }
     }

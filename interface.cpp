@@ -9,7 +9,7 @@
 void Interface::initialiseParser()
 {
 
-    this->parser.SetAutomata(&ca);
+    this->parser.SetAutomata(ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
     setNeighborhood("Moore");
@@ -445,6 +445,40 @@ void Interface::loadInterface()
 QString Interface::returnCurrentGen()
 {
     return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+}
+
+void Interface::removeStateAutomata(int index)
+{
+    for(int i=0; i<stateListView.getListItem().size();i++)
+    {
+        if(stateListView.getListItem().at(i).number==index)
+            parser.GetAutomata()->RemoveState(parser.GetAutomata()->GetStates().at(i));
+    }
+}
+
+void Interface::removeRuleAutomata(int index)
+{
+    for(int i=0; i<stateListView.getListItem().size();i++)
+    {
+        if(stateListView.getListItem().at(i).number==index)
+            parser.GetAutomata()->RemoveRule(*parser.GetAutomata()->GetRules().at(i));
+    }
+}
+
+void Interface::removeAllRulesAutomata()
+{
+    for(auto r: parser.GetAutomata()->GetRules())
+    {
+        parser.GetAutomata()->RemoveRule(*r);
+    }
+}
+
+void Interface::removeAllStatesAutomata()
+{
+    for(auto s: parser.GetAutomata()->GetStates())
+    {
+        parser.GetAutomata()->RemoveState(s);
+    }
 }
 
 

@@ -52,6 +52,8 @@ ApplicationWindow {
                     window.show()
                     ruleListView.removeAllItems()
                     stateListView.removeAllItems()
+                    myInterface.removeAllRulesAutomata()
+                    myInterface.removeAllStatesAutomata()
                 }
             }
             MenuItem { text: "Edit Automaton"
