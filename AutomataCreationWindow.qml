@@ -318,4 +318,9 @@ ApplicationWindow{
             automataCreationWindow.close()
         }
     }
+
+    onClosing: {
+        ruleListView.removeAllItems()
+        stateListView.removeAllItems()
+    }
 }
