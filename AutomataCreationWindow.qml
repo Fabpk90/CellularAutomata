@@ -185,7 +185,7 @@ ApplicationWindow{
     Column{
         id: stateList
         anchors.right: parent.horizontalCenter
-        anchors.rightMargin: 100
+        anchors.rightMargin: 0
         anchors.top: maxGenerationsToSimulate.bottom
         Text {
             id: stateText
@@ -194,9 +194,9 @@ ApplicationWindow{
         }
         ListView{
             id: stateView
-            width: 100; height: 150
+            width: 200; height: 150
             spacing: 2
-
+            clip: true
             model: ListModel {
                 list_var: stateListView
             }
@@ -234,8 +234,9 @@ ApplicationWindow{
         }
         ListView{
             id: ruleView
-            width: 100; height: 150
+            width: 200; height: 150
             spacing: 2
+            clip: true
             model: ListModel {
                 list_var: ruleListView
             }
