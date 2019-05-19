@@ -440,7 +440,8 @@ void Interface::loadInterface()
        List stateListView;
        stateListView.appendState(); //TODO: pas sûre du tout
    }
-   //TODO avoir la dimension
+   if(parser.GetAutomata()->GetSizeY()==1) setDimension("OneDimension");
+   else setDimension("TwoDimensions");
 }
 
 QString Interface::returnCurrentGen()
