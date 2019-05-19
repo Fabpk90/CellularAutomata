@@ -312,12 +312,12 @@ void  Parser::ParseAndAddStates(string* index)
     }
 
     // Parsing jusqu'au NbStates
-    while(cpt < 2 || (cpt == 2 && index[0][i] == ';')){
+    while(cpt < 1 || (cpt == 2 && index[0][i] == ';')){
         if(index[0][i] == ';'){
             cpt++;
         }
         // premier ';' celui apres E donc cpt > 1
-        if(cpt >= 1){
+        if(cpt >= 0){
             ascii = index[0][i];
             if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
             else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
@@ -466,12 +466,12 @@ void  Parser::ParseHistory(string* index)
     }
 
     // Parsing jusqu'au NbHistory
-    while(cpt < 2 || (cpt == 2 && index[0][i] == ';')){
+    while(cpt < 1 || (cpt == 2 && index[0][i] == ';')){
         if(index[0][i] == ';'){
             cpt++;
         }
         // premier ';' celui apres H donc cpt > 1
-        if(cpt >= 1){
+        if(cpt >= 0){
             ascii = index[0][i];
             if(ascii >= 48 && ascii <= 57) nbHistoryH += index[0][i];
             else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
