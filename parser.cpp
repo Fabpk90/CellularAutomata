@@ -71,17 +71,23 @@ void  Parser::ParseFile(const string* path)
             i++;
         }
 
+        i += 2;//skips E;
+
         // états
         while(dataToParse[i] != 'R' && dataToParse.length() >= i){
             statesT += dataToParse[i];
             i++;
         }
 
+        i += 2;//skips R;
+
         // règles
         while(dataToParse[i] != 'H' && dataToParse.length() >= i){
             rulesT += dataToParse[i];
             i++;
         }
+
+        i += 2;//skips H;
 
         //historique
         while(i < dataToParse.length()){
