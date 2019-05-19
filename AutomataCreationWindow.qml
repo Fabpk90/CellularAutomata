@@ -149,7 +149,6 @@ ApplicationWindow{
                 if(myInterface.dimension==="TwoDimensions") 2
                 else 1
             }
-
             value: myInterface.sizeY
             to: 1000
             stepSize: 1

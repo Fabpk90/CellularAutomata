@@ -429,16 +429,14 @@ void Interface::loadInterface()
    setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
    for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
    {
-       List ruleListView;
-       ruleListView.appendItem(); //TODO: pas sûre du tout
+       ruleListView.appendItem();
    }
    for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
        //stateListView.appendState();
        setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));
        setStateColor(parser.GetAutomata()->GetStates().at(i).color.name(QColor::HexRgb));
-       List stateListView;
-       stateListView.appendState(); //TODO: pas sûre du tout
+       stateListView.appendState();
    }
    if(parser.GetAutomata()->GetSizeY()==1) setDimension("OneDimension");
    else setDimension("TwoDimensions");
@@ -548,7 +546,6 @@ void Interface::cleanRuleCreationWindow()
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-
 }
 
 void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
