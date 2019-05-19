@@ -312,7 +312,7 @@ void  Parser::ParseAndAddStates(string* index)
     }
 
     // Parsing jusqu'au NbStates
-    while(cpt < 1 || (cpt == 2 && index[0][i] == ';')){
+    while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
         if(index[0][i] == ';'){
             cpt++;
         }
@@ -466,7 +466,7 @@ void  Parser::ParseHistory(string* index)
     }
 
     // Parsing jusqu'au NbHistory
-    while(cpt < 1 || (cpt == 2 && index[0][i] == ';')){
+    while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
         if(index[0][i] == ';'){
             cpt++;
         }
