@@ -221,23 +221,49 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
               //  onValueChanged: myInterface.probability = textFromValue(value, locale)
             }
+        }
+        Row{
+            id: stochasticDynRow
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 10
+            visible: if(myInterface.type === "Stochastic"){
+                         stochasticDynRow.visible = true
+                     }
+                     else{
+                         stochasticDynRow.visible = false
+                     }
             Text {
-                id: computeProbabilityText
                 anchors.verticalCenter: parent.verticalCenter
+                id: stochasticDynTitle
                 text: qsTr("Compute Probability")
             }
-            SpinBox{
-                id:computeProbability
-                editable: true
-                value: myInterface.computeProbability
-                from: 0
-                to: 100
+            Frame{
                 anchors.verticalCenter: parent.verticalCenter
-                onValueChanged: myInterface.computeProbability = value
+                id: stochasticDynState
+                implicitHeight: 30
+                implicitWidth: 30
+                spacing: 10
+                MouseArea{
+                    id : stachasticDynFrameMouseArea
+                    anchors.centerIn: parent
+                    width: 25
+                    height: 25
+                    Rectangle{
+                        id: stochasticDynFrameStateRectangle
+                        width: parent.width
+                        height: parent.height
+                        anchors.centerIn: parent.Center
+                        color: "lightblue" //TODO change color to actual color
+                    }
+                    onClicked: {
+                        myInterface.setRememberIndex(10)
+                        var Component = Qt.createComponent("StateListWindow.qml")
+                        var window = Component.createObject(mainwindow)
+                        window.show()
+                    }
+                }
             }
-
         }
-
     }
     Button{
         anchors.bottom: parent.bottom

@@ -236,9 +236,13 @@ void Interface::okCreateRule()
         }
 
     }
-    if(probability() != ""){
+    if(type() == "Stochastic"){
         rule.append(probability());
         rule.append(";");
+        if(matrixIndexAndStateIndex[10] != "("){
+            rule.append(matrixIndexAndStateIndex[10]);
+            rule.append(";");
+        }
     }
     //TODO etat cond
     string stdRule = rule.toStdString();
