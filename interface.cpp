@@ -292,8 +292,20 @@ void Interface::CallSetColor(QString color){
 
 }
 
-void Interface::OkCreateState(QString state){
+void Interface::okCreateState(QString state){
 
+    QString composite;
+    composite.append("1;");
+    composite.append(m_stateName);
+    composite.append(state);
+    composite.append(m_stateColor);
+    string string= composite.toStdString();
+    cout<<string<<endl;
+    try {
+         parser.ParseAndAddStates(&string);
+    } catch (std::string) {
+
+    }
 
 }
 
@@ -310,6 +322,11 @@ void Interface::printStateColor()
 void Interface::chooseGen(QString gen)
 {
     parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
+}
+
+QString Interface::returnCurrentGen()
+{
+    return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
 }
 
 

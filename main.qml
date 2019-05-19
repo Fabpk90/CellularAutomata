@@ -154,7 +154,7 @@ ApplicationWindow {
 
             Text {
                 id: currentGeneration
-                text: qsTr("125")
+                text:qsTr("125") //:qsTr(myInterface.returnCurrentGen())
                 font.pixelSize: 12
             }
 
@@ -174,7 +174,7 @@ ApplicationWindow {
                     id: popup
                     x: info.x
                     y: info.y-200
-                   width: 200
+                   width: 110
                     height: 200
                   /*  modal: true
                     focus: true*/
@@ -186,7 +186,7 @@ ApplicationWindow {
 
                        ListView{
                            id: stateView
-                           width: 100; height: 150
+                           width: popup.width; height:popup.height
                            spacing: 15
 
                            model: ListModel {
@@ -200,30 +200,11 @@ ApplicationWindow {
                                    id:line
                                    text: model.stateName
                                }
-                              color: "blue"// model.stateColor
+                              color: model.stateColor
                            }
                        }
 
-                       ListView{
-                           id: ruleView
-                           anchors.rightMargin: 100
-                           width: 100; height: 150
-                           spacing: 15
 
-                           model: ListModel {
-                               list_var: ruleListView
-                           }
-
-                           delegate: Rectangle{
-                               height:ruleLine.height
-                               width:ruleLine.width
-                               Text {
-                                   id:ruleLine
-                                   text: model.stateName
-                               }
-                              color: "blue"// model.stateColor
-                           }
-                       }
 
 
                    }
