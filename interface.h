@@ -10,6 +10,9 @@
 #include "parser.h"
 #include "filemanager.h"
 #include "simulator.h"
+
+#define SIZEOFINDEXARRAYS 11
+
 //TODO ALL THE INPUT TESTS
 class Interface : public QObject
 {
@@ -49,8 +52,8 @@ private:
 
 
     int rememberIndex;
-    QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
-    QString posIndex[10];//idem
+    QString matrixIndexAndStateIndex[SIZEOFINDEXARRAYS]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo 11eme pour le compute probability
+    QString posIndex[SIZEOFINDEXARRAYS];//idem
     List l;
 
 public:

@@ -139,7 +139,7 @@ void Interface::okCreateRule()
     if(posAndCount() == "Position"){
         if(dimension() == "OneDimension"){
             rule.append(matrixIndexAndStateIndex[1]); //index etat de depart
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < SIZEOFINDEXARRAYS-2; i++){
                 if(posIndex[i] != "(" && i != 1){
                 lengthCond++;
                 }
@@ -147,7 +147,7 @@ void Interface::okCreateRule()
         }
         else if (dimension() == "TwoDimensions") {
             rule.append(matrixIndexAndStateIndex[4]); //index etat de depart
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < SIZEOFINDEXARRAYS - 2; i++){
                 if(posIndex[i] != "(" && i != 4){
                 lengthCond++;
                 }
@@ -161,7 +161,7 @@ void Interface::okCreateRule()
         QString length = QString::number(lengthCond); //lengthCond
         rule.append(length);
         rule.append(";");
-        for (int i = 0; i < 9; i++) { // "*"
+        for (int i = 0; i < SIZEOFINDEXARRAYS - 2; i++) { // "*"
             if(posIndex[i] != "("){
                 rule.append(posIndex[i]);
                 rule.append(";");
@@ -183,7 +183,7 @@ void Interface::okCreateRule()
         //on va creer un tableau dont la taille sera le plus grand indice d'etat
         //l'indice du tableau sera l'index de l'etat, la valeur stockée a cet indice sera le nombre de repetitions de cet etat
         int sizeofarray = matrixIndexAndStateIndex[0].toInt();
-        for (int i = 1;i<9;i++) { //trouve le plus grand index d'etat
+        for (int i = 1;i<SIZEOFINDEXARRAYS - 2;i++) { //trouve le plus grand index d'etat
             if(sizeofarray < matrixIndexAndStateIndex[i].toInt()){
                 sizeofarray = matrixIndexAndStateIndex[i].toInt();
             }
@@ -194,7 +194,7 @@ void Interface::okCreateRule()
         for(int i = 0; i<sizeofarray; i++){//initialise le tableau (impossible d'initialiser un tableau de taille variable avec {0})
             stateArray[i] = 0;
         }
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < SIZEOFINDEXARRAYS - 2; i++){
             if(dimension() == "OneDimension"){//evite le cas "central"
                 if(i!=1){
                     stateArray[matrixIndexAndStateIndex[i].toInt()]++;
@@ -488,7 +488,7 @@ void Interface::associateStateAndIndex(QString StateIndex)
 
 void Interface::cleanRuleCreationWindow()
 {
-    for(int i = 0; i<10; i++){
+    for(int i = 0; i<SIZEOFINDEXARRAYS; i++){
         matrixIndexAndStateIndex[i]="(";
         posIndex[i]="(";
     }
