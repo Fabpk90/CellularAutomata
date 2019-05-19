@@ -186,6 +186,12 @@ ApplicationWindow{
             id: probabilitiesRow
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 10
+            visible: if(myInterface.type === "Stochastic"){
+                         probabilitiesRow.visible = true
+                     }
+                     else{
+                         probabilitiesRow.visible = false
+                     }
             Text {
                 id: probabilityText
                 anchors.verticalCenter: parent.verticalCenter
