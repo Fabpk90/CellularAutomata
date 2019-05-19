@@ -226,7 +226,7 @@ void  Parser::ParseAndAddRules(string* index)
                             i++;//skipping ';'
                         }
 
-                        if((*index)[i] != '\0') // if true, it is a stocha rule or stochadyn
+                        if(index->at(i) != '\0' && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                         {
                            //  cout << "Stocha or dyn" << endl;
                             string strProba = "";
@@ -681,6 +681,8 @@ string  Parser::RulesToString()
                     strRepresentation.append(";");
                 }
             }
+
+            strRepresentation.append("\n");
         }
 
         return strRepresentation;
