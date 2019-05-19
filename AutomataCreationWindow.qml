@@ -311,6 +311,11 @@ ApplicationWindow{
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")
-        onClicked: automataCreationWindow.close()
+        onClicked:
+        {
+            ruleListView.removeAllItems()
+            stateListView.removeAllItems()
+            automataCreationWindow.close()
+        }
     }
 }
