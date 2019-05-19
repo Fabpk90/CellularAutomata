@@ -20,7 +20,43 @@ ApplicationWindow{
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 25
         Row{
+            id:positionsRow
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 10
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                id: posAndCountText
+                text: qsTr("Rule accounts for :")
+            }
+
+            RadioButton {
+                id: positionRadioButton
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("Position")
+                onClicked: {
+                    countRow.visible = false
+                    selectionRow.visible=true
+                    myInterface.posAndCount = qsTr("Position")
+                    myInterface.printPosAndCount() //Test
+                }
+            }
+
+            RadioButton {
+                id: countRadioButton
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("Count")
+                autoRepeat: true
+                onClicked: {
+                    selectionRow.visible = false
+                    countRow.visible = true
+                    myInterface.posAndCount = qsTr("Count")
+                    myInterface.printPosAndCount() //Test
+                }
+            }
+        }
+        Row{
             id:selectionRow
+            visible: false
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 10
             Text{
@@ -52,6 +88,8 @@ ApplicationWindow{
                             }
 
                             onClicked: {
+                                myInterface.setRememberIndex(index)
+                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
                                 var Component = Qt.createComponent("StateListWindow.qml")
                                 var window = Component.createObject(mainwindow)
                                 window.show()
@@ -62,6 +100,15 @@ ApplicationWindow{
                 }
             }
         }
+        Row {
+            id: countRow
+            visible: false
+            Text {
+                id: test
+                text: qsTr("Count mode")
+            }
+        }
+
         Row{
             id: toChangeToRow
             anchors.horizontalCenter: parent.horizontalCenter
@@ -90,6 +137,7 @@ ApplicationWindow{
                         color:"lightgreen" //TODO change color to actual color
                     }
                     onClicked: {
+                        myInterface.setRememberIndex(9)
                         var Component = Qt.createComponent("StateListWindow.qml")
                         var window = Component.createObject(mainwindow)
                         window.show()
@@ -106,14 +154,29 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("Probability ")
             }
-            SpinBox{
+            SpinBox{ //TODO change to float (for all)
                 id: probability
                 editable: true
-                value: myInterface.probability
-                from: 0
-                to: 100
+                value:parseFloat(myInterface.probability)//valueFromText(locale, myInterface.probability)
+                from:  0
+                to: 100 * 100
+                stepSize: 1
+                property int decimals: 2
+                property real realValue: value / 100
+                validator: DoubleValidator {
+                    bottom: Math.min(probability.from, probability.to)
+                    top:  Math.max(probability.from, probability.to)
+                }
+                textFromValue: function(value, locale) {
+                    return Number(value / 100).toLocaleString(locale, 'f', probability.decimals)
+                }
+
+                valueFromText: function(text, locale) {//ERROR
+                    return Number.fromLocaleString(locale, text) * 100
+                }
+
                 anchors.verticalCenter: parent.verticalCenter
-                onValueChanged: myInterface.probability = value
+              //  onValueChanged: myInterface.probability = textFromValue(value, locale)
             }
             Text {
                 id: computeProbabilityText
@@ -131,43 +194,14 @@ ApplicationWindow{
             }
 
         }
-        Row{
-            id:positionsRow
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 10
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                id: posAndCountText
-                text: qsTr("Rule accounts for :")
-            }
 
-            RadioButton {
-                id: positionRadioButton
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Position")
-                onClicked: {
-                    myInterface.posAndCount = qsTr("Position")
-                    myInterface.printPosAndCount() //Test
-                }
-            }
-
-            RadioButton {
-                id: countRadioButton
-                anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Count")
-                autoRepeat: true
-                onClicked: {
-                    myInterface.posAndCount = qsTr("Count")
-                    myInterface.printPosAndCount() //Test
-                }
-            }
-        }
     }
     Button{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("OK")
         onClicked: {
+            myInterface.probability = probability.textFromValue(probability.value,locale)
             ruleListView.appendItem()
             myInterface.printProbability()
             myInterface.printComputeProbability()

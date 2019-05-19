@@ -1,0 +1,3 @@
+Type;Pos/count;EtatDep;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
+Deterministic;indexState du central(bleu); indexState d'arrivée(vert); 2; (-1; 0; indexState (rouge));(1; 0; rouge);
+QString Rule =  "Stochastic; indexState du central(bleu); indexState d'arrivée (vert); 4; (0; 1; indexState (rouge)); (-1; 0; bleu); (1,0,bleu); (0,-1,rouge); 0.3; indexState rouge"

@@ -8,7 +8,7 @@
 void Interface::initialiseParser()
 {
 
-    this->parser= Parser();
+    this->parser.SetAutomata(&ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
     setNeighborhood("Moore");
@@ -24,28 +24,37 @@ void Interface::printProbability()
 
 void Interface::sendMandatoryInfo()
 {
+    dataToParse="";
     CallSetType();
     CallSetDim();
     CallSetNeighborhood();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
+    //Pour avoir sizeof(dataToParse)=4
+    dataToParse+="0";
+    dataToParse+="0";
+    std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl;
+    this->parser.ParseAndAddType(&dataToParse);
 }
 
 void Interface::CallSetDim()
 {
-    string dim=m_dimension.toStdString();
-    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
+    std::cout << "Dim : " << m_dimension.toStdString() << std::endl;
 }
 
 void Interface::CallSetNeighborhood()
 {
-    string neigh=m_neighborhood.toStdString();
-    std::cout << "Neighborhood : " << m_neighborhood.toStdString() << std::endl;
+    if(m_neighborhood.toStdString()=="Von Neumann")
+        dataToParse+="1";
+    else dataToParse+="0";
+    std::cout << "Neigh : " << m_neighborhood.toStdString() << std::endl;
 }
 
 void Interface::CallSetType()
 {
-    string ty=m_type.toStdString();
+    if(m_type.toStdString()=="Stochastic")
+        dataToParse+="1";
+    else dataToParse+="0";
     std::cout << "Type : " << m_type.toStdString() << std::endl;
 }
 
@@ -58,7 +67,7 @@ void Interface::CallMaxGenerationsToSimulate()
 void Interface::CallMatrixSize()
 {
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
-    //parser.ParseAndAddSize(&size);
+    this->parser.ParseAndAddSize(&size);
     std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl;
 }
 
@@ -105,6 +114,52 @@ void Interface::CallGetStates()
 
 void Interface::okCreateRule()
 {
+    int lengthCond = 0;
+    QString rule = "";
+    rule.append(posAndCount());
+    rule.append(";");
+    if(dimension() == "OneDimension"){
+        rule.append(matrixIndexAndStateIndex[1]);
+        for(int i = 0; i < 9; i++){
+            if(posIndex[i] != "(" && i != 1){
+               lengthCond++;
+            }
+        }
+    }
+    else if (dimension() == "TwoDimensions") {
+        rule.append(matrixIndexAndStateIndex[4]);
+        for(int i = 0; i < 9; i++){
+            if(posIndex[i] != "(" && i != 4){
+               lengthCond++;
+            }
+        }
+    }
+    rule.append(";");
+    if(matrixIndexAndStateIndex[9] != "("){ //TODO else?
+        rule.append(matrixIndexAndStateIndex[9]);
+    }
+    rule.append(";");
+    QString length = QString::number(lengthCond);
+    rule.append(length);
+    rule.append(";");
+    for (int i = 0; i < 9; i++) {
+        if(posIndex[i] != "("){
+            rule.append(posIndex[i]);
+            rule.append(";");
+        }
+    }
+    if(probability() != ""){
+        rule.append(probability());
+        rule.append(";");
+    }
+    //TODO etat cond
+    string stdRule = rule.toStdString();
+    std::cout << "Rule sent to parser = " << stdRule << std::endl;
+    try {
+         parser.ParseAndAddRules(&stdRule);
+    } catch (const string &error) {
+       cout << error << endl;
+    }
 
 }
 
@@ -257,10 +312,110 @@ void Interface::printStateColor()
     std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
 }
 
+void Interface::chooseGen(QString gen)
+{
+    parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
+}
+
+
+int Interface::getRememberIndex() const
+{
+    return  rememberIndex;
+}
+
+void Interface::setRememberIndex(int value)
+{
+    rememberIndex = value;
+}
+
+//met "(x;y;StateIndex)" dans le tableau posIndex
+void Interface::associateStateAndIndex(QString StateIndex)
+{
+    QString composite = "(";
+    if (dimension() == "OneDimension"){
+        switch (rememberIndex) {
+        case 0:
+            composite.append("-1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+       //4 est le centre et ne doit pas etre dans la liste composite
+        case 2:
+            composite.append("1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        default:
+            break;
+        }
+    }
+    if(dimension() == "TwoDimensions"){
+        switch (rememberIndex) {
+        case 0:
+            composite.append("-1;1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 1:
+            composite.append("0;1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 2:
+            composite.append("1;1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 3:
+            composite.append("-1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        //4 est le centre et ne doit pas etre dans la liste composite
+        case 5:
+            composite.append("1;0;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 6:
+            composite.append("-1;-1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 7:
+            composite.append("0;-1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        case 8:
+            composite.append("1;-1;");
+            composite.append(StateIndex);
+            composite.append(")");
+            break;
+        default:
+            break;
+        }
+    }
+    matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat
+    std::cout << composite.toStdString() << std::endl; //test
+    posIndex[rememberIndex] = composite;
+}
+
+void Interface::cleanRuleCreationWindow()
+{
+    for(int i = 0; i<10; i++){
+        matrixIndexAndStateIndex[i]="(";
+        posIndex[i]="(";
+    }
+
+}
+
+
+
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-    
+
 }
 
 void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
@@ -285,10 +440,6 @@ void Interface::callLoad(string name, string path){
 }
 
 void Interface::callExecution(){
-
-   Automata* test =this->parser.GetAutomata();
-    Simulate(*test);
-
-
+   this->parser.GetAutomata()->Simulate();
 }
 

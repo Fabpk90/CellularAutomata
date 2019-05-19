@@ -20,6 +20,10 @@ State& Rule::GetStartingState(){
 
     return *this->startingState;
 }
+void Rule::SetStateToChangeInto(State *toChangeInto)
+{
+    this->toChangeInto = toChangeInto;
+}
 
 std::vector<Rule::RuleParameters> Rule::GetParameters(){
 

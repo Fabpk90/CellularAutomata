@@ -23,7 +23,7 @@ ApplicationWindow {
         text: qsTr("Ok")
         //onClicked:myInterface.call
         onClicked: {
-            stateListView.appendItem()
+            stateListView.appendState()
             stateCreation.close()
         }
     }
@@ -55,7 +55,8 @@ ApplicationWindow {
         onAccepted:{
             rectangle.color=this.color
             myInterface.stateColor=this.color
-            myInterface.printStateColor()
+            stateListView.setStateColor(myInterface.getStateColor())
+            //myInterface.printStateColor()
            }
     }
 
@@ -108,8 +109,9 @@ ApplicationWindow {
             font.pixelSize: 12
             onTextChanged:
             {
-                myInterface.stateName = text
-                myInterface.printStateName()
+                myInterface.stateName = textInput1.text
+                stateListView.setStateName(myInterface.getStateName())
+                //myInterface.printStateName()
             }
         }
     }

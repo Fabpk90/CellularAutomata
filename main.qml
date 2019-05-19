@@ -43,6 +43,16 @@ ApplicationWindow {
             MenuItem { text: "Create new Automaton"
                 onClicked: {
                     myInterface.initialiseParser()
+                    var Component = Qt.createComponent("AutomataCreationWindow.qml")
+                    var window = Component.createObject(mainwindow)
+                    window.show()
+                    ruleListView.removeAllItems()
+                    stateListView.removeAllItems()
+                }
+            }
+            MenuItem { text: "Edit Automaton"
+                id: editItem
+                onClicked: {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml") //TODO change this to level 2 window on merge and add level 3 window in level 2
                     var window = Component.createObject(mainwindow)
                     window.show()
@@ -153,10 +163,84 @@ ApplicationWindow {
             }
 
             Button{
+               id: info
                 text: qsTr("Info")
                 Layout.maximumWidth: 50
+                onClicked: popup.open()
             }
 
+
+          Popup {
+                    id: popup
+                    x: info.x
+                    y: info.y-200
+                   width: 200
+                    height: 200
+                  /*  modal: true
+                    focus: true*/
+                    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                   contentItem:  Column{
+                       id: listOfState
+                       anchors.right: popup.horizontalCenter //parent.horizontalCenter
+                       //anchors.rightMargin: 100
+
+                       ListView{
+                           id: stateView
+                           width: 100; height: 150
+                           spacing: 15
+
+                           model: ListModel {
+                               list_var: stateListView
+                           }
+
+                           delegate: Rectangle{
+                               height:line.height
+                               width:line.width
+                               Text {
+                                   id:line
+                                   text: model.stateName
+                               }
+                              color: "blue"// model.stateColor
+                           }
+                       }
+
+                       ListView{
+                           id: ruleView
+                           anchors.rightMargin: 100
+                           width: 100; height: 150
+                           spacing: 15
+
+                           model: ListModel {
+                               list_var: ruleListView
+                           }
+
+                           delegate: Rectangle{
+                               height:ruleLine.height
+                               width:ruleLine.width
+                               Text {
+                                   id:ruleLine
+                                   text: model.stateName
+                               }
+                              color: "blue"// model.stateColor
+                           }
+                       }
+
+
+                   }
+
+            }
+
+  /*          Component {
+                id: contactDelegate
+                Item {
+                    width: 180; height: 40
+                    Column {
+                        Text { text: '<b>Name:</b> ' + name }
+                        Text { text: '<b>Number:</b> ' + number }
+                    }
+                }
+            }
+*/
             Item {
                 width: 50
             }
@@ -175,6 +259,8 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.maximumHeight: 50
                 Layout.maximumWidth: 50
+                onClicked: myInterface.chooseGen(textField.text)
+
             }
 
             Item {
