@@ -197,6 +197,8 @@ public:
 
     Q_INVOKABLE void chooseGen(QString gen);
 
+    Q_INVOKABLE void loadInterface();
+
 
 signals:
 

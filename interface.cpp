@@ -312,6 +312,28 @@ void Interface::chooseGen(QString gen)
     parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
 }
 
+void Interface::loadInterface()
+{
+   if(parser.GetAutomata()->GetIsStocha())
+           setType("Stochastic");
+   else setType("Deterministic");
+   if(parser.GetAutomata()->GetIsVonNeighborhood())
+       setNeighborhood("Von Neumann");
+   else  setNeighborhood("Moore");
+   setSizeX(QString::number(parser.GetAutomata()->GetSizeX()));
+   setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
+   for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
+   {
+       //ruleListView.appendItem();
+   }
+   for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
+   {
+       //TODO stateName et stateColor à set pour l'affichage dans la liste
+       //stateListView.appendState();
+   }
+   //TODO avoir la dimension
+}
+
 
 int Interface::getRememberIndex() const
 {
@@ -430,7 +452,6 @@ void Interface::callSaveMatrix(string path, string name, string firstGen=string(
 void Interface::callLoad(string name, string path){
 
    this->parser.ParseFile(&name);
-
 
 }
 

@@ -30,7 +30,11 @@ ApplicationWindow {
             }
             MenuItem{
                 text: "Load"
-                onClicked: fileDialogLoad.open()
+                onClicked: {
+                    fileDialogLoad.open()
+                    myInterface.callLoad()
+                    myInterface.loadInterface()
+                }
             }
 
             MenuItem {
