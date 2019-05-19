@@ -250,7 +250,10 @@ ApplicationWindow{
             var Component = Qt.createComponent("StateCreationWindow.qml")
             var window = Component.createObject(mainwindow)
             window.show()
-            addRule.visible=true
+            if(stateListView.getListCount()<1)
+                addRule.visible=false
+            if (stateListView.getListCount()>=1)
+                addRule.visible=true
         }
     }
     Button {
