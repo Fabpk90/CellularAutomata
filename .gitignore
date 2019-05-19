@@ -73,3 +73,7 @@ Thumbs.db
 
 #VSCODE
 .vscode/*
+
+CellularAutomata
+moc_predefs.h
+qmake_qmake_immediate.qrc

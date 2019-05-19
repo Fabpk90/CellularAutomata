@@ -7,5 +7,6 @@
         <file>VonNeumannRuleCreationWindow.qml</file>
         <file>MooreRuleCreationWindow.qml</file>
         <file>OneDimensionRuleCreationWindow.qml</file>
+        <file>MatrixCustomisationWindow.qml</file>
     </qresource>
 </RCC>

@@ -19,6 +19,11 @@ int ListModel::rowCount(const QModelIndex &parent) const
     return m_list_var->items().size();
 }
 
+int ListModel::getRowCount()
+{
+    return m_list_var->getListCount();
+}
+
 QVariant ListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || !m_list_var)

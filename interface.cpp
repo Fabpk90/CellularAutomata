@@ -4,6 +4,7 @@
 #include <vector>
 #include <QFile>
 #include <string>
+#include <algorithm>
 
 void Interface::initialiseParser()
 {
@@ -113,40 +114,127 @@ void Interface::CallGetStates()
 }
 
 void Interface::okCreateRule()
-{
+{   
+
+    /*on veut envoyer un string de la forme :
+        Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
+        où Type = Position ou Count
+        où EtatDep est l'index de l'etat "central"
+        où EtatArr est l'index de l'etat "toChangeTo"
+        où lengthCond est le nombre de fois qu'un bloc de parenthese va apparaitre (on les appelera "*")
+        où
+            Pour Position: x et y sont les coordonnées relatives au "centre"
+            Pour Count: x est le nombre de fois qu'un etat doit apparaitre et y n'est pas utilisé
+        où EtatCond est l'index de l'etat selectionné par x & y
+        où Proba est la probabilité que l'action soit effectuée
+        //TODO EtatCond
+    */
     int lengthCond = 0;
-    QString rule = "";
-    rule.append(posAndCount());
+    QString rule = "";//la regle qu'on va envoyer au parser
+    QString compositeCount = "";
+
+    rule.append(posAndCount()); //position
     rule.append(";");
-    if(dimension() == "OneDimension"){
-        rule.append(matrixIndexAndStateIndex[1]);
-        for(int i = 0; i < 9; i++){
-            if(posIndex[i] != "(" && i != 1){
-               lengthCond++;
+
+    if(posAndCount() == "Position"){
+        if(dimension() == "OneDimension"){
+            rule.append(matrixIndexAndStateIndex[1]); //index etat de depart
+            for(int i = 0; i < 9; i++){
+                if(posIndex[i] != "(" && i != 1){
+                lengthCond++;
+                }
+            }
+        }
+        else if (dimension() == "TwoDimensions") {
+            rule.append(matrixIndexAndStateIndex[4]); //index etat de depart
+            for(int i = 0; i < 9; i++){
+                if(posIndex[i] != "(" && i != 4){
+                lengthCond++;
+                }
+            }
+        }
+        rule.append(";");
+        if(matrixIndexAndStateIndex[9] != "("){ //TODO else? //index etat d'arrive
+            rule.append(matrixIndexAndStateIndex[9]);
+        }
+        rule.append(";");
+        QString length = QString::number(lengthCond); //lengthCond
+        rule.append(length);
+        rule.append(";");
+        for (int i = 0; i < 9; i++) { // "*"
+            if(posIndex[i] != "("){
+                rule.append(posIndex[i]);
+                rule.append(";");
             }
         }
     }
-    else if (dimension() == "TwoDimensions") {
-        rule.append(matrixIndexAndStateIndex[4]);
-        for(int i = 0; i < 9; i++){
-            if(posIndex[i] != "(" && i != 4){
-               lengthCond++;
+    else if (posAndCount() == "Count") {
+        if(dimension() == "OneDimension"){ //etat de depart
+            rule.append(matrixIndexAndStateIndex[1]);
+        }
+        else if (dimension() == "TwoDimensions") {
+            rule.append(matrixIndexAndStateIndex[4]);
+        }
+        rule.append(";");
+        if(matrixIndexAndStateIndex[9] != "("){//etat d'arrivee
+            rule.append(matrixIndexAndStateIndex[9]);
+        }
+        rule.append(";");
+        //on va creer un tableau dont la taille sera le plus grand indice d'etat
+        //l'indice du tableau sera l'index de l'etat, la valeur stockée a cet indice sera le nombre de repetitions de cet etat
+        int sizeofarray = matrixIndexAndStateIndex[0].toInt();
+        for (int i = 1;i<9;i++) { //trouve le plus grand index d'etat
+            if(sizeofarray < matrixIndexAndStateIndex[i].toInt()){
+                sizeofarray = matrixIndexAndStateIndex[i].toInt();
             }
         }
-    }
-    rule.append(";");
-    if(matrixIndexAndStateIndex[9] != "("){ //TODO else?
-        rule.append(matrixIndexAndStateIndex[9]);
-    }
-    rule.append(";");
-    QString length = QString::number(lengthCond);
-    rule.append(length);
-    rule.append(";");
-    for (int i = 0; i < 9; i++) {
-        if(posIndex[i] != "("){
-            rule.append(posIndex[i]);
-            rule.append(";");
+        sizeofarray = sizeofarray + 1; //cette taille va aussi servir a determiner length cond
+        std::cout << "sizeofarray = " << sizeofarray << std::endl; //test
+        int stateArray[sizeofarray];
+        for(int i = 0; i<sizeofarray; i++){//initialise le tableau (impossible d'initialiser un tableau de taille variable avec {0})
+            stateArray[i] = 0;
         }
+        for(int i = 0; i < 9; i++){
+            if(dimension() == "OneDimension"){//evite le cas "central"
+                if(i!=1){
+                    stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                }
+            }
+            if(dimension() == "TwoDimensions"){//evite le cas "central"
+                if(i!=4){
+                    stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                }
+            }
+        }
+        for(int n = 0; n<sizeofarray; n++){//test
+            std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
+        }
+        lengthCond = sizeofarray;
+        for (int i = 0; i < sizeofarray; i++)
+        {
+            if (stateArray[i] == 0)
+            {
+                lengthCond--;
+            }
+        }
+        rule.append(QString::number(lengthCond));
+        rule.append(";");
+        //a partir du tableau precedent on va determiner la syntaxe des (x;y;Stateindex) où x est la valeur de stateArray[StateIndex]
+        for (int i = 0;i<sizeofarray; i++) {
+            if(stateArray[i] != 0){
+                compositeCount.append("(");
+                compositeCount.append(QString::number(stateArray[i])); //x
+                compositeCount.append(";");
+                compositeCount.append("0"); //y
+                compositeCount.append(";");
+                compositeCount.append(QString::number(i));//StateIndex
+                compositeCount.append(")");
+                rule.append(compositeCount);
+                rule.append(";");
+                compositeCount = "";
+            }
+        }
+
     }
     if(probability() != ""){
         rule.append(probability());
@@ -297,8 +385,20 @@ void Interface::CallSetColor(QString color){
 
 }
 
-void Interface::OkCreateState(QString state){
+void Interface::okCreateState(QString state){
 
+    QString composite;
+    composite.append("1;");
+    composite.append(m_stateName);
+    composite.append(state);
+    composite.append(m_stateColor);
+    string string= composite.toStdString();
+    cout<<string<<endl;
+    try {
+         parser.ParseAndAddStates(&string);
+    } catch (std::string) {
+
+    }
 
 }
 
@@ -317,6 +417,33 @@ void Interface::chooseGen(QString gen)
     parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
 }
 
+void Interface::loadInterface()
+{
+   if(parser.GetAutomata()->GetIsStocha())
+           setType("Stochastic");
+   else setType("Deterministic");
+   if(parser.GetAutomata()->GetIsVonNeighborhood())
+       setNeighborhood("Von Neumann");
+   else  setNeighborhood("Moore");
+   setSizeX(QString::number(parser.GetAutomata()->GetSizeX()));
+   setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
+   for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
+   {
+       //ruleListView.appendItem();
+   }
+   for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
+   {
+       //TODO stateName et stateColor à set pour l'affichage dans la liste
+       //stateListView.appendState();
+   }
+   //TODO avoir la dimension
+}
+
+QString Interface::returnCurrentGen()
+{
+    return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+}
+
 
 int Interface::getRememberIndex() const
 {
@@ -328,77 +455,79 @@ void Interface::setRememberIndex(int value)
     rememberIndex = value;
 }
 
-//met "(x;y;StateIndex)" dans le tableau posIndex
+//met "(x;y;StateIndex)" dans le tableau posIndex pour okCreateRule() dans le cas Position
 void Interface::associateStateAndIndex(QString StateIndex)
 {
     QString composite = "(";
-    if (dimension() == "OneDimension"){
-        switch (rememberIndex) {
-        case 0:
-            composite.append("-1;0;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-       //4 est le centre et ne doit pas etre dans la liste composite
-        case 2:
-            composite.append("1;0;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        default:
-            break;
+    if(posAndCount() == "Position"){
+            if (dimension() == "OneDimension"){
+            switch (rememberIndex) {
+            case 0:
+                composite.append("-1;0;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            //4 est le centre et ne doit pas etre dans la liste composite
+            case 2:
+                composite.append("1;0;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            default:
+                break;
+            }
         }
-    }
-    if(dimension() == "TwoDimensions"){
-        switch (rememberIndex) {
-        case 0:
-            composite.append("-1;1;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        case 1:
-            composite.append("0;1;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        case 2:
-            composite.append("1;1;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        case 3:
-            composite.append("-1;0;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        //4 est le centre et ne doit pas etre dans la liste composite
-        case 5:
-            composite.append("1;0;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        case 6:
-            composite.append("-1;-1;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        case 7:
-            composite.append("0;-1;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        case 8:
-            composite.append("1;-1;");
-            composite.append(StateIndex);
-            composite.append(")");
-            break;
-        default:
-            break;
+        if(dimension() == "TwoDimensions"){
+            switch (rememberIndex) {
+            case 0:
+                composite.append("-1;1;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            case 1:
+                composite.append("0;1;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            case 2:
+                composite.append("1;1;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            case 3:
+                composite.append("-1;0;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            //4 est le centre et ne doit pas etre dans la liste composite
+            case 5:
+                composite.append("1;0;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            case 6:
+                composite.append("-1;-1;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            case 7:
+                composite.append("0;-1;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            case 8:
+                composite.append("1;-1;");
+                composite.append(StateIndex);
+                composite.append(")");
+                break;
+            default:
+                break;
+            }
         }
+        posIndex[rememberIndex] = composite;
     }
-    matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat
+    matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat aussi utilisé pour le mode Count
     std::cout << composite.toStdString() << std::endl; //test
-    posIndex[rememberIndex] = composite;
 }
 
 void Interface::cleanRuleCreationWindow()
@@ -407,7 +536,6 @@ void Interface::cleanRuleCreationWindow()
         matrixIndexAndStateIndex[i]="(";
         posIndex[i]="(";
     }
-
 }
 
 
@@ -435,7 +563,6 @@ void Interface::callSaveMatrix(string path, string name, string firstGen=string(
 void Interface::callLoad(string name, string path){
 
    this->parser.ParseFile(&name);
-
 
 }
 
