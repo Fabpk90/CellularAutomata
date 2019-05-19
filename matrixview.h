@@ -24,6 +24,8 @@ public:
     Q_INVOKABLE int returnSize();
     void setListOfState(const QVector<State> &value);
 
+    void emptyMatrix();
+
 signals:
     void preCellAppended();
     void postCellAppended();
@@ -43,6 +45,9 @@ public slots:
     void backward();
     void play();
     void pause();
+    void sizeMatrix(QString H, QString W);
+    void initMatrix();
+
  private:
     Automata *automata;
     QQmlApplicationEngine* engine;

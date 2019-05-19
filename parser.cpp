@@ -10,7 +10,7 @@ using namespace std;
 
 Parser::Parser()
 {
-    automata = nullptr;
+    automata = new Automata();
     dataToParse = "";
 }
 
@@ -40,6 +40,9 @@ void Parser::SetAutomata(Automata *automata)
 // Lance exception, à mettre dans un try catch
 void  Parser::ParseFile(const string* path)
 {
+    delete automata;
+    automata = new Automata();
+
     try{
     dataToParse = LoadData(path);
     } catch(string const& error){
@@ -68,17 +71,23 @@ void  Parser::ParseFile(const string* path)
             i++;
         }
 
+        i += 2;//skips E;
+
         // états
         while(dataToParse[i] != 'R' && dataToParse.length() >= i){
             statesT += dataToParse[i];
             i++;
         }
 
+        i += 2;//skips R;
+
         // règles
         while(dataToParse[i] != 'H' && dataToParse.length() >= i){
             rulesT += dataToParse[i];
             i++;
         }
+
+        i += 2;//skips H;
 
         //historique
         while(i < dataToParse.length()){
@@ -226,7 +235,7 @@ void  Parser::ParseAndAddRules(string* index)
                             i++;//skipping ';'
                         }
 
-                        if((*index)[i] != '\0') // if true, it is a stocha rule or stochadyn
+                        if(index->at(i) != '\0' && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                         {
                            //  cout << "Stocha or dyn" << endl;
                             string strProba = "";
@@ -303,12 +312,12 @@ void  Parser::ParseAndAddStates(string* index)
     }
 
     // Parsing jusqu'au NbStates
-    while(cpt < 2 || (cpt == 2 && index[0][i] == ';')){
+    while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
         if(index[0][i] == ';'){
             cpt++;
         }
         // premier ';' celui apres E donc cpt > 1
-        if(cpt >= 1){
+        if(cpt >= 0){
             ascii = index[0][i];
             if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
             else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
@@ -328,7 +337,7 @@ void  Parser::ParseAndAddStates(string* index)
         ascii = index[0][k];
         if(ascii == ';') cptVerifNbStates++;
     }
-    if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
+    //if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
     // Jusque là tout est okay
 
     // Parsing des états
@@ -446,7 +455,6 @@ void  Parser::ParseHistory(string* index)
     cout << index->size() << endl;
     int sizeIndex = index->size();
     int cpt = 0;
-    int cptVerifNbHistory = 0;
     int i = 0;
     string nbHistoryH = "";
     int nbHistory = 0;
@@ -457,12 +465,12 @@ void  Parser::ParseHistory(string* index)
     }
 
     // Parsing jusqu'au NbHistory
-    while(cpt < 2 || (cpt == 2 && index[0][i] == ';')){
+    while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
         if(index[0][i] == ';'){
             cpt++;
         }
         // premier ';' celui apres H donc cpt > 1
-        if(cpt >= 1){
+        if(cpt >= 0){
             ascii = index[0][i];
             if(ascii >= 48 && ascii <= 57) nbHistoryH += index[0][i];
             else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
@@ -476,37 +484,45 @@ void  Parser::ParseHistory(string* index)
     cout << "Nb History = " << nbHistory << endl;
 
     int asciiGenId = -1;
+    string strRepresentation = "";
     vector<int> asciiStates;
     Generation g;
 
-    for(int k = i+1; k <= sizeIndex; k ++){
+    for(int k = i; k < sizeIndex; k ++){
+
         ascii = index[0][k];
         if (ascii >= '0' && ascii <= '9'){
+
             asciiGenId = ascii - 48;
             g.generationID = asciiGenId;
             cout<< "GId : "<<g.generationID << endl;
+        }else if(ascii == ';'){
             k++;
             ascii = index[0][k];
-        }
-        else if (ascii == '\n') {
-            cout<< "etats: ";
-            k++;
-            ascii = index[0][k];
-            while(ascii != '\n' && k <= sizeIndex){
-                if (ascii >= '0' && ascii <= '9'){
-                    g.cellMatrix.push_back(ascii - 48);
-                    cout<< ascii - 48<<" ";
+            while(ascii != ';'){
+
+                if (ascii >= '0' && ascii <= '9' && ascii != ','){
+                    strRepresentation.append(to_string(ascii-48));
                     k++;
                     ascii = index[0][k];
-                }else{
+                }else if (ascii == ',' || ascii == ';') {
+
+                    g.cellMatrix.push_back(stoi(strRepresentation));
+                    cout<< "ajout"<<strRepresentation <<endl;
+                    strRepresentation="";
                     k++;
                     ascii = index[0][k];
                 }
             }
-        cout<<endl;
-        automata->AddGeneration(g);
+            g.cellMatrix.push_back(stoi(strRepresentation));
+            cout<< "ajout "<<strRepresentation <<endl;
+            strRepresentation = "";
+            automata->AddGeneration(g);
+        }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+            throw(string("ParseAndAddHistory : Number of History is not an int"));
         }
     }
+
 }
 
 /*
@@ -576,20 +592,19 @@ string  Parser::HistoryToString()
 
         strRepresentation.append(to_string(automata->GetGenerations().size()));
         strRepresentation.append(";");
-        strRepresentation.append("\n");
 
         for (Generation g : automata->GetGenerations()){
 
             strRepresentation.append(to_string(g.generationID));
             strRepresentation.append(";");
-            strRepresentation.append("\n");
+            strRepresentation.append("(");
             for(unsigned long i = 0; i < g.cellMatrix.size(); i++){
 
                 strRepresentation.append(to_string(g.cellMatrix.at(i)));
                 strRepresentation.append(";");
             }
 
-            strRepresentation.append("\n");
+            strRepresentation.append(")");
         }
 
         return strRepresentation;
@@ -610,22 +625,18 @@ string Parser::HistoryToString(uint startGen, uint endGen)
                 generationsFound++;
             }
         }
-        strRepresentation.append(to_string(generationsFound));
-        strRepresentation.append(";");
-        strRepresentation.append("\n");
 
         if(generationsFound != 0){
             for (Generation g : automata->GetGenerations()){
 
                 strRepresentation.append(to_string(g.generationID));
                 strRepresentation.append(";");
-                strRepresentation.append("\n");
                 for(unsigned long i = 0; i < g.cellMatrix.size(); i++){
 
                     strRepresentation.append(to_string(g.cellMatrix.at(i)));
-                    strRepresentation.append(";");
+                    strRepresentation.append(",");
                 }
-                strRepresentation.append("\n");
+                strRepresentation.append(";");
             }
             return strRepresentation;
         }
@@ -648,8 +659,8 @@ string  Parser::RulesToString()
 
             strRepresentation.append(to_string(r->GetType())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
             strRepresentation.append(";");
-            //strRepresentation.append(r->GetStartingState()); //Nom de l'etat de depart
-            //strRepresentation.append(";");
+            strRepresentation.append(r->GetStartingState().name); //Nom de l'etat de depart
+            strRepresentation.append(";");
             strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat d'arrivée
             strRepresentation.append(";");
 
@@ -681,6 +692,8 @@ string  Parser::RulesToString()
                     strRepresentation.append(";");
                 }
             }
+
+            strRepresentation.append("\n");
         }
 
         return strRepresentation;

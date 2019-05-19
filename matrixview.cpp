@@ -48,15 +48,15 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
 
 
     */
-    listOfState.append({QColor("green"), "State"});
+  /*  listOfState.append({QColor("green"), "State"});
     listOfState.append({QColor("blue"), "State"});
 
-    for(int i=0;i<9998;i++){
+    for(int i=0;i<23;i++){
 
         listOfState.append({QColor("white"),"State "+to_string(i)});
 
     }
-
+*/
     srand(time(NULL));
     this->timer=new QTimer();
     this->timer->connect(timer, SIGNAL(timeout()),this,SLOT(update()));
@@ -166,6 +166,16 @@ void Matrixview::setListOfState(const QVector<State> &value)
     listOfState = value;
 }
 
+void Matrixview::emptyMatrix()
+{
+    int size=listOfState.size();
+    for (int i=0;i<size;i++) {
+        removeCell(i);
+
+    }
+
+}
+
 
 void Matrixview::play()//lance la simulation et l'affichage s'en suit
 {
@@ -179,6 +189,43 @@ void Matrixview::pause()//met en pause l'éxcecution
 {
     //pause du thread à ajouter ici
     this->timer->stop();
+
+}
+
+void Matrixview::sizeMatrix(QString H,QString W)
+{
+
+    int h=H.toInt();int w= W.toInt();
+    for(int i=0;i<h;i++){
+
+        for(int j=0;j<w;j++){
+
+             listOfState.append({QColor("white"),to_string(i*10+j)});
+
+        }
+
+
+    }
+
+
+}
+
+void Matrixview::initMatrix()
+{
+   int h=automata->GetSizeX();int w=automata->GetSizeY();
+
+    for(int i=0;i<h;i++){
+
+        for(int j=0;j<w;j++){
+
+             listOfState.append(automata->GetCellState(i,j));
+
+        }
+
+
+    }
+
+
 
 }
 

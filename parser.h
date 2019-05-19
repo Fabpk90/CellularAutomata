@@ -27,7 +27,9 @@ public:
     void  ParseAndAddStates(string* index);//Fonction qui interprète les états de l’automate.
     void  ParseAndAddType(string* index);//Fonction qui interprète la type de l’automate.
     void  ParseAndAddSize(string* index);//Fonction qui interprète la taille de l’automate
-
+    void  ParseHistory(string* index);//Fonction parsant l’historique, chargée de récupérer les matrices de l’historiques’il existe,
+                                      //elle peut lever l’exception (HISTORY) si par exemple il manque des générations.
+                                      //Elle ajoute la génération à l’historique
     //ONLY FOR THE TESTS! REMOVE THISSSSS
     string  AutomataToString() ;
     string  HistoryToString(uint startGen, uint endGen);
@@ -40,9 +42,7 @@ private:
     Automata* automata;
     string  dataToParse;
 
-    void  ParseHistory(string* index);//Fonction parsant l’historique, chargée de récupérer les matrices de l’historiques’il existe,
-                                      //elle peut lever l’exception (HISTORY) si par exemple il manque des générations.
-                                      //Elle ajoute la génération à l’historique
+
     //string  AutomataToString() ;//Fonctions qui calculent la représentation en chaîne de caractères de l’automate.
     //string  HistoryToString();
     //string  HistoryToString(uint startGen, uint endGen);

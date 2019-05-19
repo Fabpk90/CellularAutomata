@@ -296,10 +296,12 @@ ApplicationWindow{
             text: qsTr("OK")
             onClicked: {
                 myInterface.sendMandatoryInfo()
-                automataCreationWindow.close()
-                /*var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
+                myInterface.sizeTheVector()
+                matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
+                var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
                 var window = Component.createObject(mainwindow)
-                window.show()*/
+                window.show()
+                automataCreationWindow.close()
             }
         }
         Button{

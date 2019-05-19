@@ -48,7 +48,7 @@ private:
 
     Parser parser;
 
-
+    vector<int> stateVector;
     int rememberIndex;
     QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
     QString posIndex[10];//idem
@@ -166,7 +166,7 @@ public:
     Q_INVOKABLE void CallSetStateName(QString probability);
     void CallSetColor(QString color);
     Q_INVOKABLE void okCreateState(QString state);
-
+    Q_INVOKABLE void okCreateHistory();//crée la première génération (gen 0)
 
 
     QString stateName() const
@@ -201,6 +201,8 @@ public:
     Q_INVOKABLE void loadInterface();
 
     Q_INVOKABLE QString returnCurrentGen();
+    Q_INVOKABLE void updateStateVector(int index,int stateId);
+    Q_INVOKABLE void sizeTheVector();
 
 signals:
 

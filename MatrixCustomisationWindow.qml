@@ -28,15 +28,75 @@ ApplicationWindow {
         text: qsTr("Ok")
         //onClicked:myInterface.call
         onClicked: {
-           matrixCustom.close()
+           myInterface.okCreateHistory()
+            matrixCustom.close()
         }
     }
+        Button{
+           id: info
+            text: qsTr("Liste d'états")
+            x: button.width + 20
+            Layout.maximumWidth: 50
+            onClicked: popup.open()
+        }
+
+        Popup {
+                  id: popup
+                  x: info.x
+                  y: info.y-200
+                 width: 110
+                  height: 200
+                /*  modal: true
+                  focus: true*/
+                  closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                 contentItem:  Column{
+                     id: listOfState
+                     anchors.right: popup.horizontalCenter //parent.horizontalCenter
+                     //anchors.rightMargin: 100
+
+                     ListView{
+                            id: stateViewCustom
+                            width: popup.width; height:popup.height
+                            spacing: 15
+
+                            model: ListModel {
+                                list_var: stateListView
+                            }
+
+                            delegate: Rectangle{
+                                height:line.height
+                                width:line.width
+                                Text {
+                                    id:line
+                                    text: model.stateName
+                                }
+                               color: model.stateColor
+                               MouseArea{
+                               id: stateArea
+                               anchors.fill:parent
+                               onClicked: {
+                                    matrixCustom.state=index
+                                    matrixCustom.color_property=color
+                                  name.text=line.text
+                               }
+
+
+                           }
+                            }
+                        }
+
+
+
+
+                 }
+
+          }
+
     }
     GridView{
          id:mat
          anchors.fill : parent
-         anchors.leftMargin: 100
-         contentHeight: matrixCustom.height - footerCustom.height
+         contentHeight: matrixCustom.height
          contentWidth: matrixCustom.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
@@ -61,21 +121,30 @@ ApplicationWindow {
                  onClicked: {
                     if(matrixCustom.state >=0){
                      rec.color=matrixCustom.color_property
-                   // tooltip.text=matrixCustom.name.text
+                    model.name=name.text
+                    myInterface.updateStateVector(index,matrixCustom.state)
                     }
                  }
-                 ToolTip{
-                     id:tooltip
-                     text: qsTr("text" + index)
-                     visible: parent.pressed
 
-                 }
 
              }
          }
     }
 
-    ListView{
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ListView{
         id: stateViewCustom
         anchors.left: matrixCustom.left
        // anchors.right: mat.left
@@ -100,13 +169,13 @@ ApplicationWindow {
            onClicked: {
                 matrixCustom.state=index
                 matrixCustom.color_property=color
-              // matrixCustom.name=line.text
+              name.text=line.text
            }
 
 
        }
         }
-    }
+    }*/
 
 
 

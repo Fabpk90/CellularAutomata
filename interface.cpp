@@ -389,16 +389,48 @@ void Interface::okCreateState(QString state){
 
     QString composite;
     composite.append("1;");
-    composite.append(m_stateName);
-    composite.append(state);
     composite.append(m_stateColor);
+    composite.append(state);
+    composite.append(m_stateName);
     string string= composite.toStdString();
     cout<<string<<endl;
     try {
          parser.ParseAndAddStates(&string);
-    } catch (std::string) {
-
+    } catch (std::string s) {
+        cout<<"erreur"<<s<<endl;
     }
+
+}
+
+void Interface::okCreateHistory()
+{
+   // srand(time(NULL));
+    cout<<"okcreatehistory"<<endl;
+    int s=stateVector.size();
+    int sizeOfStates=parser.GetAutomata()->GetStates().size();
+    cout<<"Il y a:"<<sizeOfStates<<endl;
+    QString composite;
+   composite.append("1;0;");
+    for (int stateId : stateVector) {
+
+        if(stateId !=-1){
+
+            composite.append(QString::number(stateId));
+
+        }
+        else {
+            composite.append(QString::number(rand()%25));//mettre en fonction de la taille de la liste des états
+        }
+        composite.append(",");
+    }
+
+    composite.resize(composite.size()-1);
+    composite.append(";");
+    string res=composite.toStdString();
+    cout<<"for me:"<<res<<endl;
+    parser.ParseHistory(&res);
+    //cout<<"after:"<<s<<endl;
+
 
 }
 
@@ -442,6 +474,23 @@ void Interface::loadInterface()
 QString Interface::returnCurrentGen()
 {
     return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+}
+
+void Interface::updateStateVector(int index, int stateId)
+{
+    stateVector[index]=stateId;
+
+}
+
+void Interface::sizeTheVector()
+{
+    int size=m_sizeX.toInt()*m_sizeY.toInt();
+    stateVector.resize(size);
+    for (int i=0; i<size;i++) {
+     stateVector[i]=-1;
+
+    }
+    cout<<"StateVectorSize"<<size<<endl;
 }
 
 
