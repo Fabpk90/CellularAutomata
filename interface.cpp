@@ -247,7 +247,12 @@ void Interface::okCreateRule()
     //TODO etat cond
     string stdRule = rule.toStdString();
     std::cout << "Rule sent to parser = " << stdRule << std::endl;
-    parser.ParseAndAddRules(&stdRule);
+    try {
+         parser.ParseAndAddRules(&stdRule);
+    } catch (const string &error) {
+       cout << error << endl;
+    }
+
 }
 
 void Interface::printDimension()
@@ -384,8 +389,20 @@ void Interface::CallSetColor(QString color){
 
 }
 
-void Interface::OkCreateState(QString state){
+void Interface::okCreateState(QString state){
 
+    QString composite;
+    composite.append("1;");
+    composite.append(m_stateName);
+    composite.append(state);
+    composite.append(m_stateColor);
+    string string= composite.toStdString();
+    cout<<string<<endl;
+    try {
+         parser.ParseAndAddStates(&string);
+    } catch (std::string) {
+
+    }
 
 }
 
@@ -402,6 +419,33 @@ void Interface::printStateColor()
 void Interface::chooseGen(QString gen)
 {
     parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
+}
+
+void Interface::loadInterface()
+{
+   if(parser.GetAutomata()->GetIsStocha())
+           setType("Stochastic");
+   else setType("Deterministic");
+   if(parser.GetAutomata()->GetIsVonNeighborhood())
+       setNeighborhood("Von Neumann");
+   else  setNeighborhood("Moore");
+   setSizeX(QString::number(parser.GetAutomata()->GetSizeX()));
+   setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
+   for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
+   {
+       //ruleListView.appendItem();
+   }
+   for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
+   {
+       //TODO stateName et stateColor à set pour l'affichage dans la liste
+       //stateListView.appendState();
+   }
+   //TODO avoir la dimension
+}
+
+QString Interface::returnCurrentGen()
+{
+    return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
 }
 
 
@@ -524,14 +568,9 @@ void Interface::callLoad(string name, string path){
 
    this->parser.ParseFile(&name);
 
-
 }
 
 void Interface::callExecution(){
-
-   Automata* test =this->parser.GetAutomata();
-    Simulate(*test);
-
-
+   this->parser.GetAutomata()->Simulate();
 }
 

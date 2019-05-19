@@ -250,6 +250,7 @@ ApplicationWindow{
             var Component = Qt.createComponent("StateCreationWindow.qml")
             var window = Component.createObject(mainwindow)
             window.show()
+            addRule.visible=true
         }
     }
     Button {
@@ -257,6 +258,13 @@ ApplicationWindow{
         anchors.left: ruleList.left
         id: addRule
         text: qsTr("Add Rule")
+        visible: {
+            if(stateListView.getListCount()<1)
+                addRule.visible=false
+            if (stateListView.getListCount()>=1)
+                addRule.visible=true
+        }
+
         onClicked: {
             //TODO test all required checks
             myInterface.cleanRuleCreationWindow()
@@ -289,6 +297,9 @@ ApplicationWindow{
             onClicked: {
                 myInterface.sendMandatoryInfo()
                 automataCreationWindow.close()
+                /*var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
+                var window = Component.createObject(mainwindow)
+                window.show()*/
             }
         }
         Button{
@@ -303,6 +314,16 @@ ApplicationWindow{
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")
-        onClicked: automataCreationWindow.close()
+        onClicked:
+        {
+            ruleListView.removeAllItems()
+            stateListView.removeAllItems()
+            automataCreationWindow.close()
+        }
+    }
+
+    onClosing: {
+        ruleListView.removeAllItems()
+        stateListView.removeAllItems()
     }
 }

@@ -38,6 +38,9 @@ class List : public QObject
         void setStateName(QString stateName);
         void removeAllItems();
         void setStateColor(QString stateColor);
+        int getListCount(){
+            return mItems.size();
+        }
 
     private:
     QVector<Item> mItems;

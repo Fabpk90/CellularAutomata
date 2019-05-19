@@ -46,8 +46,9 @@ private:
     string dataToParse;
  //   QQmlApplicationEngine* engine;
     //Initialisation de l'Automate
-    Automata ca = Automata(true, true, 10, 20, vector<Rule*>()
+    Automata ca = Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
+
     Parser parser;
 
 
@@ -167,7 +168,7 @@ public:
     /*Fenêtre de création d'états */
     Q_INVOKABLE void CallSetStateName(QString probability);
     void CallSetColor(QString color);
-    Q_INVOKABLE void OkCreateState(QString state);
+    Q_INVOKABLE void okCreateState(QString state);
 
 
 
@@ -200,6 +201,9 @@ public:
 
     Q_INVOKABLE void chooseGen(QString gen);
 
+    Q_INVOKABLE void loadInterface();
+
+    Q_INVOKABLE QString returnCurrentGen();
 
 signals:
 
