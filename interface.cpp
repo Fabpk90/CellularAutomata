@@ -9,7 +9,7 @@
 void Interface::initialiseParser()
 {
 
-    this->parser.SetAutomata(&ca);
+    this->parser.SetAutomata(ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
     setNeighborhood("Moore");
