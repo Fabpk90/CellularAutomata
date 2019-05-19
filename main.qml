@@ -53,7 +53,7 @@ ApplicationWindow {
             MenuItem { text: "Edit Automaton"
                 id: editItem
                 onClicked: {
-                    var Component = Qt.createComponent("AutomataCreationWindow.qml") //TODO change this to level 2 window on merge and add level 3 window in level 2
+                    var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
                     window.show()
                 }
