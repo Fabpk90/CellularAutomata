@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.12
 import Interface 1.0
 
 ApplicationWindow{
-    id: vonNeumannRuleCreationWindow
+    id: mooreRuleCreationWindow
     title: qsTr("Rule Creation")
     minimumHeight: 384 //(768/2)
     minimumWidth: 456//(1366/3)
@@ -95,19 +95,56 @@ ApplicationWindow{
                                 window.show()
                             }
                         }
-
                     }
                 }
             }
         }
         Row {
-            id: countRow
+            id:countRow
             visible: false
-            Text {
-                id: test
-                text: qsTr("Count mode")
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 10
+            Text{
+                anchors.verticalCenter: parent.verticalCenter
+                id: countFrameTitle
+                text: qsTr("Select ")
+            }
+            Frame{
+                id: countFrame
+                anchors.verticalCenter: parent.verticalCenter
+                Grid{
+                    rows: 3
+                    columns: 3
+                    spacing: 5
+                    Repeater{
+                        model: 9
+                        MouseArea {
+                            id: countFrameMouseArea
+                            width: 25
+                            height: 25
+                            Rectangle {
+                                id: countRectangle
+                                width: parent.width
+                                height: parent.height
+                                color: "lightgrey" //TODO change color to actual color
+                            }
+                            Text{
+                                text: index //TEST affiche
+                            }
+
+                            onClicked: {
+                                myInterface.setRememberIndex(index)
+                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
+                                var Component = Qt.createComponent("StateListWindow.qml")
+                                var window = Component.createObject(mainwindow)
+                                window.show()
+                            }
+                        }
+                    }
+                }
             }
         }
+
 
         Row{
             id: toChangeToRow
@@ -149,6 +186,12 @@ ApplicationWindow{
             id: probabilitiesRow
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 10
+            visible: if(myInterface.type === "Stochastic"){
+                         probabilitiesRow.visible = true
+                     }
+                     else{
+                         probabilitiesRow.visible = false
+                     }
             Text {
                 id: probabilityText
                 anchors.verticalCenter: parent.verticalCenter
@@ -206,12 +249,12 @@ ApplicationWindow{
             myInterface.printProbability()
             myInterface.printComputeProbability()
             myInterface.okCreateRule()
-            vonNeumannRuleCreationWindow.close()
+            mooreRuleCreationWindow.close()
         }
     }
     Button{
         anchors.bottom: parent.bottom
         text: qsTr("Cancel")
-        onClicked: vonNeumannRuleCreationWindow.close()
+        onClicked: mooreRuleCreationWindow.close()
     }
 }

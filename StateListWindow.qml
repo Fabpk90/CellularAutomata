@@ -30,10 +30,14 @@ ApplicationWindow{
             }
 
             delegate: RowLayout{
+                Rectangle{
+                    width: 20
+                    height: 20
+                    color: model.stateColor
+                }
                 Button{
                     text: model.stateName
                     onClicked: {
-                        //TODO select state /*idee remove Ok onClicked select index and close window*/
                         myInterface.associateStateAndIndex(index);
                         stateListWindow.close()
                     }
@@ -41,15 +45,6 @@ ApplicationWindow{
             }
         }
     }
-    /*Button{
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        text: "Ok"
-        onClicked: {
-            //TODO choose state
-            stateListWindow.close()
-        }
-    }*/
 
     Button{
         anchors.bottom: parent.bottom
