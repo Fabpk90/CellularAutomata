@@ -77,11 +77,15 @@ ApplicationWindow{
                             id: neighborhoodFrameMouseArea
                             width: 25
                             height: 25
+                            onHoveredChanged: {
+                                neighborhoodFrame.color = myInterface.stateColorFromSquareIndex(index)
+                            }
                             Rectangle {
                                 id: neighborhoodRectangle
                                 width: parent.width
                                 height: parent.height
-                                color: "lightgrey" //TODO change color to actual color
+                                color: "lightgrey"
+
                             }
                             Text{
                                 text: index //TEST affiche
@@ -89,7 +93,6 @@ ApplicationWindow{
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
-                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
                                 var Component = Qt.createComponent("StateListWindow.qml")
                                 var window = Component.createObject(mainwindow)
                                 window.show()
@@ -134,7 +137,6 @@ ApplicationWindow{
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
-                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
                                 var Component = Qt.createComponent("StateListWindow.qml")
                                 var window = Component.createObject(mainwindow)
                                 window.show()
@@ -144,8 +146,6 @@ ApplicationWindow{
                 }
             }
         }
-
-
         Row{
             id: toChangeToRow
             anchors.horizontalCenter: parent.horizontalCenter

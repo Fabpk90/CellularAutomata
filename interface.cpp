@@ -406,6 +406,8 @@ void Interface::okCreateState(QString state){
 
 }
 
+
+
 void Interface::printStateName()
 {
     std::cout << "StateName : " << m_stateName.toStdString() << std::endl;
@@ -448,6 +450,14 @@ QString Interface::returnCurrentGen()
     return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
 }
 
+QColor Interface::stateColorFromSquareIndex(int index)
+{
+    unsigned int indexOfState = matrixIndexAndStateIndex[index].toUInt();
+    std::cout << "indexOfState = " << indexOfState << std::endl;
+    std::cout << "sizeofvector " << parser.GetAutomata()->GetStates().size() << std::endl;
+    return parser.GetAutomata()->GetStates().at(indexOfState).color.name(QColor::HexRgb);
+}
+
 
 int Interface::getRememberIndex() const
 {
@@ -458,7 +468,6 @@ void Interface::setRememberIndex(int value)
 {
     rememberIndex = value;
 }
-
 //met "(x;y;StateIndex)" dans le tableau posIndex pour okCreateRule() dans le cas Position
 void Interface::associateStateAndIndex(QString StateIndex)
 {

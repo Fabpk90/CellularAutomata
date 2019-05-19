@@ -204,6 +204,7 @@ public:
     Q_INVOKABLE void loadInterface();
 
     Q_INVOKABLE QString returnCurrentGen();
+    Q_INVOKABLE QColor  stateColorFromSquareIndex(int index);
 
 signals:
 
