@@ -114,18 +114,31 @@ void Interface::CallGetStates()
 }
 
 void Interface::okCreateRule()
-{
+{   
+
+    /*on veut envoyer un string de la forme :
+        Type;EtatDep ;EtatArr;lengthCond;(x;y;EtatCond)*;Proba;EtatCond;
+        où Type = Position ou Count
+        où EtatDep est l'index de l'etat "central"
+        où EtatArr est l'index de l'etat "toChangeTo"
+        où lengthCond est le nombre de fois qu'un bloc de parenthese va apparaitre (on les appelera "*")
+        où
+            Pour Position: x et y sont les coordonnées relatives au "centre"
+            Pour Count: x est le nombre de fois qu'un etat doit apparaitre et y n'est pas utilisé
+        où EtatCond est l'index de l'etat selectionné par x & y
+        où Proba est la probabilité que l'action soit effectuée
+        //TODO EtatCond
+    */
     int lengthCond = 0;
-    QString rule = "";
+    QString rule = "";//la regle qu'on va envoyer au parser
     QString compositeCount = "";
-    std::vector<int> res;
-    unsigned long select;
-    rule.append(posAndCount());
+
+    rule.append(posAndCount()); //position
     rule.append(";");
 
     if(posAndCount() == "Position"){
         if(dimension() == "OneDimension"){
-            rule.append(matrixIndexAndStateIndex[1]);
+            rule.append(matrixIndexAndStateIndex[1]); //index etat de depart
             for(int i = 0; i < 9; i++){
                 if(posIndex[i] != "(" && i != 1){
                 lengthCond++;
@@ -133,7 +146,7 @@ void Interface::okCreateRule()
             }
         }
         else if (dimension() == "TwoDimensions") {
-            rule.append(matrixIndexAndStateIndex[4]);
+            rule.append(matrixIndexAndStateIndex[4]); //index etat de depart
             for(int i = 0; i < 9; i++){
                 if(posIndex[i] != "(" && i != 4){
                 lengthCond++;
@@ -141,21 +154,20 @@ void Interface::okCreateRule()
             }
         }
         rule.append(";");
-        if(matrixIndexAndStateIndex[9] != "("){ //TODO else?
+        if(matrixIndexAndStateIndex[9] != "("){ //TODO else? //index etat d'arrive
             rule.append(matrixIndexAndStateIndex[9]);
         }
         rule.append(";");
-        QString length = QString::number(lengthCond);
+        QString length = QString::number(lengthCond); //lengthCond
         rule.append(length);
         rule.append(";");
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) { // "*"
             if(posIndex[i] != "("){
                 rule.append(posIndex[i]);
                 rule.append(";");
             }
         }
     }
-
     else if (posAndCount() == "Count") {
         if(dimension() == "OneDimension"){ //etat de depart
             rule.append(matrixIndexAndStateIndex[1]);
@@ -169,7 +181,7 @@ void Interface::okCreateRule()
         }
         rule.append(";");
         //on va creer un tableau dont la taille sera le plus grand indice d'etat
-        //l'indice du tableau sera l'index de l'etat, la valeur stoclée a cet indice sera le nombre de repetitions de cet etat
+        //l'indice du tableau sera l'index de l'etat, la valeur stockée a cet indice sera le nombre de repetitions de cet etat
         int sizeofarray = matrixIndexAndStateIndex[0].toInt();
         for (int i = 1;i<9;i++) { //trouve le plus grand index d'etat
             if(sizeofarray < matrixIndexAndStateIndex[i].toInt()){
@@ -177,32 +189,50 @@ void Interface::okCreateRule()
             }
         }
         sizeofarray = sizeofarray + 1; //cette taille va aussi servir a determiner length cond
-        rule.append(QString::number(sizeofarray));
-        rule.append(";");
         std::cout << "sizeofarray = " << sizeofarray << std::endl; //test
         int stateArray[sizeofarray];
         for(int i = 0; i<sizeofarray; i++){//initialise le tableau (impossible d'initialiser un tableau de taille variable avec {0})
             stateArray[i] = 0;
         }
         for(int i = 0; i < 9; i++){
-            stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+            if(dimension() == "OneDimension"){//evite le cas "central"
+                if(i!=1){
+                    stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                }
+            }
+            if(dimension() == "TwoDimensions"){//evite le cas "central"
+                if(i!=4){
+                    stateArray[matrixIndexAndStateIndex[i].toInt()]++;
+                }
+            }
         }
         for(int n = 0; n<sizeofarray; n++){//test
             std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
         }
-
+        lengthCond = sizeofarray;
+        for (int i = 0; i < sizeofarray; i++)
+        {
+            if (stateArray[i] == 0)
+            {
+                lengthCond--;
+            }
+        }
+        rule.append(QString::number(lengthCond));
+        rule.append(";");
         //a partir du tableau precedent on va determiner la syntaxe des (x;y;Stateindex) où x est la valeur de stateArray[StateIndex]
         for (int i = 0;i<sizeofarray; i++) {
-            compositeCount.append("(");
-            compositeCount.append(QString::number(stateArray[i])); //x
-            compositeCount.append(";");
-            compositeCount.append("0"); //y
-            compositeCount.append(";");
-            compositeCount.append(QString::number(i));//StateIndex
-            compositeCount.append(")");
-            rule.append(compositeCount);
-            rule.append(";");
-            compositeCount = "";
+            if(stateArray[i] != 0){
+                compositeCount.append("(");
+                compositeCount.append(QString::number(stateArray[i])); //x
+                compositeCount.append(";");
+                compositeCount.append("0"); //y
+                compositeCount.append(";");
+                compositeCount.append(QString::number(i));//StateIndex
+                compositeCount.append(")");
+                rule.append(compositeCount);
+                rule.append(";");
+                compositeCount = "";
+            }
         }
 
     }
@@ -381,7 +411,7 @@ void Interface::setRememberIndex(int value)
     rememberIndex = value;
 }
 
-//met "(x;y;StateIndex)" dans le tableau posIndex
+//met "(x;y;StateIndex)" dans le tableau posIndex pour okCreateRule() dans le cas Position
 void Interface::associateStateAndIndex(QString StateIndex)
 {
     QString composite = "(";
@@ -462,7 +492,6 @@ void Interface::cleanRuleCreationWindow()
         matrixIndexAndStateIndex[i]="(";
         posIndex[i]="(";
     }
-
 }
 
 
