@@ -77,9 +77,9 @@ ApplicationWindow{
                             id: neighborhoodFrameMouseArea
                             width: 25
                             height: 25
-                            onHoveredChanged: {
+                            /*onHoveredChanged: {
                                 neighborhoodFrame.color = myInterface.stateColorFromSquareIndex(index)
-                            }
+                            }*/
                             Rectangle {
                                 id: neighborhoodRectangle
                                 width: parent.width
