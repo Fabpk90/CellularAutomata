@@ -41,8 +41,7 @@ public:
     bool GetIsStocha();
     bool GetIsVonNeighborhood();
 
-    void SetSizeX(uint sizeX);
-    void SetSizeY(uint sizeY);
+    void SetSizeXY(uint x, uint y);
     void SetNeighborhood(bool b); // if true then is VonNeuman else is Moore
     void SetType(bool b); // if true then is stocha else is deterministic
 

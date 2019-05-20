@@ -509,8 +509,7 @@ void  Parser::ParseAndAddSize(string* index)
     }
 
     // Instantiation de sizeX et sizeY
-    automata->SetSizeX(x);
-    automata->SetSizeY(y);
+    automata->SetSizeXY(x, y);
 }
 
 //TODO : Test et ajout erreur

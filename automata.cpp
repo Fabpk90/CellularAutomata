@@ -43,15 +43,18 @@ bool Automata::GetIsVonNeighborhood()
     return isVonNeighborhood;
 }
 
-void Automata::SetSizeX(uint sizeX)
+void Automata::SetSizeXY(uint x, uint y)
 {
-    this->sizeX = sizeX;
+    sizeX = x;
+    sizeY = y;
+
+    generations = vector<Generation>();
+    Generation g;
+    g.cellMatrix = vector<unsigned int> (sizeX*sizeY);
+
+    generations.push_back(g);
 }
 
-void Automata::SetSizeY(uint sizeY)
-{
-    this->sizeY = sizeY;
-}
 
 void Automata::SetType(bool b){
     isStocha = b;
