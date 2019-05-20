@@ -32,8 +32,8 @@ ApplicationWindow {
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
-                    myInterface.callLoad()
-                    myInterface.loadInterface()
+                  //  myInterface.callLoad()
+                   // myInterface.loadInterface()
                 }
             }
 
@@ -312,7 +312,7 @@ ApplicationWindow {
         title: "Please choose a file to load"
         folder: shortcuts.home
         onAccepted: {
-            myInterface.callLoad("test", this.fileUrl)
+           myInterface.callLoad("test", this.fileUrl)
         }
         onRejected: {
         }

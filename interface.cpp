@@ -623,23 +623,23 @@ Interface::Interface(QObject *parent) : QObject(parent)
 
 }
 
-void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){
+void Interface::callSaveMatrix(QString path, QString name, QString firstGen, QString lastGen){
 
-    string tmp;
-    if(!firstGen.empty() && !lastGen.empty() ) tmp= this->parser.GetDataToBeSaved(10,10 );
-    else tmp= this->parser.GetDataToBeSaved();
+    string tmp;string na=name.toStdString();
+    /*if(!firstGen.isEmpty() && !lastGen.isEmpty() )*/ tmp= this->parser.GetDataToBeSaved(0,99 );
+    //else tmp= this->parser.GetDataToBeSaved();
 
     char * Data = new char[tmp.length() + 1];
     strcpy(Data, tmp.c_str());
-    SaveData(&name, Data);
+    SaveData(&na, Data);
 
 
 
 }
 
-void Interface::callLoad(string name, string path){
-
-   this->parser.ParseFile(&name);
+void Interface::callLoad(QString name, QString path){
+    string pa=path.toStdString();
+   this->parser.ParseFile(&pa);
 
 }
 
