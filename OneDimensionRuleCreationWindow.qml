@@ -12,6 +12,7 @@ ApplicationWindow{
     width: screen.width / 3
     height: screen.height / 2
     modality: Qt.ApplicationModal //permet de garder le focus
+
     Column{
         y: 100
         width: parent.width
@@ -73,28 +74,34 @@ ApplicationWindow{
                     spacing: 5
                     Repeater{
                         model: 3
-                        MouseArea {
-                            id: neighborhoodFrameMouseArea
-                            width: 25
-                            height: 25
-                            Rectangle {
-                                id: neighborhoodRectangle
-                                width: parent.width
-                                height: parent.height
-                                color: "lightgrey" //TODO change color to actual color
-                            }
-                            /*Text{
-                                text: index //TEST affiche
-                            }*/
+                        Row{
+                            MouseArea {
+                                id: neighborhoodFrameMouseArea
+                                width: 25
+                                height: 25
+                                Rectangle {
+                                    id: neighborhoodRectangle
+                                    width: parent.width
+                                    height: parent.height
+                                    color: "lightgrey"
+                                }
 
-                            onClicked: {
-                                myInterface.setRememberIndex(index)
-                                var Component = Qt.createComponent("StateListWindow.qml")
-                                var window = Component.createObject(mainwindow)
-                                window.show()
+                                onClicked: {
+                                    myInterface.setRememberIndex(index)
+                                    var Component = Qt.createComponent("StateListWindow.qml")
+                                    var window = Component.createObject(mainwindow)
+                                    window.show()
+                                }
+                            }
+                            Button{
+                                text: "Y"
+                                width: 20
+                                height: 25
+                                onClicked: {
+                                    neighborhoodRectangle.color = myInterface.stateColor
+                                }
                             }
                         }
-
                     }
                 }
             }
@@ -118,25 +125,35 @@ ApplicationWindow{
                     spacing: 5
                     Repeater{
                         model: 3
-                        MouseArea {
-                            id: countFrameMouseArea
-                            width: 25
-                            height: 25
-                            Rectangle {
-                                id: countRectangle
-                                width: parent.width
-                                height: parent.height
-                                color: "lightgrey" //TODO change color to actual color
-                            }
-                            /*Text{
-                                text: index //TEST affiche
-                            }*/
+                        Row{
+                            MouseArea {
+                                id: countFrameMouseArea
+                                width: 25
+                                height: 25
+                                Rectangle {
+                                    id: countRectangle
+                                    width: parent.width
+                                    height: parent.height
+                                    color: "lightgrey" //TODO change color to actual color
+                                }
+                                /*Text{
+                                    text: index //TEST affiche
+                                }*/
 
-                            onClicked: {
-                                myInterface.setRememberIndex(index)
-                                var Component = Qt.createComponent("StateListWindow.qml")
-                                var window = Component.createObject(mainwindow)
-                                window.show()
+                                onClicked: {
+                                    myInterface.setRememberIndex(index)
+                                    var Component = Qt.createComponent("StateListWindow.qml")
+                                    var window = Component.createObject(mainwindow)
+                                    window.show()
+                                }
+                            }
+                            Button{
+                                text: "Y"
+                                width: 20
+                                height: 25
+                                onClicked: {
+                                    countRectangle.color = myInterface.stateColor
+                                }
                             }
                         }
                     }
@@ -158,23 +175,33 @@ ApplicationWindow{
                 implicitHeight: 30
                 implicitWidth: 30
                 spacing: 10
-                MouseArea{
-                    id : newStateFrameMouseArea
+                Row{
                     anchors.centerIn: parent
-                    width: 25
-                    height: 25
-                    Rectangle{
-                        id: newStateRectangle
-                        width: parent.width
-                        height: parent.height
-                        anchors.centerIn: parent.Center
-                        color:"lightgreen" //TODO change color to actual color
+                    MouseArea{
+                        id : newStateFrameMouseArea
+                        width: 25
+                        height: 25
+                        Rectangle{
+                            id: newStateRectangle
+                            width: parent.width
+                            height: parent.height
+                            anchors.centerIn: parent.Center
+                            color:"lightgreen" //TODO change color to actual color
+                        }
+                        onClicked: {
+                            myInterface.setRememberIndex(9)
+                            var Component = Qt.createComponent("StateListWindow.qml")
+                            var window = Component.createObject(mainwindow)
+                            window.show()
+                        }
                     }
-                    onClicked: {
-                        myInterface.setRememberIndex(9)
-                        var Component = Qt.createComponent("StateListWindow.qml")
-                        var window = Component.createObject(mainwindow)
-                        window.show()
+                    Button{
+                        text: "Y"
+                        width: 20
+                        height: 25
+                        onClicked: {
+                            newStateRectangle.color = myInterface.stateColor
+                        }
                     }
                 }
             }
@@ -240,23 +267,33 @@ ApplicationWindow{
                 implicitHeight: 30
                 implicitWidth: 30
                 spacing: 10
-                MouseArea{
-                    id : stachasticDynFrameMouseArea
+                Row{
                     anchors.centerIn: parent
-                    width: 25
-                    height: 25
-                    Rectangle{
-                        id: stochasticDynFrameStateRectangle
-                        width: parent.width
-                        height: parent.height
-                        anchors.centerIn: parent.Center
-                        color: "lightblue" //TODO change color to actual color
+                    MouseArea{
+                        id : stachasticDynFrameMouseArea
+                        width: 25
+                        height: 25
+                        Rectangle{
+                            id: stochasticDynFrameStateRectangle
+                            width: parent.width
+                            height: parent.height
+                            anchors.centerIn: parent.Center
+                            color: "lightblue"
+                        }
+                        onClicked: {
+                            myInterface.setRememberIndex(10)
+                            var Component = Qt.createComponent("StateListWindow.qml")
+                            var window = Component.createObject(mainwindow)
+                            window.show()
+                        }
                     }
-                    onClicked: {
-                        myInterface.setRememberIndex(10)
-                        var Component = Qt.createComponent("StateListWindow.qml")
-                        var window = Component.createObject(mainwindow)
-                        window.show()
+                    Button{
+                        text: "Y"
+                        width: 20
+                        height: 25
+                        onClicked: {
+                            stochasticDynFrameStateRectangle.color = myInterface.stateColor
+                        }
                     }
                 }
             }

@@ -40,6 +40,7 @@ ApplicationWindow{
                     onClicked: {
                         myInterface.associateStateAndIndex(index);
                         stateListWindow.close()
+                        myInterface.stateColor=model.stateColor
                     }
                 }
             }
