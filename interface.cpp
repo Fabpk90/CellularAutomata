@@ -15,7 +15,7 @@ void Interface::initialiseParser()
     setNeighborhood("Moore");
     setMaxGenerationsToSimulate("1");
     setSizeX("1");
-    setSizeY("1");
+    setSizeY("2");
     matrixview->setAutomata(ca);
 }
 
