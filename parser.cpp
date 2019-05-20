@@ -368,7 +368,7 @@ void  Parser::ParseAndAddStates(string* index)
         }
         i++;
     }
-    //
+
 
     cout << "Nb states = " << nbStatesS << endl;
     nbStates = stoi(nbStatesS);
@@ -525,48 +525,48 @@ void  Parser::ParseHistory(string* index)
 
     nbHistory = stoi(nbHistoryH);
     cout << "Nb History = " << nbHistory << endl;
+    if(nbHistory != 0 ){
+        int asciiGenId = -1;
+        string strRepresentation = "";
+        vector<int> asciiStates;
+        Generation g;
 
-    int asciiGenId = -1;
-    string strRepresentation = "";
-    vector<int> asciiStates;
-    Generation g;
+        for(int k = i; k < sizeIndex; k ++){
 
-    for(int k = i; k < sizeIndex; k ++){
-
-        ascii = index[0][k];
-        if (ascii >= '0' && ascii <= '9'){
-
-            asciiGenId = ascii - 48;
-            g.generationID = asciiGenId;
-            cout<< "GId : "<<g.generationID << endl;
-        }else if(ascii == ';'){
-            k++;
             ascii = index[0][k];
-            if(ascii == '\0'){throw(string("ParseAndAddHistory : No state for the gen"));}
-            while(ascii != ';'){
+            if (ascii >= '0' && ascii <= '9'){
 
-                if (ascii >= '0' && ascii <= '9' && ascii != ','){
-                    strRepresentation.append(to_string(ascii-48));
-                    k++;
-                    ascii = index[0][k];
-                }else if (ascii == ',' || ascii == ';') {
+                asciiGenId = ascii - 48;
+                g.generationID = asciiGenId;
+                cout<< "GId : "<<g.generationID << endl;
+            }else if(ascii == ';'){
+                k++;
+                ascii = index[0][k];
+                if(ascii == '\0'){throw(string("ParseAndAddHistory : No state for the gen"));}
+                while(ascii != ';'){
 
-                    g.cellMatrix.push_back(stoi(strRepresentation));
-                    cout<< "ajout"<<strRepresentation <<endl;
-                    strRepresentation="";
-                    k++;
-                    ascii = index[0][k];
+                    if (ascii >= '0' && ascii <= '9' && ascii != ','){
+                        strRepresentation.append(to_string(ascii-48));
+                        k++;
+                        ascii = index[0][k];
+                    }else if (ascii == ',' || ascii == ';') {
+
+                        g.cellMatrix.push_back(stoi(strRepresentation));
+                        cout<< "ajout"<<strRepresentation <<endl;
+                        strRepresentation="";
+                        k++;
+                        ascii = index[0][k];
+                    }
                 }
+                g.cellMatrix.push_back(stoi(strRepresentation));
+                cout<< "ajout "<<strRepresentation <<endl;
+                strRepresentation = "";
+                automata->AddGeneration(g);
+            }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+                throw(string("ParseAndAddHistory : Number of History is not an int"));
             }
-            g.cellMatrix.push_back(stoi(strRepresentation));
-            cout<< "ajout "<<strRepresentation <<endl;
-            strRepresentation = "";
-            automata->AddGeneration(g);
-        }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
-            throw(string("ParseAndAddHistory : Number of History is not an int"));
         }
     }
-
 }
 
 /*
