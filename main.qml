@@ -262,7 +262,7 @@ ApplicationWindow {
 
             Button{
                 text: qsTr("Recompute")
-                //TODO
+                onClicked: myInterface.displayMatrix()
             }
 
         }
