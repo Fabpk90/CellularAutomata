@@ -608,6 +608,10 @@ string  Parser::AutomataToString()
         // QString str(automata->GetStates()[0].color.name().toStdString().c_str());
         // q.setNamedColor(str);
 
+        strRepresentation.append("E;");
+        strRepresentation.append(to_string(automata->GetStates().size()));
+        strRepresentation.append(";");
+
         for (State s : automata->GetStates()) {
             strRepresentation.append(s.color.name().toStdString());
             strRepresentation.append(";");
