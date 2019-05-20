@@ -3,8 +3,9 @@
 #include "rulestochasticdynamic.h"
 #include "automata.h"
 
-RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, State* toChangeInto,State* startingState , std::vector<RuleParameters> params, float probability):
-    RuleStochastic(isComputePosition, toChangeInto, startingState ,params, probability){};
+RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params,
+                                             float probability):
+    RuleStochastic(isComputePosition, automata, toChangeInto, startingState ,params, probability){};
 
 float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de la règle
 
@@ -24,6 +25,17 @@ float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de
     prob /= 10;
     if(prob > 1) return 1.0;
     return prob;
+}
+
+RuleStochasticDynamic::~RuleStochasticDynamic()
+{
+    delete toChangeInto;
+    delete startingState;
+
+    for(RuleParameters r : parameters)
+    {
+        delete r.toCheckAgainst;
+    }
 }
 
 int RuleStochasticDynamic::GetType(){

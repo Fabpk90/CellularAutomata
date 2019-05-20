@@ -1,5 +1,5 @@
 #include "simulator.h"
-
+#include <iostream>
 Automata automataGlob; // TEMPORAIRE POUR EVITER ERRRORS
 
 
@@ -10,6 +10,10 @@ namespace Simulator {
 
         Generation newest;
         newest.generationID = automata.GetCurrentGen().generationID + 1;
+        newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
+
+        std::cout <<"Yeppa" << automata.GetCurrentGen().generationID << std::endl;
+
         automata.AddGeneration(newest);
         State oldState;
 

@@ -11,7 +11,7 @@ class RuleStochastic : public Rule
 
     public:
 
-        RuleStochastic(bool isComputePosition, State* toChangeInto, State* startingState, std::vector<RuleParameters> params, float probability);
+        RuleStochastic(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params, float probability);
         //Le :Rule(les params) se fait que dans le .cpp on me dit
 
         void Apply(int x, int y) override; //Besoin de spécifier override ?
@@ -20,7 +20,7 @@ class RuleStochastic : public Rule
             return this->probability;
         }
 
-
+~RuleStochastic();
 
 };
 

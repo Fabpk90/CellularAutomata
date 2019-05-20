@@ -13,10 +13,9 @@ class Rule{
             State* toCheckAgainst;
         };
 
-        Rule(bool isComputePosition, State* toChangeInto, State* startingState,std::vector<RuleParameters> params);
+        Rule(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params);
 
 
-        
         State& GetToChangeInto();
         void SetStateToChangeInto(State* toChangeInto);
         std::vector<RuleParameters> GetParameters();

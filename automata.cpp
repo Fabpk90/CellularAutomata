@@ -6,7 +6,7 @@
 
 Automata::Automata()
 {
-    sizeX = sizeY = 0;
+    currentGen = sizeX = sizeY = 0;
     isStocha = isVonNeighborhood = false;
     rules = vector<Rule*>();
     definedStates = vector<State>();
@@ -43,15 +43,19 @@ bool Automata::GetIsVonNeighborhood()
     return isVonNeighborhood;
 }
 
-void Automata::SetSizeX(uint sizeX)
+void Automata::SetSizeXY(uint x, uint y)
 {
-    this->sizeX = sizeX;
+    sizeX = x;
+    sizeY = y;
+
+    generations = vector<Generation>();
+    Generation g;
+    g.generationID = 0;
+    g.cellMatrix = vector<unsigned int> (sizeX*sizeY);
+
+    generations.push_back(g);
 }
 
-void Automata::SetSizeY(uint sizeY)
-{
-    this->sizeY = sizeY;
-}
 
 void Automata::SetType(bool b){
     isStocha = b;
@@ -138,6 +142,20 @@ void Automata::RemoveState(const State &toRemove)
     cout << "Remaining states " << definedStates.size() << endl;
 }
 
+void Automata::RemoveAllRules()
+{
+    for (int i = 0; i < rules.size(); ++i) {
+        delete rules[i];
+    }
+
+    rules.clear();
+}
+
+void Automata::RemoveAllStates()
+{
+    definedStates.clear();
+}
+
 void Automata::RemoveRule(const Rule &toRemove)
 {
     //TO TEST !
@@ -186,6 +204,8 @@ void Automata::SetCell(uint x, uint y, State &newState)
 //TODO: test
 void Automata::SetCell(uint x, uint y, uint newState)
 {
+    cout << "eheheh " << generations[currentGen].generationID << endl;
+    cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
     //TODO: check la formule, je suis pas sûr (@Fab)
     generations[currentGen].cellMatrix[x * y + y] = newState;
 }

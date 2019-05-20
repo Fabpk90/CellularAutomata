@@ -2,13 +2,13 @@
 #include <QQmlApplicationEngine>
 #include "rule.h"
 
-Rule::Rule(bool isComputePosition, State* toChangeInto, State* startingState, std::vector<RuleParameters> params){
+Rule::Rule(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params){
     this->isComputePosition=isComputePosition;
     this->toChangeInto=toChangeInto;
     this->startingState=startingState;
     this->parameters=params;
 
-    automata = nullptr;
+    this->automata = automata;
 }
 
 State& Rule::GetToChangeInto(){

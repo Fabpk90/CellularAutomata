@@ -65,6 +65,7 @@ public:
 
     //init
     Q_INVOKABLE void initialiseParser(); //TODO
+    Q_INVOKABLE void initMatrix();
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
 
@@ -116,8 +117,8 @@ public:
         return m_sizeY;
     }
     /*Gestion de fichier*/
-    Q_INVOKABLE void callSaveMatrix(string path, string name, string firstGen, string lastGen);//Demande pour sauvegarder un automate
-    Q_INVOKABLE void callLoad(string name, string path);//Demande pour charger un automate
+    Q_INVOKABLE void callSaveMatrix(QString path, QString name, QString firstGen=QString(""), QString lastGen=QString(""));//Demande pour sauvegarder un automate
+    Q_INVOKABLE void callLoad(QString name, QString path);//Demande pour charger un automate
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/

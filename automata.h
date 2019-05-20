@@ -41,8 +41,7 @@ public:
     bool GetIsStocha();
     bool GetIsVonNeighborhood();
 
-    void SetSizeX(uint sizeX);
-    void SetSizeY(uint sizeY);
+    void SetSizeXY(uint x, uint y);
     void SetNeighborhood(bool b); // if true then is VonNeuman else is Moore
     void SetType(bool b); // if true then is stocha else is deterministic
 
@@ -53,6 +52,8 @@ public:
     void AddRule(Rule& rule);
     void RemoveGeneration(unsigned int index);
     void RemoveState(const State& toRemove);
+    void RemoveAllRules();
+    void RemoveAllStates();
     void RemoveRule(const Rule& toRemove);
     void SortGenerations(); // Trie le vecteur de generations
     void SetCell(uint x, uint y, State& newState); // passe la cellule en x,y en newState
