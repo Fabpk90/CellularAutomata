@@ -99,6 +99,16 @@ void Automata::AddRule(Rule &rule)
     rules.push_back(&rule);
 }
 
+void Automata::SetMaxSimulations(uint maxSimulations)
+{
+    this->maxSimulations = maxSimulations;
+}
+
+uint Automata::GetMaxSimulations()
+{
+    return maxSimulations;
+}
+
 void Automata::RemoveGeneration(unsigned int index)
 {
     vector<Generation>::iterator it = generations.begin();

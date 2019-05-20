@@ -7,36 +7,38 @@ namespace Simulator {
     void Simulate(Automata& automata)
     {
         automataGlob = &automata;
+        for (int simulation = 0; simulation < automata.GetMaxSimulations(); ++simulation) {
+            Generation newest;
+            newest.generationID = automata.GetCurrentGen().generationID + 1;
+            newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
 
-        Generation newest;
-        newest.generationID = automata.GetCurrentGen().generationID + 1;
-        newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
+            std::cout <<"Yeppa" << automata.GetCurrentGen().generationID << std::endl;
+            cout << "Newest ID: " << newest.generationID << endl;
 
-        std::cout <<"Yeppa" << automata.GetCurrentGen().generationID << std::endl;
-        cout << "Newest ID: " << newest.generationID << endl;
+            automata.AddGeneration(newest);
+            State oldState;
 
-        automata.AddGeneration(newest);
-        State oldState;
-
-        for(unsigned int i = 0; i < automata.GetSizeX(); i++)
-        {
-            for(unsigned int j = 0; j < automata.GetSizeY(); j++)
+            for(unsigned int i = 0; i < automata.GetSizeX(); i++)
             {
-                //Init la cellule de la nouvelle gen à son ancienne valeur
-                oldState = automata.GetCellState(i,j);
-                automata.NextGen();
-                automata.SetCell(i,j, oldState);
-                automata.PreviousGen();
+                for(unsigned int j = 0; j < automata.GetSizeY(); j++)
+                {
+                    //Init la cellule de la nouvelle gen à son ancienne valeur
+                    oldState = automata.GetCellState(i,j);
+                    automata.NextGen();
+                    automata.SetCell(i,j, oldState);
+                    automata.PreviousGen();
 
-                for(unsigned int k = 0; k < automata.GetRules().size(); k++)
-                    if(automata.GetRules()[k]->GetStartingState().color == automata.GetCellState(i,j).color) //Applique la règle seulement si l'état de départ correspond à l'état de la case testé
-                    {
-                        automata.GetRules()[k]->Apply(i,j);
-                    }
+                    for(unsigned int k = 0; k < automata.GetRules().size(); k++)
+                        if(automata.GetRules()[k]->GetStartingState().color == automata.GetCellState(i,j).color) //Applique la règle seulement si l'état de départ correspond à l'état de la case testé
+                        {
+                            automata.GetRules()[k]->Apply(i,j);
+                        }
+                }
             }
+
+            automata.NextGen();
         }
 
-        automata.NextGen();
     }
 
     bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<State*> testState , int  targetX , int  targetY){

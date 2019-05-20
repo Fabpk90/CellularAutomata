@@ -50,6 +50,8 @@ public:
     void AddGenerations(vector<Generation> gens);
     void AddState(State& state);
     void AddRule(Rule& rule);
+    void SetMaxSimulations(uint maxSimulations);
+    uint GetMaxSimulations();
     void RemoveGeneration(unsigned int index);
     void RemoveState(const State& toRemove);
     void RemoveAllRules();
@@ -88,6 +90,8 @@ private:
     vector<Generation> generations; //contient toutes les générations simulées
     vector<pair<int, int>> neighborhood; //vecteur qui contient le voisinage représenté par des paires de positions relatives
     vector<State> definedStates; //sert surtout pour l'interface, savoir les états définis
+
+    uint maxSimulations;
 
     thread* simulationThread;
 
