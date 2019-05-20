@@ -78,9 +78,9 @@ ApplicationWindow{
                             width: 25
                             height: 25
                             enabled: index != 0 && index != 2 && index != 6 && index != 8
-                            onHoveredChanged: {
+                            /*onHoveredChanged: {
                                 neighborhoodFrame.color = myInterface.stateColorFromSquareIndex(index)
-                            }
+                            }*/
                             Rectangle {
                                 id: neighborhoodRectangle
                                 width: parent.width
