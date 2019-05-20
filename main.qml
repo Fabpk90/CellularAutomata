@@ -289,6 +289,8 @@ ApplicationWindow {
 
            myInterface.callLoad("test", this.fileUrl)
 
+           myInterface.callLoad("test", this.fileUrl)
+
         }
         onRejected: {
         }
