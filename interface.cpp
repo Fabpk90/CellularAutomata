@@ -429,19 +429,56 @@ void Interface::loadInterface()
    setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
    for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
    {
-       //ruleListView.appendItem();
+       ruleListView.appendItem();
    }
    for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
-       //TODO stateName et stateColor à set pour l'affichage dans la liste
        //stateListView.appendState();
+       setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));
+       setStateColor(parser.GetAutomata()->GetStates().at(i).color.name(QColor::HexRgb));
+       stateListView.appendState();
    }
-   //TODO avoir la dimension
+   if(parser.GetAutomata()->GetSizeY()==1) setDimension("OneDimension");
+   else setDimension("TwoDimensions");
 }
 
 QString Interface::returnCurrentGen()
 {
     return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+}
+
+void Interface::removeStateAutomata(int index)
+{
+    for(int i=0; i<stateListView.getListItem().size();i++)
+    {
+        if(stateListView.getListItem().at(i).number==index)
+            parser.GetAutomata()->RemoveState(parser.GetAutomata()->GetStates().at(i));
+    }
+}
+
+void Interface::removeRuleAutomata(int index)
+{
+    for(int i=0; i<stateListView.getListItem().size();i++)
+    {
+        if(stateListView.getListItem().at(i).number==index)
+            parser.GetAutomata()->RemoveRule(*parser.GetAutomata()->GetRules().at(i));
+    }
+}
+
+void Interface::removeAllRulesAutomata()
+{
+    for(auto r: parser.GetAutomata()->GetRules())
+    {
+        parser.GetAutomata()->RemoveRule(*r);
+    }
+}
+
+void Interface::removeAllStatesAutomata()
+{
+    for(auto s: parser.GetAutomata()->GetStates())
+    {
+        parser.GetAutomata()->RemoveState(s);
+    }
 }
 
 
@@ -543,7 +580,6 @@ void Interface::cleanRuleCreationWindow()
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
-
 }
 
 void Interface::callSaveMatrix(string path, string name, string firstGen=string(), string lastGen=string()){

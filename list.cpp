@@ -82,6 +82,12 @@ void List::removeAllItems()
         mItems.removeAt(i);
         emit postItemRemoved();
     }
+    for(int i=0; i<mItems.size();i++)
+    {
+        emit preItemRemoved(i);
+        mItems.removeAt(i);
+        emit postItemRemoved();
+    }
 }
 
 void List::setStateColor(QString stateColor)

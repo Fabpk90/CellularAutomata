@@ -52,8 +52,8 @@ public:
     void AddState(State& state);
     void AddRule(Rule& rule);
     void RemoveGeneration(unsigned int index);
-    void RemoveState(State& toRemove);
-    void RemoveRule(Rule& toRemove);
+    void RemoveState(const State& toRemove);
+    void RemoveRule(const Rule& toRemove);
     void SortGenerations(); // Trie le vecteur de generations
     void SetCell(uint x, uint y, State& newState); // passe la cellule en x,y en newState
     void SetCell(uint x, uint y, uint newState);

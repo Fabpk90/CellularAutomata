@@ -7,6 +7,7 @@
 #include <QQmlContext>
 #include "matrixview.h"
 #include "list.h"
+#include "listmodel.h"
 #include "parser.h"
 #include "filemanager.h"
 #include "simulator.h"
@@ -54,6 +55,9 @@ private:
     QString posIndex[10];//idem
     List l;
 
+    List stateListView;
+    List ruleListView;
+
 public:
     explicit Interface(QObject *parent = nullptr);
 
@@ -61,6 +65,15 @@ public:
     Q_INVOKABLE void initialiseParser(); //TODO
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
+
+    List* getStateListView()
+    {
+        return &stateListView;
+    }
+    List* getRuleListView()
+    {
+        return &ruleListView;
+    }
 
     //probability
     QString probability() const
@@ -201,6 +214,11 @@ public:
     Q_INVOKABLE void loadInterface();
 
     Q_INVOKABLE QString returnCurrentGen();
+
+    Q_INVOKABLE void removeStateAutomata(int index);
+    Q_INVOKABLE void removeRuleAutomata(int index);
+    Q_INVOKABLE void removeAllRulesAutomata();
+    Q_INVOKABLE void removeAllStatesAutomata();
 
 signals:
 

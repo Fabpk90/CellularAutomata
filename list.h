@@ -22,6 +22,10 @@ class List : public QObject
 
         bool setItemAt(int index, const Item &item);
         void setEngine(QQmlApplicationEngine *value);
+        QVector<Item> getListItem()
+        {
+            return mItems;
+        }
 
 
     signals:
