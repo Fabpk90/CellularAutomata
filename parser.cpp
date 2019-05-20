@@ -656,12 +656,18 @@ string Parser::HistoryToString(uint startGen, uint endGen)
     uint generationsFound = 0;
 
     if (automata != nullptr){
+
+        strRepresentation.append("H;");
+
         for (Generation g : automata->GetGenerations()){
             if(g.generationID >= startGen && g.generationID <= endGen)
             {
                 generationsFound++;
             }
         }
+
+        strRepresentation.append(to_string(generationsFound));
+        strRepresentation.append(";");
 
         if(generationsFound != 0){
             for (Generation g : automata->GetGenerations()){
@@ -690,6 +696,8 @@ string  Parser::RulesToString()
 
     string strRepresentation = "";
     if(automata != nullptr){
+
+        strRepresentation.append("R;");
 
         strRepresentation.append(to_string(automata->GetRules().size())); //Nombre de règle
         strRepresentation.append(";");
