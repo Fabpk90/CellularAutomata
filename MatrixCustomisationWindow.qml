@@ -35,11 +35,12 @@ ApplicationWindow {
             window.show()
 */
             matrixCustom.close()
-            mainwindow.close()
+            /*Cause des crash de QML*/
+            //mainwindow.close()
             myInterface.initMatrix()
-             var Component = Qt.createComponent("main.qml")
-            var window = Component.createObject()
-            window.show()
+             //var Component = Qt.createComponent("main.qml")
+            //var window = Component.createObject()
+            //window.show()
 
             //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")
         }
