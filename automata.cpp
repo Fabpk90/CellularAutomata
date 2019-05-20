@@ -288,10 +288,10 @@ void Automata::NextGen()
             found = true;
             cout << "No next gen" << endl;
         }
-        else if(it->generationID == this->currentGen)
+        else if(it->generationID == generations[currentGen].generationID)
         {
             found = true;
-            generations[currentGen++];
+            currentGen++;
 
             cout << "choose gen " << this->currentGen << endl;
         }
@@ -316,10 +316,10 @@ void Automata::PreviousGen()
             found = true;
             cout << "No previous gen" << endl;
         }
-        else if(it->generationID == this->currentGen)
+        else if(it->generationID == generations[currentGen].generationID)
         {
             found = true;
-            generations[currentGen--];
+            currentGen--;
 
             cout << "choose gen " << this->currentGen << endl;
         }
