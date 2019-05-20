@@ -16,7 +16,7 @@ void Interface::initialiseParser()
     setMaxGenerationsToSimulate("1");
     setSizeX("1");
     setSizeY("2");
-    matrixview->setAutomata(ca);
+    matrixview->setParser(&parser);
 }
 
 void Interface::initMatrix()

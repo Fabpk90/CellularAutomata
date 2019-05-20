@@ -4,14 +4,14 @@
 #include<QTimer>
 #include <math.h>
 //#include <windows.h>
-Automata *Matrixview::getAutomata() const
+Parser *Matrixview::getParser() const
 {
-    return automata;
+    return parser;
 }
 
-void Matrixview::setAutomata(Automata *value)
+void Matrixview::setParser(Parser *value)
 {
-    automata = value;
+    parser = value;
 }
 
 QQmlApplicationEngine *Matrixview::getEngine() const
@@ -108,8 +108,8 @@ void Matrixview::removeCell(unsigned int index)//retire des cases dans la mtrice
 void Matrixview::update()//Met à jour l'affichage de la matrice   /*temporaire en attendant l'implémentation*/
 {
 
-int h =automata->GetSizeX();
-int w =automata->GetSizeY();
+int h =parser->GetAutomata()->GetSizeX();
+int w =parser->GetAutomata()->GetSizeY();
   /*  QColor test[5]; test[0]=QColor("blue");test[1]=QColor("green");test[2]=QColor("orange");test[3]=QColor("green");test[4]=QColor("blue");
    struct State s={QColor("orange"),to_string(1)};
 
@@ -120,20 +120,20 @@ int w =automata->GetSizeY();
 
 for (int i =0;i<h;i++) {
     for (int j =0; j<w ;j++) {
-        this->setCellAt(i*10+j, automata->GetCellState(i,h));
+        this->setCellAt(i*10+j, parser->GetAutomata()->GetCellState(i,h));
         engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
     }
 }
 }
 void Matrixview::forward()//permet d'avancer dans l'historique
 {
-    if(automata != nullptr){
-    automata->NextGen();
+    if(parser != nullptr){
+    parser->GetAutomata()->NextGen();
 
-    for(int i=0; i<automata->GetSizeX();i++){
+    for(int i=0; i<parser->GetAutomata()->GetSizeX();i++){
 
-        for (int j=0; j<automata->GetSizeY(); j++) {
-            this->setCellAt(i*10+j,automata->GetCellState(i,j));
+        for (int j=0; j<parser->GetAutomata()->GetSizeY(); j++) {
+            this->setCellAt(i*10+j,parser->GetAutomata()->GetCellState(i,j));
 
         }
 
@@ -146,12 +146,12 @@ void Matrixview::forward()//permet d'avancer dans l'historique
 
 void Matrixview::backward()//permet de revenir en arrière dans l'historique
 {
-    if(automata != nullptr){
-    automata->PreviousGen();
-    for(int i=0; i<automata->GetSizeX();i++){
+    if(parser != nullptr){
+    parser->GetAutomata()->PreviousGen();
+    for(int i=0; i<parser->GetAutomata()->GetSizeX();i++){
 
-        for (int j=0; j<automata->GetSizeY(); j++) {
-            this->setCellAt(i*10+j,automata->GetCellState(i,j));
+        for (int j=0; j<parser->GetAutomata()->GetSizeY(); j++) {
+            this->setCellAt(i*10+j,parser->GetAutomata()->GetCellState(i,j));
 
         }
 
@@ -183,7 +183,7 @@ void Matrixview::play()//lance la simulation et l'affichage s'en suit
    //cout <<"pourtant je suis là"<<endl;
   // cout<<"ce vecteur fait:" <<listOfState.size()<<endl;
   //listOfState.append({QColor("green"), "State"});
-    automata->Simulate();
+    parser->GetAutomata()->Simulate();
      engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
 
 }
@@ -228,14 +228,14 @@ void Matrixview::initMatrix()
         removeCell(0);
 
     }
-     if(automata !=nullptr){
-    int h=automata->GetSizeX();int w=automata->GetSizeY();
+     if(parser !=nullptr){
+    int h=parser->GetAutomata()->GetSizeX();int w=parser->GetAutomata()->GetSizeY();
 
     for(int i=0;i<h;i++){
 
         for(int j=0;j<w;j++){
 
-             listOfState.append(automata->GetCellState(i,j));
+             listOfState.append(parser->GetAutomata()->GetCellState(i,j));
               // engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
         }
 

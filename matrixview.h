@@ -4,6 +4,7 @@
 
 #include <QObject>
 #include "automata.h"
+#include "parser.h"
 #include <QPainter>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -17,8 +18,8 @@ public:
     QVector<struct State>& cells();
     bool setCellAt(int index, const struct State& cell);
 
-    Automata *getAutomata() const;
-    void setAutomata(Automata *value);
+    Parser *getParser() const;
+    void setParser(Parser *value);
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
     Q_INVOKABLE int returnSize();
@@ -49,7 +50,7 @@ public slots:
     void initMatrix();
 
  private:
-    Automata *automata;
+    Parser* parser;
     QQmlApplicationEngine* engine;
     QVector<struct State> listOfState;
     QTimer * timer; //temporary thread. We will see how we manage it
