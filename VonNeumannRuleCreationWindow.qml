@@ -97,6 +97,7 @@ ApplicationWindow{
                                 }
                             }
                             Button{
+                                visible: index != 0 && index != 2 && index != 6 && index != 8
                                 text: "Y"
                                 width: 20
                                 height: 25
@@ -150,6 +151,7 @@ ApplicationWindow{
                                 }
                             }
                             Button{
+                                visible: index != 0 && index != 2 && index != 6 && index != 8
                                 text: "Y"
                                 width: 20
                                 height: 25
