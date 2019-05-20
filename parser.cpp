@@ -16,6 +16,7 @@ Parser::Parser()
 
 void Parser::SetAutomata(Automata *automata)
 {
+    delete this->automata;
     this->automata = automata;
 }
 
@@ -235,7 +236,7 @@ void  Parser::ParseAndAddRules(string* index)
                             i++;//skipping ';'
                         }
 
-                        if(index->at(i) != '\0' && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
+                        if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                         {
                            //  cout << "Stocha or dyn" << endl;
                             string strProba = "";
