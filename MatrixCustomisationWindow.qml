@@ -30,7 +30,8 @@ ApplicationWindow {
         onClicked: {
            myInterface.okCreateHistory()
             matrixCustom.close()
-         //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")
+            myInterface.initMatrix()
+            //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")
         }
     }
         Button{

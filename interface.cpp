@@ -19,6 +19,12 @@ void Interface::initialiseParser()
     matrixview->setAutomata(ca);
 }
 
+void Interface::initMatrix()
+{
+    matrixview->initMatrix();
+
+}
+
 void Interface::printProbability()
 {
     std::cout << "probability : " << m_probability.toStdString() << std::endl;

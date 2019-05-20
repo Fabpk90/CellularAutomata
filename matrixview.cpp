@@ -48,10 +48,10 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
 
 
     */
-   listOfState.append({QColor("green"), "State"});
-    listOfState.append({QColor("blue"), "State"});
+  // listOfState.append({QColor("green"), "State"});
+ //   listOfState.append({QColor("blue"), "State"});
 
-    for(int i=0;i<23;i++){
+    for(int i=0;i<100;i++){
 
         listOfState.append({QColor("white"),"State "+to_string(i)});
 
@@ -194,13 +194,19 @@ void Matrixview::pause()//met en pause l'éxcecution
 void Matrixview::sizeMatrix(QString H,QString W)
 {
     //emptyMatrix();
+    int size=listOfState.size();
+    for (int i=0;i<size;i++) {
+        removeCell(0);
+
+    }
 
     int h=H.toInt();int w= W.toInt();
     for(int i=0;i<h;i++){
 
         for(int j=0;j<w;j++){
 
-             listOfState.append({QColor("white"),to_string(i*10+j)});
+            appendCell({QColor("white"),to_string(i*10+j)});
+            // listOfState.append({QColor("white"),to_string(i*10+j)});
 
         }
 
@@ -212,7 +218,13 @@ void Matrixview::sizeMatrix(QString H,QString W)
 
 void Matrixview::initMatrix()
 {
-  /* if(automata !=nullptr){
+
+    int size=listOfState.size();
+    for (int i=0;i<size;i++) {
+        removeCell(0);
+
+    }
+     if(automata !=nullptr){
     int h=automata->GetSizeX();int w=automata->GetSizeY();
 
     for(int i=0;i<h;i++){
@@ -220,13 +232,13 @@ void Matrixview::initMatrix()
         for(int j=0;j<w;j++){
 
              listOfState.append(automata->GetCellState(i,j));
-
+               engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
         }
 
 
     }
 
    }
-*/
+
 }
 
