@@ -41,9 +41,10 @@ private:
     QString m_stateName;
     QString m_stateColor;
     string dataToParse;
- //   QQmlApplicationEngine* engine;
+    QQmlApplicationEngine* engine;
+    Matrixview* matrixview;
     //Initialisation de l'Automate
-    Automata ca = Automata(false, false, 1, 1, vector<Rule*>()
+    Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
 
     Parser parser;
@@ -59,9 +60,6 @@ public:
 
     //init
     Q_INVOKABLE void initialiseParser(); //TODO
-    QQmlApplicationEngine *getEngine() const;
-    void setEngine(QQmlApplicationEngine *value);
-
     //probability
     QString probability() const
     {
@@ -203,6 +201,12 @@ public:
     Q_INVOKABLE QString returnCurrentGen();
     Q_INVOKABLE void updateStateVector(int index,int stateId);
     Q_INVOKABLE void sizeTheVector();
+
+    QQmlApplicationEngine *getEngine() const;
+    void setEngine(QQmlApplicationEngine *value);
+
+    Matrixview *getMatrixview() const;
+    void setMatrixview(Matrixview *value);
 
 signals:
 

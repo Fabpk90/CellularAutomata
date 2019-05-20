@@ -170,7 +170,7 @@ void Matrixview::emptyMatrix()
 {
     int size=listOfState.size();
     for (int i=0;i<size;i++) {
-        removeCell(i);
+        removeCell(0);
 
     }
 
@@ -194,6 +194,7 @@ void Matrixview::pause()//met en pause l'éxcecution
 
 void Matrixview::sizeMatrix(QString H,QString W)
 {
+    emptyMatrix();
 
     int h=H.toInt();int w= W.toInt();
     for(int i=0;i<h;i++){

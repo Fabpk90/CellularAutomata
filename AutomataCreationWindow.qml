@@ -300,8 +300,8 @@ ApplicationWindow{
                 matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
                 var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
                 var window = Component.createObject(mainwindow)
-                window.show()
                 automataCreationWindow.close()
+                window.show()
             }
         }
         Button{

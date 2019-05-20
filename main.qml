@@ -16,10 +16,10 @@ ApplicationWindow {
     minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
 
-    Interface{
+   /* Interface{
         id:myInterface
     }
-
+*/
     menuBar: MenuBar{
         Menu{
             title: "File"
@@ -50,6 +50,7 @@ ApplicationWindow {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
                     window.show()
+                    print("enter here")
                     ruleListView.removeAllItems()
                     stateListView.removeAllItems()
                 }

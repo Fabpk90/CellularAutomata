@@ -9,13 +9,14 @@
 void Interface::initialiseParser()
 {
 
-    this->parser.SetAutomata(&ca);
+    this->parser.SetAutomata(ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
     setNeighborhood("Moore");
     setMaxGenerationsToSimulate("1");
     setSizeX("1");
     setSizeY("1");
+    matrixview->setAutomata(ca);
 }
 
 void Interface::printProbability()
@@ -392,8 +393,9 @@ void Interface::okCreateState(QString state){
     composite.append(m_stateColor);
     composite.append(state);
     composite.append(m_stateName);
+    composite.append(";");
     string string= composite.toStdString();
-    cout<<string<<endl;
+    cout<<"my state is :"<<string<<endl;
     try {
          parser.ParseAndAddStates(&string);
     } catch (std::string s) {
@@ -419,7 +421,7 @@ void Interface::okCreateHistory()
 
         }
         else {
-            composite.append(QString::number(rand()%25));//mettre en fonction de la taille de la liste des états
+            composite.append(QString::number(rand()%sizeOfStates));//mettre en fonction de la taille de la liste des états
         }
         composite.append(",");
     }
@@ -589,6 +591,26 @@ void Interface::cleanRuleCreationWindow()
 
 
 
+
+QQmlApplicationEngine *Interface::getEngine() const
+{
+    return engine;
+}
+
+void Interface::setEngine(QQmlApplicationEngine *value)
+{
+    engine = value;
+}
+
+Matrixview *Interface::getMatrixview() const
+{
+    return matrixview;
+}
+
+void Interface::setMatrixview(Matrixview *value)
+{
+    matrixview = value;
+}
 
 Interface::Interface(QObject *parent) : QObject(parent)
 {
