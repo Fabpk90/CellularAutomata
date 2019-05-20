@@ -638,6 +638,7 @@ string Parser::HistoryToString(uint startGen, uint endGen)
                     strRepresentation.append(to_string(g.cellMatrix.at(i)));
                     strRepresentation.append(",");
                 }
+                strRepresentation.pop_back();
                 strRepresentation.append(";");
             }
             return strRepresentation;
