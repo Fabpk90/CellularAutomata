@@ -9,6 +9,7 @@ ApplicationWindow{
     title: qsTr("Automata Creation")
     width: screen.width / 3
     height: screen.height / 2
+    minimumHeight: 540
     modality: Qt.ApplicationModal //permet de garder le focus
 
     RowLayout {
