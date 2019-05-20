@@ -412,7 +412,7 @@ void Interface::okCreateHistory()
     int sizeOfStates=parser.GetAutomata()->GetStates().size();
     cout<<"Il y a:"<<sizeOfStates<<endl;
     QString composite;
-   composite.append("1;0;");
+    composite.append("1;0;");
     for (int stateId : stateVector) {
 
         if(stateId !=-1){

@@ -20,6 +20,7 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
 {
+    cout << "Je me fais salut" << endl;
     simulationThread = nullptr;
 }
 
@@ -49,11 +50,6 @@ void Automata::SetSizeXY(uint x, uint y)
     sizeY = y;
 
     generations = vector<Generation>();
-    Generation g;
-    g.generationID = 0;
-    g.cellMatrix = vector<unsigned int> (sizeX*sizeY);
-
-    generations.push_back(g);
 }
 
 
