@@ -32,8 +32,8 @@ ApplicationWindow {
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
-                /*    myInterface.callLoad()
-                    myInterface.loadInterface()*/
+                    //myInterface.callLoad()
+                    myInterface.loadInterface()
                 }
             }
 
