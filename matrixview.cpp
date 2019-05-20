@@ -26,7 +26,10 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
 
 int Matrixview::returnSize()
 {
-    return (int)sqrt(listOfState.size());
+   //if (!automata) return
+    int a =sqrt(listOfState.size());
+    cout<<"a:"<<a<<endl;
+    return a;
 }
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
@@ -232,7 +235,7 @@ void Matrixview::initMatrix()
         for(int j=0;j<w;j++){
 
              listOfState.append(automata->GetCellState(i,j));
-               engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
+              // engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
         }
 
 

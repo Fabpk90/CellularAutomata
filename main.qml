@@ -49,11 +49,13 @@ ApplicationWindow {
                     myInterface.initialiseParser()
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
+
                     window.show()
                     print("enter here")
                     ruleListView.removeAllItems()
                     stateListView.removeAllItems()
                     mat.visible= true
+
                 }
             }
             MenuItem { text: "Edit Automaton"
@@ -97,7 +99,7 @@ ApplicationWindow {
                  onClicked: print(tooltip.text+""+index)
                  ToolTip{
                      id:tooltip
-                     text: qsTr("text" + index)
+                     text: qsTr(model.name)
                      visible: parent.pressed
 
                  }

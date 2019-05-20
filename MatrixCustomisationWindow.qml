@@ -29,8 +29,18 @@ ApplicationWindow {
         //onClicked:myInterface.call
         onClicked: {
            myInterface.okCreateHistory()
+
+            /* var Component = Qt.createComponent("main.qml")
+            var window = Component.createObject()
+            window.show()
+*/
             matrixCustom.close()
+            mainwindow.close()
             myInterface.initMatrix()
+             var Component = Qt.createComponent("main.qml")
+            var window = Component.createObject()
+            window.show()
+
             //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")
         }
     }
