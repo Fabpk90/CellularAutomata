@@ -43,6 +43,7 @@ void Interface::sendMandatoryInfo()
     dataToParse+="0";
     std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl; //test
     this->parser.ParseAndAddType(&dataToParse);
+    this->parser.GetAutomata()->SetMaxSimulations(m_maxGenerationsToSimulate.toUInt());
 }
 
 void Interface::CallSetDim()
