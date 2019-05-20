@@ -16,6 +16,7 @@ Parser::Parser()
 
 void Parser::SetAutomata(Automata *automata)
 {
+    delete this->automata;
     this->automata = automata;
 }
 
