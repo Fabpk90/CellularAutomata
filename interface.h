@@ -65,6 +65,7 @@ public:
 
     //init
     Q_INVOKABLE void initialiseParser(); //TODO
+    Q_INVOKABLE void initMatrix();
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
 
