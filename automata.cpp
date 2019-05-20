@@ -205,7 +205,9 @@ void Automata::SetCell(uint x, uint y, State &newState)
 void Automata::SetCell(uint x, uint y, uint newState)
 {
     cout << "eheheh " << generations[currentGen].generationID << endl;
-    cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
+       cout << "Current Gen (No func) :" << currentGen << endl;
+        cout << "Current Gen (func) :" << GetCurrentGen().generationID << endl;
+       cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
     //TODO: check la formule, je suis pas sûr (@Fab)
     generations[currentGen].cellMatrix[x * y + y] = newState;
 }

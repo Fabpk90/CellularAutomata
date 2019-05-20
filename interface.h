@@ -221,7 +221,8 @@ public:
     Q_INVOKABLE void removeAllStatesAutomata();
     Q_INVOKABLE QColor  stateColorFromSquareIndex(int index);
     Q_INVOKABLE void displayMatrix(){
-        cout << "Gen 1: " << endl;
+        cout << "Gen " << parser.GetAutomata()->GetCurrentGen().generationID << ":" << endl;
+        cout << "Amount of Generations:" << parser.GetAutomata()->GetGenerations().size() << endl;
                 for(unsigned int i = 0; i < parser.GetAutomata()->GetSizeX(); i++)
                 {
                     for(unsigned int j = 0; j < parser.GetAutomata()->GetSizeY(); j++)

@@ -13,6 +13,7 @@ namespace Simulator {
         newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
 
         std::cout <<"Yeppa" << automata.GetCurrentGen().generationID << std::endl;
+        cout << "Newest ID: " << newest.generationID << endl;
 
         automata.AddGeneration(newest);
         State oldState;
