@@ -337,6 +337,7 @@ void  Parser::ParseAndAddStates(string* index)
         ascii = index[0][k];
         if(ascii == ';') cptVerifNbStates++;
     }
+    cout<<cptVerifNbStates<<endl;
     if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
     // Jusque là tout est okay
 
@@ -499,6 +500,7 @@ void  Parser::ParseHistory(string* index)
         }else if(ascii == ';'){
             k++;
             ascii = index[0][k];
+            if(ascii == '\0'){throw(string("ParseAndAddHistory : No state for the gen"));}
             while(ascii != ';'){
 
                 if (ascii >= '0' && ascii <= '9' && ascii != ','){
