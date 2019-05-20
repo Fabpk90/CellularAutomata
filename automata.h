@@ -75,7 +75,7 @@ public:
 
     Generation& GetCurrentGen();
     // retourne l'état à la position du vecteur des cellules. Prend en compte la nécessité de faire boucler la matrice sur elle-même tel un torus. row * columns + col
-    State& GetCellState(unsigned int x,unsigned int y);
+    State& GetCellState( int x, int y);
 
     ~Automata();
 
