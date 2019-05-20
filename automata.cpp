@@ -289,7 +289,12 @@ void Automata::NextGen()
         else if(it->generationID == generations[currentGen].generationID)
         {
             found = true;
-            currentGen++;
+
+            if(currentGen + 1 != generations.size())
+                currentGen++;
+            else {
+                cout << "gen not available(plus)" << endl;
+            }
 
             cout << "choose gen " << this->currentGen << endl;
         }
@@ -317,7 +322,11 @@ void Automata::PreviousGen()
         else if(it->generationID == generations[currentGen].generationID)
         {
             found = true;
-            currentGen--;
+            if(currentGen  != 0)
+                currentGen--;
+            else {
+                cout << "gen not available (less)" << endl;
+            }
 
             cout << "choose gen " << this->currentGen << endl;
         }
