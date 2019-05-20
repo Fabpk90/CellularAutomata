@@ -37,7 +37,7 @@ ApplicationWindow{
                     countRow.visible = false
                     selectionRow.visible=true
                     myInterface.posAndCount = qsTr("Position")
-                    myInterface.printPosAndCount() //Test
+                    //myInterface.printPosAndCount() //Test
                 }
             }
 
@@ -50,7 +50,7 @@ ApplicationWindow{
                     selectionRow.visible = false
                     countRow.visible = true
                     myInterface.posAndCount = qsTr("Count")
-                    myInterface.printPosAndCount() //Test
+                    //myInterface.printPosAndCount() //Test
                 }
             }
         }
@@ -77,19 +77,22 @@ ApplicationWindow{
                             id: neighborhoodFrameMouseArea
                             width: 25
                             height: 25
+                            onHoveredChanged: {
+                                neighborhoodFrame.color = myInterface.stateColorFromSquareIndex(index)
+                            }
                             Rectangle {
                                 id: neighborhoodRectangle
                                 width: parent.width
                                 height: parent.height
-                                color: "lightgrey" //TODO change color to actual color
+                                color: "lightgrey"
+
                             }
-                            Text{
+                            /*Text{
                                 text: index //TEST affiche
-                            }
+                            }*/
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
-                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
                                 var Component = Qt.createComponent("StateListWindow.qml")
                                 var window = Component.createObject(mainwindow)
                                 window.show()
@@ -128,13 +131,12 @@ ApplicationWindow{
                                 height: parent.height
                                 color: "lightgrey" //TODO change color to actual color
                             }
-                            Text{
+                            /*Text{
                                 text: index //TEST affiche
-                            }
+                            }*/
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
-                                console.log("cpp index = " + myInterface.getRememberIndex() + " index =" + index)
                                 var Component = Qt.createComponent("StateListWindow.qml")
                                 var window = Component.createObject(mainwindow)
                                 window.show()
@@ -144,8 +146,6 @@ ApplicationWindow{
                 }
             }
         }
-
-
         Row{
             id: toChangeToRow
             anchors.horizontalCenter: parent.horizontalCenter
@@ -197,7 +197,7 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("Probability ")
             }
-            SpinBox{ //TODO change to float (for all)
+            SpinBox{
                 id: probability
                 editable: true
                 value:parseFloat(myInterface.probability)//valueFromText(locale, myInterface.probability)
@@ -221,23 +221,49 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
               //  onValueChanged: myInterface.probability = textFromValue(value, locale)
             }
+        }
+        Row{
+            id: stochasticDynRow
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 10
+            visible: if(myInterface.type === "Stochastic"){
+                         stochasticDynRow.visible = true
+                     }
+                     else{
+                         stochasticDynRow.visible = false
+                     }
             Text {
-                id: computeProbabilityText
                 anchors.verticalCenter: parent.verticalCenter
+                id: stochasticDynTitle
                 text: qsTr("Compute Probability")
             }
-            SpinBox{
-                id:computeProbability
-                editable: true
-                value: myInterface.computeProbability
-                from: 0
-                to: 100
+            Frame{
                 anchors.verticalCenter: parent.verticalCenter
-                onValueChanged: myInterface.computeProbability = value
+                id: stochasticDynState
+                implicitHeight: 30
+                implicitWidth: 30
+                spacing: 10
+                MouseArea{
+                    id : stachasticDynFrameMouseArea
+                    anchors.centerIn: parent
+                    width: 25
+                    height: 25
+                    Rectangle{
+                        id: stochasticDynFrameStateRectangle
+                        width: parent.width
+                        height: parent.height
+                        anchors.centerIn: parent.Center
+                        color: "lightblue" //TODO change color to actual color
+                    }
+                    onClicked: {
+                        myInterface.setRememberIndex(10)
+                        var Component = Qt.createComponent("StateListWindow.qml")
+                        var window = Component.createObject(mainwindow)
+                        window.show()
+                    }
+                }
             }
-
         }
-
     }
     Button{
         anchors.bottom: parent.bottom
@@ -246,8 +272,7 @@ ApplicationWindow{
         onClicked: {
             myInterface.probability = probability.textFromValue(probability.value,locale)
             ruleListView.appendItem()
-            myInterface.printProbability()
-            myInterface.printComputeProbability()
+            //myInterface.printProbability()//test
             myInterface.okCreateRule()
             mooreRuleCreationWindow.close()
         }

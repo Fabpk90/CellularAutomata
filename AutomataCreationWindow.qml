@@ -30,6 +30,7 @@ ApplicationWindow{
             onClicked:{
                 myInterface.type = qsTr("Deterministic")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
         RadioButton {
@@ -43,6 +44,7 @@ ApplicationWindow{
             onClicked: {
                 myInterface.type = qsTr("Stochastic")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
              }
         }
     }
@@ -64,6 +66,7 @@ ApplicationWindow{
             }
             onClicked: {myInterface.dimension = qsTr("OneDimension")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
         RadioButton {
@@ -76,6 +79,7 @@ ApplicationWindow{
             }
             onClicked: {myInterface.dimension = qsTr("TwoDimensions")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
     }
@@ -98,6 +102,7 @@ ApplicationWindow{
             onClicked: {
                 myInterface.neighborhood = qsTr("Moore")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
         RadioButton {
@@ -111,6 +116,7 @@ ApplicationWindow{
             onClicked:{
                 myInterface.neighborhood = qsTr("Von Neumann")
                 ruleListView.removeAllItems()
+                myInterface.removeAllRulesAutomata()
             }
         }
     }
@@ -145,7 +151,10 @@ ApplicationWindow{
             text: qsTr("Matrix Size Y:")
         }
         SpinBox{
-            from: 1
+            from: {
+                if(myInterface.dimension==="TwoDimensions") 2
+                else 1
+            }
             value: myInterface.sizeY
             to: 1000
             stepSize: 1
@@ -176,7 +185,7 @@ ApplicationWindow{
     Column{
         id: stateList
         anchors.right: parent.horizontalCenter
-        anchors.rightMargin: 100
+        anchors.rightMargin: 0
         anchors.top: maxGenerationsToSimulate.bottom
         Text {
             id: stateText
@@ -185,9 +194,9 @@ ApplicationWindow{
         }
         ListView{
             id: stateView
-            width: 100; height: 150
+            width: 200; height: 150
             spacing: 2
-
+            clip: true
             model: ListModel {
                 list_var: stateListView
             }
@@ -204,7 +213,10 @@ ApplicationWindow{
 
                 Button{
                     text: "X"
-                    onClicked: stateListView.removeItem(model.number)
+                    onClicked:{
+                        stateListView.removeItem(model.number)
+                        myInterface.removeStateAutomata(model.number)
+                    }
                 }
             }
         }
@@ -222,19 +234,22 @@ ApplicationWindow{
         }
         ListView{
             id: ruleView
-            width: 100; height: 150
+            width: 200; height: 150
             spacing: 2
+            clip: true
             model: ListModel {
                 list_var: ruleListView
             }
-
             delegate: RowLayout{
                 Text{
                     text: "Rule" + " " + model.number
                 }
                 Button{
                     text: "X"
-                    onClicked: ruleListView.removeItem(model.number)
+                    onClicked:{
+                        ruleListView.removeItem(model.number)
+                        myInterface.removeRuleAutomata(model.number)
+                    }
                 }
             }
         }
@@ -250,7 +265,10 @@ ApplicationWindow{
             var Component = Qt.createComponent("StateCreationWindow.qml")
             var window = Component.createObject(mainwindow)
             window.show()
-            addRule.visible=true
+            if(stateListView.getListCount()<1)
+                addRule.visible=false
+            if (stateListView.getListCount()>=1)
+                addRule.visible=true
         }
     }
     Button {
@@ -296,10 +314,12 @@ ApplicationWindow{
             text: qsTr("OK")
             onClicked: {
                 myInterface.sendMandatoryInfo()
-                automataCreationWindow.close()
-                /*var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
+                myInterface.sizeTheVector()
+                matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
+                var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
                 var window = Component.createObject(mainwindow)
-                window.show()*/
+                automataCreationWindow.close()
+                window.show()
             }
         }
         Button{
@@ -318,12 +338,9 @@ ApplicationWindow{
         {
             ruleListView.removeAllItems()
             stateListView.removeAllItems()
+            myInterface.removeAllRulesAutomata()
+            myInterface.removeAllStatesAutomata()
             automataCreationWindow.close()
         }
-    }
-
-    onClosing: {
-        ruleListView.removeAllItems()
-        stateListView.removeAllItems()
     }
 }

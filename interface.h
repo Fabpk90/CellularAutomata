@@ -7,15 +7,18 @@
 #include <QQmlContext>
 #include "matrixview.h"
 #include "list.h"
+#include "listmodel.h"
 #include "parser.h"
 #include "filemanager.h"
 #include "simulator.h"
+
+#define SIZEOFINDEXARRAYS 11
+
 //TODO ALL THE INPUT TESTS
 class Interface : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString probability READ probability WRITE setProbability NOTIFY probabilityChanged) //TODO input has to be int
-    Q_PROPERTY(QString computeProbability READ computeProbability WRITE setComputeProbability NOTIFY computeProbabilityChanged) //TODO input has to be int
+    Q_PROPERTY(QString probability READ probability WRITE setProbability NOTIFY probabilityChanged)
     Q_PROPERTY(QString posAndCount READ posAndCount WRITE setPosAndCount NOTIFY posAndCountChanged)
     Q_PROPERTY(QString stateToChangeTo READ stateToChangeTo WRITE setStateToChangeTo NOTIFY stateToChangeToChanged)
     Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
@@ -29,7 +32,6 @@ class Interface : public QObject
 
 private:
     QString m_probability;
-    QString m_computeProbability;
     QString m_posAndCount;
     QString m_stateToChangeTo;
     QString m_type;
@@ -41,18 +43,22 @@ private:
     QString m_stateName;
     QString m_stateColor;
     string dataToParse;
- //   QQmlApplicationEngine* engine;
+    QQmlApplicationEngine* engine;
+    Matrixview* matrixview;
     //Initialisation de l'Automate
-    Automata* ca = new Automata(false, false, 1, 1, vector<Rule*>()
+    Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
 
     Parser parser;
 
-
+    vector<int> stateVector;
     int rememberIndex;
-    QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
-    QString posIndex[10];//idem
+    QString matrixIndexAndStateIndex[SIZEOFINDEXARRAYS]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo 11eme pour le compute probability
+    QString posIndex[SIZEOFINDEXARRAYS];//idem
     List l;
+
+    List stateListView;
+    List ruleListView;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -61,6 +67,15 @@ public:
     Q_INVOKABLE void initialiseParser(); //TODO
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
+
+    List* getStateListView()
+    {
+        return &stateListView;
+    }
+    List* getRuleListView()
+    {
+        return &ruleListView;
+    }
 
     //probability
     QString probability() const
@@ -133,14 +148,6 @@ public:
     /*Retourne la dimension y de l'automate*/
    // Q_INVOKABLE unsigned int getSizeY();
 
-
-    //computeProbability
-    QString computeProbability() const
-    {
-        return m_computeProbability;
-    }
-    Q_INVOKABLE void printComputeProbability(); // for tests
-
     //posAndCount
     QString posAndCount() const
     {
@@ -156,17 +163,16 @@ public:
     Q_INVOKABLE void printStateToChangeTo(); //for tests
 
     void CallSetProbability(QString probability);//TODO
-    void CallSetComputeProbability(QString computeProbability);//TODO
     void CallSetPosAndCount(QString posAndCount);//TODO
     void CallSetStateToChangeTo(QString stateToChangeTo);//TODO
     void CallGetStates(); //TODO
-    Q_INVOKABLE void okCreateRule(); //TODO
+    Q_INVOKABLE void okCreateRule();
 
     /*Fenêtre de création d'états */
     Q_INVOKABLE void CallSetStateName(QString probability);
     void CallSetColor(QString color);
     Q_INVOKABLE void okCreateState(QString state);
-
+    Q_INVOKABLE void okCreateHistory();//crée la première génération (gen 0)
 
 
     QString stateName() const
@@ -201,12 +207,22 @@ public:
     Q_INVOKABLE void loadInterface();
 
     Q_INVOKABLE QString returnCurrentGen();
+    Q_INVOKABLE void updateStateVector(int index,int stateId);
+    Q_INVOKABLE void sizeTheVector();
+    Q_INVOKABLE void displayEverything();
+
+    Matrixview *getMatrixview() const;
+    void setMatrixview(Matrixview *value);
+
+    Q_INVOKABLE void removeStateAutomata(int index);
+    Q_INVOKABLE void removeRuleAutomata(int index);
+    Q_INVOKABLE void removeAllRulesAutomata();
+    Q_INVOKABLE void removeAllStatesAutomata();
+    Q_INVOKABLE QColor  stateColorFromSquareIndex(int index);
 
 signals:
 
     void probabilityChanged(QString probability);
-
-    void computeProbabilityChanged(QString computeProbability);
 
     void posAndCountChanged(QString posAndCount);
 
@@ -229,7 +245,6 @@ signals:
     void stateColorChanged(QString color);
 
 public slots:
-void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
 void setPosAndCount(QString posAndCount);
 void setStateToChangeTo(QString stateToChangeTo);

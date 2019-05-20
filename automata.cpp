@@ -124,7 +124,7 @@ void Automata::RemoveGeneration(unsigned int index)
     }
 }
 
-void Automata::RemoveState(State &toRemove)
+void Automata::RemoveState(const State &toRemove)
 {
     cout << "Removing state " << toRemove.name << endl;
     //Invalide l'historique et supprime l'entrée du vecteur (@Fab)
@@ -138,7 +138,7 @@ void Automata::RemoveState(State &toRemove)
     cout << "Remaining states " << definedStates.size() << endl;
 }
 
-void Automata::RemoveRule(Rule &toRemove)
+void Automata::RemoveRule(const Rule &toRemove)
 {
     //TO TEST !
     vector<Rule*>::iterator it = rules.begin();
