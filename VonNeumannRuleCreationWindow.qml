@@ -62,7 +62,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: neighborhoodFrameTitle
-                text: qsTr("Select ")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
             }
             Frame{
                 id: neighborhoodFrame
@@ -112,7 +112,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: countFrameTitle
-                text: qsTr("Select ")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
             }
             Frame{
                 id: countFrame

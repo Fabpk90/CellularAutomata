@@ -59,11 +59,11 @@ ApplicationWindow{
             visible: false
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 10
-            Text{
-                anchors.verticalCenter: parent.verticalCenter
-                id: neighborhoodFrameTitle
-                text: qsTr("Select ")
-            }
+                Text{
+                    anchors.verticalCenter: parent.verticalCenter
+                    id: neighborhoodFrameTitle
+                    text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
+                }
             Frame{
                 id: neighborhoodFrame
                 anchors.verticalCenter: parent.verticalCenter
@@ -110,7 +110,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: countFrameTitle
-                text: qsTr("Select ")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
             }
             Frame{
                 id: countFrame
