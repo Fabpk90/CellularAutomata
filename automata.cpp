@@ -354,7 +354,11 @@ State &Automata::GetCellState( int x,  int y)
 
 Automata::~Automata()
 {
-    delete simulationThread;
+    if(simulationThread != nullptr)
+    {
+        simulationThread->detach();
+        delete simulationThread;
+    }
 
     for (Rule* r : rules) {
         delete r;
