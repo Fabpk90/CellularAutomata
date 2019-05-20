@@ -13,33 +13,6 @@ ApplicationWindow{
     height: screen.height / 2
     modality: Qt.ApplicationModal //permet de garder le focus
 
-    ListView{
-        anchors.verticalCenter: parent.verticalCenter
-        id: stateView
-        width: 100; height: 150
-        spacing: 2
-        visible: false
-        model: ListModel {
-            list_var: stateListView
-        }
-
-        delegate: RowLayout{
-            Rectangle{
-                width: 20
-                height: 20
-                color: model.stateColor
-            }
-            Button{
-                text: model.stateName
-                onClicked: {
-                    myInterface.associateStateAndIndex(index);
-                    myInterface.stateColor=model.stateColor
-                    stateView.visible=false
-                }
-            }
-        }
-    }
-
     Column{
         y: 100
         width: parent.width
@@ -114,7 +87,9 @@ ApplicationWindow{
                                 }
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
-                                    stateView.visible=true
+                                    var Component = Qt.createComponent("StateListWindow.qml")
+                                    var window = Component.createObject(mainwindow)
+                                    window.show()
                                 }
                             }
                             Button{
@@ -163,7 +138,9 @@ ApplicationWindow{
 
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
-                                    stateView.visible=true
+                                    var Component = Qt.createComponent("StateListWindow.qml")
+                                    var window = Component.createObject(mainwindow)
+                                    window.show()
                                 }
                             }
                             Button{
@@ -209,7 +186,9 @@ ApplicationWindow{
                         }
                         onClicked: {
                             myInterface.setRememberIndex(9)
-                            stateView.visible=true
+                            var Component = Qt.createComponent("StateListWindow.qml")
+                            var window = Component.createObject(mainwindow)
+                            window.show()
                         }
                     }
                     Button{
@@ -299,7 +278,9 @@ ApplicationWindow{
                         }
                         onClicked: {
                             myInterface.setRememberIndex(10)
-                            stateView.visible=true
+                            var Component = Qt.createComponent("StateListWindow.qml")
+                            var window = Component.createObject(mainwindow)
+                            window.show()
                         }
                     }
                     Button{
