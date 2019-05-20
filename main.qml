@@ -53,8 +53,6 @@ ApplicationWindow {
                     print("enter here")
                     ruleListView.removeAllItems()
                     stateListView.removeAllItems()
-                    myInterface.removeAllRulesAutomata()
-                    myInterface.removeAllStatesAutomata()
                     mat.visible= true
                 }
             }
