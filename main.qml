@@ -55,6 +55,7 @@ ApplicationWindow {
                     stateListView.removeAllItems()
                     myInterface.removeAllRulesAutomata()
                     myInterface.removeAllStatesAutomata()
+                    mat.visible= true
                 }
             }
             MenuItem { text: "Edit Automaton"
@@ -63,58 +64,16 @@ ApplicationWindow {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
                     window.show()
+                    mat.visible = true
                 }
             }
         }
     }
 
-   /*GridView{
-        id:mat
-        x: mainwindow.width/4
-        flickableDirection: Flickable.AutoFlickIfNeeded
-        contentHeight:mainwindow.height
-        contentWidth: mainwindow.width
-        ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
-        ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
-        width: mod.listOfState.returnSize()*10
-        height: width
-        cellHeight:10
-        cellWidth: 10
-        model:MatrixModel{
-            id: mod
-            listOfState:matrixview
-        }
-        delegate: Rectangle{
-            id:rec
-            width: mat.cellHeight
-            height:mat.cellWidth
-            color:model.color
-            Text {
-                visible: false
-                id: t
-                text: qsTr(model.name)
-            }
-            border.color:"black"
-
-            ToolTip{
-                id:tooltip
-                text:t.text
-                visible: mousearea.pressed
-
-            }
-            MouseArea{
-                id: mousearea
-                anchors.fill:parent
-
-            }
-
-        }
-
-    }*/
-
     GridView{
          id:mat
          anchors.fill : parent
+         //visible: false //TODO uncomment in final version
          contentHeight: mainwindow.height - footer.height
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
@@ -247,8 +206,10 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.maximumHeight: 50
                 Layout.maximumWidth: 50
-                onClicked: myInterface.chooseGen(textField.text)
-
+                onClicked: {
+                    myInterface.chooseGen(textField.text)
+                    mat.visible = true
+                }
             }
 
             Item {
@@ -259,28 +220,40 @@ ApplicationWindow {
                 text: qsTr("⏮")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
-                onClicked: matrixview.backward()
+                onClicked: {
+                    matrixview.backward()
+                    mat.visible = true
+                }
             }
 
             Button{
                 text: qsTr("❙❙")
                 font.pointSize: 16
                 Layout.maximumHeight: 40
-                onClicked: matrixview.pause()
+                onClicked:{
+                    matrixview.pause()
+                    mat.visible = true
+                }
             }
 
             Button{
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
-                onClicked:matrixview.play()
+                onClicked:{
+                    matrixview.play()
+                    mat.visible = true
+                }
             }
 
             Button{
                 text: qsTr("⏭")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
-                onClicked: matrixview.forward()
+                onClicked:{
+                    matrixview.forward()
+                    mat.visible = true
+                }
             }
 
             Item {
@@ -289,6 +262,7 @@ ApplicationWindow {
 
             Button{
                 text: qsTr("Recompute")
+                //TODO
             }
 
         }
@@ -302,7 +276,7 @@ ApplicationWindow {
         selectExisting: false
         selectMultiple: false
         onAccepted: {
-            myInterface.callSaveMatrix("test",this.fileUrl)
+            myInterface.callSaveMatrix("test",this.fileUrl)//TODO
         }
         onRejected: {
         }
@@ -314,7 +288,7 @@ ApplicationWindow {
         title: "Please choose a file to load"
         folder: shortcuts.home
         onAccepted: {
-            myInterface.callLoad("test", this.fileUrl)
+            myInterface.callLoad("test", this.fileUrl)//TODO
         }
         onRejected: {
         }
