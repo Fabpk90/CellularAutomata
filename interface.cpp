@@ -8,7 +8,7 @@
 
 void Interface::initialiseParser()
 {
-
+    ca = new Automata();
     this->parser.SetAutomata(ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
