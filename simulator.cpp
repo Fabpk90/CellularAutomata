@@ -1,12 +1,12 @@
 #include "simulator.h"
 #include <iostream>
-Automata automataGlob; // TEMPORAIRE POUR EVITER ERRRORS
+Automata* automataGlob; // TEMPORAIRE POUR EVITER ERRRORS
 
 
 namespace Simulator {
     void Simulate(Automata& automata)
     {
-        automataGlob = automata;
+        automataGlob = &automata;
 
         Generation newest;
         newest.generationID = automata.GetCurrentGen().generationID + 1;
@@ -41,7 +41,7 @@ namespace Simulator {
     bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<State*> testState , int  targetX , int  targetY){
         for(int i=0; i<positions.size(); i++)
         {
-            if (automataGlob.GetCellState(targetX+positions[i].first,targetY+positions[i].second).color != testState[i]->color){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
+            if (automataGlob->GetCellState(targetX+positions[i].first,targetY+positions[i].second).color != testState[i]->color){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
                 return false;
             }
         }
@@ -53,11 +53,11 @@ namespace Simulator {
 
         int X = 0, Y = 0;
         int count = 0;
-        for (int i = 0; i < automataGlob.GetNeigborhoodPositions().size(); i++) {
-           X = automataGlob.GetNeigborhoodPositions()[i].first + posX;
-           Y = automataGlob.GetNeigborhoodPositions()[i].second + posY;
+        for (int i = 0; i < automataGlob->GetNeigborhoodPositions().size(); i++) {
+           X = automataGlob->GetNeigborhoodPositions()[i].first + posX;
+           Y = automataGlob->GetNeigborhoodPositions()[i].second + posY;
 
-           count += (automataGlob.GetCellState(X,Y).color
+           count += (automataGlob->GetCellState(X,Y).color
                      == toCheckAgainst->color);
         }
 
