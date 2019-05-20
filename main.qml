@@ -120,7 +120,7 @@ ApplicationWindow {
 
             Text {
                 id: currentGeneration
-                text:qsTr("125") //:qsTr(myInterface.returnCurrentGen())
+                text: "0"
                 font.pixelSize: 12
             }
 
@@ -241,6 +241,7 @@ ApplicationWindow {
                 font.pointSize: 18
                 Layout.maximumHeight: 40
                 onClicked:{
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     matrixview.play()
                     mat.visible = true
                 }

@@ -480,7 +480,7 @@ void Interface::loadInterface()
 
 QString Interface::returnCurrentGen()
 {
-    return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+   return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
 }
 
 void Interface::removeStateAutomata(int index)
