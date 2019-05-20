@@ -503,18 +503,12 @@ void Interface::removeRuleAutomata(int index)
 
 void Interface::removeAllRulesAutomata()
 {
-    for(auto r: parser.GetAutomata()->GetRules())
-    {
-        parser.GetAutomata()->RemoveRule(*r);
-    }
+    parser.GetAutomata()->RemoveAllRules();
 }
 
 void Interface::removeAllStatesAutomata()
 {
-    for(auto s: parser.GetAutomata()->GetStates())
-    {
-        parser.GetAutomata()->RemoveState(s);
-    }
+    parser.GetAutomata()->RemoveAllStates();
 }
 
 void Interface::updateStateVector(int index, int stateId)
