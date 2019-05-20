@@ -17,8 +17,7 @@
 class Interface : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString probability READ probability WRITE setProbability NOTIFY probabilityChanged) //TODO input has to be int
-    Q_PROPERTY(QString computeProbability READ computeProbability WRITE setComputeProbability NOTIFY computeProbabilityChanged) //TODO input has to be int
+    Q_PROPERTY(QString probability READ probability WRITE setProbability NOTIFY probabilityChanged)
     Q_PROPERTY(QString posAndCount READ posAndCount WRITE setPosAndCount NOTIFY posAndCountChanged)
     Q_PROPERTY(QString stateToChangeTo READ stateToChangeTo WRITE setStateToChangeTo NOTIFY stateToChangeToChanged)
     Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
@@ -32,7 +31,6 @@ class Interface : public QObject
 
 private:
     QString m_probability;
-    QString m_computeProbability;
     QString m_posAndCount;
     QString m_stateToChangeTo;
     QString m_type;
@@ -46,8 +44,7 @@ private:
     string dataToParse;
  //   QQmlApplicationEngine* engine;
     //Initialisation de l'Automate
-    Automata ca = Automata(false, false, 1, 1, vector<Rule*>()
-                           , vector<State>(), vector<Generation>());
+    Automata ca = Automata(false, false, 1, 1, vector<Rule*>(), vector<State>(), vector<Generation>());
 
     Parser parser;
 
@@ -136,14 +133,6 @@ public:
     /*Retourne la dimension y de l'automate*/
    // Q_INVOKABLE unsigned int getSizeY();
 
-
-    //computeProbability
-    QString computeProbability() const
-    {
-        return m_computeProbability;
-    }
-    Q_INVOKABLE void printComputeProbability(); // for tests
-
     //posAndCount
     QString posAndCount() const
     {
@@ -159,11 +148,10 @@ public:
     Q_INVOKABLE void printStateToChangeTo(); //for tests
 
     void CallSetProbability(QString probability);//TODO
-    void CallSetComputeProbability(QString computeProbability);//TODO
     void CallSetPosAndCount(QString posAndCount);//TODO
     void CallSetStateToChangeTo(QString stateToChangeTo);//TODO
     void CallGetStates(); //TODO
-    Q_INVOKABLE void okCreateRule(); //TODO
+    Q_INVOKABLE void okCreateRule();
 
     /*Fenêtre de création d'états */
     Q_INVOKABLE void CallSetStateName(QString probability);
@@ -210,8 +198,6 @@ signals:
 
     void probabilityChanged(QString probability);
 
-    void computeProbabilityChanged(QString computeProbability);
-
     void posAndCountChanged(QString posAndCount);
 
     void stateToChangeToChanged(QString stateToChangeTo);
@@ -233,7 +219,6 @@ signals:
     void stateColorChanged(QString color);
 
 public slots:
-void setComputeProbability(QString computeProbability);
 void setProbability(QString probability);
 void setPosAndCount(QString posAndCount);
 void setStateToChangeTo(QString stateToChangeTo);

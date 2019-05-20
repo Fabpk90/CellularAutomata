@@ -37,7 +37,7 @@ ApplicationWindow{
                     countRow.visible = false
                     selectionRow.visible=true
                     myInterface.posAndCount = qsTr("Position")
-                    myInterface.printPosAndCount() //Test
+                    //myInterface.printPosAndCount() //Test
                 }
             }
 
@@ -50,7 +50,7 @@ ApplicationWindow{
                     selectionRow.visible = false
                     countRow.visible = true
                     myInterface.posAndCount = qsTr("Count")
-                    myInterface.printPosAndCount() //Test
+                    //myInterface.printPosAndCount() //Test
                 }
             }
         }
@@ -89,9 +89,9 @@ ApplicationWindow{
                                 color: "lightgrey"
 
                             }
-                            Text{
+                            /*Text{
                                 text: index //TEST affiche
-                            }
+                            }*/
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
@@ -135,9 +135,9 @@ ApplicationWindow{
                                 visible: index != 0 && index != 2 && index != 6 && index != 8
                                 color: "lightgrey" //TODO change color to actual color
                             }
-                            Text{
+                            /*Text{
                                 text: index //TEST affiche
-                            }
+                            }*/
 
                             onClicked: {
                                 myInterface.setRememberIndex(index)
@@ -201,7 +201,7 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
                 text: qsTr("Probability ")
             }
-            SpinBox{ //TODO change to float (for all)
+            SpinBox{
                 id: probability
                 editable: true
                 value:parseFloat(myInterface.probability)//valueFromText(locale, myInterface.probability)
@@ -276,8 +276,7 @@ ApplicationWindow{
         onClicked: {
             myInterface.probability = probability.textFromValue(probability.value,locale)
             ruleListView.appendItem()
-            myInterface.printProbability()
-            myInterface.printComputeProbability()
+            //myInterface.printProbability() //test
             myInterface.okCreateRule()
             vonNeumannRuleCreationWindow.close()
         }

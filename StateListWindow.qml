@@ -51,6 +51,4 @@ ApplicationWindow{
         text: "Cancel"
         onClicked: stateListWindow.close()
     }
-
-    //TODO
 }

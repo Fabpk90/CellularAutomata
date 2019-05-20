@@ -34,7 +34,7 @@ void Interface::sendMandatoryInfo()
     //Pour avoir sizeof(dataToParse)=4
     dataToParse+="0";
     dataToParse+="0";
-    std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl;
+    std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl; //test
     this->parser.ParseAndAddType(&dataToParse);
 }
 
@@ -48,7 +48,7 @@ void Interface::CallSetNeighborhood()
     if(m_neighborhood.toStdString()=="Von Neumann")
         dataToParse+="1";
     else dataToParse+="0";
-    std::cout << "Neigh : " << m_neighborhood.toStdString() << std::endl;
+    //std::cout << "Neigh : " << m_neighborhood.toStdString() << std::endl;//test
 }
 
 void Interface::CallSetType()
@@ -56,27 +56,22 @@ void Interface::CallSetType()
     if(m_type.toStdString()=="Stochastic")
         dataToParse+="1";
     else dataToParse+="0";
-    std::cout << "Type : " << m_type.toStdString() << std::endl;
+    //std::cout << "Type : " << m_type.toStdString() << std::endl;//test
 }
 
 void Interface::CallMaxGenerationsToSimulate()
 {
     string maxGen=m_maxGenerationsToSimulate.toStdString();
-    std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
+    //std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;//test
 }
 
 void Interface::CallMatrixSize()
 {
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
     this->parser.ParseAndAddSize(&size);
-    std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl;
+    //std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl; //test
 }
 
-
-void Interface::printComputeProbability()
-{
-    std::cout << "computeProbability : " << m_computeProbability.toStdString() << std::endl;
-}
 
 void Interface::printPosAndCount()
 {
@@ -89,11 +84,6 @@ void Interface::printStateToChangeTo()
 }
 
 void Interface::CallSetProbability(QString probability)
-{
-
-}
-
-void Interface::CallSetComputeProbability(QString computeProbability)
 {
 
 }
@@ -127,7 +117,7 @@ void Interface::okCreateRule()
             Pour Count: x est le nombre de fois qu'un etat doit apparaitre et y n'est pas utilisé
         où EtatCond est l'index de l'etat selectionné par x & y
         où Proba est la probabilité que l'action soit effectuée
-        //TODO EtatCond
+        où EtatCond est utilisé comme etat augmentant la probabilité dans le cas stochastic dynamic
     */
     int lengthCond = 0;
     QString rule = "";//la regle qu'on va envoyer au parser
@@ -154,7 +144,7 @@ void Interface::okCreateRule()
             }
         }
         rule.append(";");
-        if(matrixIndexAndStateIndex[9] != "("){ //TODO else? //index etat d'arrive
+        if(matrixIndexAndStateIndex[9] != "("){//index etat d'arrivee
             rule.append(matrixIndexAndStateIndex[9]);
         }
         rule.append(";");
@@ -169,10 +159,10 @@ void Interface::okCreateRule()
         }
     }
     else if (posAndCount() == "Count") {
-        if(dimension() == "OneDimension"){ //etat de depart
+        if(dimension() == "OneDimension" && matrixIndexAndStateIndex[1] != "("){ //etat de depart
             rule.append(matrixIndexAndStateIndex[1]);
         }
-        else if (dimension() == "TwoDimensions") {
+        else if (dimension() == "TwoDimensions" && matrixIndexAndStateIndex[4] != "(") {
             rule.append(matrixIndexAndStateIndex[4]);
         }
         rule.append(";");
@@ -189,7 +179,7 @@ void Interface::okCreateRule()
             }
         }
         sizeofarray = sizeofarray + 1; //cette taille va aussi servir a determiner length cond
-        std::cout << "sizeofarray = " << sizeofarray << std::endl; //test
+        //std::cout << "sizeofarray = " << sizeofarray << std::endl; //test
         int stateArray[sizeofarray];
         for(int i = 0; i<sizeofarray; i++){//initialise le tableau (impossible d'initialiser un tableau de taille variable avec {0})
             stateArray[i] = 0;
@@ -216,9 +206,9 @@ void Interface::okCreateRule()
                 
             }
         }
-        for(int n = 0; n<sizeofarray; n++){//test
+        /*for(int n = 0; n<sizeofarray; n++){//test
             std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
-        }
+        }*/
         lengthCond = sizeofarray;
         for (int i = 0; i < sizeofarray; i++)
         {
@@ -246,7 +236,7 @@ void Interface::okCreateRule()
         }
 
     }
-    if(type() == "Stochastic"){
+    if(type() == "Stochastic"){//EtatCond
         rule.append(probability());
         rule.append(";");
         if(matrixIndexAndStateIndex[10] != "("){
@@ -254,9 +244,8 @@ void Interface::okCreateRule()
             rule.append(";");
         }
     }
-    //TODO etat cond
     string stdRule = rule.toStdString();
-    std::cout << "Rule sent to parser = " << stdRule << std::endl;
+    std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
@@ -273,15 +262,6 @@ void Interface::printDimension()
 void Interface::printMaxGenerationsToSimulate()
 {
     std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
-}
-
-void Interface::setComputeProbability(QString computeProbability)
-{
-    if (m_computeProbability == computeProbability)
-        return;
-
-    m_computeProbability = computeProbability;
-    emit computeProbabilityChanged(m_computeProbability);
 }
 
 void Interface::setProbability(QString probability)
@@ -407,7 +387,7 @@ void Interface::okCreateState(QString state){
     composite.append(state);
     composite.append(m_stateColor);
     string string= composite.toStdString();
-    cout<<string<<endl;
+    cout<< "State sent to parser" <<string<<endl;//test
     try {
          parser.ParseAndAddStates(&string);
     } catch (std::string) {
@@ -463,8 +443,8 @@ QString Interface::returnCurrentGen()
 QColor Interface::stateColorFromSquareIndex(int index)
 {
     unsigned int indexOfState = matrixIndexAndStateIndex[index].toUInt();
-    std::cout << "indexOfState = " << indexOfState << std::endl;
-    std::cout << "sizeofvector " << parser.GetAutomata()->GetStates().size() << std::endl;
+    //std::cout << "indexOfState = " << indexOfState << std::endl;//test
+    //std::cout << "sizeofvector " << parser.GetAutomata()->GetStates().size() << std::endl;//test
     return parser.GetAutomata()->GetStates().at(indexOfState).color.name(QColor::HexRgb);
 }
 
@@ -550,7 +530,7 @@ void Interface::associateStateAndIndex(QString StateIndex)
         posIndex[rememberIndex] = composite;
     }
     matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat aussi utilisé pour le mode Count
-    std::cout << composite.toStdString() << std::endl; //test
+    //std::cout << composite.toStdString() << std::endl; //test
 }
 
 void Interface::cleanRuleCreationWindow()
