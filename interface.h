@@ -201,6 +201,7 @@ public:
     Q_INVOKABLE QString returnCurrentGen();
     Q_INVOKABLE void updateStateVector(int index,int stateId);
     Q_INVOKABLE void sizeTheVector();
+    Q_INVOKABLE void displayEverything();
 
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);

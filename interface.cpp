@@ -495,6 +495,12 @@ void Interface::sizeTheVector()
     cout<<"StateVectorSize"<<size<<endl;
 }
 
+void Interface::displayEverything()
+{
+    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),matrixview);
+
+}
+
 
 int Interface::getRememberIndex() const
 {
