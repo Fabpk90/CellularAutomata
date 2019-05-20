@@ -42,14 +42,15 @@ private:
     QString m_stateName;
     QString m_stateColor;
     string dataToParse;
- //   QQmlApplicationEngine* engine;
+    QQmlApplicationEngine* engine;
+    Matrixview* matrixview;
     //Initialisation de l'Automate
-    Automata* ca = new Automata(false, false, 1, 1, vector<Rule*>()
+    Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
 
     Parser parser;
 
-
+    vector<int> stateVector;
     int rememberIndex;
     QString matrixIndexAndStateIndex[10]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo
     QString posIndex[10];//idem
@@ -179,7 +180,7 @@ public:
     Q_INVOKABLE void CallSetStateName(QString probability);
     void CallSetColor(QString color);
     Q_INVOKABLE void okCreateState(QString state);
-
+    Q_INVOKABLE void okCreateHistory();//crée la première génération (gen 0)
 
 
     QString stateName() const
@@ -214,6 +215,12 @@ public:
     Q_INVOKABLE void loadInterface();
 
     Q_INVOKABLE QString returnCurrentGen();
+    Q_INVOKABLE void updateStateVector(int index,int stateId);
+    Q_INVOKABLE void sizeTheVector();
+    Q_INVOKABLE void displayEverything();
+
+    Matrixview *getMatrixview() const;
+    void setMatrixview(Matrixview *value);
 
     Q_INVOKABLE void removeStateAutomata(int index);
     Q_INVOKABLE void removeRuleAutomata(int index);

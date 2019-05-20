@@ -23,8 +23,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<Interface>("Interface",1,0,"Interface");
     qmlRegisterType<ListModel>("Interface", 1, 0, "ListModel");
     qmlRegisterUncreatableType<List>("Interface", 1, 0, "List",QStringLiteral("List should not be created in QML"));
-    //List stateListView;
-    //List ruleListView;
     qmlRegisterType<MatrixModel>("Interface",1,0,"MatrixModel");
     qmlRegisterUncreatableType <Matrixview> ("Interface",1,0, "Matrixview",QStringLiteral("Avoid creating Matrixview in qml"));
     Matrixview matrix;
@@ -34,7 +32,10 @@ int main(int argc, char *argv[])
     myInterface.getRuleListView()->setEngine(&engine);
     engine.rootContext()->setContextProperty(QStringLiteral("stateListView"), myInterface.getStateListView());
     engine.rootContext()->setContextProperty(QStringLiteral("ruleListView"), myInterface.getRuleListView());
+    myInterface.setEngine(&engine);
+    myInterface.setMatrixview(&matrix);
     engine.rootContext()->setContextProperty(QStringLiteral("matrixview"), &matrix);
+    engine.rootContext()->setContextProperty(QStringLiteral("myInterface"),&myInterface);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
