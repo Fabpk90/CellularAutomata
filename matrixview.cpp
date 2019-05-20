@@ -48,7 +48,7 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
 
 
     */
-  /*  listOfState.append({QColor("green"), "State"});
+  /* listOfState.append({QColor("green"), "State"});
     listOfState.append({QColor("blue"), "State"});
 
     for(int i=0;i<23;i++){
@@ -176,11 +176,11 @@ void Matrixview::emptyMatrix()
 void Matrixview::play()//lance la simulation et l'affichage s'en suit
 {
     //simulate();
-   this->timer->start(500);
+  // this->timer->start(500);
    //cout <<"pourtant je suis là"<<endl;
   // cout<<"ce vecteur fait:" <<listOfState.size()<<endl;
   //listOfState.append({QColor("green"), "State"});
-   //  engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
+     engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
 
 }
 
@@ -212,7 +212,7 @@ void Matrixview::sizeMatrix(QString H,QString W)
 
 void Matrixview::initMatrix()
 {
-   if(automata !=nullptr){
+  /* if(automata !=nullptr){
     int h=automata->GetSizeX();int w=automata->GetSizeY();
 
     for(int i=0;i<h;i++){
@@ -227,6 +227,6 @@ void Matrixview::initMatrix()
     }
 
    }
-
+*/
 }
 
