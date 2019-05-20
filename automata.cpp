@@ -142,6 +142,20 @@ void Automata::RemoveState(const State &toRemove)
     cout << "Remaining states " << definedStates.size() << endl;
 }
 
+void Automata::RemoveAllRules()
+{
+    for (int i = 0; i < rules.size(); ++i) {
+        delete rules[i];
+    }
+
+    rules.clear();
+}
+
+void Automata::RemoveAllStates()
+{
+    definedStates.clear();
+}
+
 void Automata::RemoveRule(const Rule &toRemove)
 {
     //TO TEST !
