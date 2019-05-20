@@ -56,3 +56,14 @@ void RuleStochastic::Apply(int x, int y){
 int RuleStochastic::GetType(){
     return 1;
 }
+
+RuleStochastic::~RuleStochastic()
+{
+    delete toChangeInto;
+    delete startingState;
+
+    for(RuleParameters r : parameters)
+    {
+        delete r.toCheckAgainst;
+    }
+}

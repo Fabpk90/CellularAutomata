@@ -14,6 +14,8 @@ class RuleDeterministic : public Rule
 
     int GetType() override;
 
+    ~RuleDeterministic();
+
 };
 
 #endif // RULEDETERMINISTIC_H

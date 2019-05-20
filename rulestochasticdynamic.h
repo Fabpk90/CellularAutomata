@@ -12,6 +12,8 @@ class RuleStochasticDynamic : public RuleStochastic
         //Le :Rule(les params) mettre 0 de base pour proba
         int GetType() override;
         float GetProbability() override;
+
+        ~RuleStochasticDynamic();
 };
 
 

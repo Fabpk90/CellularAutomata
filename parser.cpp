@@ -195,6 +195,7 @@ string  Parser::GetDataToBeSaved()
 
 void  Parser::ParseAndAddRules(string* index)
 {
+    RuleDeterministic* d;
     if(index->at(0) != '0') // aucune règle à interpreter
     {
         //TODO: test just before adding if the indexes are truly there (states[i] exists)
@@ -222,7 +223,7 @@ void  Parser::ParseAndAddRules(string* index)
                     throw (error);
                 }
 
-                //cout << "index start: " << indexStartState << endl;
+                cout << "index start: " << indexStartState << endl;
                 if(indexStartState >= 0) // if the index of the starting state is correct
                 {
                     int indexEndState = 0;
@@ -231,7 +232,7 @@ void  Parser::ParseAndAddRules(string* index)
                     } catch (string const& error) {
                         throw (error);
                     }
-                    //cout << "index end: " << indexEndState << endl;
+                   cout << "index end: " << indexEndState << endl;
                     if(indexEndState >= 0) // if the index of the changing state is correct
                     {
                         int lengthStates = 0;
@@ -244,7 +245,7 @@ void  Parser::ParseAndAddRules(string* index)
                         if(lengthStates > 0) // TODO: more testing of the value !
                         {
                             vector<Rule::RuleParameters> parameters;
-                            auto states = automata->GetStates();
+                            const vector<State>& states = automata->GetStates();
                             Rule::RuleParameters param;
                             for (int j = 0; j < lengthStates; ++j) {
                                  //cout << "Should be ( : " << (*index)[i] << endl;
@@ -267,7 +268,10 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 if(states.size() >= indexStates)
                                 {
-                                    param.toCheckAgainst = &states[indexStates];
+                                    State* check = new State();
+                                    check->name = states[indexStates].name;
+                                    check->color = states[indexStates].color;
+                                    param.toCheckAgainst = check;
                                 }
                                 parameters.push_back(param);
                                 //TODO: check for the state and add an error throw in parseint
@@ -275,9 +279,17 @@ void  Parser::ParseAndAddRules(string* index)
                                 i++;//skipping ';'
                             }
 
+                            State* stateStart = new State();
+                            stateStart->name = states[indexStartState].name;
+                            stateStart->color = states[indexStartState].color;
+
+                            State* endState = new State();
+                            endState->name = states[indexEndState].name;
+                            endState->color = states[indexEndState].color;
+
                             if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                             {
-                               //  cout << "Stocha or dyn" << endl;
+                                 cout << "Stocha or dyn" << endl;
                                 string strProba = "";
                                 while((*index)[i] != ';')
                                 {
@@ -286,13 +298,16 @@ void  Parser::ParseAndAddRules(string* index)
                                 i++;
                                 float proba = atof(strProba.c_str());
 
-                                //cout << "Proba: " << proba << endl;
+                                cout << "Proba: " << proba << endl;
 
                                 if((*index)[i] != '\0') // it is definitely a stochadyn
                                 {
                                     int indexEtatCond = ParseInt(*index, i);
                                     param.x = param.y = 0;
-                                    param.toCheckAgainst = &states[indexEtatCond];
+                                    State* check = new State();
+                                    check->name = states[indexEtatCond].name;
+                                    check->color = states[indexEtatCond].color;
+                                    param.toCheckAgainst = check;
                                     vector<Rule::RuleParameters> vec;
                                     vec.push_back(param);
 
@@ -300,18 +315,23 @@ void  Parser::ParseAndAddRules(string* index)
                                         vec.push_back(parameters[i]);
                                     }
 
-                                    RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, &states[indexEndState],&states[indexStartState], vec, proba);
+                                    RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, endState, stateStart, vec, proba);
                                     automata->AddRule(*r);
                                 }
                                 else {
-                                    // cout << "stocha it is " << endl;
-                                    RuleStochastic* r = new RuleStochastic(isComputePosition, &states[indexEndState], &states[indexStartState], parameters, proba);
+                                     cout << "stocha it is " << endl;
+                                    RuleStochastic* r = new RuleStochastic(isComputePosition, endState, stateStart, parameters, proba);
                                     automata->AddRule(*r);
                                 }
                             }
                             else {
-                                // cout << "Deterministic " << endl;
-                                RuleDeterministic* d = new RuleDeterministic(isComputePosition, &states[indexEndState], &states[indexStartState], parameters);
+                                 cout << "Deterministic " << endl;
+                                 cout << "yess " << states[indexEndState].name << endl;
+
+                                d = new RuleDeterministic(isComputePosition, endState, stateStart, parameters);
+
+                                cout << d->GetToChangeInto().name << endl;
+
                                 automata->AddRule(*d);
                             }
                         }
@@ -329,6 +349,8 @@ void  Parser::ParseAndAddRules(string* index)
             }
         }
     }
+
+    cout << d->GetToChangeInto().name << endl;
 
 }
 
@@ -722,7 +744,7 @@ string  Parser::RulesToString()
             strRepresentation.append(";");
 
 
-            for (unsigned long i = 1; i < r->GetParameters().size(); i++) {
+            for (unsigned long i = 0; i < r->GetParameters().size(); i++) {
 
                 strRepresentation.append("(");
                 strRepresentation.append(to_string(r->GetParameters()[i].x));

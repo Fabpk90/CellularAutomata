@@ -48,3 +48,14 @@ int RuleDeterministic::GetType(){
     return 0;
 }
 
+RuleDeterministic::~RuleDeterministic()
+{
+    delete toChangeInto;
+    delete startingState;
+
+    for(RuleParameters r : parameters)
+    {
+        delete r.toCheckAgainst;
+    }
+}
+

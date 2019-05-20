@@ -20,7 +20,7 @@ class RuleStochastic : public Rule
             return this->probability;
         }
 
-
+~RuleStochastic();
 
 };
 
