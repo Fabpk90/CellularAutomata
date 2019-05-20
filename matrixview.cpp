@@ -48,7 +48,7 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
 
 
     */
-  /* listOfState.append({QColor("green"), "State"});
+   listOfState.append({QColor("green"), "State"});
     listOfState.append({QColor("blue"), "State"});
 
     for(int i=0;i<23;i++){
@@ -56,7 +56,7 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
         listOfState.append({QColor("white"),"State "+to_string(i)});
 
     }
-*/
+
     srand(time(NULL));
     this->timer=new QTimer();
     this->timer->connect(timer, SIGNAL(timeout()),this,SLOT(update()));
