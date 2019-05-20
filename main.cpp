@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-    Interface interface;
+    Interface myInterface;
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QLocale::setDefault(QLocale::c());
@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
     Matrixview matrix;
     QQmlApplicationEngine engine;
     matrix.setEngine(&engine) ;
-    interface.getStateListView()->setEngine(&engine);
-    interface.getRuleListView()->setEngine(&engine);
-    engine.rootContext()->setContextProperty(QStringLiteral("stateListView"), interface.getStateListView());
-    engine.rootContext()->setContextProperty(QStringLiteral("ruleListView"), interface.getRuleListView());
+    myInterface.getStateListView()->setEngine(&engine);
+    myInterface.getRuleListView()->setEngine(&engine);
+    engine.rootContext()->setContextProperty(QStringLiteral("stateListView"), myInterface.getStateListView());
+    engine.rootContext()->setContextProperty(QStringLiteral("ruleListView"), myInterface.getRuleListView());
     engine.rootContext()->setContextProperty(QStringLiteral("matrixview"), &matrix);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
