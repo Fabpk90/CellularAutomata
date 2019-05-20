@@ -315,12 +315,12 @@ void  Parser::ParseAndAddRules(string* index)
                                         vec.push_back(parameters[i]);
                                     }
 
-                                    RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, endState, stateStart, vec, proba);
+                                    RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, automata, endState, stateStart, vec, proba);
                                     automata->AddRule(*r);
                                 }
                                 else {
                                      cout << "stocha it is " << endl;
-                                    RuleStochastic* r = new RuleStochastic(isComputePosition, endState, stateStart, parameters, proba);
+                                    RuleStochastic* r = new RuleStochastic(isComputePosition, automata, endState, stateStart, parameters, proba);
                                     automata->AddRule(*r);
                                 }
                             }
@@ -328,7 +328,7 @@ void  Parser::ParseAndAddRules(string* index)
                                  cout << "Deterministic " << endl;
                                  cout << "yess " << states[indexEndState].name << endl;
 
-                                d = new RuleDeterministic(isComputePosition, endState, stateStart, parameters);
+                                d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
 
                                 cout << d->GetToChangeInto().name << endl;
 

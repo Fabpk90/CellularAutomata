@@ -6,7 +6,7 @@
 
 Automata::Automata()
 {
-    sizeX = sizeY = 0;
+    currentGen = sizeX = sizeY = 0;
     isStocha = isVonNeighborhood = false;
     rules = vector<Rule*>();
     definedStates = vector<State>();
@@ -50,6 +50,7 @@ void Automata::SetSizeXY(uint x, uint y)
 
     generations = vector<Generation>();
     Generation g;
+    g.generationID = 0;
     g.cellMatrix = vector<unsigned int> (sizeX*sizeY);
 
     generations.push_back(g);
@@ -189,6 +190,8 @@ void Automata::SetCell(uint x, uint y, State &newState)
 //TODO: test
 void Automata::SetCell(uint x, uint y, uint newState)
 {
+    cout << "eheheh " << generations[currentGen].generationID << endl;
+    cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
     //TODO: check la formule, je suis pas sûr (@Fab)
     generations[currentGen].cellMatrix[x * y + y] = newState;
 }

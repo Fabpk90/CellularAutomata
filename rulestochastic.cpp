@@ -4,9 +4,9 @@
 //#include "automata.h"
 #include "simulator.h"
 
-RuleStochastic::RuleStochastic(bool isComputePosition, State* toChangeInto, State* startingState,
-                               std::vector<RuleParameters> params, float probability)
-    : Rule(isComputePosition, toChangeInto,startingState , params)
+RuleStochastic::RuleStochastic(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params,
+                               float probability)
+    : Rule(isComputePosition, automata, toChangeInto,startingState , params)
 {
     this->probability=probability;
 }

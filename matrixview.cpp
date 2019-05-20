@@ -183,6 +183,7 @@ void Matrixview::play()//lance la simulation et l'affichage s'en suit
    //cout <<"pourtant je suis là"<<endl;
   // cout<<"ce vecteur fait:" <<listOfState.size()<<endl;
   //listOfState.append({QColor("green"), "State"});
+    automata->Simulate();
      engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
 
 }
