@@ -137,23 +137,57 @@ Parser::~Parser()
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
     string data = "";
+    string tmp = "";
 
     data.append(AutomataToString());
-    data.append(HistoryToString(startGen, endGen));
-    data.append(RulesToString());
-    if(data != "") return data;
-    return "";
+
+    tmp = RulesToString();
+
+    if(tmp == "")
+    {
+        tmp = "R;0;";
+    }
+
+    data.append(tmp);
+    tmp = HistoryToString(startGen, endGen);
+
+    if(tmp == "")
+    {
+        tmp = "H;0;";
+    }
+
+    data.append(tmp);
+
+    return data;
 }
 
 //TODO : test
 string  Parser::GetDataToBeSaved()
 {
     string data = "";
+    string tmp = "";
+
 
     data.append(AutomataToString());
-    data.append(RulesToString());
-    if(data != "") return data;
-    return "";
+
+    tmp = RulesToString();
+
+    if(tmp == "")
+    {
+        tmp = "R;0;";
+    }
+
+    data.append(tmp);
+    tmp = HistoryToString();
+
+    if(tmp == "")
+    {
+        tmp = "H;0;";
+    }
+
+    data.append(tmp);
+
+    return data;
 }
 
 void  Parser::ParseAndAddRules(string* index)
