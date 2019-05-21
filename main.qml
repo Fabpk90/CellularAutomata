@@ -16,10 +16,6 @@ ApplicationWindow {
     minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
 
-   /* Interface{
-        id:myInterface
-    }
-*/
     menuBar: MenuBar{
         Menu{
             title: "File"
@@ -32,7 +28,6 @@ ApplicationWindow {
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
-                    //myInterface.callLoad()
                     myInterface.loadInterface()
                 }
             }
@@ -220,6 +215,7 @@ ApplicationWindow {
                 Layout.maximumHeight: 40
                 onClicked: {
                     matrixview.backward()
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
@@ -230,6 +226,7 @@ ApplicationWindow {
                 Layout.maximumHeight: 40
                 onClicked:{
                     matrixview.pause()
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
@@ -251,6 +248,7 @@ ApplicationWindow {
                 Layout.maximumHeight: 40
                 onClicked:{
                     matrixview.forward()
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
@@ -261,7 +259,10 @@ ApplicationWindow {
 
             Button{
                 text: qsTr("Recompute")
-                onClicked: myInterface.displayMatrix()
+                onClicked: {
+                    currentGeneration.text=myInterface.returnCurrentGen()
+                    myInterface.displayMatrix()
+                }
             }
 
         }
