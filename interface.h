@@ -101,10 +101,6 @@ public:
 
     /*Appel la fonction de lecture de l'automate*/
     Q_INVOKABLE void callExecution();
-    /*Retourne la dimension x de l'automate*/
-   // Q_INVOKABLE unsigned int getSizeX();
-    /*Retourne la dimension y de l'automate*/
-   // Q_INVOKABLE unsigned int getSizeY();
 
     //posAndCount
     QString posAndCount() const;
