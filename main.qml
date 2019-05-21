@@ -86,11 +86,12 @@ ApplicationWindow {
              height:mat.cellWidth
              color:model.color
              border.color:"black"
-                 MouseArea{//les cellules sont cliquables
+             onColorChanged: currentGeneration.text=myInterface.returnCurrentGen()
+                 MouseArea{
                  id: mousearea
                  anchors.fill:parent
-                 onClicked: print(tooltip.text+""+index)
-                 ToolTip{//cliquer affiche le nom de la cellule
+                 //onClicked: print(tooltip.text+""+index)
+                 ToolTip{
                      id:tooltip
                      text: qsTr(model.name)
                      visible: parent.pressed
@@ -264,7 +265,7 @@ ApplicationWindow {
         selectExisting: false
         selectMultiple: false
         onAccepted: {
-            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))//TODO
+            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))
         }
         onRejected: {
         }

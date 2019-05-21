@@ -215,8 +215,8 @@ ApplicationWindow{
                 Button{
                     text: "X"
                     onClicked:{
-                        stateListView.removeItem(model.number)
                         myInterface.removeStateAutomata(model.number)
+                        stateListView.removeItem(model.number)
                         myInterface.removeAllRulesAutomata()
                         ruleListView.removeAllItems()
                     }
@@ -250,8 +250,8 @@ ApplicationWindow{
                 Button{
                     text: "X"
                     onClicked:{
-                        ruleListView.removeItem(model.number)
                         myInterface.removeRuleAutomata(model.number)
+                        ruleListView.removeItem(model.number)
                     }
                 }
             }
@@ -293,7 +293,6 @@ ApplicationWindow{
         }
 
         onClicked: {
-            //TODO test all required checks
             myInterface.cleanRuleCreationWindow()
             if(twoDim.checked){
                 if(vonNeumann.checked){

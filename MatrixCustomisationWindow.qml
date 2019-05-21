@@ -34,7 +34,6 @@ ApplicationWindow {
              var Component = Qt.createComponent("main.qml")
             var window = Component.createObject(mainwindow)
             window.show()
-
         }
     }
         Button{//bouton pour ouvrir la liste des états

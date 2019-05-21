@@ -211,7 +211,7 @@ void  Parser::ParseAndAddRules(string* index)
             if(ruleType == "Position" || ruleType == "Count")
             {
                 bool isComputePosition = ruleType == "Position" ? true : false;
-                i++;//skipping the ;
+                i++;//skip ';'
                 int indexStartState = 0;
                 try {
                     indexStartState = ParseInt(*index, i);
@@ -220,7 +220,7 @@ void  Parser::ParseAndAddRules(string* index)
                 }
 
                 cout << "index start: " << indexStartState << endl;
-                if(indexStartState >= 0) // if the index of the starting state is correct
+                if(indexStartState >= 0) // si l'indice de l'état de départ est correct, on peut continuer
                 {
                     int indexEndState = 0;
                     try {
@@ -229,7 +229,7 @@ void  Parser::ParseAndAddRules(string* index)
                         throw (error);
                     }
                    cout << "index end: " << indexEndState << endl;
-                    if(indexEndState >= 0) // if the index of the changing state is correct
+                    if(indexEndState >= 0) // si l'indice de l'état d'arrivée est correct, on peut continuer
                     {
                         int lengthStates = 0;
                         try {
@@ -243,7 +243,7 @@ void  Parser::ParseAndAddRules(string* index)
                             vector<Rule::RuleParameters> parameters;
                             const vector<State>& states = automata->GetStates();
                             Rule::RuleParameters param;
-                            for (int j = 0; j < lengthStates; ++j) {
+                            for (int j = 0; j < lengthStates; ++j) { //chargement des paramamètres
                                 param.toCheckAgainst = nullptr;
                                 i++;
                                 try {
@@ -271,8 +271,8 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 parameters.push_back(param);
 
-                                i++;//skipping ')'
-                                i++;//skipping;
+                                i++;//skip ')'
+                                i++;//skip ';'
                             }
 
                             State* stateStart = new State();
@@ -283,7 +283,7 @@ void  Parser::ParseAndAddRules(string* index)
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
                             //cout << "index at " << index->at(i) << endl;
-                            if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
+                            if(index->size() != i && index->at(i) != '\n') //si vrai, c'est une stocha ou stochadyn
                             {
                                  cout << "Stocha or dyn" << endl;
                                 string strProba = "";
@@ -296,7 +296,7 @@ void  Parser::ParseAndAddRules(string* index)
 
                                 cout << "Proba: " << proba << endl;
 
-                                if((*index)[i] != '\0') // it is definitely a stochadyn
+                                if((*index)[i] != '\0') // c'est une règle stocha dyn
                                 {
                                     int indexEtatCond = ParseInt(*index, i);
                                     param.x = param.y = 0;
@@ -519,8 +519,8 @@ void  Parser::ParseAndAddSize(string* index)
 
 void  Parser::ParseHistory(string* index)
 {
-    cout << *index << endl;
-    cout << index->size() << endl;
+    //cout << *index << endl;
+    //cout << index->size() << endl;
     int sizeIndex = index->size();
     int cpt = 0;
     int i = 0;
@@ -549,7 +549,7 @@ void  Parser::ParseHistory(string* index)
     }
 
     nbHistory = stoi(nbHistoryH);
-    cout << "Nb History = " << nbHistory << endl;
+    //cout << "Nb History = " << nbHistory << endl;
     if(nbHistory != 0 ){
         int asciiGenId = -1;
         string strRepresentation = "";
@@ -562,9 +562,9 @@ void  Parser::ParseHistory(string* index)
             ascii = index[0][k];
             if (ascii >= '0' && ascii <= '9'){
 
-                asciiGenId = ascii - 48;
+                asciiGenId = ascii - 48; //Lecture du genId
                 g.generationID = asciiGenId;
-                cout<< "GId : "<<g.generationID << endl;
+                //cout<< "GId : "<<g.generationID << endl;
             }else if(ascii == ';'){
                 k++;
                 ascii = index[0][k];
@@ -577,19 +577,19 @@ void  Parser::ParseHistory(string* index)
                         ascii = index[0][k];
                     }else if (ascii == ',' || ascii == ';') {
 
-                        g.cellMatrix.push_back(stoi(strRepresentation));
-                        cout<< "ajout"<<strRepresentation <<endl;
+                        g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
+                        //cout<< "ajout"<<strRepresentation <<endl;
                         strRepresentation="";
                         k++;
                         ascii = index[0][k];
                     }
                 }
-                g.cellMatrix.push_back(stoi(strRepresentation));
-                cout<< "ajout "<<strRepresentation <<endl;
+                g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
+                //cout<< "ajout "<<strRepresentation <<endl;
                 strRepresentation = "";
                 automata->AddGeneration(g);
                 isadded = true;
-                if(isadded && nbHistory-1 == g.generationID) k = 999999;
+                if(isadded && nbHistory-1 == g.generationID) k = 999999;// On sort de la boucle car il n'y a plus de gen
 
             }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
                 throw(string("ParseAndAddHistory : Number of genid is not an int"));
@@ -797,9 +797,7 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
                 if(r->GetType() == 2){
 
-                    strRepresentation.append(to_string(r->GetParameters()[0].x)); // Etatcond
-                    strRepresentation.append(";");
-                    strRepresentation.append(to_string(r->GetParameters()[0].y));
+                    strRepresentation.append(r->GetParameters()[0].toCheckAgainst->name); // Etatcond
                     strRepresentation.append(";");
                 }
             }
@@ -820,7 +818,7 @@ int Parser::ParseInt(string &index, uint &i)
     {
         str += (index)[i++];
     }
-    i++; //skipping the next char
+    i++; //saute le prochain char, qui est un délimiteur
 
     if(str == "")
         throw(string("ParsingInt : Not a number"));
