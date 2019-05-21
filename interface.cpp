@@ -45,11 +45,11 @@ void Interface::sendMandatoryInfo()
     dataToParse="";
     CallSetType();
     CallSetDim();
-    CallSetNeighborhood();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
     //Pour avoir sizeof(dataToParse)=4
     dataToParse+="0";
+    CallSetNeighborhood();
     dataToParse+="0";
     std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl; //test
     this->parser.ParseAndAddType(&dataToParse);
