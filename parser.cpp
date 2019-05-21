@@ -394,7 +394,6 @@ void  Parser::ParseAndAddStates(string* index)
                     currentS.name += index[0][i];
                 }
                 i++;
-                cout << (char) (ascii) << endl;
             }
             parite++;
             if(parite >= 1 && parite % 2){
@@ -452,8 +451,6 @@ void  Parser::ParseAndAddType(string* index)
 
 void  Parser::ParseAndAddSize(string* index)
 {
-    cout << "Parse and add size :" << *index << endl;
-
     string xs = ""; // x en string
     string ys = ""; // y en string
     int cpt = 0;
