@@ -780,7 +780,13 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
                 strRepresentation.append(to_string(r->GetParameters()[i].y));
                 strRepresentation.append(";");
-                strRepresentation.append(r->GetParameters()[i].toCheckAgainst->name);
+                for (uint i = 0; i < automata->GetStates().size(); ++i) {
+                    if(automata->GetStates()[i].name == r->GetParameters()[i].toCheckAgainst->name)
+                    {
+                        index = i;
+                    }
+                }
+                strRepresentation.append(to_string(index));
                 strRepresentation.append(";");
                 strRepresentation.append(")");
                 strRepresentation.append(";");
