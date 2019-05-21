@@ -217,6 +217,8 @@ ApplicationWindow{
                     onClicked:{
                         stateListView.removeItem(model.number)
                         myInterface.removeStateAutomata(model.number)
+                        myInterface.removeAllRulesAutomata()
+                        ruleListView.removeAllItems()
                     }
                 }
             }
