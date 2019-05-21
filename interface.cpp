@@ -557,8 +557,6 @@ void Interface::displayEverything()
 QColor Interface::stateColorFromSquareIndex(int index)
 {
     unsigned int indexOfState = matrixIndexAndStateIndex[index].toUInt();
-    //std::cout << "indexOfState = " << indexOfState << std::endl;//test
-    //std::cout << "sizeofvector " << parser.GetAutomata()->GetStates().size() << std::endl;//test
     return parser.GetAutomata()->GetStates().at(indexOfState).color.name(QColor::HexRgb);
 }
 
@@ -662,7 +660,6 @@ void Interface::associateStateAndIndex(QString StateIndex)
         posIndex[rememberIndex] = composite;
     }
     matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat aussi utilisé pour le mode Count
-    //std::cout << composite.toStdString() << std::endl; //test
 }
 
 void Interface::cleanRuleCreationWindow()
