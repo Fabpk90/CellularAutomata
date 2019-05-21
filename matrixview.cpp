@@ -130,6 +130,7 @@ engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
 
 void Matrixview::forward()//permet d'avancer dans l'historique
 {
+    this->timer->stop();
     if(parser != nullptr){
     parser->GetAutomata()->NextGen();
 
@@ -150,6 +151,7 @@ void Matrixview::forward()//permet d'avancer dans l'historique
 
 void Matrixview::backward()//permet de revenir en arrière dans l'historique
 {
+     this->timer->stop();
     if(parser != nullptr){
     parser->GetAutomata()->PreviousGen();
     int h =parser->GetAutomata()->GetSizeX();
