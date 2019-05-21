@@ -196,7 +196,7 @@ void  Parser::ParseAndAddRules(string* index)
     if(index->at(0) != '0') // aucune règle à interpreter
     {
         uint i = 2;
-        while(i != index->size())
+        while(i+1 != index->size())
         {
             cout << "I: " << i << " " << index->size() << endl;
             string ruleType = "";
@@ -271,7 +271,8 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 parameters.push_back(param);
 
-                                i++;//skipping ';'
+                                i++;//skipping ')'
+                                i++;//skipping;
                             }
 
                             State* stateStart = new State();
@@ -281,7 +282,7 @@ void  Parser::ParseAndAddRules(string* index)
                             State* endState = new State();
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
-
+                            cout << "index at " << index->at(i) << endl;
                             if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                             {
                                  cout << "Stocha or dyn" << endl;
@@ -779,8 +780,8 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
                 strRepresentation.append(to_string(r->GetParameters()[i].y));
                 strRepresentation.append(";");
-                for (uint i = 0; i < automata->GetStates().size(); ++i) {
-                    if(automata->GetStates()[i].name == r->GetParameters()[i].toCheckAgainst->name)
+                for (uint j = 0; j < automata->GetStates().size(); ++j) {
+                    if(automata->GetStates()[j].name == r->GetParameters()[i].toCheckAgainst->name)
                     {
                         index = i;
                     }
