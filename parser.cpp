@@ -319,8 +319,16 @@ void  Parser::ParseAndAddRules(string* index)
                                     automata->AddRule(*r);
                                 }
                                 else {
+                                    param.x = param.y = 0;
+                                    vector<Rule::RuleParameters> vec;
+                                    vec.push_back(param);
+
+                                    for (int j = 0; j < parameters.size(); ++j) {
+                                        vec.push_back(parameters[i]);
+                                    }
+
                                      cout << "stocha it is " << endl;
-                                    RuleStochastic* r = new RuleStochastic(isComputePosition, automata, endState, stateStart, parameters, proba);
+                                    RuleStochastic* r = new RuleStochastic(isComputePosition, automata, endState, stateStart, vec, proba);
                                     automata->AddRule(*r);
                                 }
                             }
