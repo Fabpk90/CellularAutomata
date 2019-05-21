@@ -555,9 +555,10 @@ void  Parser::ParseHistory(string* index)
         string strRepresentation = "";
         vector<int> asciiStates;
         Generation g;
+        bool isadded = false;
 
         for(int k = i; k < sizeIndex; k ++){
-
+        isadded = false;
             ascii = index[0][k];
             if (ascii >= '0' && ascii <= '9'){
 
@@ -587,13 +588,15 @@ void  Parser::ParseHistory(string* index)
                 cout<< "ajout "<<strRepresentation <<endl;
                 strRepresentation = "";
                 automata->AddGeneration(g);
+                isadded = true;
+                if(isadded && nbHistory-1 == g.generationID) k = 999999;
+
             }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
-                throw(string("ParseAndAddHistory : Number of History is not an int"));
+                throw(string("ParseAndAddHistory : Number of genid is not an int"));
             }
         }
     }
 }
-
 /*
  *
         SizeX; SizeY;
