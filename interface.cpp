@@ -246,7 +246,6 @@ void Interface::okCreateRule()
     }
     string stdRule = rule.toStdString();
     stdRule.append("\n");
-    //std::cout << "Rule sent to parser = " << stdRule << std::endl;
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
@@ -399,7 +398,6 @@ void Interface::okCreateState(QString state){
     composite.append(m_stateName);
     composite.append(";");
     string string= composite.toStdString();
-    cout<< "State sent to parser" <<string<<endl;//test
     try {
          parser.ParseAndAddStates(&string);
     } catch (std::string s) {
@@ -440,9 +438,6 @@ void Interface::okCreateHistory()
     string res=composite.toStdString();
     cout<<"for me:"<<res<<endl;
     parser.ParseHistory(&res);
-    //cout<<"after:"<<s<<endl;
-
-
 }
 
 QString Interface::stateName() const
@@ -467,7 +462,7 @@ QString Interface::getStateColor()
 
 void Interface::chooseGen(QString gen)
 {
-   matrixview->selectGen(gen.toInt());//to check after merge
+   matrixview->selectGen(gen.toInt());
 
 
 }
