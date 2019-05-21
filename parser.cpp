@@ -195,22 +195,22 @@ string  Parser::GetDataToBeSaved()
 
 void  Parser::ParseAndAddRules(string* index)
 {
-    RuleDeterministic* d;
     if(index->at(0) != '0') // aucune règle à interpreter
     {
         //TODO: test just before adding if the indexes are truly there (states[i] exists)
         //Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;
-        uint i = 0;
+        uint i = 2;
         while(i != index->size())
         {
+            cout << "I: " << i << " " << index->size() << endl;
             string ruleType = "";
 
             while((*index)[i] != ';')
             {
                 ruleType += (*index)[i++];
             }
-
-            //cout << "Rule type: " << ruleType << endl;
+            cout << *index << endl;
+            cout << "Rule type: " << ruleType << endl;
 
             if(ruleType == "Position" || ruleType == "Count")
             {
@@ -336,7 +336,7 @@ void  Parser::ParseAndAddRules(string* index)
                                  cout << "Deterministic " << endl;
                                  cout << "yess " << states[indexEndState].name << endl;
 
-                                d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
+                                RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
 
                                 cout << d->GetToChangeInto().name << endl;
 
@@ -358,100 +358,98 @@ void  Parser::ParseAndAddRules(string* index)
         }
     }
 
-    cout << d->GetToChangeInto().name << endl;
-
 }
 
 // Not tested nor approved
 void  Parser::ParseAndAddStates(string* index)
 {
-    cout << *index << endl;
-    cout << index->size() << endl;
-    int sizeIndex = index->size();
-    int cpt = 0;
-    int cptVerifNbStates = 0;
-    int i = 0;
-    string nbStatesS = "";
-    int nbStates = 0;
-    int ascii = 0;
-    int parite = 0;
-    State currentS;
-    currentS.name = "";
-    string currentcolorS = "";
+    if(index->at(0) != '0'){
+        cout << *index << endl;
+        cout << index->size() << endl;
+        int sizeIndex = index->size();
+        int cpt = 0;
+        int cptVerifNbStates = 0;
+        int i = 0;
+        string nbStatesS = "";
+        int nbStates = 0;
+        int ascii = 0;
+        int parite = 0;
+        State currentS;
+        currentS.name = "";
+        string currentcolorS = "";
 
-    if(sizeIndex < 3){
-        throw(string("ParseAndAddStates : Minimum number of arguments not met"));
-    }
-
-    // Parsing jusqu'au NbStates
-    while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
-        if(index[0][i] == ';'){
-            cpt++;
+        if(sizeIndex < 3){
+            throw(string("ParseAndAddStates : Minimum number of arguments not met"));
         }
-        // premier ';' celui apres E donc cpt > 1
-        if(cpt >= 0){
-            ascii = index[0][i];
-            if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
-            else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
-                throw(string("ParseAndAddStates : Number of States is not an int"));
+
+        // Parsing jusqu'au NbStates
+        while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
+            if(index[0][i] == ';'){
+                cpt++;
             }
-        }
-        i++;
-    }
-
-
-    cout << "Nb states = " << nbStatesS << endl;
-    nbStates = stoi(nbStatesS);
-    cout << "Nb states = " << nbStates << endl;
-
-    // Vérification du bon nombre de ';' en fonction du nombre d'états
-    for(int k = i; k < sizeIndex; k ++){
-        ascii = index[0][k];
-        if(ascii == ';') cptVerifNbStates++;
-    }
-    cout<<cptVerifNbStates<<endl;
-    if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
-    // Jusque là tout est okay
-
-    // Parsing des états
-    while(i < index->size()){
-        ascii = index[0][i];
-        while(ascii != ';'){
-            ascii = index[0][i];
-            if(parite % 2 == 0 && ascii != ';'){
-                //QColor
-                currentcolorS += index[0][i];
-            }
-            else if(ascii != ';'){
-                //Name
-                currentS.name += index[0][i];
+            // premier ';' celui apres E donc cpt > 1
+            if(cpt >= 0){
+                ascii = index[0][i];
+                if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
+                else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+                    throw(string("ParseAndAddStates : Number of States is not an int"));
+                }
             }
             i++;
-            cout << (char) (ascii) << endl;
         }
-        parite++;
-        cout << parite << " " << i << " " << currentcolorS << endl;
-        if(parite >= 1 && parite % 2){
-            if(currentcolorS.size() != 7){
-                throw(string("ParseAndAddStates : Color wrong format"));
+
+        cout << "Nb states = " << nbStatesS << endl;
+        nbStates = stoi(nbStatesS);
+        cout << "Nb states = " << nbStates << endl;
+
+        // Vérification du bon nombre de ';' en fonction du nombre d'états
+        for(int k = i; k < sizeIndex; k ++){
+            ascii = index[0][k];
+            if(ascii == ';') cptVerifNbStates++;
+        }
+        cout<<cptVerifNbStates<<endl;
+        if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
+        // Jusque là tout est okay
+
+        // Parsing des états
+        while(i < index->size()){
+            ascii = index[0][i];
+            while(ascii != ';'){
+                ascii = index[0][i];
+                if(parite % 2 == 0 && ascii != ';'){
+                    //QColor
+                    currentcolorS += index[0][i];
+                }
+                else if(ascii != ';'){
+                    //Name
+                    currentS.name += index[0][i];
+                }
+                i++;
+                cout << (char) (ascii) << endl;
+            }
+            parite++;
+            cout << parite << " " << i << " " << currentcolorS << endl;
+            if(parite >= 1 && parite % 2){
+                if(currentcolorS.size() != 7){
+                    throw(string("ParseAndAddStates : Color wrong format"));
+                }
+                else{
+                    int number = (int) strtol(&currentcolorS[1], NULL, 16);
+                    int r = number >> 16;
+                    int g = number >> 8 & 0xFF;
+                    int b = number & 0xFF;
+                    currentS.color.setRgb(r,g,b);
+                    if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
+                    currentcolorS = "";
+                }
             }
             else{
-                int number = (int) strtol(&currentcolorS[1], NULL, 16);
-                int r = number >> 16;
-                int g = number >> 8 & 0xFF;
-                int b = number & 0xFF;
-                currentS.color.setRgb(r,g,b);
-                if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
-                currentcolorS = "";
+                cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
+                automata->AddState(currentS);
+                currentS.name = "";
             }
         }
-        else{
-            cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
-            automata->AddState(currentS);
-            currentS.name = "";
-        }
     }
-
 }
 
 // Testé et approuvé par Amélie Le Roux lol
@@ -738,13 +736,36 @@ string  Parser::RulesToString()
 
         strRepresentation.append(to_string(automata->GetRules().size())); //Nombre de règle
         strRepresentation.append(";");
-        for(Rule *r : automata->GetRules()){
 
-            strRepresentation.append(to_string(r->GetType())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
+        for(Rule *r : automata->GetRules()){
+            //type : 0 = Position; 1 = Count
+            if(r->GetType() == 0){
+                strRepresentation.append("Position");
+            }
+            else{
+                strRepresentation.append("Count");
+            }
             strRepresentation.append(";");
-            strRepresentation.append(r->GetStartingState().name); //Nom de l'etat de depart
+            uint index = 0;
+            for (uint i = 0; i < automata->GetStates().size(); ++i) {
+                if(automata->GetStates()[i].color == r->GetStartingState().color
+                       && automata->GetStates()[i].name == r->GetStartingState().name)
+                {
+                    index = i;
+                }
+            }
+            strRepresentation.append(to_string(index)); //Nom de l'etat de depart
             strRepresentation.append(";");
-            strRepresentation.append(r->GetToChangeInto().name); //Nom de l'etat d'arrivée
+
+            for (uint i = 0; i < automata->GetStates().size(); ++i) {
+                if(automata->GetStates()[i].color == r->GetToChangeInto().color
+                       && automata->GetStates()[i].name == r->GetToChangeInto().name)
+                {
+                    index = i;
+                }
+            }
+
+            strRepresentation.append(to_string(index)); //Nom de l'etat d'arrivée
             strRepresentation.append(";");
 
             strRepresentation.append(to_string(r->GetParameters().size())); //longueur de la condition
@@ -778,7 +799,7 @@ string  Parser::RulesToString()
 
             strRepresentation.append("\n");
         }
-
+        cout << strRepresentation << endl;
         return strRepresentation;
     }
 

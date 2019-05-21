@@ -288,7 +288,7 @@ ApplicationWindow{
             //TODO test all required checks
             myInterface.cleanRuleCreationWindow()
             if(twoDim.checked){
-                if(vonNeumann.checked && myInterface.neighborhood()==="Von Neumann"){
+                if(vonNeumann.checked){
                     var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")
                     var vonNeumannWindow = vonNeumannCreationWindow.createObject(mainwindow)
                     vonNeumannWindow.show()
@@ -307,31 +307,21 @@ ApplicationWindow{
         }
     }
 
-    Row{
+    Button{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
-        spacing: 10
-        Button{
-            text: qsTr("OK")
-            onClicked: {
-                myInterface.sendMandatoryInfo()
-                myInterface.sizeTheVector()
-                matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
-                var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
-                var window = Component.createObject(mainwindow)
-                automataCreationWindow.close()
-                window.show()
-            }
-        }
-        Button{
-            text: qsTr("Save")
-            visible: false
-            onClicked: {
-                myInterface.sendMandatoryInfo()
-                myInterface.saveMatrix()
-            }
+        text: qsTr("OK")
+        onClicked: {
+            myInterface.sendMandatoryInfo()
+            myInterface.sizeTheVector()
+            matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
+            var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
+            var window = Component.createObject(mainwindow)
+            automataCreationWindow.close()
+            window.show()
         }
     }
+
 
     Button{
         anchors.bottom: parent.bottom
