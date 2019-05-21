@@ -59,11 +59,11 @@ int RuleStochastic::GetType(){
 
 RuleStochastic::~RuleStochastic()
 {
-    delete toChangeInto;
-    delete startingState;
+    //delete toChangeInto;
+    //delete startingState;
 
-    for(RuleParameters r : parameters)
+    /*for(RuleParameters r : parameters)
     {
         delete r.toCheckAgainst;
-    }
+    }*/
 }

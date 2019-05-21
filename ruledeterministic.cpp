@@ -3,6 +3,7 @@
 #include "ruledeterministic.h"
 //#include "automata.h"
 #include "simulator.h"
+#include <iostream>
 
 RuleDeterministic::RuleDeterministic(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params):
     Rule(isComputePosition, automata, toChangeInto, startingState, params){};
@@ -14,11 +15,12 @@ void RuleDeterministic::Apply(int x, int y){
         // dans computePositon et l'autre compute le seul paramètre devrait être le vecteur de rulesParameters
         std::vector<std::pair<int, int>> positions;
         std::vector<State*> testState;
-        for (unsigned long i = 1; i < this->parameters.size(); i++) {
+        for (unsigned long i = 0; i < this->parameters.size(); i++) {
 
             positions.push_back(std::make_pair(this->parameters[i].x,this->parameters[i].y));
             testState.push_back(this->parameters[i].toCheckAgainst);
         }
+        std::cout << "Positions size: " << positions.size() << " Param size: " << this->parameters.size() << endl;
         if (Simulator::ComputePosition(positions, testState, x, y)){ // si la règle est effectivement vraie on applique
                 automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule

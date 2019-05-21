@@ -45,11 +45,11 @@ void Interface::sendMandatoryInfo()
     dataToParse="";
     CallSetType();
     CallSetDim();
-    CallSetNeighborhood();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
     //Pour avoir sizeof(dataToParse)=4
     dataToParse+="0";
+    CallSetNeighborhood();
     dataToParse+="0";
     std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl; //test
     this->parser.ParseAndAddType(&dataToParse);
@@ -145,7 +145,7 @@ void Interface::okCreateRule()
     int lengthCond = 0;
     QString rule = "";//la regle qu'on va envoyer au parser
     QString compositeCount = "";
-
+    rule.append("1;");
     rule.append(posAndCount()); //position
     rule.append(";");
 
@@ -449,21 +449,25 @@ void Interface::okCreateHistory()
     cout<<"Il y a:"<<sizeOfStates<<endl;
     QString composite;
     composite.append("1;0;");
-    for (int stateId : stateVector) {
+    if(s)
+    {
+        for (int stateId : stateVector) {
 
-        if(stateId !=-1){
+            if(stateId !=-1){
 
-            composite.append(QString::number(stateId));
+                composite.append(QString::number(stateId));
 
+            }
+            else {
+                composite.append(QString::number(rand()%sizeOfStates));//mettre en fonction de la taille de la liste des états
+            }
+            composite.append(",");
         }
-        else {
-            composite.append(QString::number(rand()%sizeOfStates));//mettre en fonction de la taille de la liste des états
-        }
-        composite.append(",");
+
+        composite.resize(composite.size()-1);
+        composite.append(";");
     }
 
-    composite.resize(composite.size()-1);
-    composite.append(";");
     string res=composite.toStdString();
     cout<<"for me:"<<res<<endl;
     parser.ParseHistory(&res);
@@ -519,11 +523,11 @@ void Interface::loadInterface()
    else  setNeighborhood("Moore");
    setSizeX(QString::number(parser.GetAutomata()->GetSizeX()));
    setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
-   for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
+   for(uint i=0; i<parser.GetAutomata()->GetRules().size(); i++)
    {
        ruleListView.appendItem();
    }
-   for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
+   for(uint i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
        //stateListView.appendState();
        setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));

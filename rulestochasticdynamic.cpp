@@ -29,13 +29,13 @@ float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de
 
 RuleStochasticDynamic::~RuleStochasticDynamic()
 {
-    delete toChangeInto;
-    delete startingState;
+    //delete toChangeInto;
+    //delete startingState;
 
-    for(RuleParameters r : parameters)
+    /*for(RuleParameters r : parameters)
     {
-        delete r.toCheckAgainst;
-    }
+        //delete r.toCheckAgainst;
+    }*/
 }
 
 int RuleStochasticDynamic::GetType(){

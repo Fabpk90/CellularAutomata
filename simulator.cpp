@@ -22,6 +22,7 @@ namespace Simulator {
             {
                 for(unsigned int j = 0; j < automata.GetSizeY(); j++)
                 {
+                    cout << endl << "Taking care of i: " << i << " j: " << j << endl;
                     //Init la cellule de la nouvelle gen à son ancienne valeur
                     oldState = automata.GetCellState(i,j);
                     automata.NextGen();
@@ -44,10 +45,15 @@ namespace Simulator {
     bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<State*> testState , int  targetX , int  targetY){
         for(int i=0; i<positions.size(); i++)
         {
-            if (automataGlob->GetCellState(targetX+positions[i].first,targetY+positions[i].second).color != testState[i]->color){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
+            cout << "Positions X: " << targetX << " Position Y: " << targetY << endl;
+            cout << "Neib name: " << automataGlob->GetCellState(targetX+positions[i].second,targetY+positions[i].first).name << " Test name: " << testState[i]->name << endl;
+            cout << "Position vect X: " << positions[0].second << "Position vect Y: " << positions[0].first << endl;
+            if (automataGlob->GetCellState(targetX+positions[i].second,targetY+positions[i].first).color != testState[i]->color){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
+                cout << "False Truth" << endl;
                 return false;
             }
         }
+        cout << "True Administrator" << endl;
         return true;
     }
 
@@ -56,14 +62,27 @@ namespace Simulator {
 
         int X = 0, Y = 0;
         int count = 0;
-        for (int i = 0; i < automataGlob->GetNeigborhoodPositions().size(); i++) {
-           X = automataGlob->GetNeigborhoodPositions()[i].first + posX;
-           Y = automataGlob->GetNeigborhoodPositions()[i].second + posY;
+        cout << "Amount: " << amount << endl;
+        cout << "To check against: " << toCheckAgainst->name << endl;
+        cout << "Neigborh amount: " << automataGlob->GetNeigborhoodPositions().size() << endl;
 
-           count += (automataGlob->GetCellState(X,Y).color
-                     == toCheckAgainst->color);
+        for (int i = 0; i < automataGlob->GetNeigborhoodPositions().size(); i++) {
+           X = automataGlob->GetNeigborhoodPositions()[i].second + posX;
+           Y = automataGlob->GetNeigborhoodPositions()[i].first + posY;
+
+           if(automataGlob->GetCellState(X,Y).color == toCheckAgainst->color)
+               count++;
+
+           cout << "Checked State " << automataGlob->GetCellState(X,Y).name << endl;
         }
 
+        cout << "Counted number " << count << endl;
+        if(amount <= count)
+        {
+            cout << "True Administrator" << endl;
+        }
+        else
+            cout << "False Truth" << endl;
         return (amount <= count);
     }
 }
