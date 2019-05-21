@@ -31,15 +31,11 @@ void RuleStochastic::Apply(int x, int y){
             }
 
             if (Simulator::ComputePosition(positions, testState,x,y)){ // si la règle est effectivement vraie on applique
-<<<<<<< HEAD
+
                 automata->NextGen();//On passe à la "nouvelle" génération pour pouvoir Set la cellule
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen(); //On retourne à la génération sur laquelle on fait les observations
-=======
-                automata->NextGen();
-                automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
-                automata->PreviousGen();
->>>>>>> 53844fa14bdd6618d3bebd63b25a9a40bf3571be
+
             }
         }
         else {
@@ -51,17 +47,12 @@ void RuleStochastic::Apply(int x, int y){
                     break;
                 }
             }
-<<<<<<< HEAD
+
             if (applyCount){  //si la règle est effectivement vraie on applique
                 automata->NextGen();//On passe à la "nouvelle" génération pour pouvoir Set la cellule
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen();//On retourne à la génération sur laquelle on fait les observations
-=======
-            if (applyCount){  // si la règle est effectivement vraie on applique
-                automata->NextGen();
-                automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
-                automata->PreviousGen();
->>>>>>> 53844fa14bdd6618d3bebd63b25a9a40bf3571be
+
             }
         }
     }
