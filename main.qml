@@ -86,6 +86,7 @@ ApplicationWindow {
              height:mat.cellWidth
              color:model.color
              border.color:"black"
+             onColorChanged: currentGeneration.text=myInterface.returnCurrentGen()
                  MouseArea{
                  id: mousearea
                  anchors.fill:parent
