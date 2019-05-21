@@ -189,20 +189,24 @@ void Interface::okCreateRule()
             stateArray[i] = 0;
         }
         for(int i = 0; i < SIZEOFINDEXARRAYS - 2; i++){
+            std::cout << "coucou" << std::endl;
             if(dimension() == "OneDimension"){//evite le cas "central"
-                if(i!=1){
+                std::cout<< "matrix O= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
+                if(i!=1 && matrixIndexAndStateIndex[i] != "("){
                     stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                 }
             }
             if(dimension() == "TwoDimensions"){//evite le cas "central"
                 if(neighborhood() == "Moore"){
-                    if(i!=4){
+                    std::cout<< "matrix Moore = " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
+                    if(i!=4 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
                 }
                 else if (neighborhood() == "Von Neumann")
                 {
-                    if(i!=4 && i!= 0 && i!=2 && i!=6 && i!=8){
+                    std::cout<< "matrix VM= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
+                    if(i!=4 && i!= 0 && i!=2 && i!=6 && i!=8 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
                 }
@@ -210,9 +214,9 @@ void Interface::okCreateRule()
                 
             }
         }
-        /*for(int n = 0; n<sizeofarray; n++){//test
+        for(int n = 0; n<sizeofarray; n++){//test
             std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
-        }*/
+        }
         lengthCond = sizeofarray;
         for (int i = 0; i < sizeofarray; i++)
         {
@@ -684,6 +688,7 @@ void Interface::cleanRuleCreationWindow()
     for(int i = 0; i<SIZEOFINDEXARRAYS; i++){
         matrixIndexAndStateIndex[i]="(";
         posIndex[i]="(";
+
     }
 }
 
