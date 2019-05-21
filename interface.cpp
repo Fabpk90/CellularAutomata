@@ -26,11 +26,6 @@ void Interface::initMatrix()
 
 }
 
-void Interface::printProbability()
-{
-    std::cout << "probability : " << m_probability.toStdString() << std::endl;
-}
-
 QString Interface::type() const
 {
     return m_type;
@@ -59,7 +54,6 @@ void Interface::sendMandatoryInfo()
 
 void Interface::CallSetDim()
 {
-    std::cout << "Dim : " << m_dimension.toStdString() << std::endl;
 }
 
 void Interface::CallSetNeighborhood()
@@ -67,7 +61,6 @@ void Interface::CallSetNeighborhood()
     if(m_neighborhood.toStdString()=="Von Neumann")
         dataToParse+="1";
     else dataToParse+="0";
-    //std::cout << "Neigh : " << m_neighborhood.toStdString() << std::endl;//test
 }
 
 void Interface::CallSetType()
@@ -75,36 +68,21 @@ void Interface::CallSetType()
     if(m_type.toStdString()=="Stochastic")
         dataToParse+="1";
     else dataToParse+="0";
-    //std::cout << "Type : " << m_type.toStdString() << std::endl;//test
 }
 
 void Interface::CallMaxGenerationsToSimulate()
 {
-    string maxGen=m_maxGenerationsToSimulate.toStdString();
-    //std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;//test
 }
 
 void Interface::CallMatrixSize()
 {
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
     this->parser.ParseAndAddSize(&size);
-    //std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl; //test
-}
-
-
-void Interface::printPosAndCount()
-{
-    std::cout << "posAndCount : " << m_posAndCount.toStdString() << std::endl;
 }
 
 QString Interface::stateToChangeTo() const
 {
     return m_stateToChangeTo;
-}
-
-void Interface::printStateToChangeTo()
-{
-    std::cout << "stateToChangeTo : " << m_stateToChangeTo.toStdString() << std::endl;
 }
 
 void Interface::CallSetProbability(QString probability)
@@ -278,11 +256,6 @@ void Interface::okCreateRule()
 
 }
 
-void Interface::printDimension()
-{
-    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
-}
-
 QString Interface::neighborhood() const
 {
     return m_neighborhood;
@@ -291,11 +264,6 @@ QString Interface::neighborhood() const
 QString Interface::maxGenerationsToSimulate() const
 {
     return m_maxGenerationsToSimulate;
-}
-
-void Interface::printMaxGenerationsToSimulate()
-{
-    std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
 }
 
 QString Interface::sizeX() const
@@ -408,6 +376,15 @@ void Interface::setStateColor(QString color)
 
 }
 
+void Interface::setNumbState(QString numbState)
+{
+    if (m_numbState == numbState)
+        return;
+
+    m_numbState = numbState;
+    emit numbStateChanged(m_numbState);
+}
+
 //Interface::Interface(QObject *parent) : QObject(parent)
 void Interface::CallSetStateName(QString probability){
 
@@ -484,13 +461,6 @@ QString Interface::stateName() const
     return m_stateName;
 }
 
-
-
-void Interface::printStateName()
-{
-    std::cout << "StateName : " << m_stateName.toStdString() << std::endl;
-}
-
 QString Interface::getStateName()
 {
     return m_stateName;
@@ -499,11 +469,6 @@ QString Interface::getStateName()
 QString Interface::stateColor() const
 {
     return m_stateColor;
-}
-
-void Interface::printStateColor()
-{
-    std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
 }
 
 QString Interface::getStateColor()
@@ -518,6 +483,7 @@ void Interface::chooseGen(QString gen)
 
 }
 
+//Permet de mettre à jour l'interface losqu'on load à partir d'un fichier
 void Interface::loadInterface()
 {
    if(parser.GetAutomata()->GetIsStocha())
@@ -619,6 +585,11 @@ void Interface::displayMatrix(){
     }
 }
 
+QString Interface::numbState() const
+{
+    return m_numbState;
+}
+
 
 int Interface::getRememberIndex() const
 {
@@ -712,9 +683,6 @@ void Interface::cleanRuleCreationWindow()
     }
 }
 
-
-
-
 QQmlApplicationEngine *Interface::getEngine() const
 {
     return engine;
@@ -763,9 +731,6 @@ void Interface::callSaveMatrix(QString path, QString name, QString firstGen, QSt
     char * Data = new char[tmp.length() + 1];
     strcpy(Data, tmp.c_str());
     SaveData(&na, Data);
-
-
-
 }
 
 void Interface::callLoad(QString name, QString path){

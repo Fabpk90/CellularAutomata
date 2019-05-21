@@ -49,9 +49,7 @@ ApplicationWindow {
                     myInterface.initialiseParser()
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
-
                     window.show()
-                    print("enter here")
                     ruleListView.removeAllItems()
                     stateListView.removeAllItems()
                     mat.visible= true

@@ -43,12 +43,12 @@ private:
     QString m_sizeY;
     QString m_stateName;
     QString m_stateColor;
+    QString m_numbState;
     string dataToParse;
     QQmlApplicationEngine* engine;
     Matrixview* matrixview;
-    //Initialisation de l'Automate
-    Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>()
-                           , vector<State>(), vector<Generation>());
+    //Initialisation du premier Automate
+    Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>(), vector<State>(), vector<Generation>());
     Parser parser;
     vector<int> stateVector;
     int rememberIndex;
@@ -58,12 +58,10 @@ private:
     List stateListView;
     List ruleListView;
 
-    QString m_numbState;
-
 public:
     explicit Interface(QObject *parent = nullptr);
     //init
-    Q_INVOKABLE void initialiseParser(); //TODO
+    Q_INVOKABLE void initialiseParser();
     Q_INVOKABLE void initMatrix();
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
@@ -71,13 +69,10 @@ public:
     List* getRuleListView();
     //probability
     QString probability() const;
-    Q_INVOKABLE void printProbability(); //for tests
     QString type() const;
     Q_INVOKABLE QString dimension() const;
-    Q_INVOKABLE void printDimension(); //for tests
     Q_INVOKABLE QString neighborhood() const;
     QString maxGenerationsToSimulate() const;
-    Q_INVOKABLE void printMaxGenerationsToSimulate(); //for test
     QString sizeX() const;
     QString sizeY() const;
 
@@ -87,10 +82,7 @@ public:
 
     /*Fenêtre de création d'automate*/
     /*Set type, dimension, voisinage , ceci est nécessaire pour l'interpréteur.*/
-    Q_INVOKABLE void sendMandatoryInfo(); //TODO
-
-    /*Fait appel à une série de fonctions de l'interpréteur.*/
-    void OkCreateAutomata(); //TODO
+    Q_INVOKABLE void sendMandatoryInfo();
 
     /*Nombre de dimensions de l'automate: Une dimension ou deux dimensions.*/
     void CallSetDim();
@@ -116,11 +108,9 @@ public:
 
     //posAndCount
     QString posAndCount() const;
-    Q_INVOKABLE void printPosAndCount(); //for tests
 
     //stateToChangeTo
     QString stateToChangeTo() const;
-    Q_INVOKABLE void printStateToChangeTo(); //for tests
 
     void CallSetProbability(QString probability);//TODO
     void CallSetPosAndCount(QString posAndCount);//TODO
@@ -136,10 +126,8 @@ public:
 
 
     QString stateName() const;
-    Q_INVOKABLE void printStateName();
     Q_INVOKABLE QString getStateName();
     QString stateColor() const;
-    Q_INVOKABLE void printStateColor();
     Q_INVOKABLE QString getStateColor();
     Q_INVOKABLE int getRememberIndex() const;
     Q_INVOKABLE void setRememberIndex(int value);
@@ -157,13 +145,9 @@ public:
     Q_INVOKABLE void removeRuleAutomata(int index);
     Q_INVOKABLE void removeAllRulesAutomata();
     Q_INVOKABLE void removeAllStatesAutomata();
-    Q_INVOKABLE QColor  stateColorFromSquareIndex(int index);
+    Q_INVOKABLE QColor stateColorFromSquareIndex(int index);
     Q_INVOKABLE void displayMatrix();
-
-    QString numbState() const
-    {
-        return m_numbState;
-    }
+    QString numbState() const;
 
 signals:
 
@@ -203,15 +187,7 @@ void setSizeX(QString sizeX);
 void setSizeY(QString sizeY);
 void setStateName(QString name);
 void setStateColor(QString color);
-
-void setNumbState(QString numbState)
-{
-    if (m_numbState == numbState)
-        return;
-
-    m_numbState = numbState;
-    emit numbStateChanged(m_numbState);
-}
+void setNumbState(QString numbState);
 };
 
 #endif // INTERFACE_H
