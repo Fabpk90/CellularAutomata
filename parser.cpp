@@ -382,14 +382,11 @@ void  Parser::ParseAndAddStates(string* index)
             if(index[0][i] == ';'){
                 cpt++;
             }
-            // premier ';' celui apres E donc cpt > 1
-            if(cpt >= 0){
-                ascii = index[0][i];
-                if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
-                else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+            ascii = index[0][i];
+            if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
+            else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
                     throw(string("ParseAndAddStates : Number of States is not an int"));
                 }
-            }
             i++;
         }
 
