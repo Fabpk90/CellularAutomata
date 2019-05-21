@@ -48,7 +48,7 @@ private:
     QQmlApplicationEngine* engine;
     Matrixview* matrixview;
     //Initialisation du premier Automate
-    Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>(), vector<State>(), vector<Generation>());
+    Automata* ca = nullptr;
     Parser parser;
     vector<int> stateVector;
     int rememberIndex;
