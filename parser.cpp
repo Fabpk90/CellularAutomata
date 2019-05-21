@@ -730,9 +730,15 @@ string  Parser::RulesToString()
 
         strRepresentation.append(to_string(automata->GetRules().size())); //Nombre de règle
         strRepresentation.append(";");
-        for(Rule *r : automata->GetRules()){
 
-            strRepresentation.append(to_string(r->GetType())); //type : 0 = deterministe; 1 = stochastique; 2 =stochastique dynamique
+        for(Rule *r : automata->GetRules()){
+            //type : 0 = Position; 1 = Count
+            if(r->GetType() == 0){
+                strRepresentation.append("Position");
+            }
+            else{
+                strRepresentation.append("Count");
+            }
             strRepresentation.append(";");
             strRepresentation.append(r->GetStartingState().name); //Nom de l'etat de depart
             strRepresentation.append(";");
@@ -770,7 +776,7 @@ string  Parser::RulesToString()
 
             strRepresentation.append("\n");
         }
-
+        cout << strRepresentation << endl;
         return strRepresentation;
     }
 
