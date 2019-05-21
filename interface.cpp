@@ -523,11 +523,11 @@ void Interface::loadInterface()
    else  setNeighborhood("Moore");
    setSizeX(QString::number(parser.GetAutomata()->GetSizeX()));
    setSizeY(QString::number(parser.GetAutomata()->GetSizeY()));
-   for(int i=0; i<parser.GetAutomata()->GetRules().size(); i++)
+   for(uint i=0; i<parser.GetAutomata()->GetRules().size(); i++)
    {
        ruleListView.appendItem();
    }
-   for(int i=0; i<parser.GetAutomata()->GetStates().size(); i++)
+   for(uint i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
        //stateListView.appendState();
        setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));
