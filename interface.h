@@ -48,74 +48,36 @@ private:
     //Initialisation de l'Automate
     Automata* ca =new Automata(false, false, 1, 1, vector<Rule*>()
                            , vector<State>(), vector<Generation>());
-
     Parser parser;
-
     vector<int> stateVector;
     int rememberIndex;
     QString matrixIndexAndStateIndex[SIZEOFINDEXARRAYS]; //9 cas pour la matrice de creation et le 10eme pour le toChangeTo 11eme pour le compute probability
     QString posIndex[SIZEOFINDEXARRAYS];//idem
     List l;
-
     List stateListView;
     List ruleListView;
 
 public:
     explicit Interface(QObject *parent = nullptr);
-
     //init
     Q_INVOKABLE void initialiseParser(); //TODO
     Q_INVOKABLE void initMatrix();
     QQmlApplicationEngine *getEngine() const;
     void setEngine(QQmlApplicationEngine *value);
-
-    List* getStateListView()
-    {
-        return &stateListView;
-    }
-    List* getRuleListView()
-    {
-        return &ruleListView;
-    }
-
+    List* getStateListView();
+    List* getRuleListView();
     //probability
-    QString probability() const
-    {
-        return m_probability;
-    }
+    QString probability() const;
     Q_INVOKABLE void printProbability(); //for tests
-
-    QString type() const
-    {
-        return m_type;
-    }
-
-    QString dimension() const
-    {
-        return m_dimension;
-    }
+    QString type() const;
+    Q_INVOKABLE QString dimension() const;
     Q_INVOKABLE void printDimension(); //for tests
-
-    QString neighborhood() const
-    {
-        return m_neighborhood;
-    }
-
-    QString maxGenerationsToSimulate() const
-    {
-        return m_maxGenerationsToSimulate;
-    }
+    Q_INVOKABLE QString neighborhood() const;
+    QString maxGenerationsToSimulate() const;
     Q_INVOKABLE void printMaxGenerationsToSimulate(); //for test
+    QString sizeX() const;
+    QString sizeY() const;
 
-    QString sizeX() const
-    {
-        return m_sizeX;
-    }
-
-    QString sizeY() const
-    {
-        return m_sizeY;
-    }
     /*Gestion de fichier*/
     Q_INVOKABLE void callSaveMatrix(QString path, QString name, QString firstGen=QString(""), QString lastGen=QString(""));//Demande pour sauvegarder un automate
     Q_INVOKABLE void callLoad(QString name, QString path);//Demande pour charger un automate
@@ -150,17 +112,11 @@ public:
    // Q_INVOKABLE unsigned int getSizeY();
 
     //posAndCount
-    QString posAndCount() const
-    {
-        return m_posAndCount;
-    }
+    QString posAndCount() const;
     Q_INVOKABLE void printPosAndCount(); //for tests
 
     //stateToChangeTo
-    QString stateToChangeTo() const
-    {
-        return m_stateToChangeTo;
-    }
+    QString stateToChangeTo() const;
     Q_INVOKABLE void printStateToChangeTo(); //for tests
 
     void CallSetProbability(QString probability);//TODO
@@ -176,62 +132,30 @@ public:
     Q_INVOKABLE void okCreateHistory();//crée la première génération (gen 0)
 
 
-    QString stateName() const
-    {
-        return m_stateName;
-    }
+    QString stateName() const;
     Q_INVOKABLE void printStateName();
-
-    Q_INVOKABLE QString getStateName()
-    {
-        return m_stateName;
-    }
-
-    QString stateColor() const
-    {
-        return m_stateColor;
-    }
+    Q_INVOKABLE QString getStateName();
+    QString stateColor() const;
     Q_INVOKABLE void printStateColor();
-
-    Q_INVOKABLE QString getStateColor()
-    {
-        return m_stateColor;
-    }
-
+    Q_INVOKABLE QString getStateColor();
     Q_INVOKABLE int getRememberIndex() const;
     Q_INVOKABLE void setRememberIndex(int value);
     Q_INVOKABLE void associateStateAndIndex(QString StateIndex);
     Q_INVOKABLE void cleanRuleCreationWindow();
-
     Q_INVOKABLE void chooseGen(QString gen);
-
     Q_INVOKABLE void loadInterface();
-
     Q_INVOKABLE QString returnCurrentGen();
     Q_INVOKABLE void updateStateVector(int index,int stateId);
     Q_INVOKABLE void sizeTheVector();
     Q_INVOKABLE void displayEverything();
-
     Matrixview *getMatrixview() const;
     void setMatrixview(Matrixview *value);
-
     Q_INVOKABLE void removeStateAutomata(int index);
     Q_INVOKABLE void removeRuleAutomata(int index);
     Q_INVOKABLE void removeAllRulesAutomata();
     Q_INVOKABLE void removeAllStatesAutomata();
     Q_INVOKABLE QColor  stateColorFromSquareIndex(int index);
-    Q_INVOKABLE void displayMatrix(){
-        cout << "Gen " << parser.GetAutomata()->GetCurrentGen().generationID << ":" << endl;
-        cout << "Amount of Generations:" << parser.GetAutomata()->GetGenerations().size() << endl;
-                for(unsigned int i = 0; i < parser.GetAutomata()->GetSizeX(); i++)
-                {
-                    for(unsigned int j = 0; j < parser.GetAutomata()->GetSizeY(); j++)
-                    {
-                        cout << parser.GetAutomata()->GetCellState(i,j).name << " " << endl;
-                    }
-                    cout << endl;
-                }
-    }
+    Q_INVOKABLE void displayMatrix();
 
 signals:
 
