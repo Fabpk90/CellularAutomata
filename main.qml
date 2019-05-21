@@ -22,12 +22,14 @@ ApplicationWindow {
             MenuItem {
                 text: "Save"
                 onClicked:
+
                     fileDialogSave.open()
             }
             MenuItem{
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
+                    myInterface.loadInterface()
                 }
             }
 
@@ -100,6 +102,7 @@ ApplicationWindow {
          }
     }
 
+
        footer: Rectangle{
         id: footer
         height: 80
@@ -168,17 +171,6 @@ ApplicationWindow {
 
             }
 
-  /*          Component {
-                id: contactDelegate
-                Item {
-                    width: 180; height: 40
-                    Column {
-                        Text { text: '<b>Name:</b> ' + name }
-                        Text { text: '<b>Number:</b> ' + number }
-                    }
-                }
-            }
-*/
             Item {
                 width: 50
             }
@@ -289,7 +281,11 @@ ApplicationWindow {
         onAccepted: {
            myInterface.initialiseParser()
            myInterface.callLoad("test", Qt.resolvedUrl(this.fileUrl))
-           myInterface.loadInterface()
+           mainwindow.close()
+           var Component = Qt.createComponent("main.qml")
+           var window = Component.createObject(mainwindow)
+           window.show()
+
         }
         onRejected: {
         }
