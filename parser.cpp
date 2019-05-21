@@ -200,7 +200,7 @@ void  Parser::ParseAndAddRules(string* index)
         //TODO: test just before adding if the indexes are truly there (states[i] exists)
         //Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;
         uint i = 2;
-        while(i != index->size() - 1)
+        while(i != index->size())
         {
             cout << "I: " << i << " " << index->size() << endl;
             string ruleType = "";
