@@ -20,6 +20,7 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
 {
+    currentGen = 0;
     simulationThread = nullptr;
 }
 
