@@ -120,7 +120,7 @@ int w =parser->GetAutomata()->GetSizeY();
 engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);*/
 for (int i =0;i<h;i++) {
     for (int j =0; j<w ;j++) {
-        this->setCellAt(i*10+j, parser->GetAutomata()->GetCellState(i,j));
+        this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
 
     }
 }
