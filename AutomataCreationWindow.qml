@@ -135,7 +135,7 @@ ApplicationWindow{
         SpinBox{
             from: 1
             value: myInterface.sizeX
-            to: 1000
+            to: 100
             stepSize: 1
             editable: true
             onValueChanged: myInterface.sizeX = value
@@ -157,7 +157,7 @@ ApplicationWindow{
                 else 1
             }
             value: myInterface.sizeY
-            to: 1000
+            to: 100
             stepSize: 1
             editable: true
             onValueChanged: myInterface.sizeY = value
@@ -176,7 +176,7 @@ ApplicationWindow{
         SpinBox{
             from: 1
             value: myInterface.maxGenerationsToSimulate
-            to: 1000
+            to: 100
             stepSize: 1
             editable: true
             onValueChanged: myInterface.maxGenerationsToSimulate = value
