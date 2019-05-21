@@ -14,7 +14,7 @@ ApplicationWindow {
     title: "StateCreation"
 
 
-    Button {
+    Button {//bouton ok pour valider la créaion d'un état
         id: button
         x: 459
         y: 167
@@ -29,7 +29,7 @@ ApplicationWindow {
         }
     }
 
-    Button {
+    Button { // bouton cancel pour annuler la création d'un état
         id: button1
         x: 289
         y: 167
@@ -50,14 +50,13 @@ ApplicationWindow {
     }
 
 
-    ColorDialog{
+    ColorDialog{//fenêtre de choix de couleur
         id: colorDialog
 
         onAccepted:{
             rectangle.color=this.color
             myInterface.stateColor=this.color
             stateListView.setStateColor(myInterface.getStateColor())
-            //myInterface.printStateColor()
            }
     }
 

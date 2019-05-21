@@ -157,7 +157,10 @@ ApplicationWindow{
                 else 1
             }
             value: myInterface.sizeY
-            to: 100
+            to: {
+                if(myInterface.dimension==="TwoDimensions") 100
+                else 1
+            }
             stepSize: 1
             editable: true
             onValueChanged: myInterface.sizeY = value
@@ -293,7 +296,6 @@ ApplicationWindow{
         }
 
         onClicked: {
-            //TODO test all required checks
             myInterface.cleanRuleCreationWindow()
             if(twoDim.checked){
                 if(vonNeumann.checked){

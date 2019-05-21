@@ -87,17 +87,17 @@ QString Interface::stateToChangeTo() const
     return m_stateToChangeTo;
 }
 
-void Interface::CallSetProbability(QString probability)
+void Interface::CallSetProbability()
 {
 
 }
 
-void Interface::CallSetPosAndCount(QString posAndCount)
+void Interface::CallSetPosAndCount()
 {
 
 }
 
-void Interface::CallSetStateToChangeTo(QString stateToChangeTo)
+void Interface::CallSetStateToChangeTo()
 {
 
 }
@@ -183,29 +183,24 @@ void Interface::okCreateRule()
             }
         }
         sizeofarray = sizeofarray + 1; //cette taille va aussi servir a determiner length cond
-        //std::cout << "sizeofarray = " << sizeofarray << std::endl; //test
         int stateArray[sizeofarray];
         for(int i = 0; i<sizeofarray; i++){//initialise le tableau (impossible d'initialiser un tableau de taille variable avec {0})
             stateArray[i] = 0;
         }
         for(int i = 0; i < SIZEOFINDEXARRAYS - 2; i++){
-            std::cout << "coucou" << std::endl;
             if(dimension() == "OneDimension"){//evite le cas "central"
-                std::cout<< "matrix O= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                 if(i!=1 && matrixIndexAndStateIndex[i] != "("){
                     stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                 }
             }
             if(dimension() == "TwoDimensions"){//evite le cas "central"
                 if(neighborhood() == "Moore"){
-                    std::cout<< "matrix Moore = " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                     if(i!=4 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
                 }
                 else if (neighborhood() == "Von Neumann")
                 {
-                    std::cout<< "matrix VM= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                     if(i!=4 && i!= 0 && i!=2 && i!=6 && i!=8 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
@@ -213,9 +208,6 @@ void Interface::okCreateRule()
                 
                 
             }
-        }
-        for(int n = 0; n<sizeofarray; n++){//test
-            std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
         }
         lengthCond = sizeofarray;
         for (int i = 0; i < sizeofarray; i++)
@@ -254,7 +246,6 @@ void Interface::okCreateRule()
     }
     string stdRule = rule.toStdString();
     stdRule.append("\n");
-    std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
@@ -392,19 +383,10 @@ void Interface::setNumbState(QString numbState)
     emit numbStateChanged(m_numbState);
 }
 
-//Interface::Interface(QObject *parent) : QObject(parent)
-void Interface::CallSetStateName(QString probability){
-
-
-
-
-
+void Interface::CallSetStateName(){
 }
 
-void Interface::CallSetColor(QString color){
-
-
-
+void Interface::CallSetColor(){
 }
 
 void Interface::okCreateState(QString state){
@@ -416,7 +398,6 @@ void Interface::okCreateState(QString state){
     composite.append(m_stateName);
     composite.append(";");
     string string= composite.toStdString();
-    cout<< "State sent to parser" <<string<<endl;//test
     try {
          parser.ParseAndAddStates(&string);
     } catch (std::string s) {
@@ -429,7 +410,7 @@ void Interface::okCreateState(QString state){
 
 void Interface::okCreateHistory()
 {
-   // srand(time(NULL));
+
     cout<<"okcreatehistory"<<endl;
     int s=stateVector.size();
     int sizeOfStates=parser.GetAutomata()->GetStates().size();
@@ -458,9 +439,6 @@ void Interface::okCreateHistory()
     string res=composite.toStdString();
     cout<<"for me:"<<res<<endl;
     parser.ParseHistory(&res);
-    //cout<<"after:"<<s<<endl;
-
-
 }
 
 QString Interface::stateName() const
@@ -485,7 +463,7 @@ QString Interface::getStateColor()
 
 void Interface::chooseGen(QString gen)
 {
-   matrixview->selectGen(gen.toInt());//to check after merge
+   matrixview->selectGen(gen.toInt());
 
 
 }
@@ -519,7 +497,9 @@ void Interface::loadInterface()
 
 QString Interface::returnCurrentGen()
 {
-   return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+   if (parser.GetAutomata() != nullptr && !parser.GetAutomata()->GetStates().empty())
+    return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+   return QString("0");
 }
 
 void Interface::removeStateAutomata(int index)
@@ -575,8 +555,6 @@ void Interface::displayEverything()
 QColor Interface::stateColorFromSquareIndex(int index)
 {
     unsigned int indexOfState = matrixIndexAndStateIndex[index].toUInt();
-    //std::cout << "indexOfState = " << indexOfState << std::endl;//test
-    //std::cout << "sizeofvector " << parser.GetAutomata()->GetStates().size() << std::endl;//test
     return parser.GetAutomata()->GetStates().at(indexOfState).color.name(QColor::HexRgb);
 }
 
@@ -680,7 +658,6 @@ void Interface::associateStateAndIndex(QString StateIndex)
         posIndex[rememberIndex] = composite;
     }
     matrixIndexAndStateIndex[rememberIndex] = StateIndex; //version non convertie de [index] -> etat aussi utilisé pour le mode Count
-    //std::cout << composite.toStdString() << std::endl; //test
 }
 
 void Interface::cleanRuleCreationWindow()

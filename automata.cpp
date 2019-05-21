@@ -74,7 +74,8 @@ void Automata::SetNeighborhood(bool b){
 void Automata::Simulate()
 {
 
-Simulator::Simulate(*this);
+    Simulator::Simulate(*this);
+
 }
 
 

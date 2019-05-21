@@ -19,27 +19,28 @@ ApplicationWindow {
     menuBar: MenuBar{
         Menu{
             title: "File"
-            MenuItem {
+            MenuItem {//bouton pour sauvegarder
                 text: "Save"
                 onClicked:
 
                     fileDialogSave.open()
             }
-            MenuItem{
+            MenuItem{//bouton pour charger
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
+
                 }
             }
 
-            MenuItem {
+            MenuItem {//bouton pour fermer l'application
                 text: "Close"
                 onClicked: Qt.quit()
             }
         }
         Menu{
             title: "Automaton"
-            MenuItem { text: "Create new Automaton"
+            MenuItem { text: "Create new Automaton" //bouton pour la création de l'automate
                 onClicked: {
                     myInterface.initialiseParser()
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
@@ -51,7 +52,7 @@ ApplicationWindow {
 
                 }
             }
-            MenuItem { text: "Edit Automaton"
+            MenuItem { text: "Edit Automaton" //bouton pour l'édition de l'automate
                 id: editItem
                 onClicked: {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
@@ -66,13 +67,12 @@ ApplicationWindow {
     GridView{
          id:mat
          anchors.fill : parent
-         //visible: false //TODO uncomment in final version
          contentHeight: mainwindow.height - footer.height
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
          highlightFollowsCurrentItem: false
-         cellWidth: mainwindow.width/mod.listOfState.returnSize() //TODO cas où listOfState >= mainwindow.width
+         cellWidth: mainwindow.width/mod.listOfState.returnSize()
          cellHeight: cellWidth
          cacheBuffer: 2000
          flickableDirection: Flickable.HorizontalAndVerticalFlick
@@ -80,7 +80,7 @@ ApplicationWindow {
              id: mod
              listOfState:matrixview
          }
-         delegate: Rectangle{
+         delegate: Rectangle{//cellules de la matrice
              id:rec
              width: mat.cellHeight
              height:mat.cellWidth
@@ -90,7 +90,7 @@ ApplicationWindow {
                  MouseArea{
                  id: mousearea
                  anchors.fill:parent
-                 onClicked: print(tooltip.text+""+index)
+                 //onClicked: print(tooltip.text+""+index)
                  ToolTip{
                      id:tooltip
                      text: qsTr(model.name)
@@ -103,7 +103,7 @@ ApplicationWindow {
     }
 
 
-       footer: Rectangle{
+       footer: Rectangle{//espace pour l'ensemble des boutons
         id: footer
         height: 80
         color: "#f3f3f4"
@@ -123,7 +123,7 @@ ApplicationWindow {
                 width: 50
             }
 
-            Button{
+            Button{//bouton info pour ouvrir la liste des états
                id: info
                 text: qsTr("Info")
                 Layout.maximumWidth: 50
@@ -131,14 +131,12 @@ ApplicationWindow {
             }
 
 
-          Popup {
+          Popup {//affiche les états existant
                     id: popup
                     x: info.x
                     y: info.y-200
                    width: 110
                     height: 200
-                  /*  modal: true
-                    focus: true*/
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
                    contentItem:  Column{
                        id: listOfState
@@ -175,7 +173,7 @@ ApplicationWindow {
                 width: 50
             }
 
-            TextField {
+            TextField {//champs pour écrire la génération à accéder
                 id: textField
                 text: qsTr("")
                 horizontalAlignment: Text.AlignRight
@@ -183,7 +181,7 @@ ApplicationWindow {
                 Layout.maximumWidth: 132
             }
 
-            Button{
+            Button{ //bouton pour aller à une génération précise
                 text: qsTr("Go")
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -200,7 +198,7 @@ ApplicationWindow {
                 width: 50
             }
 
-            Button{
+            Button{//bouton backward pour revenir à une génération précédente
                 text: qsTr("⏮")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
@@ -211,7 +209,7 @@ ApplicationWindow {
                 }
             }
 
-            Button{
+            Button{//bouton pause pour arrêter l'exécution
                 text: qsTr("❙❙")
                 font.pointSize: 16
                 Layout.maximumHeight: 40
@@ -222,7 +220,7 @@ ApplicationWindow {
                 }
             }
 
-            Button{
+            Button{//bouton lecture pour simuler l'automate
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
@@ -233,7 +231,7 @@ ApplicationWindow {
                 }
             }
 
-            Button{
+            Button{ //bouton forward pour avancer dans les générations
                 text: qsTr("⏭")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
@@ -260,21 +258,21 @@ ApplicationWindow {
 
 }
 
-    FileDialog{
+    FileDialog{ //ouverture d'une fenetre en cas de sauvegarde
         id:fileDialogSave
         title: "Please choose a file to save"
         folder: shortcuts.home
         selectExisting: false
         selectMultiple: false
         onAccepted: {
-            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))//TODO
+            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))
         }
         onRejected: {
         }
 
     }
 
-    FileDialog{
+    FileDialog{ //ouverture d'une fenetre en cas chargement
         id:fileDialogLoad
         title: "Please choose a file to load"
         folder: shortcuts.home

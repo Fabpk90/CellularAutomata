@@ -24,10 +24,10 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
     engine = value;
 }
 
-int Matrixview::returnSize()
+int Matrixview::returnSize()//return the size of the matrix
 {
+
     int a =sqrt(listOfState.size());
-    cout<<"a:"<<a<<endl;
     return a;
 }
 
@@ -37,9 +37,8 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
         listOfState.append({QColor("white"),"State "+to_string(1)});
 
 
-
     srand(time(NULL));
-    this->timer=new QTimer();
+    this->timer=new QTimer();//initialise un thread de; timer pour la simulation
     this->timer->connect(timer, SIGNAL(timeout()),this,SLOT(update()));
 
 }
@@ -85,25 +84,30 @@ void Matrixview::removeCell(unsigned int index)//retire des cases dans la mtrice
 
 void Matrixview::update()//Met à jour l'affichage de la matrice
 {
-parser->GetAutomata()->Simulate();
 
-int h =parser->GetAutomata()->GetSizeX();
-int w =parser->GetAutomata()->GetSizeY();
+    if(parser != nullptr){
 
-for (int i =0;i<h;i++) {
-    for (int j =0; j<w ;j++) {
-        this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
+                parser->GetAutomata()->Simulate();
 
-    }
-}
+                int h =parser->GetAutomata()->GetSizeX();
+                int w =parser->GetAutomata()->GetSizeY();
 
-engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+                for (int i =0;i<h;i++) {
+                    for (int j =0; j<w ;j++) {
+                        this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
+
+                    }
+                }
+
+                engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+            }
+
 }
 
 void Matrixview::forward()//permet d'avancer dans l'historique
 {
     this->timer->stop();
-    if(parser != nullptr){
+    if(parser != nullptr ){
     parser->GetAutomata()->NextGen();
 
     int h =parser->GetAutomata()->GetSizeX();
@@ -145,7 +149,7 @@ void Matrixview::setListOfState(const QVector<State> &value)
     listOfState = value;
 }
 
-void Matrixview::emptyMatrix()
+void Matrixview::emptyMatrix() // vide la matrice
 {
     int size=listOfState.size();
     for (int i=0;i<size;i++) {
@@ -155,10 +159,10 @@ void Matrixview::emptyMatrix()
 
 }
 
-void Matrixview::selectGen(int gen)
+void Matrixview::selectGen(int gen) //permet de sauter à une génération précise
 {
     this->timer->stop();
-   if(parser != nullptr){
+   if(parser != nullptr ){
     parser->GetAutomata()->ChooseGen(gen);
    int h =parser->GetAutomata()->GetSizeX();
    int w =parser->GetAutomata()->GetSizeY();
@@ -178,7 +182,9 @@ void Matrixview::selectGen(int gen)
 
 void Matrixview::play()//lance la simulation et l'affichage s'en suit
 {
-   this->timer->start(500);
+
+   this->timer->start(500); //lance le thread du timer
+
 }
 
 void Matrixview::pause()//met en pause l'éxcecution
@@ -188,7 +194,7 @@ void Matrixview::pause()//met en pause l'éxcecution
 
 }
 
-void Matrixview::sizeMatrix(QString H,QString W)
+void Matrixview::sizeMatrix(QString H,QString W)//dimensionne la matrice vide à afficher
 {
 
     int size=listOfState.size();
@@ -212,7 +218,7 @@ void Matrixview::sizeMatrix(QString H,QString W)
 
 }
 
-void Matrixview::initMatrix()
+void Matrixview::initMatrix()// initialise la matrice
 {
 
     int size=listOfState.size();
@@ -233,6 +239,7 @@ void Matrixview::initMatrix()
 
 
     }
+
    }
 
 }

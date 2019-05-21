@@ -14,7 +14,6 @@
 
 #define SIZEOFINDEXARRAYS 11
 
-//TODO ALL THE INPUT TESTS
 class Interface : public QObject
 {
     Q_OBJECT
@@ -101,10 +100,6 @@ public:
 
     /*Appel la fonction de lecture de l'automate*/
     Q_INVOKABLE void callExecution();
-    /*Retourne la dimension x de l'automate*/
-   // Q_INVOKABLE unsigned int getSizeX();
-    /*Retourne la dimension y de l'automate*/
-   // Q_INVOKABLE unsigned int getSizeY();
 
     //posAndCount
     QString posAndCount() const;
@@ -112,15 +107,15 @@ public:
     //stateToChangeTo
     QString stateToChangeTo() const;
 
-    void CallSetProbability(QString probability);//TODO
-    void CallSetPosAndCount(QString posAndCount);//TODO
-    void CallSetStateToChangeTo(QString stateToChangeTo);//TODO
-    void CallGetStates(); //TODO
+    void CallSetProbability();
+    void CallSetPosAndCount();
+    void CallSetStateToChangeTo();
+    void CallGetStates();
     Q_INVOKABLE void okCreateRule();
 
     /*Fenêtre de création d'états */
-    Q_INVOKABLE void CallSetStateName(QString probability);
-    void CallSetColor(QString color);
+    Q_INVOKABLE void CallSetStateName();
+    void CallSetColor();
     Q_INVOKABLE void okCreateState(QString state);
     Q_INVOKABLE void okCreateHistory();//crée la première génération (gen 0)
 
