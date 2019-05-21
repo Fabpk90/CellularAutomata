@@ -245,6 +245,7 @@ void Interface::okCreateRule()
         }
     }
     string stdRule = rule.toStdString();
+    stdRule.append("\n");
     std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
     try {
          parser.ParseAndAddRules(&stdRule);
