@@ -72,11 +72,7 @@ void Automata::SetNeighborhood(bool b){
 
 void Automata::Simulate()
 {
-  /*  if(simulationThread == nullptr)
-    {
-        simulationThread = new thread(&Simulator::Simulate, ref(*this));
-    }*/
-Simulator::Simulate(*this);
+    Simulator::Simulate(*this);
 }
 
 //Il manque le deplacement de la generation actuelle quand on ajoute une gen

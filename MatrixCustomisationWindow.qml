@@ -42,7 +42,6 @@ ApplicationWindow {
             var window = Component.createObject(mainwindow)
             window.show()
 
-            //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")
         }
     }
         Button{

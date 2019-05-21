@@ -24,43 +24,22 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
     engine = value;
 }
 
-int Matrixview::returnSize()
+int Matrixview::returnSize()//return the size of the matrix
 {
-   //if (!automata) return
+
     int a =sqrt(listOfState.size());
-    cout<<"a:"<<a<<endl;
     return a;
 }
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
 
-   /*
-
-        uint h= this.parser.getAutomata().getSizeX();
-        uint l= this.parser.getAutomata().getSizeY();
-
-        for(int i=0;i<h;i++){
-            for(int j =0;j<l;j++){
-               listOfState.append(this.parser.getAutomata().getCellState());
-
-            }
-
-        }
-
-
-
-    */
-  // listOfState.append({QColor("green"), "State"});
- //   listOfState.append({QColor("blue"), "State"});
-
 
         listOfState.append({QColor("white"),"State "+to_string(1)});
 
 
-
     srand(time(NULL));
-    this->timer=new QTimer();
+    this->timer=new QTimer();//initialise un thread de; timer pour la simulation
     this->timer->connect(timer, SIGNAL(timeout()),this,SLOT(update()));
 
 }
@@ -104,20 +83,13 @@ void Matrixview::removeCell(unsigned int index)//retire des cases dans la mtrice
 
 }
 
-void Matrixview::update()//Met à jour l'affichage de la matrice   /*temporaire en attendant l'implémentation*/
+void Matrixview::update()//Met à jour l'affichage de la matrice
 {
 parser->GetAutomata()->Simulate();
 
 int h =parser->GetAutomata()->GetSizeX();
 int w =parser->GetAutomata()->GetSizeY();
- /*  QColor test[5]; test[0]=QColor("blue");test[1]=QColor("green");test[2]=QColor("orange");test[3]=QColor("green");test[4]=QColor("blue");
-   struct State s={QColor("orange"),to_string(1)};
 
-   for(int i=0;i<2500;i++){
-   this->setCellAt(i,{test[rand()%5],to_string(1)});
-
-    }
-engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);*/
 for (int i =0;i<h;i++) {
     for (int j =0; j<w ;j++) {
         this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
@@ -173,7 +145,7 @@ void Matrixview::setListOfState(const QVector<State> &value)
     listOfState = value;
 }
 
-void Matrixview::emptyMatrix()
+void Matrixview::emptyMatrix() // vide la matrice
 {
     int size=listOfState.size();
     for (int i=0;i<size;i++) {
@@ -183,7 +155,7 @@ void Matrixview::emptyMatrix()
 
 }
 
-void Matrixview::selectGen(int gen)
+void Matrixview::selectGen(int gen) //permet de sauter à une génération précise
 {
     this->timer->stop();
    if(parser != nullptr){
@@ -206,26 +178,20 @@ void Matrixview::selectGen(int gen)
 
 void Matrixview::play()//lance la simulation et l'affichage s'en suit
 {
-    //simulate();
-   this->timer->start(500);
-   //cout <<"pourtant je suis là"<<endl;
-  // cout<<"ce vecteur fait:" <<listOfState.size()<<endl;
-  //listOfState.append({QColor("green"), "State"});
-  //  parser->GetAutomata()->Simulate();
-    // engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
+   this->timer->start(500); //lance le thread du timer
+
 
 }
 
 void Matrixview::pause()//met en pause l'éxcecution
 {
-    //pause du thread à ajouter ici
     this->timer->stop();
 
 }
 
-void Matrixview::sizeMatrix(QString H,QString W)
+void Matrixview::sizeMatrix(QString H,QString W)//dimensionne la matrice vide à afficher
 {
-    //emptyMatrix();
+
     int size=listOfState.size();
     for (int i=0;i<size;i++) {
         removeCell(0);
@@ -238,7 +204,6 @@ void Matrixview::sizeMatrix(QString H,QString W)
         for(int j=0;j<w;j++){
 
             appendCell({QColor("white"),to_string(i*10+j)});
-            // listOfState.append({QColor("white"),to_string(i*10+j)});
 
         }
 
@@ -248,7 +213,7 @@ void Matrixview::sizeMatrix(QString H,QString W)
 
 }
 
-void Matrixview::initMatrix()
+void Matrixview::initMatrix()// initialise la matrice
 {
 
     int size=listOfState.size();
@@ -269,7 +234,7 @@ void Matrixview::initMatrix()
 
 
     }
-        //engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
+
    }
 
 }
