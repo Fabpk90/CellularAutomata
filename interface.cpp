@@ -449,21 +449,25 @@ void Interface::okCreateHistory()
     cout<<"Il y a:"<<sizeOfStates<<endl;
     QString composite;
     composite.append("1;0;");
-    for (int stateId : stateVector) {
+    if(s)
+    {
+        for (int stateId : stateVector) {
 
-        if(stateId !=-1){
+            if(stateId !=-1){
 
-            composite.append(QString::number(stateId));
+                composite.append(QString::number(stateId));
 
+            }
+            else {
+                composite.append(QString::number(rand()%sizeOfStates));//mettre en fonction de la taille de la liste des états
+            }
+            composite.append(",");
         }
-        else {
-            composite.append(QString::number(rand()%sizeOfStates));//mettre en fonction de la taille de la liste des états
-        }
-        composite.append(",");
+
+        composite.resize(composite.size()-1);
+        composite.append(";");
     }
 
-    composite.resize(composite.size()-1);
-    composite.append(";");
     string res=composite.toStdString();
     cout<<"for me:"<<res<<endl;
     parser.ParseHistory(&res);

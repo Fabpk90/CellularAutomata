@@ -207,7 +207,6 @@ void  Parser::ParseAndAddRules(string* index)
 
             while((*index)[i] != ';')
             {
-                cout << "Parsed: " << (*index)[i];
                 ruleType += (*index)[i++];
             }
             cout << *index << endl;
