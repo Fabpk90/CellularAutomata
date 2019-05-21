@@ -30,10 +30,6 @@ public:
     void  ParseHistory(string* index);//Fonction parsant l’historique, chargée de récupérer les matrices de l’historiques’il existe,
                                       //elle peut lever l’exception (HISTORY) si par exemple il manque des générations.
                                       //Elle ajoute la génération à l’historique
-    //ONLY FOR THE TESTS! REMOVE THISSSSS
-    string  AutomataToString() ;
-    string  HistoryToString(uint startGen, uint endGen);
-    string  HistoryToString();
 
     Automata *  GetAutomata();
 
@@ -43,9 +39,9 @@ private:
     string  dataToParse;
 
 
-    //string  AutomataToString() ;//Fonctions qui calculent la représentation en chaîne de caractères de l’automate.
-    //string  HistoryToString();
-    //string  HistoryToString(uint startGen, uint endGen);
+    string  AutomataToString() ;//Fonctions qui calculent la représentation en chaîne de caractères de l’automate.
+    string  HistoryToString();
+    string  HistoryToString(uint startGen, uint endGen);
     string  RulesToString();
 
     //Parses an int, stopping right after ';'
