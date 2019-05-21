@@ -54,11 +54,10 @@ Matrixview::Matrixview(QObject *parent) : QObject(parent)
   // listOfState.append({QColor("green"), "State"});
  //   listOfState.append({QColor("blue"), "State"});
 
-    for(int i=0;i<100;i++){
 
-        listOfState.append({QColor("white"),"State "+to_string(i)});
+        listOfState.append({QColor("white"),"State "+to_string(1)});
 
-    }
+
 
     srand(time(NULL));
     this->timer=new QTimer();
