@@ -818,7 +818,7 @@ int Parser::ParseInt(string &index, uint &i)
     {
         str += (index)[i++];
     }
-    i++; //skipping the next char
+    i++; //saute le prochain char, qui est un délimiteur
 
     if(str == "")
         throw(string("ParsingInt : Not a number"));
