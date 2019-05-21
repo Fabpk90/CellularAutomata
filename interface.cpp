@@ -410,11 +410,8 @@ void Interface::okCreateState(QString state){
 
 void Interface::okCreateHistory()
 {
-
-    cout<<"okcreatehistory"<<endl;
     int s=stateVector.size();
     int sizeOfStates=parser.GetAutomata()->GetStates().size();
-    cout<<"Il y a:"<<sizeOfStates<<endl;
     QString composite;
     composite.append("1;0;");
     if(s)
@@ -437,7 +434,6 @@ void Interface::okCreateHistory()
     }
 
     string res=composite.toStdString();
-    cout<<"for me:"<<res<<endl;
     parser.ParseHistory(&res);
 }
 
