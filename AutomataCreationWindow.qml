@@ -318,7 +318,18 @@ ApplicationWindow{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("OK")
-        visible: false
+        visible:
+        {
+            if(stateListView.getListCount()<1)
+            {
+                okButton.visible=false
+            }
+            if (stateListView.getListCount()>=1)
+            {
+                okButton.visible=true
+            }
+        }
+
         onClicked: {
             myInterface.sendMandatoryInfo()
             myInterface.sizeTheVector()
