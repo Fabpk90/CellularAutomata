@@ -196,7 +196,7 @@ void  Parser::ParseAndAddRules(string* index)
     if(index->at(0) != '0') // aucune règle à interpreter
     {
         uint i = 2;
-        while(i < index->size())
+        while(i+1 < index->size())
         {
             cout << "I: " << i << " " << index->size() << endl;
             string ruleType = "";
