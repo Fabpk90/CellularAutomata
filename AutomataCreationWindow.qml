@@ -157,7 +157,10 @@ ApplicationWindow{
                 else 1
             }
             value: myInterface.sizeY
-            to: 100
+            to: {
+                if(myInterface.dimension==="TwoDimensions") 100
+                else 1
+            }
             stepSize: 1
             editable: true
             onValueChanged: myInterface.sizeY = value
