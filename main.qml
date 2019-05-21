@@ -28,7 +28,6 @@ ApplicationWindow {
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
-                    myInterface.loadInterface()
                 }
             }
 
@@ -290,6 +289,7 @@ ApplicationWindow {
         onAccepted: {
            myInterface.initialiseParser()
            myInterface.callLoad("test", Qt.resolvedUrl(this.fileUrl))
+           myInterface.loadInterface()
         }
         onRejected: {
         }
