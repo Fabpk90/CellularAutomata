@@ -39,7 +39,7 @@ ApplicationWindow {
             mainwindow.close()
             myInterface.initMatrix()
              var Component = Qt.createComponent("main.qml")
-            var window = Component.createObject()
+            var window = Component.createObject(mainwindow)
             window.show()
 
             //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")

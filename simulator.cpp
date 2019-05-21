@@ -7,7 +7,7 @@ namespace Simulator {
     void Simulate(Automata& automata)
     {
         automataGlob = &automata;
-        for (int simulation = 0; simulation < automata.GetMaxSimulations(); ++simulation) {
+         if (automata.GetCurrentGen().generationID < automata.GetMaxSimulations()){
             Generation newest;
             newest.generationID = automata.GetCurrentGen().generationID + 1;
             newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
