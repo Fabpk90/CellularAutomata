@@ -250,7 +250,6 @@ ApplicationWindow {
                 text: qsTr("Recompute")
                 onClicked: {
                     currentGeneration.text=myInterface.returnCurrentGen()
-                    myInterface.displayMatrix()
                 }
             }
 

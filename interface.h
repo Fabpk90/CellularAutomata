@@ -141,7 +141,6 @@ public:
     Q_INVOKABLE void removeAllRulesAutomata();
     Q_INVOKABLE void removeAllStatesAutomata();
     Q_INVOKABLE QColor stateColorFromSquareIndex(int index);
-    Q_INVOKABLE void displayMatrix();
     QString numbState() const;
 
 signals:
