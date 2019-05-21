@@ -23,7 +23,6 @@ void Interface::initialiseParser()
 void Interface::initMatrix()
 {
     matrixview->initMatrix();
-
 }
 
 QString Interface::type() const
@@ -43,11 +42,10 @@ void Interface::sendMandatoryInfo()
     CallSetDim();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
-    //Pour avoir sizeof(dataToParse)=4
+    //Pour avoir sizeof(dataToParse)=4, conforme au Parser
     dataToParse+="0";
     CallSetNeighborhood();
     dataToParse+="0";
-    std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl; //test
     this->parser.ParseAndAddType(&dataToParse);
     this->parser.GetAutomata()->SetMaxSimulations(m_maxGenerationsToSimulate.toUInt());
 }
