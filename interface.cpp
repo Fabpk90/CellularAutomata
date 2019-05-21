@@ -30,6 +30,16 @@ void Interface::printProbability()
     std::cout << "probability : " << m_probability.toStdString() << std::endl;
 }
 
+QString Interface::type() const
+{
+    return m_type;
+}
+
+QString Interface::dimension() const
+{
+    return m_dimension;
+}
+
 void Interface::sendMandatoryInfo()
 {
     dataToParse="";
@@ -84,6 +94,11 @@ void Interface::CallMatrixSize()
 void Interface::printPosAndCount()
 {
     std::cout << "posAndCount : " << m_posAndCount.toStdString() << std::endl;
+}
+
+QString Interface::stateToChangeTo() const
+{
+    return m_stateToChangeTo;
 }
 
 void Interface::printStateToChangeTo()
@@ -267,9 +282,29 @@ void Interface::printDimension()
     std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
 }
 
+QString Interface::neighborhood() const
+{
+    return m_neighborhood;
+}
+
+QString Interface::maxGenerationsToSimulate() const
+{
+    return m_maxGenerationsToSimulate;
+}
+
 void Interface::printMaxGenerationsToSimulate()
 {
     std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
+}
+
+QString Interface::sizeX() const
+{
+    return m_sizeX;
+}
+
+QString Interface::sizeY() const
+{
+    return m_sizeY;
 }
 
 void Interface::setProbability(QString probability)
@@ -437,6 +472,11 @@ void Interface::okCreateHistory()
 
 }
 
+QString Interface::stateName() const
+{
+    return m_stateName;
+}
+
 
 
 void Interface::printStateName()
@@ -444,9 +484,24 @@ void Interface::printStateName()
     std::cout << "StateName : " << m_stateName.toStdString() << std::endl;
 }
 
+QString Interface::getStateName()
+{
+    return m_stateName;
+}
+
+QString Interface::stateColor() const
+{
+    return m_stateColor;
+}
+
 void Interface::printStateColor()
 {
     std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
+}
+
+QString Interface::getStateColor()
+{
+    return m_stateColor;
 }
 
 void Interface::chooseGen(QString gen)
@@ -542,6 +597,19 @@ QColor Interface::stateColorFromSquareIndex(int index)
     return parser.GetAutomata()->GetStates().at(indexOfState).color.name(QColor::HexRgb);
 }
 
+void Interface::displayMatrix(){
+    cout << "Gen " << parser.GetAutomata()->GetCurrentGen().generationID << ":" << endl;
+    cout << "Amount of Generations:" << parser.GetAutomata()->GetGenerations().size() << endl;
+    for(unsigned int i = 0; i < parser.GetAutomata()->GetSizeX(); i++)
+    {
+        for(unsigned int j = 0; j < parser.GetAutomata()->GetSizeY(); j++)
+        {
+            cout << parser.GetAutomata()->GetCellState(i,j).name << " " << endl;
+        }
+        cout << endl;
+    }
+}
+
 
 int Interface::getRememberIndex() const
 {
@@ -557,7 +625,7 @@ void Interface::associateStateAndIndex(QString StateIndex)
 {
     QString composite = "(";
     if(posAndCount() == "Position"){
-            if (dimension() == "OneDimension"){
+        if (dimension() == "OneDimension"){
             switch (rememberIndex) {
             case 0:
                 composite.append("-1;0;");
@@ -648,6 +716,21 @@ void Interface::setEngine(QQmlApplicationEngine *value)
     engine = value;
 }
 
+List *Interface::getStateListView()
+{
+    return &stateListView;
+}
+
+List *Interface::getRuleListView()
+{
+    return &ruleListView;
+}
+
+QString Interface::probability() const
+{
+    return m_probability;
+}
+
 Matrixview *Interface::getMatrixview() const
 {
     return matrixview;
@@ -684,5 +767,10 @@ void Interface::callLoad(QString name, QString path){
 
 void Interface::callExecution(){
    this->parser.GetAutomata()->Simulate();
+}
+
+QString Interface::posAndCount() const
+{
+    return m_posAndCount;
 }
 

@@ -277,7 +277,7 @@ ApplicationWindow {
         selectExisting: false
         selectMultiple: false
         onAccepted: {
-            myInterface.callSaveMatrix("test",this.fileUrl)//TODO
+            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))//TODO
         }
         onRejected: {
         }
@@ -290,7 +290,7 @@ ApplicationWindow {
         folder: shortcuts.home
         onAccepted: {
 
-           myInterface.callLoad("test", this.fileUrl)
+           myInterface.callLoad("test", Qt.resolvedUrl(this.fileUrl))
 
         }
         onRejected: {

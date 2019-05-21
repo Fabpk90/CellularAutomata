@@ -63,7 +63,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: neighborhoodFrameTitle
-                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.\n Press the \"Y\" button to individually \n confirm the selected cases.")
             }
             Frame{
                 id: neighborhoodFrame
@@ -114,7 +114,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: countFrameTitle
-                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.\n Press the \"Y\" button to individually \n confirm the selected cases.")
             }
             Frame{
                 id: countFrame
@@ -134,11 +134,8 @@ ApplicationWindow{
                                     id: countRectangle
                                     width: parent.width
                                     height: parent.height
-                                    color: "lightgrey" //TODO change color to actual color
+                                    color: "lightgrey"
                                 }
-                                /*Text{
-                                    text: index //TEST affiche
-                                }*/
 
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
@@ -173,7 +170,7 @@ ApplicationWindow{
                 anchors.verticalCenter: parent.verticalCenter
                 id: newStateFrame
                 implicitHeight: 30
-                implicitWidth: 30
+                implicitWidth: 45
                 spacing: 10
                 Row{
                     anchors.centerIn: parent
@@ -186,7 +183,7 @@ ApplicationWindow{
                             width: parent.width
                             height: parent.height
                             anchors.centerIn: parent.Center
-                            color:"lightgreen" //TODO change color to actual color
+                            color:"lightgrey"
                         }
                         onClicked: {
                             myInterface.setRememberIndex(9)
@@ -265,7 +262,7 @@ ApplicationWindow{
             anchors.verticalCenter: parent.verticalCenter
             id: stochasticDynState
                 implicitHeight: 30
-                implicitWidth: 30
+                implicitWidth: 45
                 spacing: 10
                 Row{
                     anchors.centerIn: parent
@@ -278,7 +275,7 @@ ApplicationWindow{
                             width: parent.width
                             height: parent.height
                             anchors.centerIn: parent.Center
-                            color: "lightblue"
+                            color: "lightgrey"
                         }
                         onClicked: {
                             myInterface.setRememberIndex(10)
