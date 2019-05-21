@@ -34,9 +34,9 @@ void RuleStochastic::Apply(int x, int y){
             std::cout << "Positions size: " << positions.size() << " Param size: " << this->parameters.size() << endl;
             std::cout << "States size: " << testState.size() << " State: " << this->parameters[1].toCheckAgainst->name << " In testState: " << testState[0]->name << endl;
             if (Simulator::ComputePosition(positions, testState,x,y)){ // si la règle est effectivement vraie on applique
-                automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->NextGen();
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
-                automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->PreviousGen();
             }
         }
         else {
@@ -49,9 +49,9 @@ void RuleStochastic::Apply(int x, int y){
                 }
             }
             if (applyCount){  // si la règle est effectivement vraie on applique
-                automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->NextGen();
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
-                automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->PreviousGen();
             }
         }
     }
