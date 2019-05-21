@@ -267,9 +267,15 @@ ApplicationWindow{
             var window = Component.createObject(mainwindow)
             window.show()
             if(stateListView.getListCount()<1)
+            {
+                okButton.visible=false
                 addRule.visible=false
+            }
             if (stateListView.getListCount()>=1)
+            {
+                okButton.visible=true
                 addRule.visible=true
+            }
         }
     }
     Button {
@@ -308,9 +314,11 @@ ApplicationWindow{
     }
 
     Button{
+        id: okButton
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("OK")
+        visible: false
         onClicked: {
             myInterface.sendMandatoryInfo()
             myInterface.sizeTheVector()
