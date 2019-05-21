@@ -35,14 +35,11 @@ ApplicationWindow {
             window.show()
 */
             matrixCustom.close()
-            /*Cause des crash de QML*/
             mainwindow.close()
             myInterface.initMatrix()
              var Component = Qt.createComponent("main.qml")
             var window = Component.createObject(mainwindow)
             window.show()
-
-            //  print("JES PEUX FAIRE DES TRUCS LAAAAAA ICI")
         }
     }
         Button{
@@ -114,7 +111,7 @@ ApplicationWindow {
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
          highlightFollowsCurrentItem: false
-         cellWidth: matrixCustom.width/mod.listOfState.returnSize() //TODO cas où listOfState >= mainwindow.width
+         cellWidth: matrixCustom.width/mod.listOfState.returnSize()
          cellHeight: cellWidth
          cacheBuffer: 2000
          flickableDirection: Flickable.HorizontalAndVerticalFlick

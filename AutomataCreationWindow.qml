@@ -293,7 +293,6 @@ ApplicationWindow{
         }
 
         onClicked: {
-            //TODO test all required checks
             myInterface.cleanRuleCreationWindow()
             if(twoDim.checked){
                 if(vonNeumann.checked){
