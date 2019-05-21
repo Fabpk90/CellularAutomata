@@ -23,8 +23,8 @@ ApplicationWindow {
         text: qsTr("Ok")
         //onClicked:myInterface.call
         onClicked: {
-            myInterface.okCreateState(";")
             stateListView.appendState()
+            myInterface.okCreateState(";")
             stateCreation.close()
         }
     }
@@ -104,7 +104,7 @@ ApplicationWindow {
             y: 8
             width: 140
             height: 18
-            text: qsTr("State")
+            text: qsTr("State"+myInterface.numbState)
             activeFocusOnPress: true
             cursorVisible: true
             font.pixelSize: 12
@@ -112,7 +112,6 @@ ApplicationWindow {
             {
                 myInterface.stateName = textInput1.text
                 stateListView.setStateName(myInterface.getStateName())
-                //myInterface.printStateName()
             }
         }
     }

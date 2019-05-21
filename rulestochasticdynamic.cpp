@@ -14,10 +14,6 @@ float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de
     for (int i = 0; i < automata->GetNeigborhoodPositions().size(); i++) {
        posX = automata->GetNeigborhoodPositions()[i].first + currentCellX;
        posY = automata->GetNeigborhoodPositions()[i].second + currentCellY;
-       /*-----------------------------------------------
-       CHECK FOR FUCKING LOOPS SOMEWHERE EITHER HERE OR
-       IN GETCELLSTATE, JUST DON'T FORGET !
-       -----------------------------------------------*/
        prob += (automata->GetCellState(posX,posY).color
                 == this->parameters[0].toCheckAgainst->color);
     }

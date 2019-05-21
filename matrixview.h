@@ -26,6 +26,7 @@ public:
     void setListOfState(const QVector<State> &value);
 
     void emptyMatrix();
+    void selectGen(int gen);
 
 signals:
     void preCellAppended();

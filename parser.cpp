@@ -38,8 +38,7 @@ void Parser::SetAutomata(Automata *automata)
         genID;
  * */
 
-// A COMPLETER
-// Lance exception, à mettre dans un try catch
+
 void  Parser::ParseFile(const string* path)
 {
     delete automata;
@@ -137,7 +136,6 @@ Parser::~Parser()
     delete automata;
 }
 
-//TODO : test
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
     string data = "";
@@ -165,7 +163,6 @@ string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen
     return data;
 }
 
-//TODO : test
 string  Parser::GetDataToBeSaved()
 {
     string data = "";
@@ -198,8 +195,6 @@ void  Parser::ParseAndAddRules(string* index)
 {
     if(index->at(0) != '0') // aucune règle à interpreter
     {
-        //TODO: test just before adding if the indexes are truly there (states[i] exists)
-        //Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;
         uint i = 2;
         while(i != index->size())
         {
@@ -242,16 +237,15 @@ void  Parser::ParseAndAddRules(string* index)
                         } catch (string const& error) {
                             throw (error);
                         }
-                         //cout << "length: " << lengthStates << endl;
-                        if(lengthStates > 0) // TODO: more testing of the value !
+
+                        if(lengthStates > 0)
                         {
                             vector<Rule::RuleParameters> parameters;
                             const vector<State>& states = automata->GetStates();
                             Rule::RuleParameters param;
                             for (int j = 0; j < lengthStates; ++j) {
                                 param.toCheckAgainst = nullptr;
-                                 //cout << "Should be ( : " << (*index)[i] << endl;
-                                i++; //skipping '('
+                                i++;
                                 try {
                                 param.x = ParseInt(*index, i);
                                 } catch (string const& error) {
@@ -276,8 +270,7 @@ void  Parser::ParseAndAddRules(string* index)
                                     param.toCheckAgainst = check;
                                 }
                                 parameters.push_back(param);
-                                //TODO: check for the state and add an error throw in parseint
-                                //cout << "Should be ; : " << (*index)[i] << endl;
+
                                 i++;//skipping ';'
                             }
 
@@ -362,7 +355,6 @@ void  Parser::ParseAndAddRules(string* index)
 
 }
 
-// Not tested nor approved
 void  Parser::ParseAndAddStates(string* index)
 {
     if(index->at(0) != '0'){
@@ -411,7 +403,6 @@ void  Parser::ParseAndAddStates(string* index)
         }
         cout<<cptVerifNbStates<<endl;
         if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
-        // Jusque là tout est okay
 
         // Parsing des états
         while(i < index->size()){
@@ -463,8 +454,7 @@ void  Parser::ParseAndAddStates(string* index)
     }
 }
 
-// Testé et approuvé par Amélie Le Roux lol
-// Lance les exceptions de parsing
+
 void  Parser::ParseAndAddType(string* index)
 {
     if(index->size() != 4){
@@ -485,8 +475,7 @@ void  Parser::ParseAndAddType(string* index)
     automata->SetNeighborhood(asciiNei - 48);
 }
 
-// Testé et approuvé par Amélie Le Roux yé
-// Lance exceptions de parsing
+
 void  Parser::ParseAndAddSize(string* index)
 {
     cout << "Parse and add size :" << *index << endl;
@@ -529,7 +518,7 @@ void  Parser::ParseAndAddSize(string* index)
     automata->SetSizeXY(x, y);
 }
 
-//TODO : Test et ajout erreur
+
 void  Parser::ParseHistory(string* index)
 {
     cout << *index << endl;
@@ -736,7 +725,7 @@ string Parser::HistoryToString(uint startGen, uint endGen)
     return "";
 }
 
-//TODO : Test il manque EtatDep ;EtatCond ;
+
 string  Parser::RulesToString()
 {
 

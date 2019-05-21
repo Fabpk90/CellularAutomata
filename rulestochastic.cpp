@@ -31,7 +31,6 @@ void RuleStochastic::Apply(int x, int y){
                 automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-                    //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
             }
         }
         else {
@@ -47,7 +46,6 @@ void RuleStochastic::Apply(int x, int y){
                 automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-                //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
             }
         }
     }
