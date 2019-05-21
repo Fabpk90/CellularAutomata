@@ -211,7 +211,7 @@ void  Parser::ParseAndAddRules(string* index)
             if(ruleType == "Position" || ruleType == "Count")
             {
                 bool isComputePosition = ruleType == "Position" ? true : false;
-                i++;//skipping the ;
+                i++;//skip ';'
                 int indexStartState = 0;
                 try {
                     indexStartState = ParseInt(*index, i);
@@ -220,7 +220,7 @@ void  Parser::ParseAndAddRules(string* index)
                 }
 
                 cout << "index start: " << indexStartState << endl;
-                if(indexStartState >= 0) // if the index of the starting state is correct
+                if(indexStartState >= 0) // si l'indice de l'état de départ est correct, on peut continuer
                 {
                     int indexEndState = 0;
                     try {
@@ -229,7 +229,7 @@ void  Parser::ParseAndAddRules(string* index)
                         throw (error);
                     }
                    cout << "index end: " << indexEndState << endl;
-                    if(indexEndState >= 0) // if the index of the changing state is correct
+                    if(indexEndState >= 0) // si l'indice de l'état d'arrivée est correct, on peut continuer
                     {
                         int lengthStates = 0;
                         try {
@@ -243,7 +243,7 @@ void  Parser::ParseAndAddRules(string* index)
                             vector<Rule::RuleParameters> parameters;
                             const vector<State>& states = automata->GetStates();
                             Rule::RuleParameters param;
-                            for (int j = 0; j < lengthStates; ++j) {
+                            for (int j = 0; j < lengthStates; ++j) { //chargement des paramamètres
                                 param.toCheckAgainst = nullptr;
                                 i++;
                                 try {
@@ -271,8 +271,8 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 parameters.push_back(param);
 
-                                i++;//skipping ')'
-                                i++;//skipping;
+                                i++;//skip ')'
+                                i++;//skip ';'
                             }
 
                             State* stateStart = new State();
@@ -283,7 +283,7 @@ void  Parser::ParseAndAddRules(string* index)
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
                             //cout << "index at " << index->at(i) << endl;
-                            if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
+                            if(index->size() != i && index->at(i) != '\n') //si vrai, c'est une stocha ou stochadyn
                             {
                                  cout << "Stocha or dyn" << endl;
                                 string strProba = "";
@@ -296,7 +296,7 @@ void  Parser::ParseAndAddRules(string* index)
 
                                 cout << "Proba: " << proba << endl;
 
-                                if((*index)[i] != '\0') // it is definitely a stochadyn
+                                if((*index)[i] != '\0') // c'est une règle stocha dyn
                                 {
                                     int indexEtatCond = ParseInt(*index, i);
                                     param.x = param.y = 0;
