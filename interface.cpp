@@ -87,17 +87,17 @@ QString Interface::stateToChangeTo() const
     return m_stateToChangeTo;
 }
 
-void Interface::CallSetProbability(QString probability)
+void Interface::CallSetProbability()
 {
 
 }
 
-void Interface::CallSetPosAndCount(QString posAndCount)
+void Interface::CallSetPosAndCount()
 {
 
 }
 
-void Interface::CallSetStateToChangeTo(QString stateToChangeTo)
+void Interface::CallSetStateToChangeTo()
 {
 
 }
@@ -189,23 +189,23 @@ void Interface::okCreateRule()
             stateArray[i] = 0;
         }
         for(int i = 0; i < SIZEOFINDEXARRAYS - 2; i++){
-            std::cout << "coucou" << std::endl;
+            //std::cout << "coucou" << std::endl;
             if(dimension() == "OneDimension"){//evite le cas "central"
-                std::cout<< "matrix O= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
+                //std::cout<< "matrix O= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                 if(i!=1 && matrixIndexAndStateIndex[i] != "("){
                     stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                 }
             }
             if(dimension() == "TwoDimensions"){//evite le cas "central"
                 if(neighborhood() == "Moore"){
-                    std::cout<< "matrix Moore = " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
+                    //std::cout<< "matrix Moore = " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                     if(i!=4 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
                 }
                 else if (neighborhood() == "Von Neumann")
                 {
-                    std::cout<< "matrix VM= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
+                    //std::cout<< "matrix VM= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                     if(i!=4 && i!= 0 && i!=2 && i!=6 && i!=8 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
@@ -214,9 +214,9 @@ void Interface::okCreateRule()
                 
             }
         }
-        for(int n = 0; n<sizeofarray; n++){//test
+        /*for(int n = 0; n<sizeofarray; n++){//test
             std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
-        }
+        }*/
         lengthCond = sizeofarray;
         for (int i = 0; i < sizeofarray; i++)
         {
@@ -254,7 +254,7 @@ void Interface::okCreateRule()
     }
     string stdRule = rule.toStdString();
     stdRule.append("\n");
-    std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
+    //std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
@@ -392,19 +392,10 @@ void Interface::setNumbState(QString numbState)
     emit numbStateChanged(m_numbState);
 }
 
-//Interface::Interface(QObject *parent) : QObject(parent)
-void Interface::CallSetStateName(QString probability){
-
-
-
-
-
+void Interface::CallSetStateName(){
 }
 
-void Interface::CallSetColor(QString color){
-
-
-
+void Interface::CallSetColor(){
 }
 
 void Interface::okCreateState(QString state){
@@ -429,7 +420,6 @@ void Interface::okCreateState(QString state){
 
 void Interface::okCreateHistory()
 {
-   // srand(time(NULL));
     cout<<"okcreatehistory"<<endl;
     int s=stateVector.size();
     int sizeOfStates=parser.GetAutomata()->GetStates().size();

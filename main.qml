@@ -66,13 +66,12 @@ ApplicationWindow {
     GridView{
          id:mat
          anchors.fill : parent
-         //visible: false //TODO uncomment in final version
          contentHeight: mainwindow.height - footer.height
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
          highlightFollowsCurrentItem: false
-         cellWidth: mainwindow.width/mod.listOfState.returnSize() //TODO cas où listOfState >= mainwindow.width
+         cellWidth: mainwindow.width/mod.listOfState.returnSize()
          cellHeight: cellWidth
          cacheBuffer: 2000
          flickableDirection: Flickable.HorizontalAndVerticalFlick
@@ -90,7 +89,7 @@ ApplicationWindow {
                  MouseArea{
                  id: mousearea
                  anchors.fill:parent
-                 onClicked: print(tooltip.text+""+index)
+                 //onClicked: print(tooltip.text+""+index)
                  ToolTip{
                      id:tooltip
                      text: qsTr(model.name)
@@ -137,8 +136,6 @@ ApplicationWindow {
                     y: info.y-200
                    width: 110
                     height: 200
-                  /*  modal: true
-                    focus: true*/
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
                    contentItem:  Column{
                        id: listOfState
