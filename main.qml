@@ -140,8 +140,7 @@ ApplicationWindow {
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
                    contentItem:  Column{
                        id: listOfState
-                       anchors.right: popup.horizontalCenter //parent.horizontalCenter
-                       //anchors.rightMargin: 100
+                       anchors.right: popup.horizontalCenter
 
                        ListView{
                            id: stateView
@@ -201,6 +200,7 @@ ApplicationWindow {
                 Layout.maximumWidth: 50
                 onClicked: {
                     myInterface.chooseGen(textField.text)
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
