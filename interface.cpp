@@ -540,7 +540,6 @@ void Interface::sizeTheVector()
      stateVector[i]=-1;
 
     }
-    cout<<"StateVectorSize"<<size<<endl;
 }
 
 void Interface::displayEverything()
