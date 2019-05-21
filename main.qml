@@ -29,7 +29,6 @@ ApplicationWindow {
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
-                    myInterface.loadInterface()
                 }
             }
 
@@ -285,7 +284,7 @@ ApplicationWindow {
            var Component = Qt.createComponent("main.qml")
            var window = Component.createObject(mainwindow)
            window.show()
-
+           myInterface.loadInterface()
         }
         onRejected: {
         }
