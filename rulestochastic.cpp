@@ -15,28 +15,31 @@ RuleStochastic::RuleStochastic(bool isComputePosition, Automata* automata, State
 
 void RuleStochastic::Apply(int x, int y){
 
-    // pour l'aléatoire sur la proba :
+    //Pour l'aléatoire sur la proba :
     float randomNumber = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-    std::cout << "Ich bein stochastic: " << randomNumber << " GetProba: " << GetProbability() << endl;
 
-    //if (randomNumber<=GetProbability()){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
-    if(randomNumber <= 0.56)
-    {
+    if(randomNumber<=GetProbability()){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
         if(this->isComputePosition){ // on verifie si on doit computeposition ou computecount
-            // dans computePositon et l'autre compute le seul paramètre devrait être le vecteur de rulesParameters
+
+            //On prépare les vecteurs pour ComputePosition
             std::vector<std::pair<int, int>> positions;
             std::vector<State*> testState;
-            for (unsigned long i = 1; i < this->parameters.size(); i++) {
-
+            for (unsigned long i = 1; i < this->parameters.size(); i++)
+            {
                 positions.push_back(std::make_pair(this->parameters[i].x,this->parameters[i].y));
                 testState.push_back(this->parameters[i].toCheckAgainst);
             }
-            std::cout << "Positions size: " << positions.size() << " Param size: " << this->parameters.size() << endl;
-            std::cout << "States size: " << testState.size() << " State: " << this->parameters[1].toCheckAgainst->name << " In testState: " << testState[0]->name << endl;
+
             if (Simulator::ComputePosition(positions, testState,x,y)){ // si la règle est effectivement vraie on applique
+<<<<<<< HEAD
+                automata->NextGen();//On passe à la "nouvelle" génération pour pouvoir Set la cellule
+                automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
+                automata->PreviousGen(); //On retourne à la génération sur laquelle on fait les observations
+=======
                 automata->NextGen();
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen();
+>>>>>>> 53844fa14bdd6618d3bebd63b25a9a40bf3571be
             }
         }
         else {
@@ -48,10 +51,17 @@ void RuleStochastic::Apply(int x, int y){
                     break;
                 }
             }
+<<<<<<< HEAD
+            if (applyCount){  //si la règle est effectivement vraie on applique
+                automata->NextGen();//On passe à la "nouvelle" génération pour pouvoir Set la cellule
+                automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
+                automata->PreviousGen();//On retourne à la génération sur laquelle on fait les observations
+=======
             if (applyCount){  // si la règle est effectivement vraie on applique
                 automata->NextGen();
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
                 automata->PreviousGen();
+>>>>>>> 53844fa14bdd6618d3bebd63b25a9a40bf3571be
             }
         }
     }
