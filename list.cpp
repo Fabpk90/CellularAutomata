@@ -47,7 +47,6 @@ void List::appendState()
     item.stateColor=stateColorTmp;
     std::to_string(item.number);
     mItems.append(item);
-
     emit postItemAppended();
 }
 
@@ -71,7 +70,7 @@ void List::setEngine(QQmlApplicationEngine *value)
 
 void List::setStateName(QString stateName)
 {
-    stateNameTmp=stateName;
+    this->stateNameTmp=stateName;
 }
 
 void List::removeAllItems()

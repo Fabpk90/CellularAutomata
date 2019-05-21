@@ -503,9 +503,10 @@ void Interface::loadInterface()
    }
    for(uint i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
-       //stateListView.appendState();
        setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));
+       stateListView.setStateName(m_stateName);
        setStateColor(parser.GetAutomata()->GetStates().at(i).color.name(QColor::HexRgb));
+       stateListView.setStateColor(m_stateColor);
        stateListView.appendState();
    }
    if(parser.GetAutomata()->GetSizeY()==1) setDimension("OneDimension");
