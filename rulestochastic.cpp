@@ -36,7 +36,7 @@ void RuleStochastic::Apply(int x, int y){
         }
         else {
             bool applyCount = true;
-            for (unsigned long i = 1; this->parameters.size(); i++) {
+            for (unsigned long i = 1; i < this->parameters.size(); i++) {
                 if(!Simulator::ComputeCount(this->parameters[i].x, this->parameters[i].toCheckAgainst,x,y))
                 {
                     applyCount = false;
