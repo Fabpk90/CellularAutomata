@@ -733,9 +733,11 @@ void Interface::callSaveMatrix(QString path, QString name, QString firstGen, QSt
 }
 
 void Interface::callLoad(QString name, QString path){
-    string pa=path.toStdString();
+   string pa=path.toStdString();
    this->parser.ParseFile(&pa);
-
+   matrixview->setParser(&this->parser);
+   initMatrix();
+   matrixview->getEngine()->rootContext()->setContextProperty(QStringLiteral("matrixview"),matrixview);
 }
 
 void Interface::callExecution(){
