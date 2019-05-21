@@ -21,7 +21,7 @@ ApplicationWindow {
         width: 83
         height: 29
         text: qsTr("Ok")
-        //onClicked:myInterface.call
+        visible: false
         onClicked: {
             stateListView.appendState()
             myInterface.okCreateState(";")
@@ -66,7 +66,10 @@ ApplicationWindow {
         x: 56
         y: 81
         text: qsTr("Choose Color")
-        onClicked: colorDialog.open()
+        onClicked: {
+            colorDialog.open()
+            button.visible=true
+        }
     }
 
     Rectangle {
