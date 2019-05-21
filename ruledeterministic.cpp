@@ -22,9 +22,9 @@ void RuleDeterministic::Apply(int x, int y){
         }
         std::cout << "Positions size: " << positions.size() << " Param size: " << this->parameters.size() << endl;
         if (Simulator::ComputePosition(positions, testState, x, y)){ // si la règle est effectivement vraie on applique
-                automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->NextGen();
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
-                automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->PreviousGen();
 
         }
     }
@@ -38,10 +38,9 @@ void RuleDeterministic::Apply(int x, int y){
             }
         }
         if (applyCount){ // si la règle est effectivement vraie on applique
-                automata->NextGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
+                automata->NextGen();
                 automata->SetCell(x,y, *toChangeInto); // changement de l'état de la cellule
-                automata->PreviousGen();//Cheat to protect the specs, remove if simulate is able to produce the NewGen
-                //FAUT VOIR SI C'EST BIEN CA QU'Il FAUT FAIRE EN FONCTION DE LA PROCEDURALE
+                automata->PreviousGen();
         }
     }
 }

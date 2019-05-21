@@ -1,6 +1,6 @@
 #include "simulator.h"
 #include <iostream>
-Automata* automataGlob; // TEMPORAIRE POUR EVITER ERRRORS
+Automata* automataGlob;
 
 
 namespace Simulator {
