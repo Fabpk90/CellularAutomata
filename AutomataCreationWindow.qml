@@ -288,7 +288,7 @@ ApplicationWindow{
             //TODO test all required checks
             myInterface.cleanRuleCreationWindow()
             if(twoDim.checked){
-                if(vonNeumann.checked && myInterface.neighborhood()==="Von Neumann"){
+                if(vonNeumann.checked){
                     var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")
                     var vonNeumannWindow = vonNeumannCreationWindow.createObject(mainwindow)
                     vonNeumannWindow.show()
