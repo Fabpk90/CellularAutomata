@@ -63,7 +63,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: neighborhoodFrameTitle
-                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.\n Press the \"Y\" button to individually \n confirm the selected cases.")
             }
             Frame{
                 id: neighborhoodFrame
@@ -118,7 +118,7 @@ ApplicationWindow{
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id: countFrameTitle
-                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.")
+                text: qsTr("You may fill the squares with their \n corresponding states, the central square \n is the current state to test and must be set.\n Press the \"Y\" button to individually \n confirm the selected cases.")
             }
             Frame{
                 id: countFrame
@@ -190,7 +190,7 @@ ApplicationWindow{
                             width: parent.width
                             height: parent.height
                             anchors.centerIn: parent.Center
-                            color:"lightgreen" //TODO change color to actual color
+                            color:"lightgrey"
                         }
                         onClicked: {
                             myInterface.setRememberIndex(9)
@@ -282,7 +282,7 @@ ApplicationWindow{
                             width: parent.width
                             height: parent.height
                             anchors.centerIn: parent.Center
-                            color: "lightblue" //TODO change color to actual color
+                            color: "lightgrey"
                         }
                         onClicked: {
                             myInterface.setRememberIndex(10)
