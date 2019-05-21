@@ -307,8 +307,8 @@ void  Parser::ParseAndAddRules(string* index)
                                     vector<Rule::RuleParameters> vec;
                                     vec.push_back(param);
 
-                                    for (int j = 0; j < parameters.size(); ++j) {
-                                        vec.push_back(parameters[i]);
+                                    for (uint j = 0; j < parameters.size(); ++j) {
+                                        vec.push_back(parameters[j]);
                                     }
 
                                     RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, automata, endState, stateStart, vec, proba);
