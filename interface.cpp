@@ -145,7 +145,7 @@ void Interface::okCreateRule()
     int lengthCond = 0;
     QString rule = "";//la regle qu'on va envoyer au parser
     QString compositeCount = "";
-
+    rule.append("1;");
     rule.append(posAndCount()); //position
     rule.append(";");
 
