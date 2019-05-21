@@ -364,93 +364,93 @@ void  Parser::ParseAndAddRules(string* index)
 // Not tested nor approved
 void  Parser::ParseAndAddStates(string* index)
 {
-    cout << *index << endl;
-    cout << index->size() << endl;
-    int sizeIndex = index->size();
-    int cpt = 0;
-    int cptVerifNbStates = 0;
-    int i = 0;
-    string nbStatesS = "";
-    int nbStates = 0;
-    int ascii = 0;
-    int parite = 0;
-    State currentS;
-    currentS.name = "";
-    string currentcolorS = "";
+    if(index->at(0) != '0'){
+        cout << *index << endl;
+        cout << index->size() << endl;
+        int sizeIndex = index->size();
+        int cpt = 0;
+        int cptVerifNbStates = 0;
+        int i = 0;
+        string nbStatesS = "";
+        int nbStates = 0;
+        int ascii = 0;
+        int parite = 0;
+        State currentS;
+        currentS.name = "";
+        string currentcolorS = "";
 
-    if(sizeIndex < 3){
-        throw(string("ParseAndAddStates : Minimum number of arguments not met"));
-    }
-
-    // Parsing jusqu'au NbStates
-    while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
-        if(index[0][i] == ';'){
-            cpt++;
+        if(sizeIndex < 3){
+            throw(string("ParseAndAddStates : Minimum number of arguments not met"));
         }
-        // premier ';' celui apres E donc cpt > 1
-        if(cpt >= 0){
-            ascii = index[0][i];
-            if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
-            else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
-                throw(string("ParseAndAddStates : Number of States is not an int"));
+
+        // Parsing jusqu'au NbStates
+        while(cpt < 1 || (cpt == 1 && index[0][i] == ';')){
+            if(index[0][i] == ';'){
+                cpt++;
             }
-        }
-        i++;
-    }
-
-
-    cout << "Nb states = " << nbStatesS << endl;
-    nbStates = stoi(nbStatesS);
-    cout << "Nb states = " << nbStates << endl;
-
-    // Vérification du bon nombre de ';' en fonction du nombre d'états
-    for(int k = i; k < sizeIndex; k ++){
-        ascii = index[0][k];
-        if(ascii == ';') cptVerifNbStates++;
-    }
-    cout<<cptVerifNbStates<<endl;
-    if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
-    // Jusque là tout est okay
-
-    // Parsing des états
-    while(i < index->size()){
-        ascii = index[0][i];
-        while(ascii != ';'){
-            ascii = index[0][i];
-            if(parite % 2 == 0 && ascii != ';'){
-                //QColor
-                currentcolorS += index[0][i];
-            }
-            else if(ascii != ';'){
-                //Name
-                currentS.name += index[0][i];
+            // premier ';' celui apres E donc cpt > 1
+            if(cpt >= 0){
+                ascii = index[0][i];
+                if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
+                else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+                    throw(string("ParseAndAddStates : Number of States is not an int"));
+                }
             }
             i++;
-            cout << (char) (ascii) << endl;
         }
-        parite++;
-        cout << parite << " " << i << " " << currentcolorS << endl;
-        if(parite >= 1 && parite % 2){
-            if(currentcolorS.size() != 7){
-                throw(string("ParseAndAddStates : Color wrong format"));
+
+        cout << "Nb states = " << nbStatesS << endl;
+        nbStates = stoi(nbStatesS);
+        cout << "Nb states = " << nbStates << endl;
+
+        // Vérification du bon nombre de ';' en fonction du nombre d'états
+        for(int k = i; k < sizeIndex; k ++){
+            ascii = index[0][k];
+            if(ascii == ';') cptVerifNbStates++;
+        }
+        cout<<cptVerifNbStates<<endl;
+        if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
+        // Jusque là tout est okay
+
+        // Parsing des états
+        while(i < index->size()){
+            ascii = index[0][i];
+            while(ascii != ';'){
+                ascii = index[0][i];
+                if(parite % 2 == 0 && ascii != ';'){
+                    //QColor
+                    currentcolorS += index[0][i];
+                }
+                else if(ascii != ';'){
+                    //Name
+                    currentS.name += index[0][i];
+                }
+                i++;
+                cout << (char) (ascii) << endl;
+            }
+            parite++;
+            cout << parite << " " << i << " " << currentcolorS << endl;
+            if(parite >= 1 && parite % 2){
+                if(currentcolorS.size() != 7){
+                    throw(string("ParseAndAddStates : Color wrong format"));
+                }
+                else{
+                    int number = (int) strtol(&currentcolorS[1], NULL, 16);
+                    int r = number >> 16;
+                    int g = number >> 8 & 0xFF;
+                    int b = number & 0xFF;
+                    currentS.color.setRgb(r,g,b);
+                    if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
+                    currentcolorS = "";
+                }
             }
             else{
-                int number = (int) strtol(&currentcolorS[1], NULL, 16);
-                int r = number >> 16;
-                int g = number >> 8 & 0xFF;
-                int b = number & 0xFF;
-                currentS.color.setRgb(r,g,b);
-                if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
-                currentcolorS = "";
+                cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
+                automata->AddState(currentS);
+                currentS.name = "";
             }
         }
-        else{
-            cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
-            automata->AddState(currentS);
-            currentS.name = "";
-        }
     }
-
 }
 
 // Testé et approuvé par Amélie Le Roux lol
