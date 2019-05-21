@@ -14,7 +14,6 @@
 
 #define SIZEOFINDEXARRAYS 11
 
-//TODO ALL THE INPUT TESTS
 class Interface : public QObject
 {
     Q_OBJECT

@@ -183,29 +183,24 @@ void Interface::okCreateRule()
             }
         }
         sizeofarray = sizeofarray + 1; //cette taille va aussi servir a determiner length cond
-        //std::cout << "sizeofarray = " << sizeofarray << std::endl; //test
         int stateArray[sizeofarray];
         for(int i = 0; i<sizeofarray; i++){//initialise le tableau (impossible d'initialiser un tableau de taille variable avec {0})
             stateArray[i] = 0;
         }
         for(int i = 0; i < SIZEOFINDEXARRAYS - 2; i++){
-            //std::cout << "coucou" << std::endl;
             if(dimension() == "OneDimension"){//evite le cas "central"
-                //std::cout<< "matrix O= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                 if(i!=1 && matrixIndexAndStateIndex[i] != "("){
                     stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                 }
             }
             if(dimension() == "TwoDimensions"){//evite le cas "central"
                 if(neighborhood() == "Moore"){
-                    //std::cout<< "matrix Moore = " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                     if(i!=4 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
                 }
                 else if (neighborhood() == "Von Neumann")
                 {
-                    //std::cout<< "matrix VM= " << matrixIndexAndStateIndex[i].toStdString() << "matrix to int =" << matrixIndexAndStateIndex[i].toInt() << std::endl;
                     if(i!=4 && i!= 0 && i!=2 && i!=6 && i!=8 && matrixIndexAndStateIndex[i] != "("){
                         stateArray[matrixIndexAndStateIndex[i].toInt()]++;
                     }
@@ -214,9 +209,6 @@ void Interface::okCreateRule()
                 
             }
         }
-        /*for(int n = 0; n<sizeofarray; n++){//test
-            std::cout << "state " << n << " apparait " << stateArray[n] << " fois" <<std::endl;
-        }*/
         lengthCond = sizeofarray;
         for (int i = 0; i < sizeofarray; i++)
         {
@@ -254,7 +246,7 @@ void Interface::okCreateRule()
     }
     string stdRule = rule.toStdString();
     stdRule.append("\n");
-    //std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
+    //std::cout << "Rule sent to parser = " << stdRule << std::endl;
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
