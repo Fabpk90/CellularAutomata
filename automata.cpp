@@ -84,8 +84,6 @@ void Automata::AddGeneration(Generation &generation)
 
     generations.push_back(generation);
 
-    cout << "Added a gen " <<generation.generationID<< endl;
-
     SortGenerations();
 }
 
@@ -97,13 +95,11 @@ void Automata::AddGenerations(vector<Generation> gens)
 
 void Automata::AddState(State &state)
 {
-    cout << "Adding state " << state.name << endl;
     definedStates.push_back(state);
 }
 
 void Automata::AddRule(Rule &rule)
 {
-    cout << "Adding Rule" << endl;
     rules.push_back(&rule);
 }
 
@@ -130,9 +126,6 @@ void Automata::RemoveGeneration(unsigned int index)
 
             it = generations.erase(it);
 
-            cout << "removed gen " << index << endl;
-            cout << "remaning gen " << generations.size() << endl;
-
             SortGenerations();
         }
         else
@@ -144,16 +137,13 @@ void Automata::RemoveGeneration(unsigned int index)
 
 void Automata::RemoveState(const State &toRemove)
 {
-    cout << "Removing state " << toRemove.name << endl;
-    //Invalide l'historique et supprime l'entrée du vecteur (@Fab)
+    //Invalide l'historique et supprime l'entrée du vecteur
     this->generations.clear();
 
     for (uint i = 0; i < definedStates.size(); ++i) {
         if(definedStates[i].color == toRemove.color)
             definedStates.erase(definedStates.begin() + i);
     }
-
-    cout << "Remaining states " << definedStates.size() << endl;
 }
 
 void Automata::RemoveAllRules()
@@ -217,11 +207,6 @@ void Automata::SetCell(uint x, uint y, State &newState)
 //TODO: test
 void Automata::SetCell(uint x, uint y, uint newState)
 {
-    cout << "eheheh " << generations[currentGen].generationID << endl;
-       cout << "Current Gen (No func) :" << currentGen << endl;
-        cout << "Current Gen (func) :" << GetCurrentGen().generationID << endl;
-       cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
-
     generations[currentGen].cellMatrix[x * sizeY + y] = newState;
 }
 
@@ -300,7 +285,6 @@ void Automata::NextGen()
         if(it == generations.end())
         {
             found = true;
-            cout << "No next gen" << endl;
         }
         else if(it->generationID == generations[currentGen].generationID)
         {
@@ -312,7 +296,6 @@ void Automata::NextGen()
                 cout << "gen not available(plus)" << endl;
             }
 
-            cout << "choose gen " << this->currentGen << endl;
         }
         else
         {
@@ -333,7 +316,6 @@ void Automata::PreviousGen()
         if(this->currentGen == 0)
         {
             found = true;
-            cout << "No previous gen" << endl;
         }
         else if(it->generationID == generations[currentGen].generationID)
         {
@@ -344,7 +326,6 @@ void Automata::PreviousGen()
                 cout << "gen not available (less)" << endl;
             }
 
-            cout << "choose gen " << this->currentGen << endl;
         }
         else
         {
@@ -367,7 +348,6 @@ void Automata::ChooseGen(unsigned int i)
 
             this->currentGen = i;
 
-            cout << "choose gen " << i << endl;
         }
         else
         {

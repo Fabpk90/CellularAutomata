@@ -9,30 +9,28 @@ RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, Automata* a
 
 float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de la règle
 
+
     float prob = 0.0;
     int posX = 0, posY = 0;
+
     for (int i = 0; i < automata->GetNeigborhoodPositions().size(); i++) {
        posX = automata->GetNeigborhoodPositions()[i].first + currentCellX;
        posY = automata->GetNeigborhoodPositions()[i].second + currentCellY;
-       prob += (automata->GetCellState(posX,posY).color
-                == this->parameters[0].toCheckAgainst->color);
+
+       //On compte le nombre de fois qu'on à l'état dont dépend la probabilité dans le voisinage
+       if(automata->GetCellState(posX,posY).color == this->parameters[0].toCheckAgainst->color)
+            prob++;
     }
     
+    //On forme la proba sur [0;1]
     prob /= 10;
+    //La proba est au maximum de 1
     if(prob > 1) return 1.0;
     return prob;
 }
 
 RuleStochasticDynamic::~RuleStochasticDynamic()
-{
-    //delete toChangeInto;
-    //delete startingState;
-
-    /*for(RuleParameters r : parameters)
-    {
-        //delete r.toCheckAgainst;
-    }*/
-}
+{}
 
 int RuleStochasticDynamic::GetType(){
     return 2;
