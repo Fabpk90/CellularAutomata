@@ -198,15 +198,12 @@ void  Parser::ParseAndAddRules(string* index)
         uint i = 2;
         while(i+1 < index->size())
         {
-            cout << "I: " << i << " " << index->size() << endl;
             string ruleType = "";
 
             while((*index)[i] != ';')
             {
                 ruleType += (*index)[i++];
             }
-            cout << *index << endl;
-            cout << "Rule type: " << ruleType << endl;
 
             if(ruleType == "Position" || ruleType == "Count")
             {
@@ -218,8 +215,6 @@ void  Parser::ParseAndAddRules(string* index)
                 } catch (string const& error) {
                     throw (error);
                 }
-
-                cout << "index start: " << indexStartState << endl;
                 if(indexStartState >= 0) // si l'indice de l'état de départ est correct, on peut continuer
                 {
                     int indexEndState = 0;
@@ -228,7 +223,6 @@ void  Parser::ParseAndAddRules(string* index)
                     } catch (string const& error) {
                         throw (error);
                     }
-                   cout << "index end: " << indexEndState << endl;
                     if(indexEndState >= 0) // si l'indice de l'état d'arrivée est correct, on peut continuer
                     {
                         int lengthStates = 0;
@@ -285,7 +279,6 @@ void  Parser::ParseAndAddRules(string* index)
                             //cout << "index at " << index->at(i) << endl;
                             if(index->size() != i && index->at(i) != '\n') //si vrai, c'est une stocha ou stochadyn
                             {
-                                 cout << "Stocha or dyn" << endl;
                                 string strProba = "";
                                 while((*index)[i] != ';')
                                 {
@@ -293,8 +286,6 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 i++;
                                 float proba = atof(strProba.c_str());
-
-                                cout << "Proba: " << proba << endl;
 
                                 if((*index)[i] != '\0') // c'est une règle stocha dyn
                                 {
@@ -322,20 +313,12 @@ void  Parser::ParseAndAddRules(string* index)
                                     for (int j = 0; j < parameters.size(); ++j) {
                                         vec.push_back(parameters[i]);
                                     }
-
-                                     cout << "stocha it is " << endl;
                                     RuleStochastic* r = new RuleStochastic(isComputePosition, automata, endState, stateStart, vec, proba);
                                     automata->AddRule(*r);
                                 }
                             }
                             else {
-                                 cout << "Deterministic " << endl;
-                                 cout << "yess " << states[indexEndState].name << endl;
-
                                 RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
-
-                                cout << d->GetToChangeInto().name << endl;
-
                                 automata->AddRule(*d);
                             }
                         }
@@ -359,8 +342,6 @@ void  Parser::ParseAndAddRules(string* index)
 void  Parser::ParseAndAddStates(string* index)
 {
     if(index->at(0) != '0'){
-        cout << *index << endl;
-        cout << index->size() << endl;
         int sizeIndex = index->size();
         int cpt = 0;
         int cptVerifNbStates = 0;
@@ -390,16 +371,13 @@ void  Parser::ParseAndAddStates(string* index)
             i++;
         }
 
-        cout << "Nb states = " << nbStatesS << endl;
         nbStates = stoi(nbStatesS);
-        cout << "Nb states = " << nbStates << endl;
 
         // Vérification du bon nombre de ';' en fonction du nombre d'états
         for(int k = i; k < sizeIndex; k ++){
             ascii = index[0][k];
             if(ascii == ';') cptVerifNbStates++;
         }
-        cout<<cptVerifNbStates<<endl;
         if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
 
         // Parsing des états
@@ -419,7 +397,6 @@ void  Parser::ParseAndAddStates(string* index)
                 cout << (char) (ascii) << endl;
             }
             parite++;
-            cout << parite << " " << i << " " << currentcolorS << endl;
             if(parite >= 1 && parite % 2){
                 if(currentcolorS.size() != 7){
                     throw(string("ParseAndAddStates : Color wrong format"));
@@ -436,7 +413,6 @@ void  Parser::ParseAndAddStates(string* index)
                 }
             }
             else{
-                cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
                 bool found = false;
 
                 for (int i = 0; i < automata->GetStates().size(); ++i) {
@@ -578,14 +554,14 @@ void  Parser::ParseHistory(string* index)
                     }else if (ascii == ',' || ascii == ';') {
 
                         g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
-                        //cout<< "ajout"<<strRepresentation <<endl;
+
                         strRepresentation="";
                         k++;
                         ascii = index[0][k];
                     }
                 }
                 g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
-                //cout<< "ajout "<<strRepresentation <<endl;
+
                 strRepresentation = "";
                 automata->AddGeneration(g);
                 isadded = true;
@@ -597,23 +573,6 @@ void  Parser::ParseHistory(string* index)
         }
     }
 }
-/*
- *
-        SizeX; SizeY;
-        isStocha;
-        Voisinage;
-    E;
-        Nb_E;
-        Nom_Couleur;
-        Nom_Etat; <--- THIS HAS BEEN MODIFIED (ADDED) @Fab
-    R;
-        Nb_R;
-        Type;EtatDep(une cellule);EtatArr;lengthCond;(x;y;EtatCond)*;Proba(stoch);EtatCond(stochdyn);
-    H;
-        Nb_H;
-        genID;
-        1 ;2 ;3 ;5 ;0 ;1 ;2 ;...=> Énumération des états des cellules des matrices constituant l’historique,le numéro correspond à la position de l’état dans le tableau des états.
- * */
 
 string  Parser::AutomataToString()
 {
@@ -634,11 +593,6 @@ string  Parser::AutomataToString()
         //1 == true, 0 == false
         strRepresentation.append(automata->GetIsVonNeighborhood() ? "1" : "0");
         strRepresentation.append(";");
-
-        //HOW TO CONVERT FROM STR TO QCOLOR
-        //  QColor q;
-        // QString str(automata->GetStates()[0].color.name().toStdString().c_str());
-        // q.setNamedColor(str);
 
         strRepresentation.append("E;");
         strRepresentation.append(to_string(automata->GetStates().size()));
@@ -804,7 +758,6 @@ string  Parser::RulesToString()
 
             strRepresentation.append("\n");
         }
-        cout << strRepresentation << endl;
         return strRepresentation;
     }
 
