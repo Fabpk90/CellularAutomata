@@ -381,10 +381,10 @@ State &Automata::GetCellState( int x,  int y)
 {
     //TODO: check si la formule est correcte (@Fab)
     if(x < 0) x = sizeX - 1;
-    else if(x > sizeX) x = 0;
+    else if(x >= sizeX) x = 0;
 
     if(y < 0) y = sizeY - 1;
-    else if(y > sizeY) y = 0;
+    else if(y >= sizeY) y = 0;
 
     return definedStates[generations[currentGen].cellMatrix[x * sizeY + y]];
 }
