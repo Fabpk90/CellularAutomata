@@ -183,6 +183,26 @@ void Matrixview::emptyMatrix()
 
 }
 
+void Matrixview::selectGen(int gen)
+{
+    this->timer->stop();
+   if(parser != nullptr){
+    parser->GetAutomata()->ChooseGen(gen);
+   int h =parser->GetAutomata()->GetSizeX();
+   int w =parser->GetAutomata()->GetSizeY();
+
+   for (int i =0;i<h;i++) {
+       for (int j =0; j<w ;j++) {
+           this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
+
+       }
+   }
+
+   engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+
+   }
+}
+
 
 void Matrixview::play()//lance la simulation et l'affichage s'en suit
 {

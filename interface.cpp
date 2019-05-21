@@ -510,7 +510,9 @@ QString Interface::getStateColor()
 
 void Interface::chooseGen(QString gen)
 {
-    parser.GetAutomata()->ChooseGen(gen.toUInt());//to check after merge
+   matrixview->selectGen(gen.toInt());//to check after merge
+
+
 }
 
 void Interface::loadInterface()
