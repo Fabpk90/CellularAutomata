@@ -29,8 +29,8 @@ float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de
 
 RuleStochasticDynamic::~RuleStochasticDynamic()
 {
-    delete toChangeInto;
-    delete startingState;
+    //delete toChangeInto;
+    //delete startingState;
 
     /*for(RuleParameters r : parameters)
     {
