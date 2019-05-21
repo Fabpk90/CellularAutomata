@@ -282,7 +282,7 @@ void  Parser::ParseAndAddRules(string* index)
                             State* endState = new State();
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
-                            cout << "index at " << index->at(i) << endl;
+                            //cout << "index at " << index->at(i) << endl;
                             if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                             {
                                  cout << "Stocha or dyn" << endl;
