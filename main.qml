@@ -288,9 +288,8 @@ ApplicationWindow {
         title: "Please choose a file to load"
         folder: shortcuts.home
         onAccepted: {
-
+           myInterface.initialiseParser()
            myInterface.callLoad("test", Qt.resolvedUrl(this.fileUrl))
-
         }
         onRejected: {
         }
