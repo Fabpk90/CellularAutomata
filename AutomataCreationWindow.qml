@@ -325,6 +325,7 @@ ApplicationWindow{
         }
         Button{
             text: qsTr("Save")
+            visible: false
             onClicked: {
                 myInterface.sendMandatoryInfo()
                 myInterface.saveMatrix()
