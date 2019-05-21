@@ -797,9 +797,7 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
                 if(r->GetType() == 2){
 
-                    strRepresentation.append(to_string(r->GetParameters()[0].x)); // Etatcond
-                    strRepresentation.append(";");
-                    strRepresentation.append(to_string(r->GetParameters()[0].y));
+                    strRepresentation.append(r->GetParameters()[0].toCheckAgainst->name); // Etatcond
                     strRepresentation.append(";");
                 }
             }
