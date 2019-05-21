@@ -38,7 +38,6 @@ ApplicationWindow{
                     countRow.visible = false
                     selectionRow.visible=true
                     myInterface.posAndCount = qsTr("Position")
-                    //myInterface.printPosAndCount() //Test
                 }
             }
 
@@ -51,7 +50,6 @@ ApplicationWindow{
                     selectionRow.visible = false
                     countRow.visible = true
                     myInterface.posAndCount = qsTr("Count")
-                    //myInterface.printPosAndCount() //Test
                 }
             }
         }
@@ -234,7 +232,7 @@ ApplicationWindow{
                     return Number(value / 100).toLocaleString(locale, 'f', probability.decimals)
                 }
 
-                valueFromText: function(text, locale) {//ERROR
+                valueFromText: function(text, locale) {
                     return Number.fromLocaleString(locale, text) * 100
                 }
 
@@ -302,7 +300,6 @@ ApplicationWindow{
         onClicked: {
             myInterface.probability = probability.textFromValue(probability.value,locale)
             ruleListView.appendItem()
-            //myInterface.printProbability()//test
             myInterface.okCreateRule()
             mooreRuleCreationWindow.close()
         }

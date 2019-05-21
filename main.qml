@@ -264,7 +264,7 @@ ApplicationWindow {
         selectExisting: false
         selectMultiple: false
         onAccepted: {
-            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))//TODO
+            myInterface.callSaveMatrix("test",Qt.resolvedUrl(this.fileUrl))
         }
         onRejected: {
         }
