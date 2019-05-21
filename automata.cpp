@@ -20,7 +20,6 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
 {
-    cout << "Je me fais salut" << endl;
     simulationThread = nullptr;
 }
 
@@ -215,7 +214,7 @@ void Automata::SetCell(uint x, uint y, uint newState)
         cout << "Current Gen (func) :" << GetCurrentGen().generationID << endl;
        cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
     //TODO: check la formule, je suis pas sûr (@Fab)
-    generations[currentGen].cellMatrix[x * y + y] = newState;
+    generations[currentGen].cellMatrix[x * sizeY + y] = newState;
 }
 
 //TODO: test
@@ -252,7 +251,7 @@ void Automata::RandomizeCurrentGen()
     {
         for (uint i = 0; i < sizeX; ++i) {
             for (uint j = 0; j < sizeY; ++j) {
-                generations[currentGen].cellMatrix[i*j+j]
+                generations[currentGen].cellMatrix[i*sizeY+j]
                         = ((uint)rand()) % definedStates.size();
             }
         }
@@ -386,7 +385,7 @@ State &Automata::GetCellState( int x,  int y)
     if(y < 0) y = sizeY - 1;
     else if(y > sizeY) y = 0;
 
-    return definedStates[generations[currentGen].cellMatrix[x * y + y]];
+    return definedStates[generations[currentGen].cellMatrix[x * sizeY + y]];
 }
 
 Automata::~Automata()
