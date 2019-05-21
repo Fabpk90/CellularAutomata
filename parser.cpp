@@ -519,8 +519,8 @@ void  Parser::ParseAndAddSize(string* index)
 
 void  Parser::ParseHistory(string* index)
 {
-    cout << *index << endl;
-    cout << index->size() << endl;
+    //cout << *index << endl;
+    //cout << index->size() << endl;
     int sizeIndex = index->size();
     int cpt = 0;
     int i = 0;
@@ -549,7 +549,7 @@ void  Parser::ParseHistory(string* index)
     }
 
     nbHistory = stoi(nbHistoryH);
-    cout << "Nb History = " << nbHistory << endl;
+    //cout << "Nb History = " << nbHistory << endl;
     if(nbHistory != 0 ){
         int asciiGenId = -1;
         string strRepresentation = "";
@@ -564,7 +564,7 @@ void  Parser::ParseHistory(string* index)
 
                 asciiGenId = ascii - 48;
                 g.generationID = asciiGenId;
-                cout<< "GId : "<<g.generationID << endl;
+                //cout<< "GId : "<<g.generationID << endl;
             }else if(ascii == ';'){
                 k++;
                 ascii = index[0][k];
@@ -578,14 +578,14 @@ void  Parser::ParseHistory(string* index)
                     }else if (ascii == ',' || ascii == ';') {
 
                         g.cellMatrix.push_back(stoi(strRepresentation));
-                        cout<< "ajout"<<strRepresentation <<endl;
+                        //cout<< "ajout"<<strRepresentation <<endl;
                         strRepresentation="";
                         k++;
                         ascii = index[0][k];
                     }
                 }
                 g.cellMatrix.push_back(stoi(strRepresentation));
-                cout<< "ajout "<<strRepresentation <<endl;
+                //cout<< "ajout "<<strRepresentation <<endl;
                 strRepresentation = "";
                 automata->AddGeneration(g);
                 isadded = true;
