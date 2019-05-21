@@ -32,10 +32,10 @@ RuleStochasticDynamic::~RuleStochasticDynamic()
     delete toChangeInto;
     delete startingState;
 
-    for(RuleParameters r : parameters)
+    /*for(RuleParameters r : parameters)
     {
-        delete r.toCheckAgainst;
-    }
+        //delete r.toCheckAgainst;
+    }*/
 }
 
 int RuleStochasticDynamic::GetType(){

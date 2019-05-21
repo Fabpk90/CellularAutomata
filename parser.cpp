@@ -248,6 +248,7 @@ void  Parser::ParseAndAddRules(string* index)
                             const vector<State>& states = automata->GetStates();
                             Rule::RuleParameters param;
                             for (int j = 0; j < lengthStates; ++j) {
+                                param.toCheckAgainst = nullptr;
                                  //cout << "Should be ( : " << (*index)[i] << endl;
                                 i++; //skipping '('
                                 try {
