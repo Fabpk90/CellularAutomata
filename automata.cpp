@@ -58,6 +58,16 @@ void Automata::SetType(bool b){
 
 void Automata::SetNeighborhood(bool b){
     isVonNeighborhood = b;
+
+    neighborhood.clear();
+
+    if(isVonNeighborhood)
+    {
+        FillNeighborhoodVonNeumann();
+    }
+    else {
+        FillNeighborhoodMoore();
+    }
 }
 
 void Automata::Simulate()

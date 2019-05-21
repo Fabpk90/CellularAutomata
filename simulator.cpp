@@ -46,7 +46,8 @@ namespace Simulator {
         for(int i=0; i<positions.size(); i++)
         {
             cout << "Positions X: " << targetX << " Position Y: " << targetY << endl;
-            cout << "Neib name: " << automataGlob->GetCellState(targetX+positions[i].second,targetY+positions[i].first).name << " Test name: " << testState[i]->name << endl;
+            cout << " Test name: " << testState[i]->name << endl;
+            cout << "Neib name: " << automataGlob->GetCellState(targetX+positions[i].second,targetY+positions[i].first).name << endl;
             cout << "Position vect X: " << positions[0].second << "Position vect Y: " << positions[0].first << endl;
             if (automataGlob->GetCellState(targetX+positions[i].second,targetY+positions[i].first).color != testState[i]->color){ // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
                 cout << "False Truth" << endl;
