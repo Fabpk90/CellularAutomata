@@ -133,13 +133,14 @@ void Matrixview::forward()//permet d'avancer dans l'historique
     if(parser != nullptr){
     parser->GetAutomata()->NextGen();
 
-    for(int i=0; i<parser->GetAutomata()->GetSizeX();i++){
+    int h =parser->GetAutomata()->GetSizeX();
+    int w =parser->GetAutomata()->GetSizeY();
 
-        for (int j=0; j<parser->GetAutomata()->GetSizeY(); j++) {
-            this->setCellAt(i*10+j,parser->GetAutomata()->GetCellState(i,j));
+    for (int i =0;i<h;i++) {
+        for (int j =0; j<w ;j++) {
+            this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
 
         }
-
     }
 
     engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
@@ -151,15 +152,17 @@ void Matrixview::backward()//permet de revenir en arrière dans l'historique
 {
     if(parser != nullptr){
     parser->GetAutomata()->PreviousGen();
-    for(int i=0; i<parser->GetAutomata()->GetSizeX();i++){
+    int h =parser->GetAutomata()->GetSizeX();
+    int w =parser->GetAutomata()->GetSizeY();
 
-        for (int j=0; j<parser->GetAutomata()->GetSizeY(); j++) {
-            this->setCellAt(i*10+j,parser->GetAutomata()->GetCellState(i,j));
+    for (int i =0;i<h;i++) {
+        for (int j =0; j<w ;j++) {
+            this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
 
         }
-
     }
-    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"),this);
+
+    engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
 
     }
 }
