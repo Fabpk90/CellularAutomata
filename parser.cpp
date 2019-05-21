@@ -562,7 +562,7 @@ void  Parser::ParseHistory(string* index)
             ascii = index[0][k];
             if (ascii >= '0' && ascii <= '9'){
 
-                asciiGenId = ascii - 48;
+                asciiGenId = ascii - 48; //Lecture du genId
                 g.generationID = asciiGenId;
                 //cout<< "GId : "<<g.generationID << endl;
             }else if(ascii == ';'){
@@ -577,19 +577,19 @@ void  Parser::ParseHistory(string* index)
                         ascii = index[0][k];
                     }else if (ascii == ',' || ascii == ';') {
 
-                        g.cellMatrix.push_back(stoi(strRepresentation));
+                        g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
                         //cout<< "ajout"<<strRepresentation <<endl;
                         strRepresentation="";
                         k++;
                         ascii = index[0][k];
                     }
                 }
-                g.cellMatrix.push_back(stoi(strRepresentation));
+                g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
                 //cout<< "ajout "<<strRepresentation <<endl;
                 strRepresentation = "";
                 automata->AddGeneration(g);
                 isadded = true;
-                if(isadded && nbHistory-1 == g.generationID) k = 999999;
+                if(isadded && nbHistory-1 == g.generationID) k = 999999;// On sort de la boucle car il n'y a plus de gen
 
             }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
                 throw(string("ParseAndAddHistory : Number of genid is not an int"));
