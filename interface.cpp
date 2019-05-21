@@ -17,6 +17,7 @@ void Interface::initialiseParser()
     setSizeX("1");
     setSizeY("2");
     matrixview->setParser(&parser);
+    setNumbState("0");
 }
 
 void Interface::initMatrix()
@@ -437,6 +438,8 @@ void Interface::okCreateState(QString state){
     } catch (std::string s) {
         cout<<"erreur"<<s<<endl;
     }
+    int numStateTmp=m_numbState.toInt()+1;
+    setNumbState(QString::number(numStateTmp));
 
 }
 

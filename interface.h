@@ -29,6 +29,7 @@ class Interface : public QObject
     Q_PROPERTY(QString sizeY READ sizeY WRITE setSizeY NOTIFY sizeYChanged)
     Q_PROPERTY(QString stateName READ stateName WRITE setStateName NOTIFY stateNameChanged)
     Q_PROPERTY(QString stateColor READ stateColor WRITE setStateColor NOTIFY stateColorChanged)
+    Q_PROPERTY(QString numbState READ numbState WRITE setNumbState NOTIFY numbStateChanged)
 
 private:
     QString m_probability;
@@ -56,6 +57,8 @@ private:
     List l;
     List stateListView;
     List ruleListView;
+
+    QString m_numbState;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -157,6 +160,11 @@ public:
     Q_INVOKABLE QColor  stateColorFromSquareIndex(int index);
     Q_INVOKABLE void displayMatrix();
 
+    QString numbState() const
+    {
+        return m_numbState;
+    }
+
 signals:
 
     void probabilityChanged(QString probability);
@@ -181,6 +189,8 @@ signals:
 
     void stateColorChanged(QString color);
 
+    void numbStateChanged(QString numbState);
+
 public slots:
 void setProbability(QString probability);
 void setPosAndCount(QString posAndCount);
@@ -194,6 +204,14 @@ void setSizeY(QString sizeY);
 void setStateName(QString name);
 void setStateColor(QString color);
 
+void setNumbState(QString numbState)
+{
+    if (m_numbState == numbState)
+        return;
+
+    m_numbState = numbState;
+    emit numbStateChanged(m_numbState);
+}
 };
 
 #endif // INTERFACE_H
