@@ -111,7 +111,7 @@ parser->GetAutomata()->Simulate();
 
 int h =parser->GetAutomata()->GetSizeX();
 int w =parser->GetAutomata()->GetSizeY();
-/*   QColor test[5]; test[0]=QColor("blue");test[1]=QColor("green");test[2]=QColor("orange");test[3]=QColor("green");test[4]=QColor("blue");
+ /*  QColor test[5]; test[0]=QColor("blue");test[1]=QColor("green");test[2]=QColor("orange");test[3]=QColor("green");test[4]=QColor("blue");
    struct State s={QColor("orange"),to_string(1)};
 
    for(int i=0;i<2500;i++){
@@ -121,7 +121,7 @@ int w =parser->GetAutomata()->GetSizeY();
 engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);*/
 for (int i =0;i<h;i++) {
     for (int j =0; j<w ;j++) {
-        this->setCellAt(i*10+j, parser->GetAutomata()->GetCellState(i,h));
+        this->setCellAt(i*10+j, parser->GetAutomata()->GetCellState(i,j));
 
     }
 }
