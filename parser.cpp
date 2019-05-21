@@ -6,6 +6,7 @@
 #include <iostream>
 #include <deque>
 #include <string>
+#include <QString>
 using namespace std;
 
 Parser::Parser()
@@ -430,6 +431,7 @@ void  Parser::ParseAndAddStates(string* index)
                     int r = number >> 16;
                     int g = number >> 8 & 0xFF;
                     int b = number & 0xFF;
+                    currentS.color = QColor();
                     currentS.color.setRgb(r,g,b);
                     if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
                     currentcolorS = "";
@@ -437,7 +439,15 @@ void  Parser::ParseAndAddStates(string* index)
             }
             else{
                 cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
-                automata->AddState(currentS);
+                bool found = false;
+
+                for (int i = 0; i < automata->GetStates().size(); ++i) {
+                    if(currentS.name == automata->GetStates()[i].name)
+                        found = true;
+                }
+                if(!found)
+                    automata->AddState(currentS);
+
                 currentS.name = "";
             }
         }
