@@ -135,7 +135,7 @@ ApplicationWindow{
         SpinBox{
             from: 1
             value: myInterface.sizeX
-            to: 1000
+            to: 100
             stepSize: 1
             editable: true
             onValueChanged: myInterface.sizeX = value
@@ -157,7 +157,7 @@ ApplicationWindow{
                 else 1
             }
             value: myInterface.sizeY
-            to: 1000
+            to: 100
             stepSize: 1
             editable: true
             onValueChanged: myInterface.sizeY = value
@@ -176,7 +176,7 @@ ApplicationWindow{
         SpinBox{
             from: 1
             value: myInterface.maxGenerationsToSimulate
-            to: 1000
+            to: 100
             stepSize: 1
             editable: true
             onValueChanged: myInterface.maxGenerationsToSimulate = value
@@ -217,6 +217,8 @@ ApplicationWindow{
                     onClicked:{
                         stateListView.removeItem(model.number)
                         myInterface.removeStateAutomata(model.number)
+                        myInterface.removeAllRulesAutomata()
+                        ruleListView.removeAllItems()
                     }
                 }
             }
@@ -267,9 +269,15 @@ ApplicationWindow{
             var window = Component.createObject(mainwindow)
             window.show()
             if(stateListView.getListCount()<1)
+            {
+                okButton.visible=false
                 addRule.visible=false
+            }
             if (stateListView.getListCount()>=1)
+            {
+                okButton.visible=true
                 addRule.visible=true
+            }
         }
     }
     Button {
@@ -308,9 +316,22 @@ ApplicationWindow{
     }
 
     Button{
+        id: okButton
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("OK")
+        visible:
+        {
+            if(stateListView.getListCount()<1)
+            {
+                okButton.visible=false
+            }
+            if (stateListView.getListCount()>=1)
+            {
+                okButton.visible=true
+            }
+        }
+
         onClicked: {
             myInterface.sendMandatoryInfo()
             myInterface.sizeTheVector()

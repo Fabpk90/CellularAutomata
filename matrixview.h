@@ -15,7 +15,7 @@ class Matrixview : public QObject
 
 public:
     explicit Matrixview(QObject *parent = nullptr );
-    QVector<struct State>& cells();
+    QVector<struct State>& cells();//liste des cellules à afficher
     bool setCellAt(int index, const struct State& cell);
 
     Parser *getParser() const;
@@ -29,15 +29,11 @@ public:
     void selectGen(int gen);
 
 signals:
-    void preCellAppended();
+    void preCellAppended();// signaux avant et après ajout de cellule
     void postCellAppended();
-
-    void preCellRemoved(unsigned int index);
+    void preCellRemoved(unsigned int index);//signaux avant et après suppression
     void postCellRemoved();
-    void preCellUpdated(int index,int endIndex);
-    void postCellUpdated();
-    void preClean(int index, int endIndex);
-    void listOfStateChanged();
+
 
 public slots:
     void appendCell(struct State);

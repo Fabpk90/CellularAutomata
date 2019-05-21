@@ -14,22 +14,22 @@ ApplicationWindow {
     title: "StateCreation"
 
 
-    Button {
+    Button {//bouton ok pour valider la créaion d'un état
         id: button
         x: 459
         y: 167
         width: 83
         height: 29
         text: qsTr("Ok")
-        //onClicked:myInterface.call
+        visible: false
         onClicked: {
-            myInterface.okCreateState(";")
             stateListView.appendState()
+            myInterface.okCreateState(";")
             stateCreation.close()
         }
     }
 
-    Button {
+    Button { // bouton cancel pour annuler la création d'un état
         id: button1
         x: 289
         y: 167
@@ -50,14 +50,13 @@ ApplicationWindow {
     }
 
 
-    ColorDialog{
+    ColorDialog{//fenêtre de choix de couleur
         id: colorDialog
 
         onAccepted:{
             rectangle.color=this.color
             myInterface.stateColor=this.color
             stateListView.setStateColor(myInterface.getStateColor())
-            //myInterface.printStateColor()
            }
     }
 
@@ -66,7 +65,10 @@ ApplicationWindow {
         x: 56
         y: 81
         text: qsTr("Choose Color")
-        onClicked: colorDialog.open()
+        onClicked: {
+            colorDialog.open()
+            button.visible=true
+        }
     }
 
     Rectangle {
@@ -104,7 +106,7 @@ ApplicationWindow {
             y: 8
             width: 140
             height: 18
-            text: qsTr("State")
+            text: qsTr("State"+myInterface.numbState)
             activeFocusOnPress: true
             cursorVisible: true
             font.pixelSize: 12
@@ -112,7 +114,6 @@ ApplicationWindow {
             {
                 myInterface.stateName = textInput1.text
                 stateListView.setStateName(myInterface.getStateName())
-                //myInterface.printStateName()
             }
         }
     }

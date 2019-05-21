@@ -8,7 +8,11 @@
 
 void Interface::initialiseParser()
 {
-    ca = new Automata();
+    if(ca != nullptr)
+        delete ca;
+
+    ca = new Automata(false, false, 1, 1, vector<Rule*>(), vector<State>(), vector<Generation>());
+
     this->parser.SetAutomata(ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
@@ -17,17 +21,12 @@ void Interface::initialiseParser()
     setSizeX("1");
     setSizeY("2");
     matrixview->setParser(&parser);
+    setNumbState("0");
 }
 
 void Interface::initMatrix()
 {
     matrixview->initMatrix();
-
-}
-
-void Interface::printProbability()
-{
-    std::cout << "probability : " << m_probability.toStdString() << std::endl;
 }
 
 QString Interface::type() const
@@ -47,18 +46,16 @@ void Interface::sendMandatoryInfo()
     CallSetDim();
     CallMatrixSize();
     CallMaxGenerationsToSimulate();
-    //Pour avoir sizeof(dataToParse)=4
+    //Pour avoir sizeof(dataToParse)=4, conforme au Parser
     dataToParse+="0";
     CallSetNeighborhood();
     dataToParse+="0";
-    std::cout<< "dataToParseFromInterface: " << dataToParse <<std::endl; //test
     this->parser.ParseAndAddType(&dataToParse);
     this->parser.GetAutomata()->SetMaxSimulations(m_maxGenerationsToSimulate.toUInt());
 }
 
 void Interface::CallSetDim()
 {
-    std::cout << "Dim : " << m_dimension.toStdString() << std::endl;
 }
 
 void Interface::CallSetNeighborhood()
@@ -66,7 +63,6 @@ void Interface::CallSetNeighborhood()
     if(m_neighborhood.toStdString()=="Von Neumann")
         dataToParse+="1";
     else dataToParse+="0";
-    //std::cout << "Neigh : " << m_neighborhood.toStdString() << std::endl;//test
 }
 
 void Interface::CallSetType()
@@ -74,36 +70,21 @@ void Interface::CallSetType()
     if(m_type.toStdString()=="Stochastic")
         dataToParse+="1";
     else dataToParse+="0";
-    //std::cout << "Type : " << m_type.toStdString() << std::endl;//test
 }
 
 void Interface::CallMaxGenerationsToSimulate()
 {
-    string maxGen=m_maxGenerationsToSimulate.toStdString();
-    //std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;//test
 }
 
 void Interface::CallMatrixSize()
 {
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
     this->parser.ParseAndAddSize(&size);
-    //std::cout << "Size : " << m_sizeX.toStdString() + ";" + m_sizeY.toStdString() << std::endl; //test
-}
-
-
-void Interface::printPosAndCount()
-{
-    std::cout << "posAndCount : " << m_posAndCount.toStdString() << std::endl;
 }
 
 QString Interface::stateToChangeTo() const
 {
     return m_stateToChangeTo;
-}
-
-void Interface::printStateToChangeTo()
-{
-    std::cout << "stateToChangeTo : " << m_stateToChangeTo.toStdString() << std::endl;
 }
 
 void Interface::CallSetProbability(QString probability)
@@ -268,6 +249,7 @@ void Interface::okCreateRule()
         }
     }
     string stdRule = rule.toStdString();
+    stdRule.append("\n");
     std::cout << "Rule sent to parser = " << stdRule << std::endl; //test
     try {
          parser.ParseAndAddRules(&stdRule);
@@ -275,11 +257,6 @@ void Interface::okCreateRule()
        cout << error << endl;
     }
 
-}
-
-void Interface::printDimension()
-{
-    std::cout << "Dimension : " << m_dimension.toStdString() << std::endl;
 }
 
 QString Interface::neighborhood() const
@@ -290,11 +267,6 @@ QString Interface::neighborhood() const
 QString Interface::maxGenerationsToSimulate() const
 {
     return m_maxGenerationsToSimulate;
-}
-
-void Interface::printMaxGenerationsToSimulate()
-{
-    std::cout << "MaxGenerations : " << m_maxGenerationsToSimulate.toStdString() << std::endl;
 }
 
 QString Interface::sizeX() const
@@ -407,6 +379,15 @@ void Interface::setStateColor(QString color)
 
 }
 
+void Interface::setNumbState(QString numbState)
+{
+    if (m_numbState == numbState)
+        return;
+
+    m_numbState = numbState;
+    emit numbStateChanged(m_numbState);
+}
+
 //Interface::Interface(QObject *parent) : QObject(parent)
 void Interface::CallSetStateName(QString probability){
 
@@ -437,12 +418,14 @@ void Interface::okCreateState(QString state){
     } catch (std::string s) {
         cout<<"erreur"<<s<<endl;
     }
+    int numStateTmp=m_numbState.toInt()+1;
+    setNumbState(QString::number(numStateTmp));
 
 }
 
 void Interface::okCreateHistory()
 {
-   // srand(time(NULL));
+
     cout<<"okcreatehistory"<<endl;
     int s=stateVector.size();
     int sizeOfStates=parser.GetAutomata()->GetStates().size();
@@ -481,13 +464,6 @@ QString Interface::stateName() const
     return m_stateName;
 }
 
-
-
-void Interface::printStateName()
-{
-    std::cout << "StateName : " << m_stateName.toStdString() << std::endl;
-}
-
 QString Interface::getStateName()
 {
     return m_stateName;
@@ -496,11 +472,6 @@ QString Interface::getStateName()
 QString Interface::stateColor() const
 {
     return m_stateColor;
-}
-
-void Interface::printStateColor()
-{
-    std::cout << "StateColor : " << m_stateColor.toStdString() << std::endl;
 }
 
 QString Interface::getStateColor()
@@ -515,6 +486,7 @@ void Interface::chooseGen(QString gen)
 
 }
 
+//Permet de mettre à jour l'interface losqu'on load à partir d'un fichier
 void Interface::loadInterface()
 {
    if(parser.GetAutomata()->GetIsStocha())
@@ -531,9 +503,10 @@ void Interface::loadInterface()
    }
    for(uint i=0; i<parser.GetAutomata()->GetStates().size(); i++)
    {
-       //stateListView.appendState();
        setStateName(QString::fromStdString(parser.GetAutomata()->GetStates().at(i).name));
+       stateListView.setStateName(m_stateName);
        setStateColor(parser.GetAutomata()->GetStates().at(i).color.name(QColor::HexRgb));
+       stateListView.setStateColor(m_stateColor);
        stateListView.appendState();
    }
    if(parser.GetAutomata()->GetSizeY()==1) setDimension("OneDimension");
@@ -542,7 +515,9 @@ void Interface::loadInterface()
 
 QString Interface::returnCurrentGen()
 {
-   return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+   if (parser.GetAutomata() != nullptr && !parser.GetAutomata()->GetStates().empty())
+    return QString::number(parser.GetAutomata()->GetCurrentGen().generationID);
+   return QString("0");
 }
 
 void Interface::removeStateAutomata(int index)
@@ -614,6 +589,11 @@ void Interface::displayMatrix(){
         }
         cout << endl;
     }
+}
+
+QString Interface::numbState() const
+{
+    return m_numbState;
 }
 
 
@@ -709,9 +689,6 @@ void Interface::cleanRuleCreationWindow()
     }
 }
 
-
-
-
 QQmlApplicationEngine *Interface::getEngine() const
 {
     return engine;
@@ -760,15 +737,14 @@ void Interface::callSaveMatrix(QString path, QString name, QString firstGen, QSt
     char * Data = new char[tmp.length() + 1];
     strcpy(Data, tmp.c_str());
     SaveData(&na, Data);
-
-
-
 }
 
 void Interface::callLoad(QString name, QString path){
-    string pa=path.toStdString();
+   string pa=path.toStdString();
    this->parser.ParseFile(&pa);
-
+   matrixview->setParser(&this->parser);
+   initMatrix();
+   matrixview->getEngine()->rootContext()->setContextProperty(QStringLiteral("matrixview"),matrixview);
 }
 
 void Interface::callExecution(){

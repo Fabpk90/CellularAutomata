@@ -20,6 +20,7 @@ Automata::Automata(bool isNeighborhoodVonNeumann, bool isStocha, unsigned int si
     : isVonNeighborhood(isNeighborhoodVonNeumann), isStocha(isStocha), sizeX(sizeX), sizeY(sizeY),
       rules(rules), definedStates(definedStates), generations(trace)
 {
+    currentGen = 0;
     simulationThread = nullptr;
 }
 
@@ -72,16 +73,17 @@ void Automata::SetNeighborhood(bool b){
 
 void Automata::Simulate()
 {
+
     Simulator::Simulate(*this);
+
 }
 
-//Il manque le deplacement de la generation actuelle quand on ajoute une gen
+
 void Automata::AddGeneration(Generation &generation)
 {
-    //TODO: ajouter la recherche de la génération
-    //pour pas dupliquer une gén
+
     generations.push_back(generation);
-    // currentGen = (uint)generations.size() - 1;
+
     cout << "Added a gen " <<generation.generationID<< endl;
 
     SortGenerations();
@@ -89,7 +91,7 @@ void Automata::AddGeneration(Generation &generation)
 
 void Automata::AddGenerations(vector<Generation> gens)
 {
-    //TODO: bouger le currentGen ?
+
     generations = gens;
 }
 
@@ -170,7 +172,7 @@ void Automata::RemoveAllStates()
 
 void Automata::RemoveRule(const Rule &toRemove)
 {
-    //TO TEST !
+
     vector<Rule*>::iterator it = rules.begin();
     bool found = false;
 
@@ -191,20 +193,19 @@ void Automata::RemoveRule(const Rule &toRemove)
 
 void Automata::SortGenerations()
 {
-    //TODO: test !
+
     std::sort(generations.begin(), generations.end());
 }
 
-//TODO: test
+
 void Automata::SetCell(uint x, uint y, State &newState)
 {
-    //Si ce truc là et copier coller plusieurs fois (@fab)
-    //faire une fonction
+
     bool found = false;
 
     for (uint i = 0; i < definedStates.size() && !found; ++i) {
 
-        //ici on test juste la couleur, le nom est trop lent (@Fab)
+        //ici on test juste la couleur
         if(definedStates[i].color == newState.color)
         {
             found = true;
@@ -220,22 +221,21 @@ void Automata::SetCell(uint x, uint y, uint newState)
        cout << "Current Gen (No func) :" << currentGen << endl;
         cout << "Current Gen (func) :" << GetCurrentGen().generationID << endl;
        cout << "tetppa " << generations[currentGen].cellMatrix.size() << endl;
-    //TODO: check la formule, je suis pas sûr (@Fab)
+
     generations[currentGen].cellMatrix[x * sizeY + y] = newState;
 }
 
-//TODO: test
+
 void Automata::SetAllCell(State &newState)
 {
     //Cherche l'index de l'état
-    //Si ce truc là et copier coller plusieurs fois (@fab)
-    //faire une fonction
+
     bool found = false;
     uint stateIndex = 0;
 
     for (uint i = 0; i < definedStates.size() && !found; ++i) {
 
-        //ici on test juste la couleur, le nom est trop lent (@Fab)
+
         if(definedStates[i].color == newState.color)
         {
             stateIndex = i;
@@ -253,7 +253,7 @@ void Automata::SetAllCell(State &newState)
 
 void Automata::RandomizeCurrentGen()
 {
-    //srand(time(nullptr));
+
     if(definedStates.size() != 0)
     {
         for (uint i = 0; i < sizeX; ++i) {
@@ -289,12 +289,12 @@ const vector<pair<int, int> > &Automata::GetNeigborhoodPositions()
     return neighborhood;
 }
 
-//TODO : Test
+
 void Automata::NextGen()
 {
     vector<Generation>::iterator it = generations.begin();
     bool found = false;
-    // Je ne sais pas comment avoir la generation actuelle (@Alex)
+
     while(it != generations.end() && !found)
     {
         if(it == generations.end())
@@ -322,12 +322,12 @@ void Automata::NextGen()
     if(!found) cout << "gen not found" << endl;
 }
 
-//TODO : Test
+
 void Automata::PreviousGen()
 {
     vector<Generation>::iterator it = generations.begin();
     bool found = false;
-    // Je ne sais pas comment avoir la generation actuelle (@Alex)
+
     while(it != generations.end() && !found)
     {
         if(this->currentGen == 0)
@@ -382,10 +382,8 @@ Generation &Automata::GetCurrentGen()
     return generations[currentGen];
 }
 
-//TODO: test
 State &Automata::GetCellState( int x,  int y)
 {
-    //TODO: check si la formule est correcte (@Fab)
     if(x < 0) x = sizeX - 1;
     else if(x >= sizeX) x = 0;
 
@@ -408,24 +406,16 @@ Automata::~Automata()
     }
 }
 
-// TESTED
+
 void Automata::FillNeighborhoodVonNeumann()
 {
     neighborhood.push_back(std::make_pair(+1,0));
     neighborhood.push_back(std::make_pair(0,+1));
     neighborhood.push_back(std::make_pair(0,-1));
     neighborhood.push_back(std::make_pair(-1,0));
-    /*
-    cout << "printing vonneumnn" << endl;
-    vector<pair<int,int>>::iterator it = neighborhood.begin();
-    while(it != neighborhood.end()){
-        cout << it->first << it->second << endl;
-        ++it;
-    }
-    */
+
 }
 
-// TESTED
 void Automata::FillNeighborhoodMoore()
 {
     neighborhood.push_back(std::make_pair(+1,0));

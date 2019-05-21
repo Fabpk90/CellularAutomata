@@ -3,7 +3,7 @@
 #include<QVector>
 #include<QTimer>
 #include <math.h>
-//#include <windows.h>
+
 Parser *Matrixview::getParser() const
 {
     return parser;
@@ -33,7 +33,6 @@ int Matrixview::returnSize()//return the size of the matrix
 
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
-
 
         listOfState.append({QColor("white"),"State "+to_string(1)});
 
@@ -85,25 +84,30 @@ void Matrixview::removeCell(unsigned int index)//retire des cases dans la mtrice
 
 void Matrixview::update()//Met à jour l'affichage de la matrice
 {
-parser->GetAutomata()->Simulate();
 
-int h =parser->GetAutomata()->GetSizeX();
-int w =parser->GetAutomata()->GetSizeY();
+    if(parser != nullptr){
 
-for (int i =0;i<h;i++) {
-    for (int j =0; j<w ;j++) {
-        this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
+                parser->GetAutomata()->Simulate();
 
-    }
-}
+                int h =parser->GetAutomata()->GetSizeX();
+                int w =parser->GetAutomata()->GetSizeY();
 
-engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+                for (int i =0;i<h;i++) {
+                    for (int j =0; j<w ;j++) {
+                        this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
+
+                    }
+                }
+
+                engine->rootContext()->setContextProperty(QStringLiteral("matrixview"), this);
+            }
+
 }
 
 void Matrixview::forward()//permet d'avancer dans l'historique
 {
     this->timer->stop();
-    if(parser != nullptr){
+    if(parser != nullptr ){
     parser->GetAutomata()->NextGen();
 
     int h =parser->GetAutomata()->GetSizeX();
@@ -158,7 +162,7 @@ void Matrixview::emptyMatrix() // vide la matrice
 void Matrixview::selectGen(int gen) //permet de sauter à une génération précise
 {
     this->timer->stop();
-   if(parser != nullptr){
+   if(parser != nullptr ){
     parser->GetAutomata()->ChooseGen(gen);
    int h =parser->GetAutomata()->GetSizeX();
    int w =parser->GetAutomata()->GetSizeY();
@@ -178,13 +182,14 @@ void Matrixview::selectGen(int gen) //permet de sauter à une génération préc
 
 void Matrixview::play()//lance la simulation et l'affichage s'en suit
 {
-   this->timer->start(500); //lance le thread du timer
 
+   this->timer->start(500); //lance le thread du timer
 
 }
 
 void Matrixview::pause()//met en pause l'éxcecution
 {
+
     this->timer->stop();
 
 }

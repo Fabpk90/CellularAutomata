@@ -16,48 +16,43 @@ ApplicationWindow {
     minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
 
-   /* Interface{
-        id:myInterface
-    }
-*/
     menuBar: MenuBar{
         Menu{
             title: "File"
-            MenuItem {
+            MenuItem {//bouton pour sauvegarder
                 text: "Save"
                 onClicked:
+
                     fileDialogSave.open()
             }
-            MenuItem{
+            MenuItem{//bouton pour charger
                 text: "Load"
                 onClicked: {
                     fileDialogLoad.open()
-                    myInterface.loadInterface()
+
                 }
             }
 
-            MenuItem {
+            MenuItem {//bouton pour fermer l'application
                 text: "Close"
                 onClicked: Qt.quit()
             }
         }
         Menu{
             title: "Automaton"
-            MenuItem { text: "Create new Automaton"
+            MenuItem { text: "Create new Automaton" //bouton pour la création de l'automate
                 onClicked: {
                     myInterface.initialiseParser()
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
-
                     window.show()
-                    print("enter here")
                     ruleListView.removeAllItems()
                     stateListView.removeAllItems()
                     mat.visible= true
 
                 }
             }
-            MenuItem { text: "Edit Automaton"
+            MenuItem { text: "Edit Automaton" //bouton pour l'édition de l'automate
                 id: editItem
                 onClicked: {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
@@ -72,13 +67,12 @@ ApplicationWindow {
     GridView{
          id:mat
          anchors.fill : parent
-         //visible: false //TODO uncomment in final version
          contentHeight: mainwindow.height - footer.height
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
          highlightFollowsCurrentItem: false
-         cellWidth: mainwindow.width/mod.listOfState.returnSize() //TODO cas où listOfState >= mainwindow.width
+         cellWidth: mainwindow.width/mod.listOfState.returnSize()
          cellHeight: cellWidth
          cacheBuffer: 2000
          flickableDirection: Flickable.HorizontalAndVerticalFlick
@@ -86,17 +80,17 @@ ApplicationWindow {
              id: mod
              listOfState:matrixview
          }
-         delegate: Rectangle{
+         delegate: Rectangle{//cellules de la matrice
              id:rec
              width: mat.cellHeight
              height:mat.cellWidth
              color:model.color
              border.color:"black"
-                 MouseArea{
+                 MouseArea{//les cellules sont cliquables
                  id: mousearea
                  anchors.fill:parent
                  onClicked: print(tooltip.text+""+index)
-                 ToolTip{
+                 ToolTip{//cliquer affiche le nom de la cellule
                      id:tooltip
                      text: qsTr(model.name)
                      visible: parent.pressed
@@ -107,7 +101,8 @@ ApplicationWindow {
          }
     }
 
-       footer: Rectangle{
+
+       footer: Rectangle{//espace pour l'ensemble des boutons
         id: footer
         height: 80
         color: "#f3f3f4"
@@ -127,7 +122,7 @@ ApplicationWindow {
                 width: 50
             }
 
-            Button{
+            Button{//bouton info pour ouvrir la liste des états
                id: info
                 text: qsTr("Info")
                 Layout.maximumWidth: 50
@@ -135,19 +130,16 @@ ApplicationWindow {
             }
 
 
-          Popup {
+          Popup {//affiche les états existant
                     id: popup
                     x: info.x
                     y: info.y-200
                    width: 110
                     height: 200
-                  /*  modal: true
-                    focus: true*/
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
                    contentItem:  Column{
                        id: listOfState
-                       anchors.right: popup.horizontalCenter //parent.horizontalCenter
-                       //anchors.rightMargin: 100
+                       anchors.right: popup.horizontalCenter
 
                        ListView{
                            id: stateView
@@ -176,22 +168,11 @@ ApplicationWindow {
 
             }
 
-  /*          Component {
-                id: contactDelegate
-                Item {
-                    width: 180; height: 40
-                    Column {
-                        Text { text: '<b>Name:</b> ' + name }
-                        Text { text: '<b>Number:</b> ' + number }
-                    }
-                }
-            }
-*/
             Item {
                 width: 50
             }
 
-            TextField {
+            TextField {//champs pour écrire la génération à accéder
                 id: textField
                 text: qsTr("")
                 horizontalAlignment: Text.AlignRight
@@ -199,7 +180,7 @@ ApplicationWindow {
                 Layout.maximumWidth: 132
             }
 
-            Button{
+            Button{ //bouton pour aller à une génération précise
                 text: qsTr("Go")
                 Layout.fillHeight: true
                 Layout.fillWidth: true
@@ -207,6 +188,7 @@ ApplicationWindow {
                 Layout.maximumWidth: 50
                 onClicked: {
                     myInterface.chooseGen(textField.text)
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
@@ -215,27 +197,29 @@ ApplicationWindow {
                 width: 50
             }
 
-            Button{
+            Button{//bouton backward pour revenir à une génération précédente
                 text: qsTr("⏮")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
                 onClicked: {
                     matrixview.backward()
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
 
-            Button{
+            Button{//bouton pause pour arrêter l'exécution
                 text: qsTr("❙❙")
                 font.pointSize: 16
                 Layout.maximumHeight: 40
                 onClicked:{
                     matrixview.pause()
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
 
-            Button{
+            Button{//bouton lecture pour simuler l'automate
                 text: qsTr("▶️")
                 font.pointSize: 18
                 Layout.maximumHeight: 40
@@ -246,12 +230,13 @@ ApplicationWindow {
                 }
             }
 
-            Button{
+            Button{ //bouton forward pour avancer dans les générations
                 text: qsTr("⏭")
                 font.pointSize: 14
                 Layout.maximumHeight: 40
                 onClicked:{
                     matrixview.forward()
+                    currentGeneration.text=myInterface.returnCurrentGen()
                     mat.visible = true
                 }
             }
@@ -262,14 +247,17 @@ ApplicationWindow {
 
             Button{
                 text: qsTr("Recompute")
-                onClicked: myInterface.displayMatrix()
+                onClicked: {
+                    currentGeneration.text=myInterface.returnCurrentGen()
+                    myInterface.displayMatrix()
+                }
             }
 
         }
 
 }
 
-    FileDialog{
+    FileDialog{ //ouverture d'une fenetre en cas de sauvegarde
         id:fileDialogSave
         title: "Please choose a file to save"
         folder: shortcuts.home
@@ -283,14 +271,18 @@ ApplicationWindow {
 
     }
 
-    FileDialog{
+    FileDialog{ //ouverture d'une fenetre en cas chargement
         id:fileDialogLoad
         title: "Please choose a file to load"
         folder: shortcuts.home
         onAccepted: {
-
+           myInterface.initialiseParser()
            myInterface.callLoad("test", Qt.resolvedUrl(this.fileUrl))
-
+           mainwindow.close()
+           var Component = Qt.createComponent("main.qml")
+           var window = Component.createObject(mainwindow)
+           window.show()
+           myInterface.loadInterface()
         }
         onRejected: {
         }

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <deque>
 #include <string>
+#include <QString>
 using namespace std;
 
 Parser::Parser()
@@ -37,8 +38,7 @@ void Parser::SetAutomata(Automata *automata)
         genID;
  * */
 
-// A COMPLETER
-// Lance exception, à mettre dans un try catch
+
 void  Parser::ParseFile(const string* path)
 {
     delete automata;
@@ -136,7 +136,6 @@ Parser::~Parser()
     delete automata;
 }
 
-//TODO : test
 string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen)
 {
     string data = "";
@@ -164,7 +163,6 @@ string  Parser::GetDataToBeSaved(unsigned  int  startGen , unsigned  int  endGen
     return data;
 }
 
-//TODO : test
 string  Parser::GetDataToBeSaved()
 {
     string data = "";
@@ -197,10 +195,8 @@ void  Parser::ParseAndAddRules(string* index)
 {
     if(index->at(0) != '0') // aucune règle à interpreter
     {
-        //TODO: test just before adding if the indexes are truly there (states[i] exists)
-        //Position;1;0;8;(-1;1;0);(0;1;0);(1;1;0);(-1;0;0);(1;0;0);(-1;-1;0);(0;-1;0);(1;-1;0);99.9;
         uint i = 2;
-        while(i != index->size())
+        while(i+1 < index->size())
         {
             cout << "I: " << i << " " << index->size() << endl;
             string ruleType = "";
@@ -241,16 +237,15 @@ void  Parser::ParseAndAddRules(string* index)
                         } catch (string const& error) {
                             throw (error);
                         }
-                         //cout << "length: " << lengthStates << endl;
-                        if(lengthStates > 0) // TODO: more testing of the value !
+
+                        if(lengthStates > 0)
                         {
                             vector<Rule::RuleParameters> parameters;
                             const vector<State>& states = automata->GetStates();
                             Rule::RuleParameters param;
                             for (int j = 0; j < lengthStates; ++j) {
                                 param.toCheckAgainst = nullptr;
-                                 //cout << "Should be ( : " << (*index)[i] << endl;
-                                i++; //skipping '('
+                                i++;
                                 try {
                                 param.x = ParseInt(*index, i);
                                 } catch (string const& error) {
@@ -275,9 +270,9 @@ void  Parser::ParseAndAddRules(string* index)
                                     param.toCheckAgainst = check;
                                 }
                                 parameters.push_back(param);
-                                //TODO: check for the state and add an error throw in parseint
-                                //cout << "Should be ; : " << (*index)[i] << endl;
-                                i++;//skipping ';'
+
+                                i++;//skipping ')'
+                                i++;//skipping;
                             }
 
                             State* stateStart = new State();
@@ -287,7 +282,7 @@ void  Parser::ParseAndAddRules(string* index)
                             State* endState = new State();
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
-
+                            //cout << "index at " << index->at(i) << endl;
                             if(index->size() != i && index->at(i) != '\n') // if true, it is a stocha rule or stochadyn
                             {
                                  cout << "Stocha or dyn" << endl;
@@ -312,8 +307,8 @@ void  Parser::ParseAndAddRules(string* index)
                                     vector<Rule::RuleParameters> vec;
                                     vec.push_back(param);
 
-                                    for (int j = 0; j < parameters.size(); ++j) {
-                                        vec.push_back(parameters[i]);
+                                    for (uint j = 0; j < parameters.size(); ++j) {
+                                        vec.push_back(parameters[j]);
                                     }
 
                                     RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, automata, endState, stateStart, vec, proba);
@@ -361,7 +356,6 @@ void  Parser::ParseAndAddRules(string* index)
 
 }
 
-// Not tested nor approved
 void  Parser::ParseAndAddStates(string* index)
 {
     if(index->at(0) != '0'){
@@ -388,14 +382,11 @@ void  Parser::ParseAndAddStates(string* index)
             if(index[0][i] == ';'){
                 cpt++;
             }
-            // premier ';' celui apres E donc cpt > 1
-            if(cpt >= 0){
-                ascii = index[0][i];
-                if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
-                else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+            ascii = index[0][i];
+            if(ascii >= 48 && ascii <= 57) nbStatesS += index[0][i];
+            else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
                     throw(string("ParseAndAddStates : Number of States is not an int"));
                 }
-            }
             i++;
         }
 
@@ -410,7 +401,6 @@ void  Parser::ParseAndAddStates(string* index)
         }
         cout<<cptVerifNbStates<<endl;
         if(cptVerifNbStates != 2 * nbStates) throw(string("ParseAndAddStates : Wrong Number of arguments"));
-        // Jusque là tout est okay
 
         // Parsing des états
         while(i < index->size()){
@@ -439,6 +429,7 @@ void  Parser::ParseAndAddStates(string* index)
                     int r = number >> 16;
                     int g = number >> 8 & 0xFF;
                     int b = number & 0xFF;
+                    currentS.color = QColor();
                     currentS.color.setRgb(r,g,b);
                     if(currentS.color.isValid() == 0) throw(string("ParseAndAddStates : Color of state in wrong format"));
                     currentcolorS = "";
@@ -446,15 +437,22 @@ void  Parser::ParseAndAddStates(string* index)
             }
             else{
                 cout << currentS.name << currentS.color.rgb() << " " << currentS.color.isValid() << endl;
-                automata->AddState(currentS);
+                bool found = false;
+
+                for (int i = 0; i < automata->GetStates().size(); ++i) {
+                    if(currentS.name == automata->GetStates()[i].name)
+                        found = true;
+                }
+                if(!found)
+                    automata->AddState(currentS);
+
                 currentS.name = "";
             }
         }
     }
 }
 
-// Testé et approuvé par Amélie Le Roux lol
-// Lance les exceptions de parsing
+
 void  Parser::ParseAndAddType(string* index)
 {
     if(index->size() != 4){
@@ -475,8 +473,7 @@ void  Parser::ParseAndAddType(string* index)
     automata->SetNeighborhood(asciiNei - 48);
 }
 
-// Testé et approuvé par Amélie Le Roux yé
-// Lance exceptions de parsing
+
 void  Parser::ParseAndAddSize(string* index)
 {
     cout << "Parse and add size :" << *index << endl;
@@ -519,7 +516,7 @@ void  Parser::ParseAndAddSize(string* index)
     automata->SetSizeXY(x, y);
 }
 
-//TODO : Test et ajout erreur
+
 void  Parser::ParseHistory(string* index)
 {
     cout << *index << endl;
@@ -558,9 +555,10 @@ void  Parser::ParseHistory(string* index)
         string strRepresentation = "";
         vector<int> asciiStates;
         Generation g;
+        bool isadded = false;
 
         for(int k = i; k < sizeIndex; k ++){
-
+        isadded = false;
             ascii = index[0][k];
             if (ascii >= '0' && ascii <= '9'){
 
@@ -590,13 +588,15 @@ void  Parser::ParseHistory(string* index)
                 cout<< "ajout "<<strRepresentation <<endl;
                 strRepresentation = "";
                 automata->AddGeneration(g);
+                isadded = true;
+                if(isadded && nbHistory-1 == g.generationID) k = 999999;
+
             }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
-                throw(string("ParseAndAddHistory : Number of History is not an int"));
+                throw(string("ParseAndAddHistory : Number of genid is not an int"));
             }
         }
     }
 }
-
 /*
  *
         SizeX; SizeY;
@@ -726,7 +726,7 @@ string Parser::HistoryToString(uint startGen, uint endGen)
     return "";
 }
 
-//TODO : Test il manque EtatDep ;EtatCond ;
+
 string  Parser::RulesToString()
 {
 
@@ -780,8 +780,8 @@ string  Parser::RulesToString()
                 strRepresentation.append(";");
                 strRepresentation.append(to_string(r->GetParameters()[i].y));
                 strRepresentation.append(";");
-                for (uint i = 0; i < automata->GetStates().size(); ++i) {
-                    if(automata->GetStates()[i].name == r->GetParameters()[i].toCheckAgainst->name)
+                for (uint j = 0; j < automata->GetStates().size(); ++j) {
+                    if(automata->GetStates()[j].name == r->GetParameters()[i].toCheckAgainst->name)
                     {
                         index = i;
                     }
