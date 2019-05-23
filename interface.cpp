@@ -131,6 +131,7 @@ void Interface::okCreateRule()
     rule.append(";");
 
     if(posAndCount() == "Position"){
+        cout << "First Lol" << endl;
         if(dimension() == "OneDimension"){
             rule.append(matrixIndexAndStateIndex[1]); //index etat de depart
             for(int i = 0; i < SIZEOFINDEXARRAYS-2; i++){
@@ -161,6 +162,7 @@ void Interface::okCreateRule()
                 rule.append(";");
             }
         }
+
     }
     else if (posAndCount() == "Count") {
         if(dimension() == "OneDimension" && matrixIndexAndStateIndex[1] != "("){ //etat de depart
@@ -246,12 +248,14 @@ void Interface::okCreateRule()
     }
     string stdRule = rule.toStdString();
     stdRule.append("\n");
+    cout << "StdRule: " << stdRule << endl;
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
        cout << error << endl;
     }
 
+    cout << "Lol final" << endl;
 }
 
 QString Interface::neighborhood() const
@@ -578,60 +582,76 @@ void Interface::associateStateAndIndex(QString StateIndex)
             case 0:
                 composite.append("-1;0;");
                 composite.append(StateIndex);
-                composite.append(")");
+                composite.append(";)");
                 break;
             //4 est le centre et ne doit pas etre dans la liste composite
             case 2:
                 composite.append("1;0;");
                 composite.append(StateIndex);
-                composite.append(")");
+                composite.append(";)");
                 break;
             default:
                 break;
             }
         }
+        /*
+                    Voici le repère qui est utilisé dans le logiciel:
+                              Y
+                     0------------------>
+                     |
+                     |
+                     |
+                    X|
+                     |
+                     |
+                     |
+                     v
+
+                     Des modifications ont donc été apportées au mappage a deux dimensions (seulement, pour l'instantn faut voir 1D)
+                     Seul les case X ont été réaranger, pour retrouver le comportement d'origine, aller de 0 à 8 en skippant 4
+                */
         if(dimension() == "TwoDimensions"){
             switch (rememberIndex) {
-            case 0:
+            case 2:
                 composite.append("-1;1;");
                 composite.append(StateIndex);
-                composite.append(")");
+                composite.append(";)");
                 break;
-            case 1:
+            case 5:
                 composite.append("0;1;");
                 composite.append(StateIndex);
-                composite.append(")");
-                break;
-            case 2:
-                composite.append("1;1;");
-                composite.append(StateIndex);
-                composite.append(")");
-                break;
-            case 3:
-                composite.append("-1;0;");
-                composite.append(StateIndex);
-                composite.append(")");
-                break;
-            //4 est le centre et ne doit pas etre dans la liste composite
-            case 5:
-                composite.append("1;0;");
-                composite.append(StateIndex);
-                composite.append(")");
-                break;
-            case 6:
-                composite.append("-1;-1;");
-                composite.append(StateIndex);
-                composite.append(")");
-                break;
-            case 7:
-                composite.append("0;-1;");
-                composite.append(StateIndex);
-                composite.append(")");
+                composite.append(";)");
                 break;
             case 8:
+                composite.append("1;1;");
+                composite.append(StateIndex);
+                composite.append(";)");
+                break;
+            case 1:
+                composite.append("-1;0;");
+                composite.append(StateIndex);
+                composite.append(";)");
+                break;
+            //4 est le centre et ne doit pas etre dans la liste composite
+            case 7:
+                composite.append("1;0;");
+                composite.append(StateIndex);
+                composite.append(";)");
+                break;
+            case 0:
+                composite.append("-1;-1;");
+                composite.append(StateIndex);
+                composite.append(";)");
+                break;
+            case 3:
+                composite.append("0;-1;");
+                composite.append(StateIndex);
+                composite.append(";)");
+                break;
+            case 6:
                 composite.append("1;-1;");
                 composite.append(StateIndex);
-                composite.append(")");
+                composite.append(";)");
                 break;
             default:
                 break;

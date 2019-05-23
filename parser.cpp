@@ -764,10 +764,13 @@ string  Parser::RulesToString()
 int Parser::ParseInt(string &index, uint &i)
 {
     string str = "";
+    cout << "<";
     while ((index)[i] != ';' && (index)[i] != ')')
     {
+        cout << (index)[i];
         str += (index)[i++];
     }
+    cout << ">" <<endl;
     i++; //saute le prochain char, qui est un délimiteur
 
     if(str == "")
