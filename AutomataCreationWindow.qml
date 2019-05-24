@@ -273,13 +273,13 @@ ApplicationWindow{
             window.show()
             if(stateListView.getListCount()<1)
             {
-                okButton.visible=false
-                addRule.visible=false
+                okButton.enabled=false
+                addRule.enabled=false
             }
             if (stateListView.getListCount()>=1)
             {
-                okButton.visible=true
-                addRule.visible=true
+                okButton.enabled=true
+                addRule.enabled=true
             }
         }
     }
@@ -288,11 +288,11 @@ ApplicationWindow{
         anchors.left: ruleList.left
         id: addRule
         text: qsTr("Add Rule")
-        visible: {
+        enabled: {
             if(stateListView.getListCount()<1)
-                addRule.visible=false
+                addRule.enabled=false
             if (stateListView.getListCount()>=1)
-                addRule.visible=true
+                addRule.enabled=true
         }
 
         onClicked: {
@@ -322,15 +322,15 @@ ApplicationWindow{
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("OK")
-        visible:
+        enabled:
         {
             if(stateListView.getListCount()<1)
             {
-                okButton.visible=false
+                okButton.enabled=false
             }
             if (stateListView.getListCount()>=1)
             {
-                okButton.visible=true
+                okButton.enabled=true
             }
         }
 
