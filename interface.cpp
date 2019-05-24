@@ -27,6 +27,7 @@ void Interface::initialiseParser()
 void Interface::initMatrix()
 {
     matrixview->initMatrix();
+    isReady=true;
 }
 
 QString Interface::type() const
@@ -555,6 +556,11 @@ QColor Interface::stateColorFromSquareIndex(int index)
 {
     unsigned int indexOfState = matrixIndexAndStateIndex[index].toUInt();
     return parser.GetAutomata()->GetStates().at(indexOfState).color.name(QColor::HexRgb);
+}
+
+bool Interface::getReadyness()
+{
+    return isReady;
 }
 
 QString Interface::numbState() const

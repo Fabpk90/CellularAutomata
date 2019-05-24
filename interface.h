@@ -56,6 +56,7 @@ private:
     List l;
     List stateListView;
     List ruleListView;
+    bool isReady=false;
 
 public:
     explicit Interface(QObject *parent = nullptr);
@@ -141,6 +142,7 @@ public:
     Q_INVOKABLE void removeAllRulesAutomata();
     Q_INVOKABLE void removeAllStatesAutomata();
     Q_INVOKABLE QColor stateColorFromSquareIndex(int index);
+    Q_INVOKABLE bool getReadyness();
     QString numbState() const;
 
 signals:

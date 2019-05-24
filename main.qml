@@ -107,7 +107,7 @@ ApplicationWindow {
         id: footer
         height: 80
         color: "#f3f3f4"
-
+        enabled:myInterface.getReadyness()
         RowLayout{
             spacing: 1
             anchors.horizontalCenter: parent.horizontalCenter
