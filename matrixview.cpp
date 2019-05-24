@@ -34,7 +34,7 @@ int Matrixview::returnSize()//return the size of the matrix
 Matrixview::Matrixview(QObject *parent) : QObject(parent)
 {
 
-        listOfState.append({QColor("white"),"State "+to_string(1)});
+      //  listOfState.append({QColor("white"),"State "+to_string(1)});
 
 
     srand(time(NULL));
@@ -221,11 +221,7 @@ void Matrixview::sizeMatrix(QString H,QString W)//dimensionne la matrice vide à
 void Matrixview::initMatrix()// initialise la matrice
 {
 
-    int size=listOfState.size();
-    for (int i=0;i<size;i++) {
-        removeCell(0);
-
-    }
+    listOfState.clear();
      if(parser !=nullptr){
     int h=parser->GetAutomata()->GetSizeX();int w=parser->GetAutomata()->GetSizeY();
 
