@@ -148,7 +148,7 @@ void Automata::RemoveState(const State &toRemove)
 
 void Automata::RemoveAllRules()
 {
-    for (int i = 0; i < rules.size(); ++i) {
+    for (uint i = 0; i < rules.size(); ++i) {
         delete rules[i];
     }
 
@@ -162,23 +162,22 @@ void Automata::RemoveAllStates()
 
 void Automata::RemoveRule(const Rule &toRemove)
 {
-
     vector<Rule*>::iterator it = rules.begin();
-    bool found = false;
-
     while (it != rules.end())
     {
         if((*it) == &toRemove)
         {
-            found = true;
-            delete (*it);
+            generations.clear();
+            auto toDelete = *it;
+            it = rules.erase(it);
+
+            delete toDelete;
+        }
+        else {
+            it++;
         }
     }
 
-    if(found)
-    {
-        generations.clear();
-    }
 }
 
 void Automata::SortGenerations()
