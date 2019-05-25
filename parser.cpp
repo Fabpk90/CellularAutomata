@@ -747,8 +747,13 @@ string  Parser::RulesToString()
                 strRepresentation.append(to_string(rStocha->GetProbability())); // Proba
                 strRepresentation.append(";");
                 if(r->GetType() == 2){
+                    int index = -1;
+                    for (uint i = 0; i < automata->GetStates().size(); ++i) {
+                        if(automata->GetStates()[i].name == r->GetParameters()[0].toCheckAgainst->name)
+                            index = i;
+                    }
 
-                    strRepresentation.append(r->GetParameters()[0].toCheckAgainst->name); // Etatcond
+                    strRepresentation.append(to_string(index)); // Etatcond
                     strRepresentation.append(";");
                 }
             }
