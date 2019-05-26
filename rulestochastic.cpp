@@ -28,6 +28,8 @@ void RuleStochastic::Apply(int x, int y){
      // si le resultat aléatoire est entre  0 et la proba on passe à la suite
     cout << "GetProba is " << this->GetProbability() << endl;
     cout << "The Randy is " << randomNumber << endl;
+    currentCellX = x;
+    currentCellY = y;
     if(randomNumber<= this->GetProbability()){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
         if(this->isComputePosition){ // on verifie si on doit computeposition ou computecount
 
