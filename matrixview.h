@@ -27,7 +27,7 @@ public:
 
     void emptyMatrix();
     void selectGen(int gen);
-
+    string dim="TwoDimensions";
 signals:
     void preCellAppended();// signaux avant et après ajout de cellule
     void postCellAppended();

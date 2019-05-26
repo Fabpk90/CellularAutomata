@@ -286,7 +286,6 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 i++;
                                 float proba = atof(strProba.c_str());
-
                                 if((*index)[i] != '\0' && index->at(i) != '\n') // c'est une règle stocha dyn
                                 {
                                     int indexEtatCond = ParseInt(*index, i);
@@ -320,6 +319,7 @@ void  Parser::ParseAndAddRules(string* index)
                             }
                             else {
                                 RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
+
                                 automata->AddRule(*d);
                             }
                         }

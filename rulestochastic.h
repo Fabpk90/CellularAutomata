@@ -2,6 +2,7 @@
 #define RULESTOCHASTIC_H
 
 #include "rule.h"
+#include <iostream>
 
 class RuleStochastic : public Rule
 {

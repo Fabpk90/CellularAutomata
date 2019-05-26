@@ -27,7 +27,13 @@ void Matrixview::setEngine(QQmlApplicationEngine *value)
 int Matrixview::returnSize()//return the size of the matrix
 {
 
-    int a =sqrt(listOfState.size());
+    int a;
+    if(dim=="OneDimension")
+        return a= listOfState.size();
+
+    else
+    a =sqrt(listOfState.size());
+
     return a;
 }
 

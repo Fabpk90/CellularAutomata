@@ -2,13 +2,14 @@
 #include <QQmlApplicationEngine>
 #include "rulestochasticdynamic.h"
 #include "automata.h"
+#include <iostream>
 
 RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, Automata* automata, State* toChangeInto, State* startingState,std::vector<RuleParameters> params,
                                              float probability):
     RuleStochastic(isComputePosition, automata, toChangeInto, startingState ,params, probability){};
 
 float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de la règle
-
+    cout<<"not in the good zone"<<endl;
 
     float prob = 0.0;
     int posX = 0, posY = 0;

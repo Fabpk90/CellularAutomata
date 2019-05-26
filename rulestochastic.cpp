@@ -17,7 +17,6 @@ void RuleStochastic::Apply(int x, int y){
 
     //Pour l'aléatoire sur la proba :
     float randomNumber = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-
     if(randomNumber<=GetProbability()){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
         if(this->isComputePosition){ // on verifie si on doit computeposition ou computecount
 

@@ -279,10 +279,11 @@ ApplicationWindow {
            myInterface.initialiseParser()
            myInterface.callLoad("test", Qt.resolvedUrl(this.fileUrl))
            mainwindow.close()
-           var Component = Qt.createComponent("main.qml")
+          myInterface.loadInterface()
+            var Component = Qt.createComponent("main.qml")
            var window = Component.createObject(mainwindow)
            window.show()
-           myInterface.loadInterface()
+
         }
         onRejected: {
         }

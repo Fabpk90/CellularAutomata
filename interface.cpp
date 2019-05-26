@@ -79,8 +79,8 @@ void Interface::CallMaxGenerationsToSimulate()
 
 void Interface::CallMatrixSize()
 {
-    if(m_dimension=="TwoDimensions") m_sizeY=m_sizeX;
-    else m_sizeY="1";
+    if(m_dimension=="TwoDimensions"){ m_sizeY=m_sizeX;matrixview->dim="TwoDimensions";}
+    else{ m_sizeY="1";matrixview->dim="OneDimension";}
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
     this->parser.ParseAndAddSize(&size);
 }
@@ -494,8 +494,8 @@ void Interface::loadInterface()
        stateListView.setStateColor(m_stateColor);
        stateListView.appendState();
    }
-   if(parser.GetAutomata()->GetSizeY()==1) setDimension("OneDimension");
-   else setDimension("TwoDimensions");
+   if(parser.GetAutomata()->GetSizeY()==1){ setDimension("OneDimension");matrixview->dim="OneDimension";}
+   else {setDimension("TwoDimensions");matrixview->dim="TwoDimensions";}
 }
 
 QString Interface::returnCurrentGen()
