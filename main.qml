@@ -46,8 +46,6 @@ ApplicationWindow {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)
                     window.show()
-                    ruleListView.removeAllItems()
-                    stateListView.removeAllItems()
                     mat.visible= true
 
                 }

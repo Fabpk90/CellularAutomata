@@ -34,8 +34,6 @@ namespace Simulator {
                     for(unsigned int k = 0; k < automata.GetRules().size(); k++)
                         if(automata.GetRules()[k]->GetStartingState().color == automata.GetCellState(i,j).color) //Applique la règle seulement si l'état de départ correspond à l'état de la case testé
                         {
-                            if(automata.GetRules()[k]->GetType() == 2)
-                                cout << "DYNAM PUCH" << endl;
                             automata.GetRules()[k]->Apply(i,j);
                         }
                 }
