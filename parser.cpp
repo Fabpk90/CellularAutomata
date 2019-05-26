@@ -287,7 +287,7 @@ void  Parser::ParseAndAddRules(string* index)
                                 i++;
                                 float proba = atof(strProba.c_str());
 
-                                if((*index)[i] != '\0') // c'est une règle stocha dyn
+                                if((*index)[i] != '\0' && index->at(i) != '\n') // c'est une règle stocha dyn
                                 {
                                     int indexEtatCond = ParseInt(*index, i);
                                     param.x = param.y = 0;
@@ -307,6 +307,7 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 else {
                                     param.x = param.y = 0;
+                                    param.toCheckAgainst = nullptr;
                                     vector<Rule::RuleParameters> vec;
                                     vec.push_back(param);
 
