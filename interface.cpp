@@ -8,9 +8,9 @@
 
 void Interface::initialiseParser()
 {
-    if(ca != nullptr)
+  /*  if(ca != nullptr)
         delete ca;
-
+*/
     ca = new Automata(false, false, 1, 1, vector<Rule*>(), vector<State>(), vector<Generation>());
 
     this->parser.SetAutomata(ca);
