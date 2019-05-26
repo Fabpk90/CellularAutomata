@@ -282,6 +282,11 @@ void  Parser::ParseAndAddRules(string* index)
                                 string strProba = "";
                                 while((*index)[i] != ';')
                                 {
+                                    #ifdef __unix__
+                                    if(*index[i] == '.')
+                                        strProba += ',';
+                                    else
+                                    #endif
                                     strProba += (*index)[i++];
                                 }
                                 i++;
