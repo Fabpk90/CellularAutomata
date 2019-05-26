@@ -283,7 +283,7 @@ void  Parser::ParseAndAddRules(string* index)
                                 while((*index)[i] != ';')
                                 {
                                     #ifdef __unix__
-                                    if(*index[i] == '.')
+                                    if(*index[i++] == '.')
                                         strProba += ',';
                                     else
                                     #endif
