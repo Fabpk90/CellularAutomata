@@ -10,9 +10,8 @@ RuleStochastic::RuleStochastic(bool isComputePosition, Automata* automata, State
     : Rule(isComputePosition, automata, toChangeInto,startingState , params)
 {
     cout << "(Proba is: " << probability << ") ";
-    cout << "saving " << this->probability << endl;
     this->probability=probability;
-
+    cout << "saving " << this->probability << endl;
 }
 
 float RuleStochastic::GetProbability()
