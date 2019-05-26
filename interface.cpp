@@ -238,7 +238,7 @@ void Interface::okCreateRule()
                 compositeCount.append("0"); //y
                 compositeCount.append(";");
                 compositeCount.append(QString::number(i));//StateIndex
-                compositeCount.append(")");
+                compositeCount.append(";)");
                 rule.append(compositeCount);
                 rule.append(";");
                 compositeCount = "";
