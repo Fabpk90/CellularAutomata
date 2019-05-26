@@ -17,7 +17,7 @@ Parser::Parser()
 
 void Parser::SetAutomata(Automata *automata)
 {
-    delete this->automata;
+    //delete this->automata;
     this->automata = automata;
 }
 
@@ -293,6 +293,11 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 i++;
                                 float proba = atof(strProba.c_str());
+
+                                /*cout << "StrProba: " << strProba << endl;
+                                cout << "StrProba.c: " << strProba.c_str() << endl;
+                                cout << "Proba: " << proba << endl;*/
+
                                 if((*index)[i] != '\0' && index->at(i) != '\n') // c'est une règle stocha dyn
                                 {
                                     int indexEtatCond = ParseInt(*index, i);
