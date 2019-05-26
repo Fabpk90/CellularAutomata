@@ -130,7 +130,7 @@ ApplicationWindow{
         Text {
             anchors.topMargin: 15
             anchors.top: parent.top
-            text: qsTr("Matrix Size X:")
+            text: qsTr("Matrix Size:")
         }
         SpinBox{
             from: 1
@@ -142,10 +142,15 @@ ApplicationWindow{
         }
     }
 
-    Row{
+    /*Row{
         id:sizeY
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: sizeX.bottom
+        visible: {
+            if(myInterface.dimension==="OneDimension") true
+            else false
+        }
+
         Text {
             anchors.topMargin: 15
             anchors.top: parent.top
@@ -165,12 +170,12 @@ ApplicationWindow{
             editable: true
             onValueChanged: myInterface.sizeY = value
         }
-    }
+    }*/
 
     Row{
         id: maxGenerationsToSimulate
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: sizeY.bottom
+        anchors.top: sizeX.bottom
         Text {
             anchors.topMargin: 15
             anchors.top: parent.top
@@ -198,7 +203,7 @@ ApplicationWindow{
         }
         ListView{
             id: stateView
-            width: 200; height: 150
+            width: 200; height: 200
             spacing: 2
             clip: true
             model: ListModel {
@@ -240,7 +245,7 @@ ApplicationWindow{
         }
         ListView{
             id: ruleView
-            width: 200; height: 150
+            width: 200; height: 200
             spacing: 2
             clip: true
             model: ListModel {

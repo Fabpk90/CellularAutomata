@@ -79,6 +79,8 @@ void Interface::CallMaxGenerationsToSimulate()
 
 void Interface::CallMatrixSize()
 {
+    if(m_dimension=="TwoDimensions") m_sizeY=m_sizeX;
+    else m_sizeY="1";
     string size=m_sizeX.toStdString() + ";" + m_sizeY.toStdString();
     this->parser.ParseAndAddSize(&size);
 }
