@@ -10,7 +10,6 @@ RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, Automata* a
 
 float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de la règle
 
-
     float prob = 0.0;
     int posX = 0, posY = 0;
 

@@ -10,8 +10,9 @@ RuleStochastic::RuleStochastic(bool isComputePosition, Automata* automata, State
     : Rule(isComputePosition, automata, toChangeInto,startingState , params)
 {
     cout << "(Proba is: " << probability << ") ";
-    cout << "saving " << this->probability << endl;
+
     this->probability=probability;
+    cout << "saving " << this->probability << endl;
 
 }
 
@@ -27,6 +28,7 @@ void RuleStochastic::Apply(int x, int y){
     float randomNumber = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 
 
+     // si le resultat aléatoire est entre  0 et la proba on passe à la suite
     cout << "GetProba is " << this->GetProbability() << endl;
     cout << "The Randy is " << randomNumber << endl;
     if(randomNumber<= this->GetProbability()){ // si le resultat aléatoire est entre  0 et la proba on passe à la suite
@@ -46,8 +48,7 @@ void RuleStochastic::Apply(int x, int y){
             cout << "Pos Vector length: " << positions.size() << endl;
             cout << "Parameters X: " << this->parameters[1].x << " / Y: " << this->parameters[1].y << endl;
             cout << "Pos Vector X: " << positions[0].first << " / Y: " << positions[0].second << endl;
-            if(testState[0] == NULL)
-                cout << "NULL STATE - THE FUCK" << endl;
+
 
 
             if (Simulator::ComputePosition(positions, testState,x,y)){ // si la règle est effectivement vraie on applique
