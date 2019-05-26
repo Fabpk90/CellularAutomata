@@ -17,7 +17,7 @@ Parser::Parser()
 
 void Parser::SetAutomata(Automata *automata)
 {
-    //delete this->automata;
+   // delete this->automata;
     this->automata = automata;
 }
 
@@ -41,9 +41,9 @@ void Parser::SetAutomata(Automata *automata)
 
 void  Parser::ParseFile(const string* path)
 {
-    delete automata;
+  /*  delete automata;
     automata = new Automata();
-
+*/
     try{
     dataToParse = LoadData(path);
     } catch(string const& error){
