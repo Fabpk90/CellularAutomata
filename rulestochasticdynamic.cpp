@@ -9,7 +9,6 @@ RuleStochasticDynamic::RuleStochasticDynamic(bool isComputePosition, Automata* a
     RuleStochastic(isComputePosition, automata, toChangeInto, startingState ,params, probability){};
 
 float RuleStochasticDynamic::GetProbability(){ // on recalcul la probabilité de la règle
-    cout<<"not in the good zone"<<endl;
 
     float prob = 0.0;
     int posX = 0, posY = 0;
