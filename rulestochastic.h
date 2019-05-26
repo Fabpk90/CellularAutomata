@@ -2,6 +2,7 @@
 #define RULESTOCHASTIC_H
 
 #include "rule.h"
+#include <iostream>
 
 class RuleStochastic : public Rule
 {
@@ -15,9 +16,7 @@ class RuleStochastic : public Rule
 
         void Apply(int x, int y) override;
         int GetType() override; // retourne 0 si deterministe, 1 si stochastique et 2 si stochastique dynamique
-        virtual float GetProbability() { // retourne la probabilité que la règle s'applique
-            return this->probability;
-        }
+        virtual float GetProbability(); // retourne la probabilité que la règle s'applique
 
 ~RuleStochastic();
 
