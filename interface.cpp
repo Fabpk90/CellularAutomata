@@ -13,6 +13,9 @@ void Interface::initialiseParser()
 
     ca = new Automata(false, false, 1, 1, vector<Rule*>(), vector<State>(), vector<Generation>());
 
+    ruleListView.removeAllItems();
+    stateListView.removeAllItems();
+
     this->parser.SetAutomata(ca);
     setType("Deterministic");
     setDimension("TwoDimensions");
