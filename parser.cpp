@@ -748,7 +748,7 @@ string  Parser::RulesToString()
                     if(r->GetParameters()[i].toCheckAgainst != nullptr
                             && automata->GetStates()[j].name == r->GetParameters()[i].toCheckAgainst->name)
                     {
-                        index = i;
+                        index = j;
                     }
                 }
                 strRepresentation.append(to_string(index));
