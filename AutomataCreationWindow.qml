@@ -222,6 +222,7 @@ ApplicationWindow{
 
                 Button{
                     text: "X"
+                    Layout.preferredWidth: 40
                     onClicked:{
                         myInterface.removeStateAutomata(model.number)
                         stateListView.removeItem(model.number)
@@ -257,6 +258,7 @@ ApplicationWindow{
                 }
                 Button{
                     text: "X"
+                    Layout.preferredWidth: 40
                     onClicked:{
                         myInterface.removeRuleAutomata(model.number)
                         ruleListView.removeItem(model.number)
