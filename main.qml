@@ -240,17 +240,6 @@ ApplicationWindow {
                 }
             }
 
-            Item {
-                width: 50
-            }
-
-            Button{
-                text: qsTr("Recompute")
-                onClicked: {
-                    currentGeneration.text=myInterface.returnCurrentGen()
-                }
-            }
-
         }
 
 }
