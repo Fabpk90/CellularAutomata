@@ -11,10 +11,13 @@ namespace Simulator {
          if (automata.GetCurrentGen().generationID < automata.GetMaxSimulations()){
 
             //Créer la nouvelle génération à ajouter au vecteur
-            Generation newest;
-            newest.generationID = automata.GetCurrentGen().generationID + 1;
-            newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
-            automata.AddGeneration(newest);
+            if(automata.GetGenerations().back().generationID == automata.GetCurrentGen().generationID)
+            {
+                Generation newest;
+                newest.generationID = automata.GetCurrentGen().generationID + 1;
+                newest.cellMatrix = vector<unsigned int>(automata.GetSizeX() * automata.GetSizeY());
+                automata.AddGeneration(newest);
+            }
 
             //Etat antécédant
             State oldState;

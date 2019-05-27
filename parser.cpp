@@ -202,7 +202,11 @@ void  Parser::ParseAndAddRules(string* index)
 
             while((*index)[i] != ';')
             {
-                ruleType += (*index)[i++];
+                if((*index)[i] != '\n')
+                    ruleType += (*index)[i++];
+                else {
+                    i++;
+                }
             }
 
             if(ruleType == "Position" || ruleType == "Count")
@@ -331,7 +335,7 @@ void  Parser::ParseAndAddRules(string* index)
                             }
                             else {
                                 RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
-
+                                cout << "A Rule Has Been Added" << endl;
                                 automata->AddRule(*d);
                             }
                         }
@@ -345,6 +349,7 @@ void  Parser::ParseAndAddRules(string* index)
                 }
             }
             else {
+                cout << "RuleTypeIs: " << ruleType << endl;
                 throw(string("ParseAndAddRules : The type of the rule is not correct"));
             }
         }
@@ -535,23 +540,44 @@ void  Parser::ParseHistory(string* index)
     }
 
     nbHistory = stoi(nbHistoryH);
-    //cout << "Nb History = " << nbHistory << endl;
+    cout << "Nb History = " << nbHistory << endl;
     if(nbHistory != 0 ){
         int asciiGenId = -1;
         string strRepresentation = "";
         vector<int> asciiStates;
-        Generation g;
-        bool isadded = false;
 
-        for(int k = i; k < sizeIndex; k ++){
+        cout << "Creating generations: " << nbHistory << endl;
+        vector<Generation> g(nbHistory); //C'est horrible
+        cout << "Reserved Memory" << endl;
+        int ct;
+        int cellMatrixIndice = 0;
+        for (int ct = 0; ct < nbHistory ; ct++) {
+            g[ct].cellMatrix = vector<unsigned int>(automata->GetSizeX() * automata->GetSizeY());
+        }
+        cout << "Matrix Created" << endl;
+        ct = 0;
+
+        bool isadded = false;
+        bool previousWasGenID = false; int ver = 0;
+
+        for(int k = i; k < sizeIndex; k++){
         isadded = false;
             ascii = index[0][k];
             if (ascii >= '0' && ascii <= '9'){
 
-                asciiGenId = ascii - 48; //Lecture du genId
-                g.generationID = asciiGenId;
-                //cout<< "GId : "<<g.generationID << endl;
+                if(!previousWasGenID)
+                {
+                    asciiGenId = ascii - 48; //Lecture du genId
+                }
+                else {
+                    asciiGenId *= 10;
+                    asciiGenId += ascii - 48;
+                }
+                previousWasGenID = true;
+                g[ct].generationID = asciiGenId;
+                cout<< "GId : "<<g[ct].generationID << endl;
             }else if(ascii == ';'){
+                previousWasGenID = false;
                 k++;
                 ascii = index[0][k];
                 if(ascii == '\0'){throw(string("ParseAndAddHistory : No state for the gen"));}
@@ -563,25 +589,33 @@ void  Parser::ParseHistory(string* index)
                         ascii = index[0][k];
                     }else if (ascii == ',' || ascii == ';') {
 
-                        g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
 
+                        g[ct].cellMatrix[cellMatrixIndice++] = stoi(strRepresentation); // Ajout dans le vecteur d'etat
+                        cout << "Pushed: " << stoi(strRepresentation) << " In the matrix " << g[ct].cellMatrix[ver++] << endl;
                         strRepresentation="";
                         k++;
                         ascii = index[0][k];
                     }
                 }
-                g.cellMatrix.push_back(stoi(strRepresentation)); // Ajout dans le vecteur d'etat
 
+                 g[ct].cellMatrix[cellMatrixIndice++] = stoi(strRepresentation); // Ajout dans le vecteur d'etat
+                cout << "Pushed: " << stoi(strRepresentation) << " In the matrix " << g[ct].cellMatrix[ver++] << endl;
+                ct++;
+                cellMatrixIndice = 0;
+                ver = 0;
+                cout << "Added Generation" << endl;
                 strRepresentation = "";
-                automata->AddGeneration(g);
                 isadded = true;
-                if(isadded && nbHistory-1 == g.generationID) k = 999999;// On sort de la boucle car il n'y a plus de gen
+                if(isadded && nbHistory-1 == g[ct].generationID) k = 999999;// On sort de la boucle car il n'y a plus de gen
 
-            }else if(ascii != ';' && (ascii < 48 || ascii > 57)) {
+            }else if(ascii != ';' && ascii != '\n' && (ascii < 48 || ascii > 57)) {
+                cout << "The culprit " << to_string(ascii) << endl;
                 throw(string("ParseAndAddHistory : Number of genid is not an int"));
             }
         }
+        automata->AddGenerations(g);
     }
+
 }
 
 string  Parser::AutomataToString()
