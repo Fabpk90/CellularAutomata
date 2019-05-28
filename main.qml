@@ -11,12 +11,13 @@ ApplicationWindow {
     id: mainwindow
     visible: true
     height: Screen.desktopAvailableHeight
-    width: Screen.desktopAvailableWidth
-    minimumWidth: 900
+    width: height - mbar.height - footer.height
+    minimumWidth: 600
     minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
 
     menuBar: MenuBar{
+        id: mbar
         Menu{
             title: "File"
             MenuItem {//bouton pour sauvegarder
@@ -67,7 +68,7 @@ ApplicationWindow {
     GridView{
          id:mat
          anchors.fill : parent
-         contentHeight: mainwindow.height - footer.height
+         contentHeight: mainwindow.height - footer.height -mbar.height
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
