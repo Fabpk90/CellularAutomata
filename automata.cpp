@@ -62,7 +62,13 @@ void Automata::SetNeighborhood(bool b){
 
     neighborhood.clear();
 
-    if(isVonNeighborhood)
+
+    if(sizeY == 1)
+    {
+        neighborhood.push_back(std::make_pair(0,-1));
+        neighborhood.push_back(std::make_pair(0,+1));
+    }
+    else if(isVonNeighborhood)
     {
         FillNeighborhoodVonNeumann();
     }
