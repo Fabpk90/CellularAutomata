@@ -52,6 +52,8 @@ ApplicationWindow {
             }
             MenuItem { text: "Edit Automaton" //bouton pour l'édition de l'automate
                 id: editItem
+                //height: 0
+                //visible: false
                 onClicked: {
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
                     var window = Component.createObject(mainwindow)

@@ -124,7 +124,7 @@ void  Parser::ParseFile(const string* path)
     } catch (string const& error) {
         cout << error << endl;
     }
-    automata->SetMaxSimulations(automata->GetGenerations().back().generationID+10);
+    automata->SetMaxSimulations(automata->GetGenerations().back().generationID);
 }
 
 Automata * Parser::GetAutomata(){

@@ -100,7 +100,7 @@ void Matrixview::update()//Met à jour l'affichage de la matrice
 
                 for (int i =0;i<h;i++) {
                     for (int j =0; j<w ;j++) {
-                        this->setCellAt(i*h+j, parser->GetAutomata()->GetCellState(i,j));
+                        this->setCellAt(i*w+j, parser->GetAutomata()->GetCellState(i,j));
 
                     }
                 }
