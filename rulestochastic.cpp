@@ -46,10 +46,10 @@ void RuleStochastic::Apply(int x, int y){
                 testState.push_back(this->parameters[i].toCheckAgainst);
             }
 
-            cout << "Parameters length: " << this->parameters.size() << endl;
+            /*cout << "Parameters length: " << this->parameters.size() << endl;
             cout << "Pos Vector length: " << positions.size() << endl;
             cout << "Parameters X: " << this->parameters[1].x << " / Y: " << this->parameters[1].y << endl;
-            cout << "Pos Vector X: " << positions[0].first << " / Y: " << positions[0].second << endl;
+            cout << "Pos Vector X: " << positions[0].first << " / Y: " << positions[0].second << endl;*/
 
 
 

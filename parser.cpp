@@ -339,6 +339,70 @@ void  Parser::ParseAndAddRules(string* index)
                                 automata->AddRule(*d);
                             }
                         }
+                        else if(lengthStates == 0) //Grosse partie expérimentale de ouf malade
+                        {
+                            vector<Rule::RuleParameters> parameters;
+                            const vector<State>& states = automata->GetStates();
+                            State* stateStart = new State();
+                            stateStart->name = states[indexStartState].name;
+                            stateStart->color = states[indexStartState].color;
+
+                            State* endState = new State();
+                            endState->name = states[indexEndState].name;
+                            endState->color = states[indexEndState].color;
+                            //cout << "index at " << index->at(i) << endl;
+                            if(index->size() != i && index->at(i) != '\n') //si vrai, c'est une stocha ou stochadyn
+                            {
+                                string strProba = "";
+                                while((*index)[i] != ';')
+                                {
+                                    #ifdef __unix__
+                                    if((*index)[i] == '.')
+                                    {   strProba += ',';
+                                        i++;
+                                    }
+                                    else
+                                    #endif
+                                    strProba += (*index)[i++];
+                                }
+                                i++;
+                                float proba = atof(strProba.c_str());
+
+                                /*cout << "StrProba: " << strProba << endl;
+                                cout << "StrProba.c: " << strProba.c_str() << endl;
+                                cout << "Proba: " << proba << endl;*/
+                                Rule::RuleParameters param;
+
+                                if((*index)[i] != '\0' && index->at(i) != '\n') // c'est une règle stocha dyn
+                                {
+
+                                    int indexEtatCond = ParseInt(*index, i);
+                                    param.x = param.y = 0;
+                                    State* check = new State();
+                                    check->name = states[indexEtatCond].name;
+                                    check->color = states[indexEtatCond].color;
+                                    param.toCheckAgainst = check;
+                                    vector<Rule::RuleParameters> vec;
+                                    vec.push_back(param);
+
+                                    RuleStochasticDynamic* r = new RuleStochasticDynamic(isComputePosition, automata, endState, stateStart, vec, proba);
+                                    automata->AddRule(*r);
+                                }
+                                else {
+                                    param.x = param.y = 0;
+                                    param.toCheckAgainst = nullptr;
+                                    vector<Rule::RuleParameters> vec;
+                                    vec.push_back(param);
+                                    RuleStochastic* r = new RuleStochastic(isComputePosition, automata, endState, stateStart, vec, proba);
+                                    automata->AddRule(*r);
+                                }
+                            }
+                            else {
+                                RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
+                                cout << "A Rule Has Been Added" << endl;
+                                automata->AddRule(*d);
+                            }
+                        } //Fin de la partie expérimentale
                     }
                     else {
                         throw(string("ParseAndAddRules : The endState is not correct"));
