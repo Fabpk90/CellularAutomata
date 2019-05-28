@@ -102,7 +102,6 @@ ApplicationWindow {
          }
     }
 
-
        footer: Rectangle{//espace pour l'ensemble des boutons
         id: footer
         height: 80

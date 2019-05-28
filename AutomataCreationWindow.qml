@@ -278,9 +278,9 @@ ApplicationWindow{
         id: addState
         text: qsTr("Add State")
         onClicked: {
-            var Component = Qt.createComponent("StateCreationWindow.qml")
-            var window = Component.createObject(mainwindow)
-            window.show()
+            var stateCreationWindow = Qt.createComponent("StateCreationWindow.qml")
+            var stateWindow = stateCreationWindow.createObject(mainwindow)
+            stateCreationWindow.show()
             if(stateListView.getListCount()<1)
             {
                 okButton.enabled=false
@@ -348,10 +348,10 @@ ApplicationWindow{
             myInterface.sendMandatoryInfo()
             myInterface.sizeTheVector()
             matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
-            var Component = Qt.createComponent("MatrixCustomisationWindow.qml")
-            var window = Component.createObject(mainwindow)
+            var matrixCustWindow = Qt.createComponent("MatrixCustomisationWindow.qml")
+            var matrixCustomisationWindow = matrixCustWindow.createObject(mainwindow)
             automataCreationWindow.close()
-            window.show()
+            matrixCustomisationWindow.show()
         }
     }
 
