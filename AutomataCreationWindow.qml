@@ -133,7 +133,10 @@ ApplicationWindow{
             text: qsTr("Matrix Size:")
         }
         SpinBox{
-            from: 1
+            from: {
+                if(myInterface.dimension==="TwoDimensions") 2
+                else 1
+            }
             value: myInterface.sizeX
             to: 100
             stepSize: 1
