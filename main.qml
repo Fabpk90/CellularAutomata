@@ -55,9 +55,9 @@ ApplicationWindow {
                 //height: 0
                 //visible: false
                 onClicked: {
-                    var Component = Qt.createComponent("AutomataCreationWindow.qml")
-                    var window = Component.createObject(mainwindow)
-                    window.show()
+                    var ComponentEdit = Qt.createComponent("AutomataCreationWindow.qml")
+                    var windowEdit = ComponentEdit.createObject(mainwindow)
+                    windowEdit.show()
                     mat.visible = true
                 }
             }
