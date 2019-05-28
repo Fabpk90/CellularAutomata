@@ -7,7 +7,7 @@ import Interface 1.0
 ApplicationWindow{
     id: oneDimensionRuleCreationWindow
     title: qsTr("Rule Creation")
-    minimumHeight: 384 //(768/2)
+    minimumHeight: 550 //(768/2)
     minimumWidth: 456//(1366/3)
     width: screen.width / 3
     height: screen.height / 2
