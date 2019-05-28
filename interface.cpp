@@ -512,19 +512,25 @@ QString Interface::returnCurrentGen()
 
 void Interface::removeStateAutomata(int index)
 {
-    for(int i=0; i<stateListView.getListItem().size();i++)
+    if(parser.GetAutomata()->GetStates().size()!=0)
     {
-        if(stateListView.getListItem().at(i).number==index)
-            parser.GetAutomata()->RemoveState(parser.GetAutomata()->GetStates().at(i));
+        for(int i=0; i<stateListView.getListItem().size();i++)
+        {
+            if(stateListView.getListItem().at(i).number==index)
+                parser.GetAutomata()->RemoveState(parser.GetAutomata()->GetStates().at(i));
+        }
     }
 }
 
 void Interface::removeRuleAutomata(int index)
 {
-    for(int i=0; i<stateListView.getListItem().size();i++)
+    if(parser.GetAutomata()->GetRules().size()!=0)
     {
-        if(stateListView.getListItem().at(i).number==index)
-            parser.GetAutomata()->RemoveRule(*parser.GetAutomata()->GetRules().at(i));
+        for(int i=0; i<stateListView.getListItem().size();i++)
+        {
+            if(stateListView.getListItem().at(i).number==index)
+                parser.GetAutomata()->RemoveRule(*parser.GetAutomata()->GetRules().at(i));
+        }
     }
 }
 
