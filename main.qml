@@ -12,7 +12,7 @@ ApplicationWindow {
     visible: true
     height: Screen.desktopAvailableHeight
     width: height - mbar.height - footer.height
-    minimumWidth: 600
+    minimumWidth: 900
     minimumHeight: 600
     title: qsTr("Cellular Automata Simulator")
 
@@ -72,7 +72,7 @@ ApplicationWindow {
          contentWidth: mainwindow.width
          ScrollBar.vertical:ScrollBar{id: hbar; active: vbar.active; policy:ScrollBar.AlwaysOn}
          ScrollBar.horizontal: ScrollBar{id: vbar; active: hbar.active; policy: ScrollBar.AlwaysOn}
-         highlightFollowsCurrentItem: false
+         highlightFollowsCurrentItem: true
          cellWidth: mainwindow.width/mod.listOfState.returnSize()
          cellHeight: cellWidth
          cacheBuffer: 2000

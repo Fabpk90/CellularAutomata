@@ -280,7 +280,7 @@ ApplicationWindow{
         onClicked: {
             var stateCreationWindow = Qt.createComponent("StateCreationWindow.qml")
             var stateWindow = stateCreationWindow.createObject(mainwindow)
-            stateCreationWindow.show()
+            stateWindow.show()
             if(stateListView.getListCount()<1)
             {
                 okButton.enabled=false
