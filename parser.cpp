@@ -3,7 +3,6 @@
 #include "rule.h"
 #include "rulestochasticdynamic.h"
 
-#include <iostream>
 #include <deque>
 #include <string>
 #include <QString>
@@ -49,8 +48,6 @@ void  Parser::ParseFile(const string* path)
     } catch(string const& error){
         cout<<error<<endl;
     }
-
-    cout << "Data loaded: " << dataToParse << endl;
 
     string tailleT = "";
     string typeT = "";
@@ -100,11 +97,8 @@ void  Parser::ParseFile(const string* path)
         }
     }
 
-    cout << "Here's the wonderful mess P: " << tailleT << typeT << statesT << rulesT << historyT << endl;
-
     // Distribuer les tâches de parsing
     try {
-        cout << cpt << endl;
         if(cpt == 4){
             ParseAndAddSize(&tailleT);
             ParseAndAddType(&typeT);
@@ -236,7 +230,7 @@ void  Parser::ParseAndAddRules(string* index)
                             throw (error);
                         }
 
-                        if(lengthStates > 0)
+                        if(lengthStates > 0) // si le parsing s'est bien passé
                         {
                             vector<Rule::RuleParameters> parameters;
                             const vector<State>& states = automata->GetStates();
@@ -280,7 +274,6 @@ void  Parser::ParseAndAddRules(string* index)
                             State* endState = new State();
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
-                            //cout << "index at " << index->at(i) << endl;
                             if(index->size() != i && index->at(i) != '\n') //si vrai, c'est une stocha ou stochadyn
                             {
                                 string strProba = "";
@@ -297,10 +290,6 @@ void  Parser::ParseAndAddRules(string* index)
                                 }
                                 i++;
                                 float proba = atof(strProba.c_str());
-
-                                /*cout << "StrProba: " << strProba << endl;
-                                cout << "StrProba.c: " << strProba.c_str() << endl;
-                                cout << "Proba: " << proba << endl;*/
 
                                 if((*index)[i] != '\0' && index->at(i) != '\n') // c'est une règle stocha dyn
                                 {
@@ -335,11 +324,10 @@ void  Parser::ParseAndAddRules(string* index)
                             }
                             else {
                                 RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
-                                cout << "A Rule Has Been Added" << endl;
                                 automata->AddRule(*d);
                             }
                         }
-                        else if(lengthStates == 0) //Grosse partie expérimentale de ouf malade
+                        else if(lengthStates == 0) //Gère les règle sans états
                         {
                             vector<Rule::RuleParameters> parameters;
                             const vector<State>& states = automata->GetStates();
@@ -350,7 +338,6 @@ void  Parser::ParseAndAddRules(string* index)
                             State* endState = new State();
                             endState->name = states[indexEndState].name;
                             endState->color = states[indexEndState].color;
-                            //cout << "index at " << index->at(i) << endl;
                             if(index->size() != i && index->at(i) != '\n') //si vrai, c'est une stocha ou stochadyn
                             {
                                 string strProba = "";
@@ -368,9 +355,6 @@ void  Parser::ParseAndAddRules(string* index)
                                 i++;
                                 float proba = atof(strProba.c_str());
 
-                                /*cout << "StrProba: " << strProba << endl;
-                                cout << "StrProba.c: " << strProba.c_str() << endl;
-                                cout << "Proba: " << proba << endl;*/
                                 Rule::RuleParameters param;
 
                                 if((*index)[i] != '\0' && index->at(i) != '\n') // c'est une règle stocha dyn
@@ -399,10 +383,9 @@ void  Parser::ParseAndAddRules(string* index)
                             }
                             else {
                                 RuleDeterministic* d = new RuleDeterministic(isComputePosition,automata, endState, stateStart, parameters);
-                                cout << "A Rule Has Been Added" << endl;
                                 automata->AddRule(*d);
                             }
-                        } //Fin de la partie expérimentale
+                        }
                     }
                     else {
                         throw(string("ParseAndAddRules : The endState is not correct"));
@@ -413,7 +396,6 @@ void  Parser::ParseAndAddRules(string* index)
                 }
             }
             else {
-                cout << "RuleTypeIs: " << ruleType << endl;
                 throw(string("ParseAndAddRules : The type of the rule is not correct"));
             }
         }
@@ -574,8 +556,6 @@ void  Parser::ParseAndAddSize(string* index)
 
 void  Parser::ParseHistory(string* index)
 {
-    //cout << *index << endl;
-    //cout << index->size() << endl;
     int sizeIndex = index->size();
     int cpt = 0;
     int i = 0;
@@ -604,21 +584,17 @@ void  Parser::ParseHistory(string* index)
     }
 
     nbHistory = stoi(nbHistoryH);
-    cout << "Nb History = " << nbHistory << endl;
     if(nbHistory != 0 ){
         int asciiGenId = -1;
         string strRepresentation = "";
         vector<int> asciiStates;
 
-        cout << "Creating generations: " << nbHistory << endl;
-        vector<Generation> g(nbHistory); //C'est horrible
-        cout << "Reserved Memory" << endl;
+        vector<Generation> g(nbHistory);
         int ct;
         int cellMatrixIndice = 0;
         for (int ct = 0; ct < nbHistory ; ct++) {
             g[ct].cellMatrix = vector<unsigned int>(automata->GetSizeX() * automata->GetSizeY());
         }
-        cout << "Matrix Created" << endl;
         ct = 0;
 
         bool isadded = false;
@@ -639,7 +615,6 @@ void  Parser::ParseHistory(string* index)
                 }
                 previousWasGenID = true;
                 g[ct].generationID = asciiGenId;
-                cout<< "GId : "<<g[ct].generationID << endl;
             }else if(ascii == ';'){
                 previousWasGenID = false;
                 k++;
@@ -655,7 +630,6 @@ void  Parser::ParseHistory(string* index)
 
 
                         g[ct].cellMatrix[cellMatrixIndice++] = stoi(strRepresentation); // Ajout dans le vecteur d'etat
-                        cout << "Pushed: " << stoi(strRepresentation) << " In the matrix " << g[ct].cellMatrix[ver++] << endl;
                         strRepresentation="";
                         k++;
                         ascii = index[0][k];
@@ -663,17 +637,14 @@ void  Parser::ParseHistory(string* index)
                 }
 
                  g[ct].cellMatrix[cellMatrixIndice++] = stoi(strRepresentation); // Ajout dans le vecteur d'etat
-                cout << "Pushed: " << stoi(strRepresentation) << " In the matrix " << g[ct].cellMatrix[ver++] << endl;
                 ct++;
                 cellMatrixIndice = 0;
                 ver = 0;
-                cout << "Added Generation" << endl;
                 strRepresentation = "";
                 isadded = true;
                 if(isadded && nbHistory-1 == g[ct].generationID) k = 999999;// On sort de la boucle car il n'y a plus de gen
 
             }else if(ascii != ';' && ascii != '\n' && (ascii < 48 || ascii > 57)) {
-                cout << "The culprit " << to_string(ascii) << endl;
                 throw(string("ParseAndAddHistory : Number of genid is not an int"));
             }
         }
@@ -881,13 +852,10 @@ string  Parser::RulesToString()
 int Parser::ParseInt(string &index, uint &i)
 {
     string str = "";
-    cout << "<";
     while ((index)[i] != ';' && (index)[i] != ')')
     {
-        cout << (index)[i];
         str += (index)[i++];
     }
-    cout << ">" <<endl;
     i++; //saute le prochain char, qui est un délimiteur
 
     if(str == "")

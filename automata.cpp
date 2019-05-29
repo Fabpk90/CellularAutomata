@@ -79,9 +79,7 @@ void Automata::SetNeighborhood(bool b){
 
 void Automata::Simulate()
 {
-
     Simulator::Simulate(*this);
-
 }
 
 
@@ -209,7 +207,6 @@ void Automata::SetCell(uint x, uint y, State &newState)
     }
 }
 
-//TODO: test
 void Automata::SetCell(uint x, uint y, uint newState)
 {
     generations[currentGen].cellMatrix[x * sizeY + y] = newState;
@@ -254,7 +251,7 @@ void Automata::RandomizeCurrentGen()
         }
     }
     else {
-        cout << "ERROR: unable to randomize the current gen, because 0 states are defined " << endl;
+        throw(string("ERROR: unable to randomize the current gen, because 0 states are defined"));
     }
 
 }
@@ -299,7 +296,7 @@ void Automata::NextGen()
                 currentGen++;
             }
             else {
-                cout << "gen not available(plus)" << endl;
+                throw(string("gen not available(plus)"));
             }
 
         }
@@ -308,7 +305,7 @@ void Automata::NextGen()
             ++it;
         }
     }
-    if(!found) cout << "gen not found" << endl;
+    if(!found) throw(string("gen not found"));
 }
 
 
@@ -329,7 +326,7 @@ void Automata::PreviousGen()
             if(currentGen  != 0)
                 currentGen--;
             else {
-                cout << "gen not available (less)" << endl;
+               throw(string("gen not available (less)"));
             }
 
         }
@@ -338,7 +335,7 @@ void Automata::PreviousGen()
             ++it;
         }
     }
-    if(!found) cout << "gen not found" << endl;
+    if(!found) throw(string("gen not found"));
 }
 
 void Automata::ChooseGen(unsigned int i)
@@ -360,7 +357,7 @@ void Automata::ChooseGen(unsigned int i)
             ++it;
         }
     }
-    if(!found) cout << "gen " << i << " not found" << endl;
+    if(!found) throw(string("gen not found"));
 }
 
 Generation &Automata::GetCurrentGen()
