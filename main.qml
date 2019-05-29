@@ -53,8 +53,8 @@ ApplicationWindow {
             }
             MenuItem { text: "Edit Automaton" //bouton pour l'édition de l'automate
                 id: editItem
-                //height: 0
-                //visible: false
+                height: 0
+                visible: false
                 onClicked: {
                     var ComponentEdit = Qt.createComponent("AutomataCreationWindow.qml")
                     var windowEdit = ComponentEdit.createObject(mainwindow)
@@ -161,12 +161,7 @@ ApplicationWindow {
                               color: model.stateColor
                            }
                        }
-
-
-
-
                    }
-
             }
 
             Item {
@@ -243,7 +238,6 @@ ApplicationWindow {
             }
 
         }
-
 }
 
     FileDialog{ //ouverture d'une fenetre en cas de sauvegarde
@@ -270,9 +264,8 @@ ApplicationWindow {
            mainwindow.close()
           myInterface.loadInterface()
             var Component = Qt.createComponent("main.qml")
-           var window = Component.createObject(mainwindow)
+           var window = Component.createObject(this)
            window.show()
-
         }
         onRejected: {
         }

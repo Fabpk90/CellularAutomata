@@ -143,36 +143,6 @@ ApplicationWindow{
         }
     }
 
-    /*Row{
-        id:sizeY
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: sizeX.bottom
-        visible: {
-            if(myInterface.dimension==="OneDimension") true
-            else false
-        }
-
-        Text {
-            anchors.topMargin: 15
-            anchors.top: parent.top
-            text: qsTr("Matrix Size Y:")
-        }
-        SpinBox{
-            from: {
-                if(myInterface.dimension==="TwoDimensions") 2
-                else 1
-            }
-            value: myInterface.sizeY
-            to: {
-                if(myInterface.dimension==="TwoDimensions") 100
-                else 1
-            }
-            stepSize: 1
-            editable: true
-            onValueChanged: myInterface.sizeY = value
-        }
-    }*/
-
     Row{
         id: maxGenerationsToSimulate
         anchors.horizontalCenter: parent.horizontalCenter
