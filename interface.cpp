@@ -139,7 +139,6 @@ void Interface::okCreateRule()
     rule.append(";");
 
     if(posAndCount() == "Position"){
-        cout << "First Lol" << endl;
         if(dimension() == "OneDimension"){
             rule.append(matrixIndexAndStateIndex[1]); //index etat de depart
             for(int i = 0; i < SIZEOFINDEXARRAYS-2; i++){
@@ -256,14 +255,11 @@ void Interface::okCreateRule()
     }
     string stdRule = rule.toStdString();
     stdRule.append("\n");
-    cout << "StdRule: " << stdRule << endl;
     try {
          parser.ParseAndAddRules(&stdRule);
     } catch (const string &error) {
        cout << error << endl;
     }
-
-    cout << "Lol final" << endl;
 }
 
 QString Interface::neighborhood() const
