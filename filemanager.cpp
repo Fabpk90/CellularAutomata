@@ -20,7 +20,6 @@ using namespace std;
         }
 
         else{
-            cout<<tmp<<endl;
             cout<<"Le chemin du fichier n'est pas valide"<<endl;
         }
     }
