@@ -31,9 +31,9 @@ ApplicationWindow {
             matrixCustom.close()
             mainwindow.close()
             myInterface.initMatrix()
-             var Component = Qt.createComponent("main.qml")
-            var window = Component.createObject(mainwindow)
-            window.show()
+             var mainComponent = Qt.createComponent("main.qml")
+            var mainWindow = mainComponent.createObject(mainwindow)
+            mainWindow.show()
         }
     }
         Button{//bouton pour ouvrir la liste des états

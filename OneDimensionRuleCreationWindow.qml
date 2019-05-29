@@ -86,9 +86,9 @@ ApplicationWindow{
 
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
-                                    var Component = Qt.createComponent("StateListWindow.qml")
-                                    var window = Component.createObject(mainwindow)
-                                    window.show()
+                                    var stateListComponent = Qt.createComponent("StateListWindow.qml")
+                                    var stateListeWindow = stateListComponent.createObject(mainwindow)
+                                    stateListeWindow.show()
                                 }
                             }
                             Button{
@@ -137,9 +137,9 @@ ApplicationWindow{
 
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
-                                    var Component = Qt.createComponent("StateListWindow.qml")
-                                    var window = Component.createObject(mainwindow)
-                                    window.show()
+                                    var stateListComponent = Qt.createComponent("StateListWindow.qml")
+                                    var stateListeWindow = stateListComponent.createObject(mainwindow)
+                                    stateListeWindow.show()
                                 }
                             }
                             Button{
@@ -185,9 +185,9 @@ ApplicationWindow{
                         }
                         onClicked: {
                             myInterface.setRememberIndex(9)
-                            var Component = Qt.createComponent("StateListWindow.qml")
-                            var window = Component.createObject(mainwindow)
-                            window.show()
+                            var stateListComponent = Qt.createComponent("StateListWindow.qml")
+                            var stateListeWindow = stateListComponent.createObject(mainwindow)
+                            stateListeWindow.show()
                         }
                     }
                     Button{
@@ -277,9 +277,9 @@ ApplicationWindow{
                         }
                         onClicked: {
                             myInterface.setRememberIndex(10)
-                            var Component = Qt.createComponent("StateListWindow.qml")
-                            var window = Component.createObject(mainwindow)
-                            window.show()
+                            var stateListComponent = Qt.createComponent("StateListWindow.qml")
+                            var stateListeWindow = stateListComponent.createObject(mainwindow)
+                            stateListeWindow.show()
                         }
                     }
                     Button{

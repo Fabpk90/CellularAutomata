@@ -277,7 +277,7 @@ ApplicationWindow{
         text: qsTr("Add State")
         onClicked: {
             var stateCreationWindow = Qt.createComponent("StateCreationWindow.qml")
-            var stateWindow = stateCreationWindow.createObject(mainwindow)
+            var stateWindow = stateCreationWindow.createObject(mainWindow)
             stateWindow.show()
             if(stateListView.getListCount()<1)
             {
@@ -308,18 +308,18 @@ ApplicationWindow{
             if(twoDim.checked){
                 if(vonNeumann.checked){
                     var vonNeumannCreationWindow = Qt.createComponent("VonNeumannRuleCreationWindow.qml")
-                    var vonNeumannWindow = vonNeumannCreationWindow.createObject(mainwindow)
+                    var vonNeumannWindow = vonNeumannCreationWindow.createObject(automataCreationWindow)
                     vonNeumannWindow.show()
                 }
                 if(moore.checked){
                     var mooreCreationWindow = Qt.createComponent("MooreRuleCreationWindow.qml")
-                    var mooreWindow = mooreCreationWindow.createObject(mainwindow)
+                    var mooreWindow = mooreCreationWindow.createObject(automataCreationWindow)
                     mooreWindow.show()
                 }
             }
             if(oneDim.checked){
                 var oneDimensionCreationWindow = Qt.createComponent("OneDimensionRuleCreationWindow.qml")
-                var oneDimensionWindow = oneDimensionCreationWindow.createObject(mainwindow)
+                var oneDimensionWindow = oneDimensionCreationWindow.createObject(automataCreationWindow)
                 oneDimensionWindow.show()
             }
         }
@@ -347,7 +347,7 @@ ApplicationWindow{
             myInterface.sizeTheVector()
             matrixview.sizeMatrix(myInterface.sizeX,myInterface.sizeY)
             var matrixCustWindow = Qt.createComponent("MatrixCustomisationWindow.qml")
-            var matrixCustomisationWindow = matrixCustWindow.createObject(mainwindow)
+            var matrixCustomisationWindow = matrixCustWindow.createObject(automataCreationWindow)
             automataCreationWindow.close()
             matrixCustomisationWindow.show()
         }
