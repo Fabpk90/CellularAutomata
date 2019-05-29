@@ -285,15 +285,6 @@ void Automata::NextGen()
     vector<Generation>::iterator it = generations.begin();
     bool found = false;
 
-    cout << "Current GenID: " << generations[currentGen].generationID << endl;
-    for(int i = 0; i < sizeX; i++)
-    {
-        for (int j = 0; j < sizeY; j++) {
-            cout << GetCellState(i,j).name << " -- ";
-        }
-        cout << endl;
-    }
-
     while(it != generations.end() && !found)
     {
         if(it == generations.end())
@@ -306,16 +297,6 @@ void Automata::NextGen()
 
             if(currentGen + 1 != generations.size()){
                 currentGen++;
-
-                cout << endl <<  "Current GenID: " << generations[currentGen].generationID << endl;
-                for(int i = 0; i < sizeX; i++)
-                {
-                    for (int j = 0; j < sizeY; j++) {
-                        cout << GetCellState(i,j).name << " -- ";
-                    }
-                    cout << endl;
-                }
-
             }
             else {
                 cout << "gen not available(plus)" << endl;
