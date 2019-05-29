@@ -23,7 +23,7 @@ void Interface::initialiseParser()
     setDimension("TwoDimensions");
     setNeighborhood("Moore");
     setMaxGenerationsToSimulate("1");
-    setSizeX("1");
+    setSizeX("2");
     setSizeY("2");
     matrixview->setParser(&parser);
     setNumbState("0");
