@@ -277,7 +277,7 @@ ApplicationWindow{
         text: qsTr("Add State")
         onClicked: {
             var stateCreationWindow = Qt.createComponent("StateCreationWindow.qml")
-            var stateWindow = stateCreationWindow.createObject(mainWindow)
+            var stateWindow = stateCreationWindow.createObject(automataCreationWindow)
             stateWindow.show()
             if(stateListView.getListCount()<1)
             {
