@@ -136,32 +136,43 @@ ApplicationWindow {
                     id: popup
                     x: info.x
                     y: info.y-200
-                   width: 110
+                    width: 200
                     height: 200
                     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-                   contentItem:  Column{
-                       id: listOfState
-                       anchors.right: popup.horizontalCenter
+                    contentItem:  Row{
+                    id: listOfState
+                    anchors.right: popup.horizontalCenter
+                    ListView{
+                        id: stateView
+                        spacing: 15
+                        width: popup.width/2
+                        height:popup.height
+                        model: ListModel {
+                            list_var: stateListView
+                        }
 
-                       ListView{
-                           id: stateView
-                           width: popup.width; height:popup.height
-                           spacing: 15
-
-                           model: ListModel {
-                               list_var: stateListView
-                           }
-
-                           delegate: Rectangle{
-                               height:line.height
-                               width:line.width
-                               Text {
-                                   id:line
-                                   text: model.stateName
-                               }
-                              color: model.stateColor
-                           }
-                       }
+                        delegate: Rectangle{
+                            height:line.height
+                            width:line.width
+                            Text {
+                                id:line
+                                text: model.stateName
+                            }
+                           color: model.stateColor
+                        }
+                    }
+                    ListView{
+                        id: ruleView
+                        spacing: 15
+                        width: popup.width/2
+                        height:popup.height
+                        model: ListModel {
+                            list_var: ruleListView
+                        }
+                        delegate: Text{
+                            text: "Rule " + model.number
+                        }
+                    }
                    }
             }
 
