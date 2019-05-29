@@ -51,11 +51,6 @@ namespace Simulator {
     bool ComputePosition(std::vector<std::pair<int , int >> positions ,std::vector<State*> testState , int  targetX , int  targetY){
         for(int i=0; i<positions.size(); i++)
         {  
-            cout << "Target {X: " << targetX << ", Y: " << targetY << "}" << endl;
-            cout << "Position first: " << positions[i].first << " second: " << positions[i].second << endl;
-            cout << "CoordX: " << targetX+positions[i].first << " CoordY: " << targetY+positions[i].second << endl;
-            cout << "Target: " << automataGlob->GetCellState(targetX-positions[i].second,targetY-positions[i].first).name << " Tested: " << testState[i]->name << endl << endl;
-
             // test entre la position relative entre la case central et celles de la règle pour voir si l'état est le même
             if (automataGlob->GetCellState(targetX+positions[i].first,targetY+positions[i].second).color != testState[i]->color){
                 //Si un seul des cas n'est pas satisfait alors la règle ne s'applique pas
@@ -71,7 +66,6 @@ namespace Simulator {
         int X = 0, Y = 0;
         int count = 0; //Quantité compté
 
-        cout << "Amount: " << amount << endl;
         for (int i = 0; i < automataGlob->GetNeigborhoodPositions().size(); i++) {
 
            //Création des coordonnées X+offset du voisinage
@@ -83,7 +77,6 @@ namespace Simulator {
                count++;
         }
 
-        cout << "Counted: " << count << endl;
         return (amount <= count);
     }
 }
