@@ -34,17 +34,14 @@ void RuleDeterministic::Apply(int x, int y){
     else {
         bool applyCount = true; //Il faut qu'applyCount reste vrai au travers de la boucle pour Set la nouvelle cellule
         for (unsigned long i = 0; i < this->parameters.size(); i++) {
-            cout << "Count interation number:" << i << " !" << endl;
             if(!Simulator::ComputeCount(this->parameters[i].x, this->parameters[i].toCheckAgainst,x,y))
             {
-                cout << "False Truth" << endl;
                 applyCount = false;
                 break;
             }
         }
         if (applyCount){ // si la règle est effectivement vraie on applique
 
-            cout << "True Administrator" << endl;
                 automata->NextGen(); //On passe à la "nouvelle" génération pour pouvoir Set la cellule
                 automata->SetCell(x,y, *toChangeInto); //changement de l'état de la cellule
                 automata->PreviousGen();//On retourne à la génération sur laquelle on fait les observations

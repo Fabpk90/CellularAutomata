@@ -42,6 +42,7 @@ ApplicationWindow {
         Menu{
             title: "Automaton"
             MenuItem { text: "Create new Automaton" //bouton pour la création de l'automate
+                enabled: ! myInterface.getReadyness()
                 onClicked: {
                     myInterface.initialiseParser()
                     var Component = Qt.createComponent("AutomataCreationWindow.qml")
