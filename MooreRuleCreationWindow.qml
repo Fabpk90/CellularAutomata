@@ -86,7 +86,7 @@ ApplicationWindow{
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
                                     var stateListComponent = Qt.createComponent("StateListWindow.qml")
-                                    var stateListeWindow = stateListComponent.createObject(mainwindow)
+                                    var stateListeWindow = stateListComponent.createObject(mooreRuleCreationWindow)
                                     stateListeWindow.show()
                                 }
                             }
@@ -137,7 +137,7 @@ ApplicationWindow{
                                 onClicked: {
                                     myInterface.setRememberIndex(index)
                                     var stateListComponent = Qt.createComponent("StateListWindow.qml")
-                                    var stateListeWindow = stateListComponent.createObject(mainwindow)
+                                    var stateListeWindow = stateListComponent.createObject(mooreRuleCreationWindow)
                                     stateListeWindow.show()
                                 }
                             }
@@ -185,7 +185,7 @@ ApplicationWindow{
                         onClicked: {
                             myInterface.setRememberIndex(9)
                             var stateListComponent = Qt.createComponent("StateListWindow.qml")
-                            var stateListeWindow = stateListComponent.createObject(mainwindow)
+                            var stateListeWindow = stateListComponent.createObject(mooreRuleCreationWindow)
                             stateListeWindow.show()
                         }
                     }
@@ -277,7 +277,7 @@ ApplicationWindow{
                         onClicked: {
                             myInterface.setRememberIndex(10)
                             var stateListComponent = Qt.createComponent("StateListWindow.qml")
-                            var stateListeWindow = stateListComponent.createObject(mainwindow)
+                            var stateListeWindow = stateListComponent.createObject(mooreRuleCreationWindow)
                             stateListeWindow.show()
                         }
                     }
